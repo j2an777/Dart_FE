@@ -1,8 +1,11 @@
 import { css } from '@emotion/react';
+import { colors } from './colorPalette';
 
 export const buttonSizeMap = {
   small: css`
-    font-size: 16px;
+    font-size: 12px;
+    width: 80px;
+    height: 30px;
   `,
   medium: css`
     font-size: 24px;
@@ -16,3 +19,13 @@ export const buttonSizeMap = {
   `,
   full: css``,
 };
+
+export const buttonColorMap = {
+  black: css`
+    background-color: black;
+    color: ${colors.white};
+  `,
+};
+
+export type ButtonColor = keyof typeof buttonColorMap;
+export type ButtonSize = keyof typeof buttonSizeMap;

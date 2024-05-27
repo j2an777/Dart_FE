@@ -7,8 +7,8 @@ import {
   ReviewPage,
   SignupPage,
   UserInfoPage,
-} from './pages';
-import Navbar from './components/Navbar';
+} from '@/pages';
+import { Navbar } from '@/components';
 
 function App() {
   return (
