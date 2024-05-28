@@ -8,6 +8,13 @@ export const Container = styled.div`
   background-color: ${colors.gray50};
   ${LayoutMap.displayFlex}
   ${LayoutMap.pageLayout}
+  justify-content: center;
+`;
+
+export const MaxWidthWrapper = styled.div`
+  max-width: 1440px;
+  width: 100%;
+  ${LayoutMap.displayFlex}
   justify-content: space-between;
 `;
 

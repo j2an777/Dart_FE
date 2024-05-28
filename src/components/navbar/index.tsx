@@ -1,7 +1,7 @@
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import mainlogo from '@/assets/images/mainLogo.png';
-import { Button, Text } from '..';
 import { navbarInfo } from '@/consts/navbar';
+import { Button, Text } from '..';
 
 import * as S from './styles';
 
@@ -10,31 +10,33 @@ const Navbar = () => {
   return (
     <>
       <S.Container>
-        <S.MainLogo alt="main-logo" src={mainlogo} />
-        <S.ButtonBox>
-          {navbarInfo.map(({ path, value }, index) => {
-            if (value === '로그인') {
+        <S.MaxWidthWrapper>
+          <S.MainLogo alt="main-logo" src={mainlogo} />
+          <S.ButtonBox>
+            {navbarInfo.map(({ path, value }, index) => {
+              if (value === '로그인') {
+                return (
+                  <Button
+                    buttonType="black"
+                    key={index}
+                    size="small"
+                    bold="regular"
+                    onClick={() => navigate(path)}
+                  >
+                    {value}
+                  </Button>
+                );
+              }
               return (
-                <Button
-                  buttonType="black"
-                  key={index}
-                  size="small"
-                  bold="regular"
-                  onClick={() => navigate(path)}
-                >
-                  {value}
-                </Button>
+                <Link key={index} to={path}>
+                  <Text typography="t7" bold="regular">
+                    {value}
+                  </Text>
+                </Link>
               );
-            }
-            return (
-              <Link key={index} to={path}>
-                <Text typography="t7" bold="regular">
-                  {value}
-                </Text>
-              </Link>
-            );
-          })}
-        </S.ButtonBox>
+            })}
+          </S.ButtonBox>
+        </S.MaxWidthWrapper>
       </S.Container>
       <Outlet />
     </>
