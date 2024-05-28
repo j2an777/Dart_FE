@@ -6,3 +6,4 @@ export { default as UserInfoPage } from './userInfo';
 export { default as EditUserInfoPage } from './editUserInfo';
 export { default as GalleryPage } from './gallery';
 export { default as ReviewPage } from './review';
+export { default as IntroPage } from './intro';

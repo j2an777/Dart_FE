@@ -8,6 +8,7 @@ import {
   ReviewPage,
   SignupPage,
   UserInfoPage,
+  IntroPage,
 } from '@/pages';
 import { Navbar } from '@/components';
 
@@ -23,6 +24,7 @@ function App() {
         <Route path="/post" element={<PostPage />} />
       </Route>
       <Route path="/gallery/:galleryId" element={<GalleryPage />} />
+      <Route path="/intro" element={<IntroPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<SignupPage />} />
     </Routes>
