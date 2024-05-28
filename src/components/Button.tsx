@@ -15,7 +15,7 @@ interface ButtonProp {
 const Button = styled.button<ButtonProp>`
   display: flex;
   ${({ size = 'medium' }) => buttonSizeMap[size]}
-  ${({ buttonType = 'black' }) => buttonColorMap[buttonType]}
+  ${({ buttonType = 'reverseGray' }) => buttonColorMap[buttonType]}
   ${({ bold = 'semibold' }) => bolderMap[bold]};
   justify-content: center;
   align-items: center;

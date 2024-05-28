@@ -15,7 +15,13 @@ const Navbar = () => {
           {navbarInfo.map(({ path, value }, index) => {
             if (value === '로그인') {
               return (
-                <Button size="small" bold="regular" onClick={() => navigate(path)}>
+                <Button
+                  buttonType="black"
+                  key={index}
+                  size="small"
+                  bold="regular"
+                  onClick={() => navigate(path)}
+                >
                   {value}
                 </Button>
               );

@@ -22,8 +22,14 @@ export const buttonSizeMap = {
 
 export const buttonColorMap = {
   black: css`
-    background-color: black;
+    background-color: ${colors.black};
     color: ${colors.white};
+  `,
+  reverseGray: css`
+    background-color: ${colors.white};
+    border: 2px solid ${colors.gray500};
+    color: ${colors.gray500};
+    border-radius: 10px;
   `,
 };
 
