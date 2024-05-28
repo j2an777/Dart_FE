@@ -2,22 +2,51 @@ import { css } from '@emotion/react';
 import { colors } from './colorPalette';
 
 export const buttonSizeMap = {
-  small: css`
+  xxs: css`
+    font-size: 12px;
+    width: 70px;
+    height: 20px;
+  `,
+  xs: css`
     font-size: 12px;
     width: 80px;
     height: 30px;
   `,
-  medium: css`
+  sm: css`
+    font-size: 12px;
+    width: 80px;
+    height: 35px;
+  `,
+  ls: css`
+    font-size: 12px;
+    width: 120px;
+    height: 40px;
+  `,
+  smMd: css`
+    font-size: 16px;
+    width: 120px;
+    height: 50px;
+  `,
+  md: css`
     font-size: 24px;
     width: 150px;
     height: 50px;
   `,
-  large: css`
+  mdlg: css`
+    font-size: 24px;
+    width: 150px;
+    height: 60px;
+  `,
+  lg: css`
     font-size: 32px;
     width: 280px;
     height: 80px;
   `,
-  full: css``,
+  full: css`
+    font-size: 16px;
+    width: 100%;
+    height: 44px;
+  `,
 };
 
 export const buttonTypeMap = {

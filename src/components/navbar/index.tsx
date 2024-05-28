@@ -19,7 +19,7 @@ const Navbar = () => {
                   <Button
                     buttonType="rectangleBlack"
                     key={index}
-                    size="small"
+                    size="xs"
                     bold="regular"
                     onClick={() => navigate(path)}
                   >

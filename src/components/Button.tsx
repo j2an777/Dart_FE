@@ -14,7 +14,7 @@ interface ButtonProp {
 
 const Button = styled.button<ButtonProp>`
   display: flex;
-  ${({ size = 'medium' }) => buttonSizeMap[size]}
+  ${({ size = 'md' }) => buttonSizeMap[size]}
   ${({ buttonType = 'reverseRadius' }) => buttonTypeMap[buttonType]}
   ${({ bold = 'thin' }) => bolderMap[bold]};
   justify-content: center;
