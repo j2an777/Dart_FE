@@ -1,5 +1,12 @@
+import { alertStore } from '@/stores/alert';
+
 const MainPage = () => {
-  return <div>MainPage</div>;
+  const openAlert = alertStore((state) => state.openAlert);
+  return (
+    <div>
+      <button onClick={openAlert}>portal on</button>
+    </div>
+  );
 };
 
 export default MainPage;

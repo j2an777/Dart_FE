@@ -1,9 +1,10 @@
 import { Route, Routes } from 'react-router-dom';
 import {
-  DetailPage,
+  GalleryPage,
   EditUserInfoPage,
   LoginPage,
   MainPage,
+  PostPage,
   ReviewPage,
   SignupPage,
   UserInfoPage,
@@ -19,8 +20,9 @@ function App() {
         <Route path="/user/:userId" element={<UserInfoPage />} />
         <Route path="/user/edit" element={<EditUserInfoPage />} />
         <Route path="/review/:galleryId" element={<ReviewPage />} />
+        <Route path="/post" element={<PostPage />} />
       </Route>
-      <Route path="/gallery/:galleryId" element={<DetailPage />} />
+      <Route path="/gallery/:galleryId" element={<GalleryPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<SignupPage />} />
     </Routes>
