@@ -1,27 +1,38 @@
 import { alertStore } from '@/stores/alert';
-import * as S from './styles';
 import { Button, Dimmed, Icon, Text } from '..';
-import { ReactNode } from 'react';
+
+import * as S from './styles';
 
 interface AlertProps {
   open: boolean;
-  title: ReactNode;
-  description?: ReactNode;
+  title: React.ReactNode;
+  description?: React.ReactNode;
   buttonLabel?: string;
+  onClickButton?: () => void;
 }
 
-const Alert = ({ open, title, description, buttonLabel = '확인' }: AlertProps) => {
-  const openAlert = alertStore((state) => state.openAlert);
+const Alert = ({
+  open,
+  title,
+  description,
+  buttonLabel = '확인',
+  onClickButton,
+}: AlertProps) => {
+  const close = alertStore((state) => state.close);
+
   if (!open) return;
+
   return (
     <Dimmed>
       <S.Container>
         <S.HeaderBox>
           <Text typography="t4">{title}</Text>
-          <Icon value="cancel" size={15} onClick={openAlert} />
+          <Icon value="cancel" size={15} onClick={close} />
         </S.HeaderBox>
         <Text typography="t4">{description}</Text>
-        <Button>{buttonLabel}</Button>
+        <Button bold="regular" onClick={onClickButton}>
+          {buttonLabel}
+        </Button>
       </S.Container>
     </Dimmed>
   );

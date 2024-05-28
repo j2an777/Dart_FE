@@ -1,10 +1,21 @@
+import { Button } from '@/components';
 import { alertStore } from '@/stores/alert';
 
 const MainPage = () => {
-  const openAlert = alertStore((state) => state.openAlert);
+  const open = alertStore((state) => state.open);
   return (
-    <div>
-      <button onClick={openAlert}>portal on</button>
+    <div style={{ display: 'flex', gap: 20 }}>
+      <Button
+        onClick={() =>
+          open({
+            title: '결제',
+            description: '아무말이나 해봐',
+            onClickButton: () => {},
+          })
+        }
+      >
+        portal on
+      </Button>
     </div>
   );
 };
