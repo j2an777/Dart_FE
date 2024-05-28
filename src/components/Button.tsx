@@ -1,11 +1,11 @@
 import styled from '@emotion/styled';
 import { Colors } from '@/styles/colorPalette';
-import { ButtonColor, ButtonSize, buttonColorMap, buttonSizeMap } from '@/styles/button';
+import { ButtonType, ButtonSize, buttonTypeMap, buttonSizeMap } from '@/styles/button';
 import { BoldType, bolderMap } from '@/styles/typography';
 
 interface ButtonProp {
   width?: string;
-  buttonType?: ButtonColor;
+  buttonType?: ButtonType;
   size?: ButtonSize;
   bold?: BoldType;
   hover?: Colors;
@@ -15,8 +15,8 @@ interface ButtonProp {
 const Button = styled.button<ButtonProp>`
   display: flex;
   ${({ size = 'medium' }) => buttonSizeMap[size]}
-  ${({ buttonType = 'reverseGray' }) => buttonColorMap[buttonType]}
-  ${({ bold = 'semibold' }) => bolderMap[bold]};
+  ${({ buttonType = 'reverseRadius' }) => buttonTypeMap[buttonType]}
+  ${({ bold = 'thin' }) => bolderMap[bold]};
   justify-content: center;
   align-items: center;
 `;

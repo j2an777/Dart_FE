@@ -25,6 +25,9 @@ export const typographyMap = {
 };
 
 export const bolderMap = {
+  thin: css`
+    font-weight: 100;
+  `,
   regular: css`
     font-weight: 400;
   `,

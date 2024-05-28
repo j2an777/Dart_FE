@@ -17,7 +17,7 @@ const Navbar = () => {
               if (value === '로그인') {
                 return (
                   <Button
-                    buttonType="black"
+                    buttonType="rectangleBlack"
                     key={index}
                     size="small"
                     bold="regular"
