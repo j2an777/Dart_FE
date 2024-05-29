@@ -157,4 +157,10 @@ export default css`
       outline: none;
     }
   }
+  textarea {
+    :focus {
+      outline: none;
+    }
+    box-sizing: border-box;
+  }
 `;

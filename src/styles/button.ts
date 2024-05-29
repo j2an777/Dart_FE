@@ -69,7 +69,7 @@ export const buttonTypeMap = {
   `,
   reverseRectangleWhite: css`
     background-color: inherit;
-    border: 2px solid ${colors.white};
+    border: 1px solid ${colors.white};
     color: ${colors.white};
   `,
   RoundBlack: css`
