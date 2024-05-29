@@ -5,6 +5,7 @@ import {
   LoginPage,
   MainPage,
   ReviewPage,
+  PostPage,
   SignupPage,
   UserInfoPage,
 } from './pages';
@@ -19,6 +20,7 @@ function App() {
         <Route path="/user/:userId" element={<UserInfoPage />} />
         <Route path="/user/edit" element={<EditUserInfoPage />} />
         <Route path="/review/:galleryId" element={<ReviewPage />} />
+        <Route path="/post" element={<PostPage />} />
       </Route>
       <Route path="/gallery/:galleryId" element={<DetailPage />} />
       <Route path="/login" element={<LoginPage />} />
