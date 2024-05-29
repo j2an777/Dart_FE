@@ -8,9 +8,9 @@ export const colorPalette = css`
     --gray200: #cbcbcb;
     --gray300: #c1c1c1;
     --gray400: #aaaaaa;
-    --gray500: #606060;
+    --gray500: #616161;
     --gray600: #484545;
-    --black: 000000;
+    --black: #000000;
     --white: #ffffff;
   }
 `;
