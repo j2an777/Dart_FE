@@ -9,10 +9,12 @@ export default css`
     --dimmed-zindex: 10;
     --select-zindex: 9;
   }
+  div {
+    box-sizing: border-box;
+  }
 
   html,
   body,
-  div,
   span,
   applet,
   object,
@@ -147,5 +149,12 @@ export default css`
   a {
     color: inherit;
     text-decoration: inherit;
+  }
+  input {
+    background-color: inherit;
+    border: none;
+    :focus {
+      outline: none;
+    }
   }
 `;
