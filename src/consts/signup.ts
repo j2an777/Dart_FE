@@ -1,4 +1,21 @@
-export const essentiolFormData = [
+interface EssentialBaseFormField {
+  label: string;
+  value: SignupValues;
+}
+
+interface RegisterOptions {
+  required: string;
+  pattern?: {
+    value: RegExp;
+    message: string;
+  };
+}
+
+interface EssentialFormField extends EssentialBaseFormField {
+  registerOptions: RegisterOptions;
+}
+
+export const essentiolFormData: EssentialFormField[] = [
   {
     label: '이메일',
     value: 'email',
@@ -43,16 +60,33 @@ export const essentiolFormData = [
 
 export const optionalFormData = [
   {
-    label: '나이',
+    label: '생년월일',
+    value: 'age',
+    type: 'input',
+    registerOptions: {
+      pattern: {
+        value: /^(19|20)\d\d-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/,
+        message: 'YYYY-MM-DD 형식으로 작성해주세요',
+      },
+    },
   },
   {
-    label: '은행명',
+    type: 'bankBox',
+    items: [
+      {
+        label: '은행명',
+        value: 'bank',
+      },
+      {
+        label: '계좌정보',
+        value: 'account',
+      },
+    ],
   },
   {
-    label: '계좌정보',
-  },
-  {
-    label: '소개글',
+    label: '자기 소개글',
+    value: 'introduce',
+    type: 'textarea',
   },
 ];
 
@@ -66,5 +100,7 @@ export const defaultValues = {
   account: '',
   introduce: '',
 };
+
+export const signupFormType = ['필수', '선택'];
 
 export type SignupValues = keyof typeof defaultValues;

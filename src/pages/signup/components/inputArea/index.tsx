@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import * as S from './styles';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { ExtendedSignupForm } from '@/types/user';
 import { SignupValues } from '@/consts/signup';
 import getInputAreaOptions from '@/utils/getInputAreaOptions';
+
+import * as S from './styles';
 
 interface InputAreaProps {
   label: string;
