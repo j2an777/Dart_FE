@@ -1,17 +1,16 @@
 import { Route, Routes } from 'react-router-dom';
+import { Navbar } from '@/components';
 import {
   GalleryPage,
   EditUserInfoPage,
   LoginPage,
   MainPage,
-  PostPage,
   ReviewPage,
   PostPage,
   SignupPage,
   UserInfoPage,
   IntroPage,
 } from '@/pages';
-import { Navbar } from '@/components';
 
 function App() {
   return (
