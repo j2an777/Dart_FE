@@ -6,6 +6,7 @@ import {
   MainPage,
   PostPage,
   ReviewPage,
+  PostPage,
   SignupPage,
   UserInfoPage,
   IntroPage,

@@ -6,6 +6,7 @@ import { Global } from '@emotion/react';
 import globalStyles from './styles/globalStyles.ts';
 import AlertPortal from './components/AlertPortal.tsx';
 
+
 async function enableMocking() {
   if (import.meta.env.VITE_REACT_ENV !== 'development') {
     return;
