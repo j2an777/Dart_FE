@@ -4,6 +4,7 @@ import gallery3 from '@/assets/images/gallery3.png';
 import gallery4 from '@/assets/images/gallery4.png';
 import gallery5 from '@/assets/images/gallery5.png';
 import gallery6 from '@/assets/images/gallery6.png';
+import gallery7 from '@/assets/images/image 173.png';
 
 export const GalleryData = {
     title: '갤러리 전시회1',
@@ -47,6 +48,11 @@ export const GalleryData = {
         {
             image: gallery4,
             imageTitle: 'Gallery Image 7',
+            description: '동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세.'
+        },
+        {
+            image: gallery7,
+            imageTitle: 'Gallery Image 8',
             description: '동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세.'
         },
     ]
