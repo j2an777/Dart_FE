@@ -1,18 +1,34 @@
 import * as S from './styles';
 import GalleryLogo from '@/assets/images/galleryLogo.png';
-import ReviewItem from '@/assets/images/review.svg';
-import ChatItem from '@/assets/images/chat.svg';
-import OutItem from '@/assets/images/out.svg';
+import { Icon } from '@/components';
+import { alertStore } from '@/stores/alert';
+import ReviewModal from '../reviewModal';
+import { Link } from 'react-router-dom';
 
 const GalleryHeader = () => {
+  const open = alertStore((state) => state.open);
+
+  const onHandleToggle = () => {
+    open({
+      title: '후기 등록하기',
+      description: <ReviewModal />,
+      buttonLabel: '등록',
+      onClickButton: () => {
+        // api 요청 함수 호출구문
+      },
+    })
+  };
+
   return (
     <S.HeaderContainer>
       <S.MenuBlock>
-        <S.Logo src={GalleryLogo} />
+        <Link to='/'>
+          <S.Logo src={GalleryLogo} />
+        </Link>
         <S.MenuBox>
-          <img src={ReviewItem} />
-          <img src={ChatItem} />
-          <img src={OutItem} />
+          <Icon value='review' size={30} onClick={onHandleToggle} strokeColor='white'/>
+          <Icon value='chat' size={30} />
+          <Icon value='out' size={30} />
         </S.MenuBox>
       </S.MenuBlock>
       <S.CopyRight>

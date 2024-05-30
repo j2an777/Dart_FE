@@ -1,3 +1,4 @@
+import { bolderMap, typographyMap } from "@/styles/typography";
 import styled from "@emotion/styled";
 
 export const Container = styled.div`
@@ -18,7 +19,14 @@ export const MainBlock = styled.div<{ degrees: number }>`
     transform: perspective(1000px) rotateY(${props => `${props.degrees}deg`});
 `;
 
-export const ImageBox = styled.div<{ i: number; isFront: boolean }>`
+interface ImageBoxProps {
+    i: number;
+    isFront: boolean;
+    dataDegree: number;
+    transZ: number;
+}
+
+export const ImageBox = styled.div<ImageBoxProps>`
     position: absolute;
     top: 0;
     left: 0;
@@ -26,7 +34,7 @@ export const ImageBox = styled.div<{ i: number; isFront: boolean }>`
     height: 100%;
     transform-origin: center;
     transform-style: preserve-3d;
-    transform: rotateY(${props => `calc(${props.i} * 60deg)`}) translateZ(400px);
+    transform: rotateY(${props => `calc(${props.i} * ${props.dataDegree}deg)`}) translateZ(${props => `${props.transZ}px`});
     -webkit-box-reflect: below 0px linear-gradient(transparent, transparent, #0004);
 
     img {
@@ -42,6 +50,7 @@ export const ImageBox = styled.div<{ i: number; isFront: boolean }>`
     ${props => props.isFront && `
         &:hover div {
             opacity: 1;
+            cursor: pointer;
             * {
                 transform: translateY(0px);
             }
@@ -58,6 +67,7 @@ export const ContentBox = styled.div`
     background: rgba(0, 0, 0, 0.6);
     display: flex;
     flex-direction: column;
+    gap : 10px;
     justify-content: center;
     align-items: center;
     padding: 10px;
@@ -72,13 +82,15 @@ export const ContentBox = styled.div`
     }
 
     h1 {
-        font-size: 16px;
+        ${typographyMap.t5};
+        ${bolderMap.semibold};
     }
 
     p {
         width: 100%;
         height: 100%;
-        font-size: 12px;
+        ${typographyMap.t7};
+        ${bolderMap.thin};
         word-break: break-word;
     }
 `;
@@ -96,7 +108,7 @@ export const BtnBlock = styled.div`
 export const Btn = styled.div`
     color: white;
     cursor: pointer;
-    font-size: 24px;
+    ${typographyMap.t4};
 
     &:hover {
         color: #aaa;

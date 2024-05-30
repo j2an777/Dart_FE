@@ -1,2 +1,3 @@
-export { default as DisplayHeader } from './galleryHeader';
-export { default as DisplayMain } from './galleryMain';
+export { default as GalleryHeader } from './galleryHeader';
+export { default as GalleryMain } from './galleryMain';
+export { default as ReviewModal} from './reviewModal';

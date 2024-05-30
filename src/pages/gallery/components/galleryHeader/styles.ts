@@ -1,3 +1,4 @@
+import { bolderMap, typographyMap } from "@/styles/typography";
 import styled from "@emotion/styled";
 
 
@@ -7,6 +8,7 @@ export const HeaderContainer = styled.div`
     display : flex;
     flex-direction : column;
     justify-content : center;
+    gap : 10px;
 `;
 
 export const MenuBlock = styled.div`
@@ -33,6 +35,7 @@ export const MenuBox = styled.div`
 `;
 
 export const CopyRight = styled.p`
-    font-size : 12px;
+    ${typographyMap.t7};
+    ${bolderMap.thin};
     color : white;
 `;
