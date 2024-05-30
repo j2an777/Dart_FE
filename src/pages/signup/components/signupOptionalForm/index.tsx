@@ -10,7 +10,7 @@ interface SignupFormProps {
   errors: FieldErrors<ExtendedSignupForm>;
 }
 
-const SignupOptionalForm = ({ ...props }: SignupFormProps) => {
+const SignupOptionalForm = ({ ...registerNerrors }: SignupFormProps) => {
   return (
     <SignupFormLayout title="선택">
       {optionalFormData.map(({ type, items, label, value, registerOptions }, index) => {
@@ -18,7 +18,7 @@ const SignupOptionalForm = ({ ...props }: SignupFormProps) => {
           return (
             <InputArea
               key={index}
-              {...props}
+              {...registerNerrors}
               value={value as SignupValues}
               label={label as string}
               registerOptions={registerOptions}
@@ -30,7 +30,7 @@ const SignupOptionalForm = ({ ...props }: SignupFormProps) => {
               {items?.map(({ value, label }) => (
                 <InputArea
                   key={value}
-                  {...props}
+                  {...registerNerrors}
                   value={value as SignupValues}
                   label={label}
                 />
@@ -38,7 +38,13 @@ const SignupOptionalForm = ({ ...props }: SignupFormProps) => {
             </S.BankBox>
           );
         } else {
-          return <SignupTextarea key={index} {...props} value={value as SignupValues} />;
+          return (
+            <SignupTextarea
+              key={index}
+              {...registerNerrors}
+              value={value as SignupValues}
+            />
+          );
         }
       })}
     </SignupFormLayout>

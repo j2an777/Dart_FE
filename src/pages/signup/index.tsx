@@ -1,26 +1,43 @@
-import { SignupButtons, SignupForm, TitleNumber } from './components';
-import useGetSearchParams from '@/hooks/useGetSearchParams';
 import { useForm } from 'react-hook-form';
 import { defaultValues } from '@/consts/signup';
-import { ExtendedSignupForm } from '@/types/user';
+import { ExtendedSignupForm } from '@/types/member';
+import useGetSearchParams from '@/hooks/useGetSearchParams';
+import {
+  SignupAgree,
+  SignupButtons,
+  SignupEssentailForm,
+  SignupOptionalForm,
+  TitleNumber,
+} from './components';
 
 import * as S from './styles';
+import { postSignup } from '@/apis/member';
+import { useNavigate } from 'react-router-dom';
 
 const SignupPage = () => {
   const page = useGetSearchParams('page');
+  const navigate = useNavigate();
   const {
     watch,
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<ExtendedSignupForm>({
     mode: 'onChange',
     defaultValues,
   });
-  const onSubmit = (data: ExtendedSignupForm) => {
+  const onSubmit = async (data: ExtendedSignupForm) => {
+    const isAgree = sessionStorage.getItem('isAgree') === 'true';
+
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { checkPassword, ...formData } = data;
-    console.log(formData);
+    const newForm = { ...formData, isAgree };
+    await postSignup(newForm).then(() => {
+      reset();
+      navigate('/login');
+      sessionStorage.removeItem('isAgree');
+    });
   };
   return (
     <S.Container onSubmit={handleSubmit(onSubmit)}>
@@ -31,9 +48,12 @@ const SignupPage = () => {
         </S.Title>
       </S.TitleBox>
       {page === '2' ? (
-        <SignupForm errors={errors} register={register} watch={watch} />
+        <S.SignupFormBox>
+          <SignupEssentailForm errors={errors} register={register} watch={watch} />
+          <SignupOptionalForm errors={errors} register={register} />
+        </S.SignupFormBox>
       ) : (
-        <>이용약관</>
+        <SignupAgree />
       )}
       <SignupButtons page={page ?? '1'} />
     </S.Container>

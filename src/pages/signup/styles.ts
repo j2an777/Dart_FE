@@ -11,10 +11,19 @@ export const Container = styled.form`
   justify-content: center;
   align-items: center;
   color: ${colors.white};
-  padding: 140px 0;
   gap: 50px;
 `;
-
+export const SignupFormBox = styled.div`
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  gap: 50px;
+  input {
+    border-bottom: 1px solid ${colors.white};
+    color: ${colors.white};
+  }
+`;
 export const TitleBox = styled.div`
   width: 600px;
   display: flex;

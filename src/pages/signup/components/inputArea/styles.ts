@@ -1,5 +1,4 @@
 import { Text } from '@/components';
-import { colors } from '@/styles/colorPalette';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
@@ -26,9 +25,7 @@ export const Label = styled.label<{ isFocused: boolean }>`
 `;
 
 export const Input = styled.input`
-  border-bottom: 1px solid ${colors.white};
   font-size: 24px;
-  color: ${colors.white};
   padding: 10px;
 `;
 

@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { FieldErrors, UseFormRegister } from 'react-hook-form';
-import { ExtendedSignupForm } from '@/types/user';
 import { SignupValues } from '@/consts/signup';
+import { ExtendedSignupForm } from '@/types/member';
 import getInputAreaOptions from '@/utils/getInputAreaOptions';
+import { FieldErrors, UseFormRegister } from 'react-hook-form';
 
 import * as S from './styles';
 
@@ -12,6 +12,8 @@ interface InputAreaProps {
   register: UseFormRegister<ExtendedSignupForm>;
   errors: FieldErrors<ExtendedSignupForm>;
   registerOptions?: object;
+  readonly?: boolean;
+  onClick?: () => void;
 }
 
 const InputArea = ({
@@ -20,6 +22,7 @@ const InputArea = ({
   register,
   errors,
   registerOptions,
+  ...props
 }: InputAreaProps) => {
   const [isFocused, setIsFocused] = useState<boolean>(false);
 
@@ -37,6 +40,7 @@ const InputArea = ({
             setIsFocused(false);
           }
         }}
+        {...props}
       />
       {errors[value] && (
         <S.ErrorMessage color="red" typography="t6">

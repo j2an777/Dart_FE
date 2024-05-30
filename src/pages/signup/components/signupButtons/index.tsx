@@ -1,10 +1,16 @@
 import { Button } from '@/components';
-
-import * as S from './styles';
+import { agreeStore } from '@/stores/agree';
 import { useNavigate } from 'react-router-dom';
 
-const SignupButtons = ({ page }: { page: string | null }) => {
+import * as S from './styles';
+
+interface SignupButtonsProps {
+  page: string | null;
+}
+
+const SignupButtons = ({ page }: SignupButtonsProps) => {
   const navigate = useNavigate();
+  const allChecked = agreeStore((state) => state.allChecked);
   return (
     <S.Container>
       <Button
@@ -20,7 +26,11 @@ const SignupButtons = ({ page }: { page: string | null }) => {
           size="lg"
           buttonType="rectangleWhite"
           bold="regular"
-          onClick={() => navigate('/signup?page=2')}
+          onClick={() => {
+            sessionStorage.setItem('isAgree', JSON.stringify(true));
+            navigate('/signup?page=2');
+          }}
+          disabled={!allChecked}
         >
           다음
         </Button>

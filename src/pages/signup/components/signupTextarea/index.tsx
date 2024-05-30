@@ -1,5 +1,5 @@
 import { SignupValues } from '@/consts/signup';
-import { ExtendedSignupForm } from '@/types/user';
+import { ExtendedSignupForm } from '@/types/member';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 
 import * as S from './styles';
@@ -23,3 +23,4 @@ const SignupTextarea = ({ value, register, registerOptions }: SignupTextareaProp
 };
 
 export default SignupTextarea;
+// 이거 수정 가능할 듯!
