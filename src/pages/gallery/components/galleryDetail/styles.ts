@@ -1,4 +1,3 @@
-import { bolderMap, typographyMap } from "@/styles/typography";
 import { keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
 
@@ -53,7 +52,6 @@ export const DetailContent = styled.div`
     height : 100%;
     display : flex;
     flex-direction : column;
-    justify-content: center;
     padding : 20px;
     box-sizing : border-box;
     gap : 20px;
@@ -64,15 +62,4 @@ export const Top = styled.div`
     display : flex;
     justify-content: space-between;
     align-items: center;
-`;
-
-export const Title = styled.h1`
-    ${typographyMap.t1};
-    ${bolderMap.bold};
-`;
-
-export const Content = styled.p`
-    width : 100%;
-    height : 100%;
-    ${typographyMap.t5};
 `;

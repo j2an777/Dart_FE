@@ -1,3 +1,4 @@
+import { LayoutMap } from "@/styles/layout";
 import { bolderMap, typographyMap } from "@/styles/typography";
 import styled from "@emotion/styled";
 
@@ -14,9 +15,8 @@ export const HeaderContainer = styled.div`
 export const MenuBlock = styled.div`
     width : 100%;
     height : 30px;
-    display : flex;
+    ${LayoutMap.displayFlex};
     justify-content : space-between;
-    align-items : center;
 `;
 
 export const Logo = styled.img`
@@ -28,10 +28,9 @@ export const Logo = styled.img`
 export const MenuBox = styled.div`
     width : 100%;
     height : 30px;
-    display : flex;
+    ${LayoutMap.displayFlex};
     justify-content : flex-end;
-    align-items : center;
-    gap : 20px;
+    gap: 20px;
 `;
 
 export const CopyRight = styled.p`

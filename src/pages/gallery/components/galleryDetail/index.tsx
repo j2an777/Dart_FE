@@ -2,7 +2,7 @@
 
 import { galleryData } from '@/types/gallery';
 import * as S from './styles';
-import { Dimmed, Icon } from '@/components';
+import { Dimmed, Icon, Text } from '@/components';
 
 type GalleryDetailProps = {
     imageData: galleryData | null;
@@ -24,14 +24,14 @@ const GalleryDetail = ({ imageData, onClose }: GalleryDetailProps) => {
                 </S.Frame>
                 <S.DetailContent>
                     <S.Top>
-                        <S.Title>{imageData?.imageTitle}</S.Title>
+                        <Text typography='t1' bold='bold'>{imageData?.imageTitle}</Text>
                         <Icon 
                             value='cancel' 
                             size={20} 
                             onClick={toHandleBack}
                             color='gray600'/>
                     </S.Top>
-                    <S.Content>{imageData?.description}</S.Content>
+                    <Text typography='t5'>{imageData?.description}</Text>
                 </S.DetailContent>
             </S.Container>
         </>
