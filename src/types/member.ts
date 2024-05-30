@@ -1,6 +1,7 @@
-export interface User {}
+export interface Member {}
 
 export interface SignupFormData {
+  isAgree: boolean;
   email: string;
   nickname: string;
   password: string;

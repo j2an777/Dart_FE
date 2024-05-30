@@ -8,7 +8,7 @@ export const buttonSizeMap = {
     height: 20px;
   `,
   xs: css`
-    font-size: 12px;
+    font-size: 16px;
     width: 80px;
     height: 30px;
   `,

@@ -7,13 +7,10 @@ export const Container = styled.div`
   flex-direction: column;
   position: relative;
   gap: 50px;
-`;
-
-export const CheckBox = styled.div`
-  display: flex;
-  gap: 60px;
-  align-items: end;
-  justify-content: space-between;
+  input {
+    border-bottom: 1px solid ${colors.white};
+    color: ${colors.white};
+  }
 `;
 
 export const BankBox = styled.div`
