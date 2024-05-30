@@ -15,6 +15,10 @@ interface IconContainerProps extends HTMLAttributes<HTMLDivElement> {
 export const Container = styled.div<IconContainerProps>`
   width: ${({ size }) => (size ? `${size}px` : 'fit-content')};
   height: ${({ size }) => (size ? `${size}px` : 'fit-content')};
+  svg {
+    width : 100%;
+    height : 100%;
+  }
   ${({ $rotate }) =>
     $rotate
       ? css`

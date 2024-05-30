@@ -1,7 +1,7 @@
 import { keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
 
-const fadeUp = keyframes`
+export const fadeUp = keyframes`
     0% {
         opacity : 0;
     }
