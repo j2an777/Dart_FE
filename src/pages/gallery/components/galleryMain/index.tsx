@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { GalleryData } from '@/consts/gallery';
 import GalleryDetail from '../galleryDetail';
 import { galleryData } from '@/types/gallery';
+import ExplainModal from '@/components/modal/explainModal';
 
 const GalleryMain = () => {
   const [degrees, setDegrees] = useState(0);
@@ -65,8 +66,8 @@ const GalleryMain = () => {
         <S.Btn className='next' onClick={() => onHandleChange('next')}>Next</S.Btn>
       </S.BtnBlock>
       {popUp && (
-        // <ExplainModal />
-        <GalleryDetail imageData={selectedData} onClose={onHandleClose}/>
+        <ExplainModal />
+        // <GalleryDetail imageData={selectedData} onClose={onHandleClose}/>
       )}
     </S.Container>
   );

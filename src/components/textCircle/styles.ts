@@ -16,10 +16,10 @@ const anim = keyframes`
     }
 `;
 
-export const Circle = styled.div`
+export const Circle = styled.div<{ size: number }>`
     position : relative;
-    width : 120px;
-    height : 120px;
+    width : ${props => props.size}px;
+    height :  ${props => props.size}px;
     border-radius : 50%;
     ${LayoutMap.displayFlex};
     justify-content : center;
@@ -35,6 +35,6 @@ export const Circle = styled.div`
         position : absolute;
         left : 50%;
         font-size : 1.2em;
-        transform-origin: 0px 60px;
+        transform-origin: 0px  ${props => props.size/2}px;
     }
 `;
