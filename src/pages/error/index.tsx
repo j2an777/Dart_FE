@@ -14,7 +14,7 @@ const ErrorPage = () => {
             <Text typography='t2' color='black' bold='bold'>NOT FOUND</Text>
           </S.Left>
           <S.Right>
-            <TextCircle name='Gallery Exhibition' />
+            <TextCircle name='Gallery Exhibition' size={120} />
           </S.Right>
         </S.Top>
         <S.Middle>
