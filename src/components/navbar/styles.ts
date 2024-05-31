@@ -9,6 +9,10 @@ export const Container = styled.div`
   ${LayoutMap.displayFlex}
   ${LayoutMap.pageLayout}
   justify-content: center;
+  position : fixed;
+  top : 0;
+  left : 0;
+  z-index : 5;
 `;
 
 export const MaxWidthWrapper = styled.div`

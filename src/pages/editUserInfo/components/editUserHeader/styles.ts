@@ -2,17 +2,15 @@ import { LayoutMap } from "@/styles/layout";
 import styled from "@emotion/styled";
 
 export const Container = styled.div`
-    width : 100vw;
-    height : 100vh;
+    position : relative;
+    width : 700px;
+    height : 60px;
     ${LayoutMap.displayFlex};
     justify-content : center;
-    gap : 30px;
+    border-bottom : 1px solid black;
 `;
 
-export const Block = styled.div`
-    max-height : 600px;
+export const BackBox = styled.div`
     position : absolute;
-    top : 15%;
-    display : flex;
-    flex-direction : column;
+    left: 0;
 `;
