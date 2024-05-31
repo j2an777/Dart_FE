@@ -1,19 +1,23 @@
 import { colors } from '@/styles/colorPalette';
+import { LayoutMap } from '@/styles/layout';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
 
 export const Container = styled.div`
   display: flex;
+  width: 100%;
   height: 700px;
   border-bottom: 2px solid ${colors.black};
 `;
 
 export const Block = styled.div`
   flex: 1;
+  min-width: 640px;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  width: 100%;
-  height: 100%;
   &:nth-of-type(1) {
     border-right: 2px solid ${colors.black};
   }
@@ -24,10 +28,19 @@ export const Box = styled.div`
   align-items: center;
   width: 100%;
   height: 50px;
-  transition: opacity 1s ease-in-out;
   border-bottom: 2px solid ${colors.black};
   &:last-child {
     border-bottom: none;
+  }
+
+  p {
+    ${LayoutMap.displayFlex}
+    height: 100%;
+    padding: 0 20px;
+    border-right: 2px solid ${colors.black};
+  }
+  div {
+    margin-left: 200px;
   }
 `;
 
@@ -40,6 +53,9 @@ export const Button = styled.button<{ isActive?: boolean }>`
 
   &:nth-of-type(1) {
     border-right: 2px solid ${colors.black};
+  }
+  &:nth-of-type(3) {
+    border-left: 2px solid ${colors.black};
   }
 
   ${({ isActive }) =>
@@ -59,8 +75,8 @@ interface RangeProps {
 export const Range = styled.input<RangeProps>`
   -webkit-appearance: none;
   appearance: none;
-  margin: 30px;
-  width: 600px;
+  margin: 0 20px;
+  width: 500px;
   height: 20px;
   background: ${colors.gray100};
 
@@ -102,4 +118,14 @@ export const Range = styled.input<RangeProps>`
 export const Date = styled.div`
   flex: 1;
   border-bottom: 2px solid ${colors.black};
+  display: flex;
+  justify-content: center;
+`;
+
+export const StyledCalendar = styled(Calendar)`
+  position: absolute;
+  top: 300px;
+  left: 50%;
+  transform: translateX(15%);
+  width: 500px;
 `;
