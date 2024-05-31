@@ -45,7 +45,7 @@ const GalleryHeader = () => {
   return (
     <S.HeaderContainer>
       <S.MenuBlock>
-          <S.Logo src={GalleryLogo} onClick={() => onHandleToggle('toMain')}/>
+        <S.Logo src={GalleryLogo} onClick={() => onHandleToggle('toMain')}/>
         <S.MenuBox>
           <Icon value='review' size={30} onClick={() => onHandleToggle('review')} strokeColor='white'/>
           <Icon value='chat' size={30} onClick={() => onHandleToggle('chqt')}/>
