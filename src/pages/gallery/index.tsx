@@ -1,5 +1,15 @@
-const GalleryPage = () => {
-  return <div>GalleryPage</div>;
-};
+import GalleryHeader from './components/galleryHeader';
+import GalleryMain from './components/galleryMain';
+import * as S from './styles';
 
-export default GalleryPage;
+
+const GalleryPage = () => {
+  return (
+    <S.Container>
+      <GalleryHeader />
+      <GalleryMain />
+    </S.Container>
+  )
+}
+
+export default GalleryPage
