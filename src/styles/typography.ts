@@ -1,6 +1,9 @@
 import { css } from '@emotion/react';
 
 export const typographyMap = {
+  t0: css`
+    font-size: 56px;
+  `,
   t1: css`
     font-size: 36px;
   `,

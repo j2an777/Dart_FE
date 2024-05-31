@@ -1,4 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
+import { Navbar } from '@/components';
 import {
   GalleryPage,
   EditUserInfoPage,
@@ -11,7 +12,6 @@ import {
   PostPage,
   ErrorPage,
 } from '@/pages';
-import { Navbar } from '@/components';
 
 function App() {
   return (

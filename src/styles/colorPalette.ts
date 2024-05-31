@@ -11,6 +11,7 @@ export const colorPalette = css`
     --gray500: #616161;
     --gray600: #484545;
     --black: #000000;
+    --black100: #252525;
     --white: #ffffff;
   }
 `;
@@ -25,6 +26,7 @@ export const colors = {
   gray500: 'var(--gray500)',
   gray600: 'var(--gray600)',
   black: 'var(--black)',
+  black100: 'var(--black100)',
   white: 'var(--white)',
 };
 

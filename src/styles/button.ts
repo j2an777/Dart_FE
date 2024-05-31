@@ -8,7 +8,7 @@ export const buttonSizeMap = {
     height: 20px;
   `,
   xs: css`
-    font-size: 12px;
+    font-size: 16px;
     width: 80px;
     height: 30px;
   `,
@@ -69,7 +69,7 @@ export const buttonTypeMap = {
   `,
   reverseRectangleWhite: css`
     background-color: inherit;
-    border: 2px solid ${colors.white};
+    border: 1px solid ${colors.white};
     color: ${colors.white};
   `,
   RoundBlack: css`

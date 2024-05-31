@@ -29,7 +29,12 @@ const Alert = ({
           <Text typography="t4">{title}</Text>
           <Icon value="cancel" size={15} onClick={close} />
         </S.HeaderBox>
-        <Text typography="t4">{description}</Text>
+        {typeof description === 'string' ? (
+          <Text typography="t4">{description}</Text>
+        ) : (
+          <>{description}</>
+        )}
+
         <Button bold="regular" onClick={onClickButton}>
           {buttonLabel}
         </Button>

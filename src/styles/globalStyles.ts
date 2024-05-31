@@ -9,10 +9,12 @@ export default css`
     --dimmed-zindex: 10;
     --select-zindex: 9;
   }
+  div {
+    box-sizing: border-box;
+  }
 
   html,
   body,
-  div,
   span,
   applet,
   object,
@@ -149,11 +151,19 @@ export default css`
     text-decoration: inherit;
   }
   input {
-    all: unset;
+    background-color: inherit;
+    border: none;
+    :focus {
+      outline: none;
+    }
   }
   textarea {
     all: unset;
     white-space: normal;
     word-wrap: break-word;
+    :focus {
+      outline: none;
+    }
+    box-sizing: border-box;
   }
 `;
