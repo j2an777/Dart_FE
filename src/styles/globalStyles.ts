@@ -158,6 +158,9 @@ export default css`
     }
   }
   textarea {
+    all: unset;
+    white-space: normal;
+    word-wrap: break-word;
     :focus {
       outline: none;
     }

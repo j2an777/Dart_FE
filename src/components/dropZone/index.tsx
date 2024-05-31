@@ -1,12 +1,18 @@
 import { useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import * as S from './styles';
+import Icon from '../icon';
+import Text from '@/components/Text';
 
 interface FileWithPreview extends File {
   preview: string;
 }
 
-const DropZone = () => {
+interface DropZoneProps {
+  info?: string;
+}
+
+const DropZone = ({ info }: DropZoneProps) => {
   const [files, setFiles] = useState<FileWithPreview[]>([]);
   const { getRootProps, getInputProps } = useDropzone({
     accept: {
@@ -42,10 +48,17 @@ const DropZone = () => {
     <S.Container {...getRootProps()}>
       <input {...getInputProps()} />
       {thumbs.length === 0 ? (
-        <div>
-          <p>imag icon</p>
-          <p>이미지를 누르거나 파일을 가져다 놓으세요.</p>
-        </div>
+        <S.Block>
+          <Icon value="image" size={100} />
+          <Text typography="t6" bold="regular">
+            이미지를 누르거나 파일을 가져다 놓으세요.
+          </Text>
+          {info && (
+            <Text typography="t6" bold="regular" color="gray400">
+              {info}
+            </Text>
+          )}
+        </S.Block>
       ) : (
         <S.Container>{thumbs}</S.Container>
       )}

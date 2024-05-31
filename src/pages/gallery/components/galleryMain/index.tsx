@@ -65,6 +65,7 @@ const GalleryMain = () => {
         <S.Btn className='next' onClick={() => onHandleChange('next')}>Next</S.Btn>
       </S.BtnBlock>
       {popUp && (
+        // <ExplainModal />
         <GalleryDetail imageData={selectedData} onClose={onHandleClose}/>
       )}
     </S.Container>
