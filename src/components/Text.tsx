@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
-import { BoldType, Typograph, bolderMap, typographyMap } from '@/styles/typography';
-import { Colors, colors } from '@/styles/colorPalette';
 import { css } from '@emotion/react';
+import { Colors, colors } from '@/styles/colorPalette';
+import { BoldType, Typograph, bolderMap, typographyMap } from '@/styles/typography';
 
 interface TextProps {
   typography?: Typograph;
