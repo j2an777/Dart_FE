@@ -8,7 +8,7 @@ interface InputFieldProps {
   label: string;
   value: string;
   register: UseFormRegisterReturn<string>;
-  error: FieldError | undefined;
+  error?: FieldError | undefined;
 }
 
 const InputField = ({ label, value, register, error }: InputFieldProps) => {
