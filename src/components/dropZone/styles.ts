@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 export const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
+  flex-direction: column;
   width: 100%;
   height: 100%;
   justify-content: center;
@@ -12,13 +13,9 @@ export const Container = styled.div`
 
 export const Block = styled.div`
   display: flex;
-  width: 100%;
-  height: 100%;
-  padding: 4px;
-  box-sizing: border-box;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  overflow: hidden;
+  gap: 10px;
 `;
 
 export const Img = styled.img`
