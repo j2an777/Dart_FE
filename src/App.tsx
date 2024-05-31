@@ -4,11 +4,11 @@ import {
   EditUserInfoPage,
   LoginPage,
   MainPage,
-  PostPage,
   ReviewPage,
   SignupPage,
   UserInfoPage,
   IntroPage,
+  PostPage,
   ErrorPage,
 } from '@/pages';
 import { Navbar } from '@/components';

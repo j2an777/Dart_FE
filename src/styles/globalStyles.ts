@@ -148,4 +148,12 @@ export default css`
     color: inherit;
     text-decoration: inherit;
   }
+  input {
+    all: unset;
+  }
+  textarea {
+    all: unset;
+    white-space: normal;
+    word-wrap: break-word;
+  }
 `;
