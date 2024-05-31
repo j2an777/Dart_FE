@@ -3,7 +3,7 @@ import { Colors, colors } from '@/styles/colorPalette';
 
 import * as S from './styles';
 
-export type IconValues = 'cancel' | 'chat' | 'review' | 'out' | 'image' | 'one' | 'two';
+export type IconValues = 'cancel' | 'chat' | 'review' | 'out' | 'image';
 
 interface IconProps {
   value: IconValues;
