@@ -31,6 +31,17 @@ export const Input = styled.input`
   padding: 10px;
   color: ${colors.white};
   border-bottom: 1px solid ${colors.white};
+
+  // autocomplete css 속성
+  :-webkit-autofill,
+  :-webkit-autofill:hover,
+  :-webkit-autofill:focus,
+  :-webkit-autofill:active {
+    -webkit-text-fill-color: ${colors.white};
+    -webkit-box-shadow: 0 0 0px 1000px inherit inset;
+    box-shadow: 0 0 0px 1000px inherit inset;
+    transition: background-color 5000s ease-in-out 0s;
+  }
 `;
 
 export const ErrorMessage = styled(Text)`

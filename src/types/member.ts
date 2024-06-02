@@ -1,4 +1,4 @@
-export interface Member {}
+export type Member = Pick<SignupFormData, 'email' | 'nickname'>;
 
 export interface SignupFormData {
   isAgree: boolean;
