@@ -1,3 +1,37 @@
+import {
+  ErrorPage,
+  GalleryPage,
+  IntroPage,
+  LoginPage,
+  MainPage,
+  PostPage,
+  ReviewPage,
+  SignupPage,
+} from '@/pages';
+import MemberInfoPage from '@/pages/memberInfo';
+import EditMemberInfoPage from '@/pages/editMemberInfo';
+
+interface RouteInfo {
+  path: string;
+  Element: () => JSX.Element;
+  withNav?: boolean;
+  withAuth?: boolean;
+}
+
+export const routes: RouteInfo[] = [
+  { path: '/', Element: MainPage, withNav: true },
+  { path: '/member', Element: MemberInfoPage, withNav: true, withAuth: true },
+  { path: '/member/:memberId', Element: MemberInfoPage, withNav: true },
+  { path: '/member/edit', Element: EditMemberInfoPage, withNav: true, withAuth: true },
+  { path: '/review/:galleryId', Element: ReviewPage, withNav: true, withAuth: true },
+  { path: '/post', Element: PostPage, withNav: true, withAuth: true },
+  { path: '/gallery/:galleryId', Element: GalleryPage },
+  { path: '/intro', Element: IntroPage },
+  { path: '/login', Element: LoginPage, withAuth: true },
+  { path: '/signup', Element: SignupPage, withAuth: true },
+  { path: '*', Element: ErrorPage },
+];
+
 // import { lazy } from 'react';
 
 // const MainPage = lazy(() => import('@/pages/main'));
@@ -9,16 +43,6 @@
 // const IntroPage = lazy(() => import('@/pages/intro'));
 // const LoginPage = lazy(() => import('@/pages/login'));
 // const SignupPage = lazy(() => import('@/pages/signup'));
+// const ErrorPage = lazy(() => import('@/pages/error'));
 
-// export const routes = [
-//   { path: '/', element: MainPage, withNav: true },
-//   { path: '/user', element: UserInfoPage, withNav: true },
-//   { path: '/user/:userId', element: UserInfoPage, withNav: true },
-//   { path: '/user/edit', element: EditUserInfoPage, withNav: true },
-//   { path: '/review/:galleryId', element: ReviewPage, withNav: true },
-//   { path: '/post', element: PostPage, withNav: true },
-//   { path: '/gallery/:galleryId', element: GalleryPage },
-//   { path: '/intro', element: IntroPage },
-//   { path: '/login', element: LoginPage },
-//   { path: '/signup', element: SignupPage },
-// ];
+// 이게 긍정적인 영향을 미치는지 확인이 안됨...ㄷㄷ
