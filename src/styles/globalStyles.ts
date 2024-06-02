@@ -114,6 +114,7 @@ export default css`
     display: block;
   }
   body {
+    overflow-x: hidden;
   }
   ol,
   ul {
