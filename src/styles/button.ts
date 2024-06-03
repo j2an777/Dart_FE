@@ -28,8 +28,8 @@ export const buttonSizeMap = {
     height: 50px;
   `,
   md: css`
-    font-size: 24px;
-    width: 150px;
+    font-size: 20px;
+    width: 140px;
     height: 50px;
   `,
   mdlg: css`
@@ -60,6 +60,7 @@ export const buttonTypeMap = {
   `,
   rectangleWhite: css`
     background-color: ${colors.white};
+    border : 1px solid ${colors.black};
     color: ${colors.black};
   `,
   reverseRectangleGray: css`

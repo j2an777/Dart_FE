@@ -3,10 +3,11 @@ import Text from '../Text';
 import * as S from './styles';
 
 type TextCircleProps = {
-    name: string
+    name: string,
+    size : number,
 }
 
-const TextCircle = ({ name }: TextCircleProps) => {
+const TextCircle = ({ name, size }: TextCircleProps) => {
     const textRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -21,7 +22,7 @@ const TextCircle = ({ name }: TextCircleProps) => {
 
     return (
         <S.Container>
-            <S.Circle>
+            <S.Circle size={size}>
                 <Text 
                     ref={textRef}
                     typography='t6' 
