@@ -9,7 +9,7 @@ import {
   SignupPage,
 } from '@/pages';
 import MemberInfoPage from '@/pages/memberInfo';
-import EditMemberInfoPage from '@/pages/editMemberInfo';
+import EditMemberInfoPage from '@/pages/editUserInfo';
 
 interface RouteInfo {
   path: string;

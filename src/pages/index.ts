@@ -6,5 +6,5 @@ export { default as GalleryPage } from './gallery';
 export { default as ReviewPage } from './review';
 export { default as IntroPage } from './intro';
 export { default as ErrorPage } from './error';
-export { default as EditMemberInfo } from './editMemberInfo';
+export { default as EditUserInfo } from './editUserInfo';
 export { default as MemberInfo } from './memberInfo';

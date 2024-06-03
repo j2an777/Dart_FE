@@ -1,9 +1,10 @@
 import { colors } from '@/styles/colorPalette';
 import styled from '@emotion/styled';
+import { Text } from '@/components';
 
 export const Container = styled.div`
   position: relative;
-  padding: 140px 80px 25px;
+  padding: 160px 80px 50px;
   width: 100%;
   border-bottom: 2px solid ${colors.black};
 `;
@@ -14,9 +15,9 @@ export const Block = styled.div`
   gap: 20px;
 `;
 
-export const Step = styled.div`
+export const Step = styled(Text)`
   position: absolute;
-  top: -60px;
+  top: -40px;
   right: -50px;
   font-size: 350px;
   font-weight: 500;

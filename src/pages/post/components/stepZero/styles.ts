@@ -12,9 +12,9 @@ export const Container = styled.div`
   border-bottom: 2px solid ${colors.black};
 `;
 
-export const Block = styled.div`
+export const Box = styled.div`
   flex: 1;
-  min-width: 640px;
+  width: 640px;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -23,7 +23,7 @@ export const Block = styled.div`
   }
 `;
 
-export const Box = styled.div`
+export const Block = styled.div`
   display: flex;
   align-items: center;
   width: 100%;

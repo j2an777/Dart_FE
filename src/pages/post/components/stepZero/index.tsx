@@ -39,20 +39,20 @@ const StepZero = () => {
 
   return (
     <S.Container>
-      <S.Block>
+      <S.Box>
         <DropZone info="권장 이미지 크기: 700*700" />
-      </S.Block>
-      <S.Block>
-        <S.Box>
+      </S.Box>
+      <S.Box>
+        <S.Block>
           <S.Button isActive={activeBtn === 'free'} onClick={() => onBtnClick('free')}>
             무료 전시
           </S.Button>
           <S.Button isActive={activeBtn === 'pay'} onClick={() => onBtnClick('pay')}>
             유료 전시
           </S.Button>
-        </S.Box>
+        </S.Block>
         {activeBtn === 'pay' && (
-          <S.Box>
+          <S.Block>
             <S.Range
               type="range"
               min={0}
@@ -62,7 +62,7 @@ const StepZero = () => {
               onChange={(event) => setPrice(event.target.valueAsNumber)}
             />
             ₩ {price}
-          </S.Box>
+          </S.Block>
         )}
         <S.Date>
           <S.StyledCalendar
@@ -74,7 +74,7 @@ const StepZero = () => {
           />
         </S.Date>
         {activeBtn === 'pay' && (
-          <S.Box>
+          <S.Block>
             <p>전시 기간</p>
             <S.Button
               isActive={period === '7days'}
@@ -94,13 +94,13 @@ const StepZero = () => {
             >
               30 일
             </S.Button>
-          </S.Box>
+          </S.Block>
         )}
-        <S.Box>
+        <S.Block>
           <p>총 이용료</p>
           <div> ₩ {totalCost}</div>
-        </S.Box>
-      </S.Block>
+        </S.Block>
+      </S.Box>
     </S.Container>
   );
 };
