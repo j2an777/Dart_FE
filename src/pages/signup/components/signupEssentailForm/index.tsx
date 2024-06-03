@@ -1,8 +1,8 @@
-import { InputArea, SignupFormLayout } from '..';
-import { Button } from '@/components';
+import { SignupFormLayout } from '..';
+import { Button, InputField } from '@/components';
 import { ExtendedSignupForm } from '@/types/member';
 import { FieldErrors, UseFormRegister, UseFormWatch } from 'react-hook-form';
-import { SignupValues, essentiolFormData } from '@/consts/signup';
+import { essentiolFormData } from '@/consts/signup';
 
 import * as S from './styles';
 
@@ -12,17 +12,17 @@ interface SignupFormProps {
   watch: UseFormWatch<ExtendedSignupForm>;
 }
 
-const SignupEssentailForm = ({ watch, ...props }: SignupFormProps) => {
+const SignupEssentailForm = ({ watch, register, errors }: SignupFormProps) => {
   return (
     <SignupFormLayout title="필수">
       {essentiolFormData.map(({ value, registerOptions, label }) => {
         if (value === 'email' || value === 'nickname') {
           return (
             <S.CheckBox key={value}>
-              <InputArea
-                {...props}
+              <InputField
+                register={register(value, registerOptions)}
+                error={errors[value]}
                 label={label}
-                registerOptions={registerOptions}
                 value={value}
               />
               <Button size="smMd" buttonType="reverseRectangleWhite" type="button">
@@ -33,26 +33,26 @@ const SignupEssentailForm = ({ watch, ...props }: SignupFormProps) => {
         }
         if (value === 'checkPassword') {
           return (
-            <InputArea
+            <InputField
               key={value}
-              {...props}
-              label={label}
-              value={value}
-              registerOptions={{
+              register={register(value, {
                 ...registerOptions,
                 validate: (value: string) =>
                   watch().password !== value ? '비밀번호가 일치하지 않습니다' : true,
-              }}
+              })}
+              error={errors[value]}
+              label={label}
+              value={value}
             />
           );
         }
         return (
-          <InputArea
+          <InputField
             key={value}
-            {...props}
             label={label}
-            value={value as SignupValues}
-            registerOptions={registerOptions}
+            value={value}
+            register={register(value, registerOptions)}
+            error={errors[value]}
           />
         );
       })}

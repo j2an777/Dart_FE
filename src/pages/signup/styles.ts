@@ -19,10 +19,6 @@ export const SignupFormBox = styled.div`
   flex-direction: column;
   position: relative;
   gap: 50px;
-  input {
-    border-bottom: 1px solid ${colors.white};
-    color: ${colors.white};
-  }
 `;
 export const TitleBox = styled.div`
   width: 600px;

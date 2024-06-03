@@ -1,7 +1,8 @@
-import { ExtendedSignupForm } from '@/types/member';
+import { InputField } from '@/components';
+import { SignupFormLayout, SignupTextarea } from '..';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
-import { InputArea, SignupFormLayout, SignupTextarea } from '..';
-import { SignupValues, optionalFormData } from '@/consts/signup';
+import { optionalFormData } from '@/consts/signup';
+import { ExtendedSignupForm } from '@/types/member';
 
 import * as S from './styles';
 
@@ -10,29 +11,29 @@ interface SignupFormProps {
   errors: FieldErrors<ExtendedSignupForm>;
 }
 
-const SignupOptionalForm = ({ ...registerNerrors }: SignupFormProps) => {
+const SignupOptionalForm = ({ register, errors }: SignupFormProps) => {
   return (
     <SignupFormLayout title="선택">
-      {optionalFormData.map(({ type, items, label, value, registerOptions }, index) => {
-        if (type === 'input') {
+      {optionalFormData.map((form, index) => {
+        if (form.type === 'input') {
           return (
-            <InputArea
+            <InputField
               key={index}
-              {...registerNerrors}
-              value={value as SignupValues}
-              label={label as string}
-              registerOptions={registerOptions}
+              register={register(form.value, form.registerOptions)}
+              label={form.label}
+              value={form.value}
+              error={errors[form.value]}
             />
           );
-        } else if (type === 'bankBox') {
+        } else if (form.type === 'bankBox') {
           return (
             <S.BankBox key={index}>
-              {items?.map(({ value, label }) => (
-                <InputArea
+              {form.items?.map(({ value, label }) => (
+                <InputField
                   key={value}
-                  {...registerNerrors}
-                  value={value as SignupValues}
+                  register={register(value)}
                   label={label}
+                  value={value}
                 />
               ))}
             </S.BankBox>
@@ -41,8 +42,8 @@ const SignupOptionalForm = ({ ...registerNerrors }: SignupFormProps) => {
           return (
             <SignupTextarea
               key={index}
-              {...registerNerrors}
-              value={value as SignupValues}
+              register={register(form.value)}
+              value={form.value}
             />
           );
         }

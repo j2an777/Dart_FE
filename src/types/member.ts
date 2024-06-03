@@ -1,4 +1,4 @@
-export interface Member {}
+export type Member = Pick<SignupFormData, 'email' | 'nickname'>;
 
 export interface SignupFormData {
   isAgree: boolean;
@@ -13,4 +13,9 @@ export interface SignupFormData {
 
 export interface ExtendedSignupForm extends SignupFormData {
   checkPassword: string;
+}
+
+export interface LoginFormData {
+  email: string;
+  password: string;
 }

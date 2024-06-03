@@ -7,4 +7,12 @@ const instance = axios.create({
   },
 });
 
+instance.interceptors.request.use(async (config) => {
+  const access = localStorage.getItem('accessToken');
+  if (access) {
+    config.headers['Authorization'] = `Bearer ${access}`;
+  }
+  return config;
+});
+
 export default instance;

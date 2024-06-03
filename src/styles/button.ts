@@ -47,6 +47,11 @@ export const buttonSizeMap = {
     width: 100%;
     height: 44px;
   `,
+  fit: css`
+    font-size: 16px;
+    width: fit-content;
+    height: fit-content;
+  `,
 };
 
 export const buttonTypeMap = {
@@ -96,6 +101,10 @@ export const buttonTypeMap = {
     border: 2px solid ${colors.gray500};
     color: ${colors.gray500};
     border-radius: 10px;
+  `,
+  onlyText: css`
+    background-color: inherit;
+    color: ${colors.white};
   `,
 };
 

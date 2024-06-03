@@ -1,7 +1,8 @@
-import { SignupValues } from '@/consts/signup';
-
-const getInputAreaOptions = (value: SignupValues) => {
-  const type = value === 'password' || value === 'checkPassword' ? 'password' : 'text';
+const getInputFieldOptions = (value: string, isBlind: boolean) => {
+  const type =
+    (value === 'password' && isBlind) || (value === 'checkPassword' && isBlind)
+      ? 'password'
+      : 'text';
   const autoComplete =
     value === 'email' || value === 'nickname'
       ? 'username'
@@ -11,4 +12,4 @@ const getInputAreaOptions = (value: SignupValues) => {
   return autoComplete ? { type, autoComplete } : { type };
 };
 
-export default getInputAreaOptions;
+export default getInputFieldOptions;

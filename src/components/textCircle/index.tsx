@@ -3,22 +3,25 @@ import Text from '../Text';
 import * as S from './styles';
 
 type TextCircleProps = {
-    name: string,
-    size : number,
-}
+  name: string;
+  size: number;
+};
 
 const TextCircle = ({ name, size }: TextCircleProps) => {
-    const textRef = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-        const textElement = textRef.current;
-        if (textElement) {
-            const chars = textElement.innerText.split('');
-            textElement.innerHTML = chars.map((char, i) => (
-                `<span style="transform:rotate(${i * (360 / chars.length)}deg)">${char}</span>`
-            )).join('');
-        }
-    }, [name]);
+  const textRef = useRef<HTMLDivElement>(null);
+  
+  useEffect(() => {
+    const textElement = textRef.current;
+    if (textElement) {
+      const chars = textElement.innerText.split('');
+      textElement.innerHTML = chars
+        .map(
+          (char, i) =>
+            `<span style="transform:rotate(${i * (360 / chars.length)}deg)">${char}</span>`,
+        )
+        .join('');
+    }
+  }, [name]);
 
     return (
         <S.Container>

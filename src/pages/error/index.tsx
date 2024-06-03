@@ -1,9 +1,9 @@
-
 import { Text } from '@/components';
-import * as S from './styles';
 import ErrorImg from '@/assets/images/404.png';
 import { Link } from 'react-router-dom';
 import TextCircle from '@/components/textCircle';
+
+import * as S from './styles';
 
 const ErrorPage = () => {
   return (
@@ -31,7 +31,7 @@ const ErrorPage = () => {
           </S.Right>
         </S.Bottom>
     </S.Container>
-  )
-}
+  );
+};
 
-export default ErrorPage
+export default ErrorPage;

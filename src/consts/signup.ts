@@ -1,21 +1,13 @@
-interface EssentialBaseFormField {
+import { ExtendedSignupForm } from '@/types/member';
+import { RegisterOptions } from 'react-hook-form';
+
+interface BaseFormField {
   label: string;
-  value: SignupValues;
-}
-
-interface RegisterOptions {
-  required: string;
-  pattern?: {
-    value: RegExp;
-    message: string;
-  };
-}
-
-interface EssentialFormField extends EssentialBaseFormField {
+  value: keyof ExtendedSignupForm;
   registerOptions: RegisterOptions;
 }
 
-export const essentiolFormData: EssentialFormField[] = [
+export const essentiolFormData: BaseFormField[] = [
   {
     label: '이메일',
     value: 'email',
@@ -58,7 +50,32 @@ export const essentiolFormData: EssentialFormField[] = [
   },
 ];
 
-export const optionalFormData = [
+interface BaseField {
+  label: string;
+  value: keyof ExtendedSignupForm;
+}
+
+interface InputField extends BaseField {
+  type: 'input';
+  registerOptions: RegisterOptions;
+}
+
+interface TextAreaField extends BaseField {
+  type: 'textarea';
+}
+
+interface BankItemField extends BaseField {
+  // 'bankBox' 항목에 추가적인 속성이 필요하다면 여기에 추가
+}
+
+interface BankBoxField {
+  type: 'bankBox';
+  items: BankItemField[];
+}
+
+type FormField = InputField | TextAreaField | BankBoxField;
+
+export const optionalFormData: FormField[] = [
   {
     label: '생년월일',
     value: 'age',
@@ -102,5 +119,3 @@ export const defaultValues = {
 };
 
 export const signupFormType = ['필수', '선택'];
-
-export type SignupValues = keyof typeof defaultValues;

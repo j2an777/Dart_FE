@@ -1,6 +1,8 @@
-import { Text } from '@/components';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { colors } from '@/styles/colorPalette';
+import Text from '../Text';
+import { Icon } from '..';
 
 export const Container = styled.div`
   display: flex;
@@ -27,9 +29,27 @@ export const Label = styled.label<{ isFocused: boolean }>`
 export const Input = styled.input`
   font-size: 24px;
   padding: 10px;
+  color: ${colors.white};
+  border-bottom: 1px solid ${colors.white};
+
+  // autocomplete css 속성
+  :-webkit-autofill,
+  :-webkit-autofill:hover,
+  :-webkit-autofill:focus,
+  :-webkit-autofill:active {
+    -webkit-text-fill-color: ${colors.white};
+    -webkit-box-shadow: 0 0 0px 1000px inherit inset;
+    box-shadow: 0 0 0px 1000px inherit inset;
+    transition: background-color 5000s ease-in-out 0s;
+  }
 `;
 
 export const ErrorMessage = styled(Text)`
   position: absolute;
   bottom: -25px;
+`;
+
+export const BlindIcon = styled(Icon)`
+  position: absolute;
+  right: 0;
 `;

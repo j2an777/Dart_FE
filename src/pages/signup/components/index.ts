@@ -1,4 +1,3 @@
-export { default as InputArea } from './inputArea';
 export { default as CheckAgree } from './checkAgree';
 export { default as SignupAgree } from './signupAgree';
 export { default as TitleNumber } from './titleNumber';
