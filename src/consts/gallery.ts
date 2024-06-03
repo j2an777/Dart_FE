@@ -47,12 +47,17 @@ export const GalleryData = {
         },
         {
             image: gallery4,
-            imageTitle: 'Gallery Image 7',
+            imageTitle: 'Gallery Image 8',
             description: '동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세.'
         },
         {
             image: gallery7,
-            imageTitle: 'Gallery Image 8',
+            imageTitle: 'Gallery Image 9',
+            description: '동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세.'
+        },
+        {
+            image: gallery7,
+            imageTitle: 'Gallery Image 10',
             description: '동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세.'
         },
     ]
