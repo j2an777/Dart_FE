@@ -2,7 +2,7 @@ import { Text } from '@/components';
 import * as S from './styles';
 import Profile from '@/assets/images/profile.png';
 
-const EditUserForm = () => {
+const EditMemberForm = () => {
   return (
     <S.Container>
       <S.ProfileBlock>
@@ -45,4 +45,4 @@ const EditUserForm = () => {
   )
 }
 
-export default EditUserForm
+export default EditMemberForm
