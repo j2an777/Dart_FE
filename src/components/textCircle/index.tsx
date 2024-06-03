@@ -9,7 +9,7 @@ type TextCircleProps = {
 
 const TextCircle = ({ name, size }: TextCircleProps) => {
   const textRef = useRef<HTMLDivElement>(null);
-
+  
   useEffect(() => {
     const textElement = textRef.current;
     if (textElement) {
@@ -23,15 +23,19 @@ const TextCircle = ({ name, size }: TextCircleProps) => {
     }
   }, [name]);
 
-  return (
-    <S.Container>
-      <S.Circle size={size}>
-        <Text ref={textRef} typography="t6" color="black" bold="semibold">
-          {name}
-        </Text>
-      </S.Circle>
-    </S.Container>
-  );
-};
+    return (
+        <S.Container>
+            <S.Circle size={size}>
+                <Text 
+                    ref={textRef}
+                    typography='t6' 
+                    color='black' 
+                    bold='semibold'>
+                        {name}
+                </Text>
+            </S.Circle>
+        </S.Container>
+    )
+}
 
 export default TextCircle;
