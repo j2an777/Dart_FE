@@ -16,3 +16,8 @@ export const getMemberInfo = async (nickname?: string) => {
   const response = await instance.get(`/api/members?nickname=${nickname}`);
   return response?.data as { nickname: string };
 };
+
+export const getGalleryInfo = async () => {
+  const response = await instance.get(`/api/galleries`);
+  return response?.data;
+}
