@@ -52,55 +52,5 @@ export const GalleryData = {
             imageTitle: 'Gallery Image 10',
             description: '동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세.'
         },
-        {
-            image: '/gallery7.png',
-            imageTitle: 'Gallery Image 11',
-            description: '동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세.'
-        },
-        {
-            image: '/gallery7.png',
-            imageTitle: 'Gallery Image 12',
-            description: '동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세.'
-        },
-        {
-            image: '/gallery7.png',
-            imageTitle: 'Gallery Image 13',
-            description: '동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세.'
-        },
-        {
-            image: '/gallery7.png',
-            imageTitle: 'Gallery Image 14',
-            description: '동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세.'
-        },
-        {
-            image: '/gallery7.png',
-            imageTitle: 'Gallery Image 15',
-            description: '동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세.'
-        },
-        {
-            image: '/gallery7.png',
-            imageTitle: 'Gallery Image 16',
-            description: '동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세.'
-        },
-        {
-            image: '/gallery7.png',
-            imageTitle: 'Gallery Image 17',
-            description: '동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세.'
-        },
-        {
-            image: '/gallery7.png',
-            imageTitle: 'Gallery Image 18',
-            description: '동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세.'
-        },
-        {
-            image: '/gallery7.png',
-            imageTitle: 'Gallery Image 19',
-            description: '동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세.'
-        },
-        {
-            image: '/gallery7.png',
-            imageTitle: 'Gallery Image 20',
-            description: '동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세.'
-        },
     ]
 };
