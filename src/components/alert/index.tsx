@@ -1,4 +1,4 @@
-import { alertStore } from '@/stores/alert';
+import { alertStore } from '@/stores/modal';
 import { Button, Dimmed, Icon, Text } from '..';
 
 import * as S from './styles';

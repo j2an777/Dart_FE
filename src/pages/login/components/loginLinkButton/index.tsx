@@ -2,7 +2,7 @@ import { Button, Icon } from '@/components';
 
 import * as S from './styles';
 import { useNavigate } from 'react-router-dom';
-import { alertStore } from '@/stores/alert';
+import { alertStore } from '@/stores/modal';
 
 interface LoginLinkButtonProps {
   title: string;

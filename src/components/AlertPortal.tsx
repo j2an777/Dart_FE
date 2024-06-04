@@ -1,10 +1,10 @@
-import { alertStore } from '@/stores/alert';
+import { alertStore } from '@/stores/modal';
 import { createPortal } from 'react-dom';
 import Alert from './alert';
 
 const AlertPortal = () => {
   const alertValue = alertStore((state) => state.alertValue);
-  const $portal_root = document.getElementById('root-portal');
+  const $portal_root = document.getElementById('alert-portal');
   return (
     <>
       {$portal_root

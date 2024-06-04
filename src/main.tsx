@@ -4,7 +4,7 @@ import App from './App.tsx';
 import { BrowserRouter } from 'react-router-dom';
 import { Global } from '@emotion/react';
 import globalStyles from './styles/globalStyles.ts';
-import AlertPortal from './components/AlertPortal.tsx';
+import { AlertPortal, GalleryInfoPortal } from './components';
 import GlobalErrorBoundary from './routes/GlobalErrorBoundary.tsx';
 import { ErrorPage } from './pages/index.ts';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -30,8 +30,9 @@ enableMocking().then(() =>
       <GlobalErrorBoundary fallback={ErrorPage}>
         <QueryClientProvider client={queryClient}>
           <BrowserRouter>
-            <App />
             <AlertPortal />
+            <GalleryInfoPortal />
+            <App />
           </BrowserRouter>
           <ReactQueryDevtools initialIsOpen={false} />
         </QueryClientProvider>

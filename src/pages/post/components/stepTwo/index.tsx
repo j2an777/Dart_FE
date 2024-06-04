@@ -5,7 +5,7 @@ import Text from '@/components/Text';
 import DropZone from '@/components/dropZone';
 import { InputBox, TextBox } from '../../styles';
 import * as S from './styles';
-import { alertStore } from '@/stores/alert';
+import { alertStore } from '@/stores/modal';
 
 interface Item {
   image: File | null;
