@@ -1,9 +1,8 @@
-import useGetUserInfo from '@/hooks/useGetUserInfo';
 import { PropsWithChildren } from 'react';
 import { Navigate } from 'react-router-dom';
 
 function ProtectedRoute({ children, path }: PropsWithChildren<{ path: string }>) {
-  const { data: user } = useGetUserInfo();
+  const user = localStorage.getItem('accessToken');
   if (path === '/login' || path === '/signup') {
     return user ? <Navigate to={'/'} /> : (children as JSX.Element);
   }

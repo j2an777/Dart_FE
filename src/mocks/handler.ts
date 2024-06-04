@@ -6,16 +6,76 @@ const user1 = {
   email: 'kang123@gmail.com',
   password: '1q2w3e4r!',
 };
+
+const galleries1 = {
+  pages: [
+    {
+      galleryId: 1,
+      thumbnail: 'https://asdfasdf.com/asdfasdf',
+      title: '개지리는 전시회',
+      startDate: new Date('2024-05-23T12:00:00Z'),
+      endDate: new Date('2024-05-31T12:00:00Z'),
+      hashtags: ['재밌는그림', '자바', '자바스크립트'],
+    },
+    {
+      galleryId: 2,
+      thumbnail: 'https://asdfasdf.com/asdfasdf',
+      title: '개지리는 전시회',
+      startDate: new Date('2024-05-23T12:00:00Z'),
+      endDate: new Date('2024-05-31T12:00:00Z'),
+      hashtags: ['재밌는그림', '자바', '자바스크립트'],
+    },
+    {
+      galleryId: 3,
+      thumbnail: 'https://asdfasdf.com/asdfasdf',
+      title: '개지리는 전시회',
+      startDate: new Date('2024-05-23T12:00:00Z'),
+      endDate: new Date('2024-05-31T12:00:00Z'),
+      hashtags: ['재밌는그림', '자바', '자바스크립트'],
+    },
+    {
+      galleryId: 4,
+      thumbnail: 'https://asdfasdf.com/asdfasdf',
+      title: '개지리는 전시회',
+      startDate: new Date('2024-05-23T12:00:00Z'),
+      endDate: new Date('2024-05-31T12:00:00Z'),
+      hashtags: ['재밌는그림', '자바', '자바스크립트'],
+    },
+    {
+      galleryId: 5,
+      thumbnail: 'https://asdfasdf.com/asdfasdf',
+      title: '개지리는 전시회',
+      startDate: new Date('2024-05-23T12:00:00Z'),
+      endDate: new Date('2024-05-31T12:00:00Z'),
+      hashtags: ['재밌는그림', '자바', '자바스크립트'],
+    },
+    {
+      galleryId: 6,
+      thumbnail: 'https://asdfasdf.com/asdfasdf',
+      title: '개지리는 전시회',
+      startDate: new Date('2024-05-23T12:00:00Z'),
+      endDate: new Date('2024-05-31T12:00:00Z'),
+      hashtags: ['재밌는그림', '자바', '자바스크립트'],
+    },
+  ],
+  pageInfo: {
+    pageIndex: 0, //현재 페이지
+    isDone: true, //마지막 페이지 여부
+  },
+};
+
 function isEqual(obj1: object, obj2: object) {
   return JSON.stringify(obj1) === JSON.stringify(obj2);
 }
 export const handlers = [
+  // 회원가입
   http.post('/api/signup', async ({ request }) => {
     const newMember = await request.json();
     members.set(1, newMember);
 
     return HttpResponse.json(newMember, { status: 200 });
   }),
+  // 로그인
   http.post('/api/login', async ({ request }) => {
     const userInfo = await request.json();
     if (isEqual(user1, userInfo as object))
@@ -31,6 +91,7 @@ export const handlers = [
       { status: 404 },
     );
   }),
+  // 회원정보 가져오기
   http.get('/api/members', async ({ request }) => {
     const url = new URL(request.url);
     const nickname = url.searchParams.get('nickname');
@@ -58,7 +119,13 @@ export const handlers = [
       { status: 200 },
     );
   }),
-  http.get(`/api/galleries`, () => {
+
+  http.get('/api/galleries', () => {
+    return HttpResponse.json(galleries1, { status: 200 });
+  }),
+
+  // 전체 데이터 가져오기
+  http.get(`/api/galleries/1`, () => {
     return HttpResponse.json({
       title: '솔문쨩의 갤러리',
       thumbnail: 'C:/Users/hallym/Desktop/thumbnail.png',

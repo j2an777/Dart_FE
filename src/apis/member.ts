@@ -12,7 +12,8 @@ export const postLogin = async (formData: LoginFormData) => {
 };
 
 export const getMemberInfo = async (nickname?: string) => {
-  await new Promise((resolve) => setTimeout(resolve, 2000));
-  const response = await instance.get(`/api/members?nickname=${nickname}`);
+  const response = await instance.get(
+    `${import.meta.env.VITE_DEV_URL}api/members?nickname=${nickname}`,
+  );
   return response?.data as { nickname: string };
 };
