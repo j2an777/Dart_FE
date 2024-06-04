@@ -25,10 +25,15 @@ export interface GalleryDesc extends Gallery {
   hasTicket: boolean;
 }
 
-export interface GalleryParams {
+export interface FilterType {
   keyword: string;
   category: 'hashtag' | 'author' | 'title';
   sort: 'latest' | 'hot' | 'liked';
   cost: 'all' | 'free' | 'pay';
   display: 'all' | 'upcomming' | 'inprogress' | 'finished';
 }
+
+export type CategoryValues = FilterType['category'];
+export type DispalyValues = FilterType['display'];
+export type SortValues = FilterType['sort'];
+export type CostValues = FilterType['cost'];

@@ -23,6 +23,7 @@ export type IconValues =
   | 'postArrow'
   | 'plus'
   | 'minus'
+  | 'all'
   | 'google';
 
 interface IconProps {
@@ -362,6 +363,15 @@ const renderIcon = (
       return (
         <svg height="512px" viewBox="0 0 512 512" width="512px" fill={colors[color]}>
           <path d="M417.4,224H94.6C77.7,224,64,238.3,64,256c0,17.7,13.7,32,30.6,32h322.8c16.9,0,30.6-14.3,30.6-32  C448,238.3,434.3,224,417.4,224z" />
+        </svg>
+      );
+    case 'all':
+      return (
+        <svg width="21" height="10" viewBox="0 0 21 10" fill="none">
+          <path
+            d="M6.136 10L5.776 8.504H3.504L3.2 10H0.848L3.288 1.272L3.096 0.624H6.4L9.072 10H6.136ZM4.536 3.376L3.832 6.872H5.384L4.536 3.376ZM9.38756 10V0.624H12.0356V7.856H14.4196V10H9.38756ZM15.1532 10V0.624L17.8012 0.624V7.856H20.1852V10H15.1532Z"
+            fill={colors[color]}
+          />
         </svg>
       );
   }

@@ -1,9 +1,18 @@
-import { Button, Icon, Text } from '@/components';
-import { ButtonBar, PostButton } from '..';
+import { Icon, Text } from '@/components';
+import { ButtonBar, CostFilter, KeywordFilter, PostButton } from '..';
+import {
+  costButtonInfo,
+  displayButtonInfo,
+  searchButtonInfo,
+  sortButtonInfo,
+} from '@/consts/filter';
+import { filterStore } from '@/stores/filter';
 
 import * as S from './styles';
 
 const Filter = () => {
+  const { filterValue, onChange, onNestingChange } = filterStore();
+
   return (
     <S.Container>
       <S.TitleBox>
@@ -12,29 +21,31 @@ const Filter = () => {
         </Text>
         <Icon value="filter" $active={false} />
       </S.TitleBox>
-      <S.SeacchBox>
-        <S.SearchInupt type="text" placeholder="Search..." />
-        <S.SeacchButtonBlock>
-          <Button buttonType="RoundBlack" size="sm" children="작가" />
-          <Button buttonType="reverseRoundBlack" size="sm" children="제목" />
-          <Button buttonType="reverseRoundBlack" size="sm" children="해시태그" />
-        </S.SeacchButtonBlock>
-      </S.SeacchBox>
-      <S.PriceBox>
-        <Text typography="t6" bold="regular">
-          비용
-        </Text>
-        <S.PriceButtonBlock>
-          <Button buttonType="circle" size="circle">
-            PAY
-          </Button>
-          <Button buttonType="reverseCircle" size="circle">
-            FREE
-          </Button>
-        </S.PriceButtonBlock>
-      </S.PriceBox>
-      <ButtonBar title="전시상태" />
-      <ButtonBar title="정렬" />
+      <KeywordFilter
+        buttons={searchButtonInfo}
+        selected={filterValue.category}
+        onChange={onChange}
+      />
+      <CostFilter
+        buttons={costButtonInfo}
+        title="비용"
+        selected={filterValue.cost}
+        onChange={onNestingChange}
+      />
+      <ButtonBar
+        buttons={displayButtonInfo}
+        keyPorp="display"
+        title="전시상태"
+        selected={filterValue.display}
+        onChange={onChange}
+      />
+      <ButtonBar
+        buttons={sortButtonInfo}
+        keyPorp="sort"
+        title="정렬"
+        selected={filterValue.sort}
+        onChange={onChange}
+      />
       <PostButton />
     </S.Container>
   );
