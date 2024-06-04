@@ -60,11 +60,9 @@ const UserBox = () => {
       onBlur={() => setIsExpand(false)}
     >
       <UserCircle size={15} />
-      <Link to={'/'}>
-        <Text typography="t7" bold="regular" ellipsis={50}>
-          {data?.nickname}
-        </Text>
-      </Link>
+      <Text typography="t7" bold="regular" ellipsis={50}>
+        {data?.nickname}
+      </Text>
       {isExpand && (
         <S.MoreBox>
           {userBoxInfo.map(({ path, value }, index) => {

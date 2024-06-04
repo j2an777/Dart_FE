@@ -8,7 +8,7 @@ export const buttonSizeMap = {
     height: 20px;
   `,
   xs: css`
-    font-size: 16px;
+    font-size: 12px;
     width: 80px;
     height: 30px;
   `,
@@ -52,6 +52,11 @@ export const buttonSizeMap = {
     width: fit-content;
     height: fit-content;
   `,
+  circle: css`
+    font-size: 12px;
+    width: 55px;
+    height: 55px;
+  `,
 };
 
 export const buttonTypeMap = {
@@ -65,7 +70,7 @@ export const buttonTypeMap = {
   `,
   rectangleWhite: css`
     background-color: ${colors.white};
-    border : 1px solid ${colors.black};
+    border: 1px solid ${colors.black};
     color: ${colors.black};
   `,
   reverseRectangleGray: css`
@@ -87,7 +92,7 @@ export const buttonTypeMap = {
   reverseRoundBlack: css`
     background-color: inherit;
     border: 1px solid ${colors.black};
-    color: ${colors.white};
+    color: ${colors.black};
     border-radius: 30px;
   `,
   reverseRounDash: css`
@@ -105,6 +110,18 @@ export const buttonTypeMap = {
   onlyText: css`
     background-color: inherit;
     color: ${colors.white};
+  `,
+  circle: css`
+    background-color: ${colors.black};
+    border: 1px solid ${colors.black};
+    color: ${colors.white};
+    border-radius: 100%;
+  `,
+  reverseCircle: css`
+    background-color: inherit;
+    border: 1px solid ${colors.black};
+    color: ${colors.black};
+    border-radius: 100%;
   `,
 };
 

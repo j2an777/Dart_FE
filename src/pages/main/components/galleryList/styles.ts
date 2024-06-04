@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
 export const Container = styled.div`
-  display: flex;
-  padding: 80px;
-  gap: 40px; // 수정예정
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0 20px;
 `;
