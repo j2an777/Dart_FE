@@ -31,6 +31,7 @@ const EditMemberForm = () => {
     });
   };
 
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <S.Container>
@@ -42,6 +43,7 @@ const EditMemberForm = () => {
               <S.ProfilePlusBtn
                 {...register('profileImage')}
                 type="file"
+
                 id="avatar-upload"
                 accept="image/*"
               />
@@ -102,5 +104,6 @@ const EditMemberForm = () => {
     </form>
   );
 };
+
 
 export default EditMemberForm;

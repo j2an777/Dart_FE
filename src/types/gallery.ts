@@ -1,4 +1,3 @@
-//asdfasdf
 export type galleryImages = {
   image: string;
   imageTitle: string;
@@ -51,3 +50,4 @@ export type CategoryValues = FilterType['category'];
 export type DispalyValues = FilterType['display'];
 export type SortValues = FilterType['sort'];
 export type CostValues = FilterType['cost'];
+

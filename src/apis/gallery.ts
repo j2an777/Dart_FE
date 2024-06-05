@@ -6,7 +6,6 @@ export const postGalleries = async (formData: PostGalleries) => {
   const response = await instance.post('/api/galleries', formData);
   return response?.data;
 };
-
 interface GetGalleriesParams extends Partial<GalleryParams> {
   page?: number;
   size?: number;
