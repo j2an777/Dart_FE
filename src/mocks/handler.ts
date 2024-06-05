@@ -62,4 +62,9 @@ export const handlers = [
   http.get('/api/galleries', () => {
     return HttpResponse.json(GalleryData);
   }),
+  http.put('/api/members', async ({ request }) => {
+    return HttpResponse.json(
+      { status: 200 }
+    )
+  }),
 ];

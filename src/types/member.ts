@@ -11,6 +11,11 @@ export interface SignupFormData {
   introduce?: string;
 }
 
+export type EditFormData = Partial<Pick<
+  SignupFormData, 'nickname' | 'password' | 'bank' | 'account' | 'introduce'>> & {
+    profileImage?: string;
+};
+
 export interface ExtendedSignupForm extends SignupFormData {
   checkPassword: string;
 }
