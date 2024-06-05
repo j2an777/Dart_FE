@@ -1,4 +1,5 @@
 import { http, HttpResponse } from 'msw';
+import { GalleryData } from './mockData/galleryData';
 
 const members = new Map();
 
@@ -119,49 +120,13 @@ export const handlers = [
       { status: 200 },
     );
   }),
-
+  http.get('/api/galleries/1', () => {
+    return HttpResponse.json(GalleryData);
+  }),
+  http.put('/api/members', async () => {
+    return HttpResponse.json({ status: 200 });
+  }),
   http.get('/api/galleries', () => {
     return HttpResponse.json(galleries1, { status: 200 });
-  }),
-
-  // 전체 데이터 가져오기
-  http.get(`/api/galleries/1`, () => {
-    return HttpResponse.json({
-      title: '솔문쨩의 갤러리',
-      thumbnail: 'C:/Users/hallym/Desktop/thumbnail.png',
-      isFirst: true,
-      images: [
-        {
-          image: '',
-          description:
-            '이 작품은 솔문쨩이 은밀하게 화장실에서 새코달콤을 먹는 모습을 르네상스에 맞춰 비춘 작품이다.',
-        },
-        {
-          image: '',
-          description:
-            '이 작품은 솔문쨩이 은밀하게 화장실에서 새코달콤을 먹는 모습을 르네상스에 맞춰 비춘 작품이다.',
-        },
-        {
-          image: '',
-          description:
-            '이 작품은 솔문쨩이 은밀하게 화장실에서 새코달콤을 먹는 모습을 르네상스에 맞춰 비춘 작품이다.',
-        },
-        {
-          image: '',
-          description:
-            '이 작품은 솔문쨩이 은밀하게 화장실에서 새코달콤을 먹는 모습을 르네상스에 맞춰 비춘 작품이다.',
-        },
-        {
-          image: '',
-          description:
-            '이 작품은 솔문쨩이 은밀하게 화장실에서 새코달콤을 먹는 모습을 르네상스에 맞춰 비춘 작품이다.',
-        },
-        {
-          image: '',
-          description:
-            '이 작품은 솔문쨩이 은밀하게 화장실에서 새코달콤을 먹는 모습을 르네상스에 맞춰 비춘 작품이다.',
-        },
-      ],
-    });
   }),
 ];

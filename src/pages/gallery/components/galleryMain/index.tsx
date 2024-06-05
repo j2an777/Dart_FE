@@ -1,38 +1,50 @@
 import * as S from './styles';
 import { useEffect, useState } from 'react';
-import { GalleryData } from '@/consts/gallery';
+import { useQuery } from '@tanstack/react-query';
 import GalleryDetail from '../galleryDetail';
-import { galleryData } from '@/types/gallery';
-import ExplainModal from '@/components/modal/explainModal';
+import { galleryImages } from '@/types/gallery';
+import fetchGalleryData from '../../hooks/fetchGalleryData';
 
 const GalleryMain = () => {
   const [degrees, setDegrees] = useState(0);
   const [frontIndex, setFrontIndex] = useState(0);
   const [popUp, setPopUp] = useState(false);
-  const [selectedData, setSelectedData] = useState<galleryData | null>(null);
-
-  const dataDegree = 360 / GalleryData.images.length;
+  const [selectedData, setSelectedData] = useState<galleryImages | null>(null);
   const [transZ, setTransZ] = useState(400);
+  const [dataDegree, setDataDegree] = useState(0);
+
+  const { data: galleryData, error, isLoading } = useQuery({
+    queryKey: ['galleryData'],
+    queryFn: fetchGalleryData
+  });
 
   useEffect(() => {
-    if (GalleryData.images.length === 9) {
-      setTransZ(450);
-    } else if (GalleryData.images.length === 10) {
-      setTransZ(480);
+    if (galleryData) {
+      setDataDegree(360 / galleryData.images.length);
+      if (galleryData.images.length === 9) {
+        setTransZ(450);
+      } else if (galleryData.images.length >= 10) {
+        setTransZ(480);
+      } else {
+        setTransZ(400);
+      }
     }
-  }, []);
+  }, [galleryData]);
 
   const onHandleChange = (translate: string) => {
+    if (!galleryData) return;
+
     if (translate === 'previous') {
       setDegrees(degrees + dataDegree);
-      setFrontIndex((frontIndex - 1 + GalleryData.images.length) % GalleryData.images.length);
+      setFrontIndex((frontIndex - 1 + galleryData.images.length) % galleryData.images.length);
     } else {
       setDegrees(degrees - dataDegree);
-      setFrontIndex((frontIndex + 1) % GalleryData.images.length);
+      setFrontIndex((frontIndex + 1) % galleryData.images.length);
     }
+    console.log(frontIndex);
   };
 
-  const onHandlePopup = (imageData: galleryData) => {
+  const onHandlePopup = (imageData: galleryImages) => {
     setSelectedData(imageData);
     setPopUp(true);
   };
@@ -41,16 +53,24 @@ const GalleryMain = () => {
     setPopUp(false);
     setSelectedData(null);
   };
-  
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error loading gallery data</div>;
+  }
+
   return (
     <S.Container>
       <S.MainBlock degrees={degrees}>
-        {GalleryData.images.map((gallery, index) => (
+        {galleryData?.images.slice(0, 10).map((gallery, index) => (
           <S.ImageBox 
             key={index} 
             i={index} 
             isFront={index === frontIndex} 
-            dataDegree={dataDegree} 
+            dataDegree={dataDegree}
             transZ={transZ}
             onClick={() => onHandlePopup(gallery)}>
             <img src={gallery.image} alt={gallery.imageTitle} />
@@ -66,8 +86,7 @@ const GalleryMain = () => {
         <S.Btn className='next' onClick={() => onHandleChange('next')}>Next</S.Btn>
       </S.BtnBlock>
       {popUp && (
-        <ExplainModal />
-        // <GalleryDetail imageData={selectedData} onClose={onHandleClose}/>
+        <GalleryDetail imageData={selectedData} onClose={onHandleClose}/>
       )}
     </S.Container>
   );
