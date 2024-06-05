@@ -14,12 +14,14 @@ const LoginForm = () => {
     formState: { errors },
     handleSubmit,
   } = useForm<LoginFormData>();
+  
   const navigate = useNavigate();
   const onSubmit = async (data: LoginFormData) => {
     await postLogin(data)
       .then(({ accessToken }) => localStorage.setItem('accessToken', accessToken))
       .then(() => navigate(-1));
   };
+
   return (
     <S.Container>
       <div>

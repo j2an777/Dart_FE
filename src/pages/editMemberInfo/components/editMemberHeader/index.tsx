@@ -2,7 +2,7 @@ import { Icon, Text } from '@/components';
 import * as S from './styles';
 import { useNavigate } from 'react-router-dom';
 
-const EditUserHeader = () => {
+const EditMemberHeader = () => {
   const navigate = useNavigate();
 
   const onHandleBack = () => {
@@ -19,4 +19,4 @@ const EditUserHeader = () => {
   )
 }
 
-export default EditUserHeader
+export default EditMemberHeader

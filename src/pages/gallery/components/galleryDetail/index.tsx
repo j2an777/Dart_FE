@@ -1,11 +1,11 @@
 
 
-import { galleryData } from '@/types/gallery';
+import { galleryImages } from '@/types/gallery';
 import * as S from './styles';
 import { Dimmed, Icon, Text } from '@/components';
 
 type GalleryDetailProps = {
-    imageData: galleryData | null;
+    imageData: galleryImages | null;
     onClose: () => void;
 }
 

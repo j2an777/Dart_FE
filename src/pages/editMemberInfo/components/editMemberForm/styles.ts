@@ -118,3 +118,8 @@ export const ButtonContainer = styled.div`
   grid-column: 1 / span 3;
   grid-row : 4;
 `;
+
+export const Error = styled.p`
+  ${typographyMap.t7};
+  color : ${colors.red};
+`;
