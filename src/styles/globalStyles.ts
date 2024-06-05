@@ -8,6 +8,7 @@ export default css`
   :root {
     --dimmed-zindex: 10;
     --select-zindex: 9;
+    --modal-zindex: 11;
   }
   div {
     box-sizing: border-box;

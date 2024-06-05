@@ -3,9 +3,10 @@ import { useFormContext } from 'react-hook-form';
 import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd';
 import Text from '@/components/Text';
 import DropZone from '@/components/dropZone';
-import { alertStore } from '@/stores/alert';
+import { alertStore } from '@/stores/modal';
 import { Item } from '@/types/post';
 import { InputBox, TextBox } from '../inputs/styles';
+
 import * as S from './styles';
 
 const StepTwo = () => {

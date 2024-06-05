@@ -6,12 +6,9 @@ export const Container = styled.div`
   ${LayoutMap.displayFlex}
   flex-direction: column;
   justify-content: space-between;
-  position: absolute;
+  ${LayoutMap.absoluteCenter}
   padding: 35px;
   width: 600px;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
   background-color: ${colors.white};
   border-radius: 10px;
   min-height: 300px;

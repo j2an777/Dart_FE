@@ -34,3 +34,15 @@ export const alertStore = create<AlertState>((set, get) => ({
       alertValue: defaultValue,
     })),
 }));
+
+export interface GalleryInfoState {
+  value: boolean;
+  open: () => void;
+  close: () => void;
+}
+
+export const galleryInfoStore = create<GalleryInfoState>((set) => ({
+  value: false,
+  open: () => set((state) => ({ ...state, value: true })),
+  close: () => set((state) => ({ ...state, value: false })),
+}));

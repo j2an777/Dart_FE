@@ -13,6 +13,8 @@ export interface ButtonProp extends ButtonHTMLAttributes<HTMLButtonElement> {
   hover?: Colors;
   resize?: string;
   leftContent?: React.ReactNode;
+  color?: Colors;
+  fontSize?: number;
 }
 
 const Button = ({ leftContent, ...props }: PropsWithChildren<ButtonProp>) => {

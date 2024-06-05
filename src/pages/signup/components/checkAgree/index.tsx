@@ -1,5 +1,5 @@
 import { Button, Icon, Text } from '@/components';
-import { alertStore } from '@/stores/alert';
+import { alertStore } from '@/stores/modal';
 
 import * as S from './styles';
 
