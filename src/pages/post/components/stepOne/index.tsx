@@ -1,6 +1,7 @@
-import { InputBox, TextBox } from '../../styles';
 import { useFormContext, Controller } from 'react-hook-form';
 import * as S from './styles';
+import { InputBox, TextBox } from '../inputs/styles';
+import TagsInput from '../inputs/TagsInput';
 
 const StepOne = () => {
   const { control } = useFormContext();
@@ -17,15 +18,14 @@ const StepOne = () => {
           )}
         />
         <Controller
-          name="hashtag"
+          name="hashTags"
           control={control}
-          rules={{ required: '해시태그를 입력해 주세요.' }}
           render={({ field }) => (
-            <InputBox placeholder="해시태그를 입력해 주세요." width={750} {...field} />
+            <TagsInput value={field.value} onChange={field.onChange} />
           )}
         />
         <Controller
-          name="description"
+          name="content"
           control={control}
           rules={{ required: '작품 소개를 입력해 주세요.' }}
           render={({ field }) => (

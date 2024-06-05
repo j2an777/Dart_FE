@@ -1,20 +1,20 @@
 import { useNavigate } from 'react-router-dom';
-import { FormProvider, useForm } from 'react-hook-form';
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import StepZero from './components/stepZero';
 import StepOne from './components/stepOne';
 import StepTwo from './components/stepTwo';
 import { Icon } from '@/components';
+import { PostGalleries } from '@/types/post';
 import * as S from './styles';
-import { Post } from '@/types/post';
 
 const PostPage = () => {
-  const methods = useForm();
+  const methods = useForm<PostGalleries>();
   const { handleSubmit } = methods;
   const navigate = useNavigate();
 
-  const onSubmit = (data: Post) => {
+  const onSubmit: SubmitHandler<PostGalleries> = (data) => {
     console.log(data);
-    //결제 및 생성 api 호출
+    //postGalleries(data);
   };
 
   return (

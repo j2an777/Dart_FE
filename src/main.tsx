@@ -25,7 +25,7 @@ const queryClient = new QueryClient();
 
 enableMocking().then(() =>
   ReactDOM.createRoot(document.getElementById('root')!).render(
-    <React.StrictMode>
+    <React.Fragment>
       <Global styles={globalStyles} />
       <GlobalErrorBoundary fallback={ErrorPage}>
         <QueryClientProvider client={queryClient}>
@@ -36,6 +36,6 @@ enableMocking().then(() =>
           <ReactQueryDevtools initialIsOpen={false} />
         </QueryClientProvider>
       </GlobalErrorBoundary>
-    </React.StrictMode>,
+    </React.Fragment>,
   ),
 );

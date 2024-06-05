@@ -4,7 +4,7 @@ import { Text } from '@/components';
 
 export const Container = styled.div`
   position: relative;
-  padding: 160px 80px 50px;
+  padding: 150px 80px 50px;
   width: 100%;
   border-bottom: 2px solid ${colors.black};
 `;

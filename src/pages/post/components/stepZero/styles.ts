@@ -1,5 +1,6 @@
 import { colors } from '@/styles/colorPalette';
 import { LayoutMap } from '@/styles/layout';
+import { bolderMap, typographyMap } from '@/styles/typography';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import Calendar from 'react-calendar';
@@ -124,8 +125,43 @@ export const Date = styled.div`
 
 export const StyledCalendar = styled(Calendar)`
   position: absolute;
-  top: 300px;
+  top: 285px;
   left: 50%;
   transform: translateX(15%);
   width: 500px;
+  border: none;
+  ${typographyMap.t5}
+
+  .react-calendar__navigation__label {
+    ${typographyMap.t4}
+    ${bolderMap.semibold}
+  }
+
+  // 오늘 날짜
+  .react-calendar__tile--now {
+    background: none;
+    border: 1px solid ${colors.red};
+  }
+
+  .react-calendar__tile--now:enabled:hover,
+  .react-calendar__tile--now:enabled:focus {
+    background: ${colors.gray100};
+  }
+
+  //시작 날짜
+  .react-calendar__tile--active {
+    background: ${colors.gray600};
+    color: ${colors.white};
+  }
+  .react-calendar__tile--active:enabled:hover,
+  .react-calendar__tile--active:enabled:focus {
+    background: ${colors.gray600};
+    color: ${colors.white};
+  }
+
+  //기간
+  .highlight {
+    background: ${colors.gray600};
+    color: ${colors.white};
+  }
 `;
