@@ -7,6 +7,6 @@ export type galleryImages = {
 export type galleryData = {
     title: string,
     thumbnail : string,
-    isFirst: boolean,
+    hasComment: boolean,
     images : galleryImages[],
 }

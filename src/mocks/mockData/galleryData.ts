@@ -1,6 +1,7 @@
 export const GalleryData = {
     title: '갤러리 전시회1',
     thumbnail: 'image url',
+    hasComment: true,
     images: [
         {
             image: '/gallery1.png',
