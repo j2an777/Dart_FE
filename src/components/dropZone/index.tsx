@@ -10,22 +10,25 @@ interface FileWithPreview extends File {
 
 interface DropZoneProps {
   info?: string;
+  onFileUpload: (file: FileWithPreview) => void;
 }
 
-const DropZone = ({ info }: DropZoneProps) => {
+const DropZone = ({ info, onFileUpload }: DropZoneProps) => {
   const [files, setFiles] = useState<FileWithPreview[]>([]);
   const { getRootProps, getInputProps } = useDropzone({
     accept: {
-      'image/*': [],
+      'image/png': [],
+      'image/jpeg': [],
+      'image/jpg': [],
     },
     onDrop: (acceptedFiles: File[]) => {
-      setFiles(
-        acceptedFiles.map((file) =>
-          Object.assign(file, {
-            preview: URL.createObjectURL(file),
-          }),
-        ),
+      const previewFiles = acceptedFiles.map((file) =>
+        Object.assign(file, {
+          preview: URL.createObjectURL(file),
+        }),
       );
+      setFiles(previewFiles);
+      onFileUpload(previewFiles[0]);
     },
   });
 
@@ -67,5 +70,3 @@ const DropZone = ({ info }: DropZoneProps) => {
 };
 
 export default DropZone;
-
-//https://react-dropzone.js.org/

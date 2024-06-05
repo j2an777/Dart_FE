@@ -1,46 +1,87 @@
+import { useEffect } from 'react';
+import { useFormContext } from 'react-hook-form';
 import DropZone from '@/components/dropZone';
+import { formatDateInKST } from '@/utils/formatDateInKST';
 import * as S from './styles';
-import { useEffect, useState } from 'react';
+import { dateNfeeStore } from '@/stores/post';
 
 const StepZero = () => {
-  const [activeBtn, setActiveBtn] = useState<string | null>(null);
-  const [price, setPrice] = useState<number>(0);
-  const [date, setDate] = useState<Date | null>(new Date());
-  const [endDate, setEndDate] = useState<Date | null>(null);
-  const [period, setPeriod] = useState<string | null>(null);
-  const [totalCost, setTotalCost] = useState<number>(0);
+  const { setValue } = useFormContext();
+  const { activeBtn, dateRange, feeDetails, setActiveBtn, setDateRange, setFeeDetails } =
+    dateNfeeStore();
 
-  const onBtnClick = (buttonType: string) => {
-    setActiveBtn(buttonType);
-  };
-  const onPeriodClick = (buttonType: string) => {
-    setPeriod(buttonType);
-  };
   useEffect(() => {
-    if (activeBtn === 'pay' && date instanceof Date) {
-      if (period === '7days') {
-        setTotalCost(1000);
-        setEndDate(new Date(date.getTime() + 7 * 24 * 60 * 60 * 1000));
-      } else if (period === '15days') {
-        setTotalCost(2000);
-        setEndDate(new Date(date.getTime() + 15 * 24 * 60 * 60 * 1000));
-      } else if (period === '30days') {
-        setTotalCost(4000);
-        setEndDate(new Date(date.getTime() + 30 * 24 * 60 * 60 * 1000));
-      } else {
-        setTotalCost(0);
-        setEndDate(null);
+    setValue('fee', feeDetails.fee);
+  }, [feeDetails.fee, setValue]);
+
+  useEffect(() => {
+    if (activeBtn === 'pay' && dateRange.startDate) {
+      let endDate: Date | null = null;
+      let pay = 0;
+      switch (feeDetails.period) {
+        case '7days':
+          pay = 1000;
+          endDate = new Date(dateRange.startDate.getTime() + 7 * 24 * 60 * 60 * 1000);
+          break;
+        case '15days':
+          pay = 2000;
+          endDate = new Date(dateRange.startDate.getTime() + 15 * 24 * 60 * 60 * 1000);
+          break;
+        case '30days':
+          pay = 4000;
+          endDate = new Date(dateRange.startDate.getTime() + 30 * 24 * 60 * 60 * 1000);
+          break;
+        default:
+          break;
       }
+      setFeeDetails({ ...feeDetails, totalPay: pay });
+      setDateRange({ ...dateRange, endDate });
+      setValue('startDate', formatDateInKST(dateRange.startDate));
+      setValue('endDate', formatDateInKST(endDate));
     } else {
-      setTotalCost(0);
-      setEndDate(null);
+      setValue('startDate', formatDateInKST(dateRange.startDate));
+      setFeeDetails({ ...feeDetails, totalPay: 0 });
+      setDateRange({ ...dateRange, endDate: null });
     }
-  }, [period, activeBtn, date]);
+  }, [feeDetails.period, activeBtn, dateRange.startDate, setValue]);
+
+  const onFileDrop = (file: File) => {
+    setValue('thumbnail', file);
+  };
+
+  const onBtnClick = (buttonType: 'free' | 'pay') => {
+    setActiveBtn(buttonType);
+    if (buttonType === 'free') {
+      setFeeDetails({ fee: 0, totalPay: 0, period: null });
+      setDateRange({ ...dateRange, endDate: null });
+      setValue('fee', 0);
+      setValue('endDate', null);
+    }
+  };
+
+  const onPeriodClick = (period: string) => {
+    setFeeDetails({ ...feeDetails, period });
+  };
+
+  const tileClassName = ({ date, view }: { date: Date; view: string }) => {
+    if (view === 'month' && dateRange.startDate && dateRange.endDate) {
+      if (date >= dateRange.startDate && date <= dateRange.endDate) {
+        return 'highlight';
+      }
+    }
+    return null;
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+    }
+  };
 
   return (
-    <S.Container>
+    <S.Container onKeyDown={handleKeyDown}>
       <S.Box>
-        <DropZone info="권장 이미지 크기: 700*700" />
+        <DropZone info="권장 이미지 크기: 700*700" onFileUpload={onFileDrop} />
       </S.Box>
       <S.Box>
         <S.Block>
@@ -58,38 +99,44 @@ const StepZero = () => {
               min={0}
               max={20000}
               step={1000}
-              value={price}
-              onChange={(event) => setPrice(event.target.valueAsNumber)}
+              value={feeDetails.fee}
+              onChange={(event) =>
+                setFeeDetails({ ...feeDetails, fee: event.target.valueAsNumber })
+              }
             />
-            ₩ {price}
+            ₩ {feeDetails.fee}
           </S.Block>
         )}
         <S.Date>
           <S.StyledCalendar
-            value={date}
-            onChange={setDate}
+            value={dateRange.startDate}
+            onChange={(date) => setDateRange({ ...dateRange, startDate: date as Date })}
             selectRange={false}
             defaultView="month"
+            calendarType="gregory"
             showNeighboringMonth={false}
+            locale={'en'}
+            formatDay={(locale, date) => date.toLocaleString('en', { day: 'numeric' })}
+            tileClassName={tileClassName}
           />
         </S.Date>
         {activeBtn === 'pay' && (
           <S.Block>
             <p>전시 기간</p>
             <S.Button
-              isActive={period === '7days'}
+              isActive={feeDetails.period === '7days'}
               onClick={() => onPeriodClick('7days')}
             >
               7 일
             </S.Button>
             <S.Button
-              isActive={period === '15days'}
+              isActive={feeDetails.period === '15days'}
               onClick={() => onPeriodClick('15days')}
             >
               15 일
             </S.Button>
             <S.Button
-              isActive={period === '30days'}
+              isActive={feeDetails.period === '30days'}
               onClick={() => onPeriodClick('30days')}
             >
               30 일
@@ -98,7 +145,7 @@ const StepZero = () => {
         )}
         <S.Block>
           <p>총 이용료</p>
-          <div> ₩ {totalCost}</div>
+          <div> ₩ {feeDetails.totalPay}</div>
         </S.Block>
       </S.Box>
     </S.Container>
