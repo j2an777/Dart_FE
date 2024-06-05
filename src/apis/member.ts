@@ -7,7 +7,10 @@ export const postSignup = async (formData: SignupFormData) => {
 };
 
 export const postLogin = async (formData: LoginFormData) => {
-  const response = await instance.post('/api/login', formData);
+  const response = await instance.post(
+    `${import.meta.env.VITE_DEV_URL}api/login`,
+    formData,
+  );
   return response?.data;
 };
 
@@ -21,9 +24,9 @@ export const getMemberInfo = async (nickname?: string) => {
 export const getGalleryInfo = async () => {
   const response = await instance.get(`/api/galleries`);
   return response?.data;
-}
+};
 
 export const putMemberEditInfo = async (formData: EditFormData) => {
   const response = await instance.put('/api/members', formData);
   return response?.data;
-}
+};

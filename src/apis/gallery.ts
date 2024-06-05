@@ -1,12 +1,12 @@
 import instance from './instance';
-import { GalleriesData, GalleryParams } from '@/types/gallery';
+import { GalleriesData, FilterType } from '@/types/gallery';
 import { PostGalleries } from '@/types/post';
 
 export const postGalleries = async (formData: PostGalleries) => {
   const response = await instance.post('/api/galleries', formData);
   return response?.data;
 };
-interface GetGalleriesParams extends Partial<GalleryParams> {
+interface GetGalleriesParams extends Partial<FilterType> {
   page?: number;
   size?: number;
 }

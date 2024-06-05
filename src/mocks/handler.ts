@@ -83,7 +83,7 @@ export const handlers = [
       return HttpResponse.json(
         {
           accessToken:
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c',
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTc1NjYyMTQsImV4cCI6MTcyMDU2NjIxNCwiZW1haWwiOiJ0ZXN0QGdtYWlsLmNvbSIsIm5pY2tuYW1lIjoidGVzdCJ9.4BC6fjlPBNGU7zxWpt8opoAUSSnKPx7OqfpRxHyYV6A',
         },
         { status: 200 },
       );
