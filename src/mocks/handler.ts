@@ -1,13 +1,6 @@
 import { http, HttpResponse } from 'msw';
 import { GalleryData } from './mockData/galleryData';
 
-const members = new Map();
-
-const user1 = {
-  email: 'kang123@gmail.com',
-  password: '1q2w3e4r!',
-};
-
 const galleries1 = {
   pages: [
     {
@@ -65,33 +58,7 @@ const galleries1 = {
   },
 };
 
-function isEqual(obj1: object, obj2: object) {
-  return JSON.stringify(obj1) === JSON.stringify(obj2);
-}
 export const handlers = [
-  // 회원가입
-  http.post('/api/signup', async ({ request }) => {
-    const newMember = await request.json();
-    members.set(1, newMember);
-
-    return HttpResponse.json(newMember, { status: 200 });
-  }),
-  // 로그인
-  http.post('/api/login', async ({ request }) => {
-    const userInfo = await request.json();
-    if (isEqual(user1, userInfo as object))
-      return HttpResponse.json(
-        {
-          accessToken:
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c',
-        },
-        { status: 200 },
-      );
-    return HttpResponse.json(
-      { message: '존재하지 않는 회원정보입니다.' },
-      { status: 404 },
-    );
-  }),
   // 회원정보 가져오기
   http.get('/api/members', async ({ request }) => {
     const url = new URL(request.url);

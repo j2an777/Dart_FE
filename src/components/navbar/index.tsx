@@ -1,15 +1,19 @@
 import { useState } from 'react';
 import { Button, Text, UserCircle } from '..';
 import { navbarInfo, userBoxInfo } from '@/consts/navbar';
-import useGetUserInfo from '@/hooks/useGetUserInfo';
 import mainlogo from '@/assets/images/mainLogo.png';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
+import { memberStore } from '@/stores/member';
 
 import * as S from './styles';
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const accessToken = localStorage.getItem('accessToken');
+  const {
+    logout,
+    accessToken,
+    auth: { nickname, profileImage },
+  } = memberStore();
   return (
     <>
       <S.Container>
@@ -19,7 +23,12 @@ const Navbar = () => {
             {navbarInfo.map(({ path, value }, index) => {
               if (value === '로그인') {
                 return accessToken ? (
-                  <UserBox key={index} />
+                  <UserBox
+                    key={index}
+                    logout={logout}
+                    nickname={nickname}
+                    profileImage={profileImage}
+                  />
                 ) : (
                   <Button
                     buttonType="rectangleBlack"
@@ -50,8 +59,13 @@ const Navbar = () => {
 
 export default Navbar;
 
-const UserBox = () => {
-  const { data } = useGetUserInfo();
+interface UserBoxProps {
+  logout: () => void;
+  nickname: string;
+  profileImage: string;
+}
+
+const UserBox = ({ logout, nickname, profileImage }: UserBoxProps) => {
   const [isExpand, setIsExpand] = useState<boolean>(false);
   const navigate = useNavigate();
   return (
@@ -59,19 +73,20 @@ const UserBox = () => {
       onClick={() => setIsExpand((prev) => !prev)}
       onBlur={() => setIsExpand(false)}
     >
-      <UserCircle size={15} />
+      <UserCircle size={15} profileImage={profileImage} />
       <Text typography="t7" bold="regular" ellipsis={50}>
-        {data?.nickname}
+        {nickname}
       </Text>
       {isExpand && (
         <S.MoreBox>
           {userBoxInfo.map(({ path, value }, index) => {
             const onClickItem = () => {
               if (value === '로그아웃') {
-                localStorage.removeItem('accessToken');
+                logout();
                 location.reload();
+              } else {
+                navigate(path);
               }
-              navigate(path);
             };
             return (
               <S.MoreItem
