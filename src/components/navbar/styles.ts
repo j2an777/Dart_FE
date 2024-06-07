@@ -34,6 +34,7 @@ export const UserBoxContainer = styled.div`
   ${LayoutMap.displayFlex}
   gap: 10px;
   position: relative;
+  cursor: pointer;
 `;
 
 export const MoreBox = styled.div`

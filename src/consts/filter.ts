@@ -56,10 +56,6 @@ export const sortButtonInfo: SortInfoType[] = [
     label: '최신순',
   },
   {
-    value: 'hot',
-    label: '인기순',
-  },
-  {
     value: 'liked',
     label: '별점순',
   },

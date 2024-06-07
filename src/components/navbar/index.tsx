@@ -84,8 +84,9 @@ const UserBox = ({ logout, nickname, profileImage }: UserBoxProps) => {
               if (value === '로그아웃') {
                 logout();
                 location.reload();
+              } else {
+                navigate(path);
               }
-              navigate(path);
             };
             return (
               <S.MoreItem

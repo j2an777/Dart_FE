@@ -23,6 +23,7 @@ const SignupPage = () => {
     handleSubmit,
     reset,
     formState: { errors },
+    setValue,
   } = useForm<ExtendedSignupForm>({
     mode: 'onChange',
     defaultValues,
@@ -31,7 +32,7 @@ const SignupPage = () => {
     const isAgree = sessionStorage.getItem('isAgree') === 'true';
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { checkPassword, ...formData } = data;
+    const { passwordConfirm, ...formData } = data;
     const newForm = { ...formData, isAgree };
     await postSignup(newForm).then(() => {
       reset();
@@ -49,7 +50,12 @@ const SignupPage = () => {
       </S.TitleBox>
       {page === '2' ? (
         <S.SignupFormBox>
-          <SignupEssentailForm errors={errors} register={register} watch={watch} />
+          <SignupEssentailForm
+            errors={errors}
+            register={register}
+            watch={watch}
+            setValue={setValue}
+          />
           <SignupOptionalForm errors={errors} register={register} />
         </S.SignupFormBox>
       ) : (

@@ -1,16 +1,19 @@
 import { ExtendedSignupForm } from '@/types/member';
 import { RegisterOptions } from 'react-hook-form';
 
-interface BaseFormField {
+interface FormField {
   label: string;
+  title?: string;
   value: keyof ExtendedSignupForm;
-  registerOptions: RegisterOptions;
+  registerOptions?: RegisterOptions;
+  type?: 'input' | 'textarea';
 }
 
-export const essentiolFormData: BaseFormField[] = [
+export const essentiolFormData: FormField[] = [
   {
     label: '이메일',
     value: 'email',
+    title: '이메일 검증',
     registerOptions: {
       required: '이메일을 입력해주세요',
       pattern: {
@@ -22,10 +25,11 @@ export const essentiolFormData: BaseFormField[] = [
   {
     label: '닉네임',
     value: 'nickname',
+    title: '닉네임 중복 검사',
     registerOptions: {
       required: '닉네임을 입력해주세요',
       pattern: {
-        value: /^[A-Za-z가-힣]{1,10}$/,
+        value: /^[가-힣a-zA-Z0-9]{1,10}$/,
         message: '한글 영문 조합 10자 이내',
       },
     },
@@ -43,37 +47,12 @@ export const essentiolFormData: BaseFormField[] = [
   },
   {
     label: '비밀번호 확인',
-    value: 'checkPassword',
+    value: 'passwordConfirm',
     registerOptions: {
       required: '비밀번호 혹인을 입력해주세요',
     },
   },
 ];
-
-interface BaseField {
-  label: string;
-  value: keyof ExtendedSignupForm;
-}
-
-interface InputField extends BaseField {
-  type: 'input';
-  registerOptions: RegisterOptions;
-}
-
-interface TextAreaField extends BaseField {
-  type: 'textarea';
-}
-
-interface BankItemField extends BaseField {
-  // 'bankBox' 항목에 추가적인 속성이 필요하다면 여기에 추가
-}
-
-interface BankBoxField {
-  type: 'bankBox';
-  items: BankItemField[];
-}
-
-type FormField = InputField | TextAreaField | BankBoxField;
 
 export const optionalFormData: FormField[] = [
   {
@@ -88,19 +67,6 @@ export const optionalFormData: FormField[] = [
     },
   },
   {
-    type: 'bankBox',
-    items: [
-      {
-        label: '은행명',
-        value: 'bank',
-      },
-      {
-        label: '계좌정보',
-        value: 'account',
-      },
-    ],
-  },
-  {
     label: '자기 소개글',
     value: 'introduce',
     type: 'textarea',
@@ -111,7 +77,7 @@ export const defaultValues = {
   email: '',
   nickname: '',
   password: '',
-  checkPassword: '',
+  passwordConfirm: '',
   age: '',
   bank: '',
   account: '',

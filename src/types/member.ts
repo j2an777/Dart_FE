@@ -26,7 +26,7 @@ export type EditFormData = Partial<
 };
 
 export interface ExtendedSignupForm extends SignupFormData {
-  checkPassword: string;
+  passwordConfirm: string;
 }
 
 export interface LoginFormData {
