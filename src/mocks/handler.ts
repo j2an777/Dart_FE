@@ -1,5 +1,7 @@
 import { http, HttpResponse } from 'msw';
 import { GalleryData } from './mockData/galleryData';
+import { GalleryDetailData } from './mockData/galleryDetail';
+import { EditData } from './mockData/editData';
 
 const members = new Map();
 
@@ -92,8 +94,9 @@ export const handlers = [
       { status: 404 },
     );
   }),
+
   // 회원정보 가져오기
-  http.get('/api/members', async ({ request }) => {
+  http.get('/api/members?nickname=user1', async ({ request }) => {
     const url = new URL(request.url);
     const nickname = url.searchParams.get('nickname');
     const accessToken = request.headers.get('Authorization');
@@ -106,27 +109,47 @@ export const handlers = [
       );
     }
     if (nickname === 'undefined') {
-      return HttpResponse.json(
-        {
-          nickname: 'user1',
-        },
-        { status: 200 },
-      );
+      return HttpResponse.json(EditData, { status: 200 });
     }
-    return HttpResponse.json(
-      {
-        message: '다른 유저 정보를 받은 경우',
-      },
-      { status: 200 },
-    );
+    return HttpResponse.json(EditData, { status: 200 });
   }),
   http.get('/api/galleries/1', () => {
-    return HttpResponse.json(GalleryData);
+    return HttpResponse.json(GalleryData, { status: 200 });
   }),
-  http.put('/api/members', async () => {
-    return HttpResponse.json({ status: 200 });
+  http.put('/api/members', async ({ request }) => {
+    const accessToken = request.headers.get('Authorization');
+    if (!accessToken) {
+      return HttpResponse.json(
+        {
+          message: '로그인 후 가능합니다',
+        },
+        { status: 401 },
+      );
+    }
+
+    const data = await request.formData();
+    // formData 보내기 확인. 나중에 삭제 요망
+    console.log('Received data: ');
+    data.forEach((value, key) => {
+      if (value instanceof File) {
+          console.log(`${key}: [File] ${value.name}, ${value.size} bytes, ${value.type}`);
+      } else {
+          console.log(`${key}: ${value}`);
+      }
+    });
+
+    return HttpResponse.json(
+      {
+        message: 'ok',
+        data,
+      },
+      { status: 200 }
+    );
   }),
   http.get('/api/galleries', () => {
     return HttpResponse.json(galleries1, { status: 200 });
+  }),
+  http.get('/api/galleries/info?=1', () => {
+    return HttpResponse.json(GalleryDetailData, {status: 200});
   }),
 ];

@@ -5,16 +5,18 @@ export interface SignupFormData {
   email: string;
   nickname: string;
   password: string;
-  age?: string;
+  birthday?: string;
   bank?: string;
   account?: string;
   introduce?: string;
 }
 
 export type EditFormData = Partial<Pick<
-  SignupFormData, 'nickname' | 'password' | 'bank' | 'account' | 'introduce'>> & {
-    profileImage?: string;
+  SignupFormData, 'email' | 'birthday' | 'nickname' | 'introduce'>> & {
+    profileImage: FileList | string;
 };
+
+export type PutFormData = Partial<Pick<EditFormData, 'nickname' | 'introduce' | 'profileImage'>>;
 
 export interface ExtendedSignupForm extends SignupFormData {
   checkPassword: string;
