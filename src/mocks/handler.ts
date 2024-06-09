@@ -3,13 +3,6 @@ import { GalleryData } from './mockData/galleryData';
 import { GalleryDetailData } from './mockData/galleryDetail';
 import { EditData } from './mockData/editData';
 
-const members = new Map();
-
-const user1 = {
-  email: 'kang123@gmail.com',
-  password: '1q2w3e4r!',
-};
-
 const galleries1 = {
   pages: [
     {
@@ -90,16 +83,6 @@ export const handlers = [
     return HttpResponse.json(GalleryData, { status: 200 });
   }),
   http.put('/api/members', async ({ request }) => {
-    const accessToken = request.headers.get('Authorization');
-    if (!accessToken) {
-      return HttpResponse.json(
-        {
-          message: '로그인 후 가능합니다',
-        },
-        { status: 401 },
-      );
-    }
-
     const data = await request.formData();
     // formData 보내기 확인. 나중에 삭제 요망
     console.log('Received data: ');
@@ -125,4 +108,12 @@ export const handlers = [
   http.get('/api/galleries/info?=1', () => {
     return HttpResponse.json(GalleryDetailData, {status: 200});
   }),
+  http.post('/api/reviews', async ({ request }) => {
+    const data = await request.json();
+
+    return HttpResponse.json(
+      data,
+      { status: 200 }
+    );
+  })
 ];

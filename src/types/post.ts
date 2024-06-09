@@ -14,3 +14,9 @@ export interface PostGalleries {
   fee: number;
   hashTags: string[];
 }
+
+export interface PostReview {
+  galleryId: number;
+  content: string;
+  score: number;
+}
