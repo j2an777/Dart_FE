@@ -3,13 +3,11 @@ import { Text, UserCircle } from '@/components';
 import * as S from './styles';
 import { EditFormData } from '@/types/member';
 import { alertStore } from '@/stores/modal';
-import { useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getMemberInfo, putMemberEditInfo } from '@/apis/member';
 
 const EditMemberForm = () => {
   const open = alertStore((state) => state.open);
-  const [uploadProfile, setUploadProfile] = useState('');
   const queryClient = useQueryClient();
 
   const { data: editData, error, isLoading } = useQuery({
@@ -44,8 +42,8 @@ const EditMemberForm = () => {
     formData.append('nickname', data.nickname || '');
     formData.append('introduce', data.introduce || '');
 
-    if (data.profileImage[0]) {
-      formData.append('profileImage', data.profileImage[0]);
+    if (data.profileImage) {
+      formData.append('profileImage', data.profileImage);
     }
 
     // formData 보내기 확인. 나중에 삭제 요망
@@ -84,13 +82,6 @@ const EditMemberForm = () => {
     });
   };
 
-  const onHandleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setUploadProfile(URL.createObjectURL(file));
-    }
-  };
-
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -104,7 +95,7 @@ const EditMemberForm = () => {
       <S.Container>
         <S.ProfileBlock>
           <S.ProfileLeft>
-            <UserCircle profileImage={uploadProfile ? uploadProfile : editData.profileImage.MockImg} size={150} />
+            <UserCircle profileImage={editData.profileImage.MockImg} size={150} />
             <S.ProfilePlus htmlFor="avatar-upload">
               +
               <S.ProfilePlusBtn
@@ -112,7 +103,6 @@ const EditMemberForm = () => {
                 type="file"
                 id="avatar-upload"
                 accept="image/*"
-                onChange={(e) => onHandleImage(e)}
               />
             </S.ProfilePlus>
           </S.ProfileLeft>

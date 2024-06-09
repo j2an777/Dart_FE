@@ -18,7 +18,7 @@ export const postLogin = async (formData: LoginFormData) => {
 
 export const getMemberInfo = async (nickname?: string) => {
   const response = await instance.get(`/api/members?nickname=${nickname}`);
-  return response?.data as { nickname: string };
+  return response?.data;
 };
 
 export const putMemberEditInfo = async (formData: FormData) => {
