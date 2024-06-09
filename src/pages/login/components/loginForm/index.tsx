@@ -3,10 +3,11 @@ import { InputField } from '@/components';
 import { LoginFormData } from '@/types/member';
 import LoginLinkButton from '../loginLinkButton';
 import { loginButtons, loginFormData } from '@/consts/login';
-
-import * as S from './styles';
 import { postLogin } from '@/apis/member';
 import { useNavigate } from 'react-router-dom';
+import { memberStore } from '@/stores/member';
+
+import * as S from './styles';
 
 const LoginForm = () => {
   const {
@@ -14,11 +15,13 @@ const LoginForm = () => {
     formState: { errors },
     handleSubmit,
   } = useForm<LoginFormData>();
-  
+  const setMember = memberStore((state) => state.setMember);
   const navigate = useNavigate();
   const onSubmit = async (data: LoginFormData) => {
     await postLogin(data)
-      .then(({ accessToken }) => localStorage.setItem('accessToken', accessToken))
+      .then(({ accessToken }) => {
+        setMember(accessToken);
+      })
       .then(() => navigate(-1));
   };
 

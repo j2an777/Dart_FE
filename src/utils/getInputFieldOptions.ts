@@ -1,12 +1,12 @@
 const getInputFieldOptions = (value: string, isBlind: boolean) => {
   const type =
-    (value === 'password' && isBlind) || (value === 'checkPassword' && isBlind)
+    (value === 'password' && isBlind) || (value === 'passwordConfirm' && isBlind)
       ? 'password'
       : 'text';
   const autoComplete =
     value === 'email' || value === 'nickname'
       ? 'username'
-      : value === 'password' || value === 'checkPassword'
+      : value === 'password' || value === 'passwordConfirm'
         ? 'new-password'
         : null;
   return autoComplete ? { type, autoComplete } : { type };

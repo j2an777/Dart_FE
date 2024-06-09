@@ -1,5 +1,5 @@
-import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { css } from '@emotion/react';
 import { colors } from '@/styles/colorPalette';
 import Text from '../Text';
 import { Icon } from '..';
@@ -26,22 +26,42 @@ export const Label = styled.label<{ isFocused: boolean }>`
   transition: all 0.5s;
 `;
 
-export const Input = styled.input`
+export const Input = styled.input<{ inputType?: 'default' | 'alert' }>`
   font-size: 24px;
   padding: 10px;
-  color: ${colors.white};
-  border-bottom: 1px solid ${colors.white};
 
-  // autocomplete css 속성
-  :-webkit-autofill,
-  :-webkit-autofill:hover,
-  :-webkit-autofill:focus,
-  :-webkit-autofill:active {
-    -webkit-text-fill-color: ${colors.white};
-    -webkit-box-shadow: 0 0 0px 1000px inherit inset;
-    box-shadow: 0 0 0px 1000px inherit inset;
-    transition: background-color 5000s ease-in-out 0s;
-  }
+  ${({ inputType = 'default' }) =>
+    inputType === 'default'
+      ? css`
+          color: ${colors.white};
+          border-bottom: 1px solid ${colors.white};
+
+          // autocomplete css 속성
+          :-webkit-autofill,
+          :-webkit-autofill:hover,
+          :-webkit-autofill:focus,
+          :-webkit-autofill:active {
+            -webkit-text-fill-color: ${colors.white};
+            -webkit-box-shadow: 0 0 0px 1000px inherit inset;
+            box-shadow: 0 0 0px 1000px inherit inset;
+            transition: background-color 5000s ease-in-out 0s;
+          }
+        `
+      : css`
+          color: ${colors.black};
+          border-bottom: 1px solid ${colors.black};
+
+          // autocomplete css 속성
+          :-webkit-autofill,
+          :-webkit-autofill:hover,
+          :-webkit-autofill:focus,
+          :-webkit-autofill:active {
+            -webkit-text-fill-color: ${colors.black};
+            -webkit-box-shadow: 0 0 0px 1000px inherit inset;
+            box-shadow: 0 0 0px 1000px inherit inset;
+            transition: background-color 5000s ease-in-out 0s;
+          }
+        `}
 `;
 
 export const ErrorMessage = styled(Text)`

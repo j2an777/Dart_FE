@@ -1,12 +1,13 @@
+import { memberStore } from '@/stores/member';
 import { PropsWithChildren } from 'react';
 import { Navigate } from 'react-router-dom';
 
 function ProtectedRoute({ children, path }: PropsWithChildren<{ path: string }>) {
-  const user = localStorage.getItem('accessToken');
+  const isLogin = !!memberStore((state) => state.accessToken);
   if (path === '/login' || path === '/signup') {
-    return user ? <Navigate to={'/'} /> : (children as JSX.Element);
+    return isLogin ? <Navigate to={'/'} /> : (children as JSX.Element);
   }
-  return user ? (children as JSX.Element) : <Navigate to={'/login'} />;
+  return isLogin ? (children as JSX.Element) : <Navigate to={'/login'} />;
 }
 
 export default ProtectedRoute;

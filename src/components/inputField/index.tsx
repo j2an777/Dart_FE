@@ -9,9 +9,18 @@ interface InputFieldProps {
   value: string;
   register: UseFormRegisterReturn<string>;
   error?: FieldError | undefined;
+  disabled?: boolean;
+  inputType?: 'default' | 'alert';
 }
 
-const InputField = ({ label, value, register, error }: InputFieldProps) => {
+const InputField = ({
+  label,
+  value,
+  register,
+  error,
+  disabled = false,
+  inputType = 'default',
+}: InputFieldProps) => {
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const [isBlind, setIsBlind] = useState<boolean>(true);
   const inputOptions = getInputFieldOptions(value, isBlind);
@@ -28,6 +37,8 @@ const InputField = ({ label, value, register, error }: InputFieldProps) => {
             setIsFocused(false);
           }
         }}
+        disabled={disabled}
+        inputType={inputType}
       />
       {value.includes('password') && (
         <S.BlindIcon

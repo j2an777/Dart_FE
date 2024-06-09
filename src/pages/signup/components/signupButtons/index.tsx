@@ -26,7 +26,8 @@ const SignupButtons = ({ page }: SignupButtonsProps) => {
           size="lg"
           buttonType="rectangleWhite"
           bold="regular"
-          onClick={() => {
+          type="button"
+          onMouseDown={() => {
             sessionStorage.setItem('isAgree', JSON.stringify(true));
             navigate('/signup?page=2');
           }}
