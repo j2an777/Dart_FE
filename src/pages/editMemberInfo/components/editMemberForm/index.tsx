@@ -1,7 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { Text, UserCircle } from '@/components';
 import * as S from './styles';
-import Profile from '@/assets/images/profile.png';
 import { EditFormData } from '@/types/member';
 import { alertStore } from '@/stores/modal';
 import { useState } from 'react';
@@ -10,7 +9,7 @@ import { getMemberInfo, putMemberEditInfo } from '@/apis/member';
 
 const EditMemberForm = () => {
   const open = alertStore((state) => state.open);
-  const [uploadProfile, setUploadProfile] = useState(Profile);
+  const [uploadProfile, setUploadProfile] = useState('');
   const queryClient = useQueryClient();
 
   const { data: editData, error, isLoading } = useQuery({
@@ -105,7 +104,7 @@ const EditMemberForm = () => {
       <S.Container>
         <S.ProfileBlock>
           <S.ProfileLeft>
-            <UserCircle profileImage={uploadProfile} size={150} />
+            <UserCircle profileImage={uploadProfile ? uploadProfile : editData.profileImage.MockImg} size={150} />
             <S.ProfilePlus htmlFor="avatar-upload">
               +
               <S.ProfilePlusBtn
