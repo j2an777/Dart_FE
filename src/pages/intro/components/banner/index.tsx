@@ -1,5 +1,6 @@
 import { Text } from '@/components';
 import * as S from './styles';
+import { Link } from 'react-router-dom';
 
 const Banner = () => {
   return (
@@ -13,7 +14,9 @@ const Banner = () => {
       <S.LineBlock>
         <S.Border></S.Border>
         <Text typography='t5' bold='regular' className='right'>
-          Entrance
+          <Link to="/">
+            Entrance
+          </Link>
         </Text>
         <S.Empty></S.Empty>
       </S.LineBlock>
