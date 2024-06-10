@@ -1,11 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-import StepZero from './components/stepZero';
-import StepOne from './components/stepOne';
-import StepTwo from './components/stepTwo';
+import { StepZero, StepOne, StepTwo } from './components';
 import { Icon } from '@/components';
 import { PostGalleries } from '@/types/post';
 import * as S from './styles';
+import { postGalleries } from '@/apis/gallery';
 
 const PostPage = () => {
   const methods = useForm<PostGalleries>();
@@ -14,7 +13,7 @@ const PostPage = () => {
 
   const onSubmit: SubmitHandler<PostGalleries> = (data) => {
     console.log(data);
-    //postGalleries(data);
+    postGalleries(data);
   };
 
   return (

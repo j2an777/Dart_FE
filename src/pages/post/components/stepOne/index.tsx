@@ -10,7 +10,7 @@ const StepOne = () => {
       <S.Step>01</S.Step>
       <S.Block>
         <Controller
-          name="title"
+          name="gallery.title"
           control={control}
           rules={{ required: '작품명을 입력해 주세요.' }}
           render={({ field }) => (
@@ -18,14 +18,14 @@ const StepOne = () => {
           )}
         />
         <Controller
-          name="hashTags"
+          name="gallery.hashtags"
           control={control}
           render={({ field }) => (
             <TagsInput value={field.value} onChange={field.onChange} />
           )}
         />
         <Controller
-          name="content"
+          name="gallery.content"
           control={control}
           rules={{ required: '작품 소개를 입력해 주세요.' }}
           render={({ field }) => (

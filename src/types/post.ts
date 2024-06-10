@@ -1,16 +1,20 @@
-export interface Item {
-  image: File;
+export interface Info {
   imageTitle: string;
   description: string;
 }
 
-export interface PostGalleries {
-  thumbnail: File;
+export interface Gallery {
   title: string;
   content: string;
   startDate: Date;
   endDate: Date;
-  images: Item[];
   fee: number;
   hashTags: string[];
+  information: Info[];
+}
+
+export interface PostGalleries {
+  gallery: Gallery;
+  thumbnail: File;
+  images: File[];
 }
