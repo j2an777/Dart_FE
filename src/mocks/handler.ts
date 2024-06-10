@@ -111,6 +111,7 @@ export const handlers = [
   http.get('/api/galleries/info?gallery-id=1', () => {
     return HttpResponse.json(GalleryDetailData, { status: 200 });
   }),
+  // 리뷰 작성
   http.post('/api/reviews', async ({ request }) => {
     const data = await request.json();
 

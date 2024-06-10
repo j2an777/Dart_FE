@@ -6,7 +6,7 @@ import ReviewModal from '../reviewModal';
 import { useNavigate, useParams } from 'react-router-dom';
 import { PostReview } from '@/types/post';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { postReview } from '@/apis/gallery';
+import { postReview } from '@/apis/review';
 
 const GalleryHeader = () => {
   const open = alertStore((state) => state.open);

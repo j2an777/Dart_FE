@@ -1,6 +1,6 @@
 import instance from './instance';
 import { FilterType, GalleriesData } from '@/types/gallery';
-import { PostGalleries, PostReview } from '@/types/post';
+import { PostGalleries } from '@/types/post';
 
 export const postGalleries = async (formData: PostGalleries) => {
   const { thumbnail, images, gallery } = formData;
@@ -59,13 +59,4 @@ export const getGalleryDetail = async (id: number) => {
     `${import.meta.env.VITE_DEV_URL}api/galleries/info?gallery-id=${id}`
   );
   return response?.data;
-};
-
-export const postReview = async (reviewData: PostReview) => {
-  const response = await instance.post(`${import.meta.env.VITE_DEV_URL}api/reviews`, reviewData);
-  if (response.status === 200) {
-    console.log('성공');
-  } else {
-    console.log('실패');
-  }
 };
