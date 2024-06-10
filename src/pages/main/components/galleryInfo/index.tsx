@@ -100,9 +100,7 @@ const GalleryInfo = ({ galleryId = 1, open }: GalleryInfoProps) => {
                 </Text>
               </S.User>
             </S.Top>
-            <p id="descript">
-              {data.content}
-            </p>
+            <p id="descript">{data.content}</p>
             <Icon value="galaxy" size={20} />
             <Text typography="t6" bold="regular" color="white">
               {formatDate(data.startDate)} <span>~</span> {formatDate(data.endDate)}

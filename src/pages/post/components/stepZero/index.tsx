@@ -43,7 +43,16 @@ const StepZero = () => {
       setFeeDetails({ ...feeDetails, totalPay: 0 });
       setDateRange({ ...dateRange, endDate: null });
     }
-  }, [feeDetails.period, activeBtn, dateRange.startDate, setValue]);
+  }, [
+    feeDetails.period,
+    activeBtn,
+    dateRange.startDate,
+    setValue,
+    dateRange,
+    feeDetails,
+    setFeeDetails,
+    setDateRange,
+  ]);
 
   const onFileDrop = (file: File) => {
     setValue('thumbnail', file);
@@ -116,7 +125,7 @@ const StepZero = () => {
             calendarType="gregory"
             showNeighboringMonth={false}
             locale={'en'}
-            formatDay={(locale, date) => date.toLocaleString('en', { day: 'numeric' })}
+            formatDay={(_locale, date) => date.toLocaleString('en', { day: 'numeric' })}
             tileClassName={tileClassName}
           />
         </S.Date>
