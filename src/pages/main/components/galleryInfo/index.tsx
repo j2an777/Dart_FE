@@ -3,11 +3,15 @@ import mainlogo from '@/assets/images/mainLogo.png';
 import Icon, { IconValues } from '@/components/icon';
 import Text from '@/components/Text';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
 import { Colors } from '@/styles/colorPalette';
 
 import * as S from './styles';
-import { galleryInfoStore } from '@/stores/modal';
+
+
+
+import { galleryInfoStore, alertStore } from '@/stores/modal';
+import { useQuery } from '@tanstack/react-query';
+import { getGalleryDetail } from '@/apis/gallery';
 
 interface GalleryInfoProps {
   galleryId: number | null;
@@ -15,17 +19,21 @@ interface GalleryInfoProps {
 }
 
 const GalleryInfo = ({ galleryId, open }: GalleryInfoProps) => {
-  const [score, setScore] = useState(4.5);
-  const close = galleryInfoStore((state) => state.close);
-  const renderIcons = () => {
+  const open = alertStore((state) => state.open);
+  const { data, error, isLoading } = useQuery({
+    queryKey: ['detail'],
+    queryFn: ({ queryKey }) => getGalleryDetail(queryKey[0])
+  });
+
+  const renderIcons = (reviewAverage: number) => {
     const icons = [];
     for (let i = 0; i < 5; i++) {
       let fillColor: Colors = 'black';
       let value: IconValues = 'review';
 
-      if (i < Math.floor(score)) {
+      if (i < Math.floor(reviewAverage)) {
         fillColor = 'white';
-      } else if (i === Math.floor(score) && score % 1 !== 0) {
+      } else if (i === Math.floor(reviewAverage) && reviewAverage % 1 !== 0) {
         value = 'halfreview';
       }
 
@@ -43,8 +51,35 @@ const GalleryInfo = ({ galleryId, open }: GalleryInfoProps) => {
     return icons;
   };
 
-  const onHandlePay = () => {
-    // 여기서 토스페이 연동 구문
+  const onHandlePay = (ticket: boolean) => {
+    if (ticket) {
+      // props로 받은 galleryId에 해당하는 전시 경로 이동
+    } else {
+      open({
+        title: '티켓 구매하기',
+        description: '티켓을 구매하시겠습니까?',
+        buttonLabel: '확인',
+        onClickButton: () => {
+          // 결제 페이지 api 함수 호출 구문
+        },
+      });
+    }
+  };
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error loading gallery data</div>;
+  }
+
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
   };
   if (!open) return;
   return (
@@ -56,29 +91,26 @@ const GalleryInfo = ({ galleryId, open }: GalleryInfoProps) => {
           <S.DescriptionBlock>
             <S.Top>
               <Text typography="t5" color="white" bold="medium">
-                파동 (WAVE)
+                {data.title}
               </Text>
               <S.User>
                 <S.Circle />
                 <Text typography="t7" bold="regular">
-                  Artist Lee
+                  {data.nickname}
                 </Text>
               </S.User>
             </S.Top>
             <p id="descript">
-              WAVE. 물질 혹은 공간의 한곳에서 시작된 진동이 퍼져나가는 현상이다. 작품속의
-              파동은 이리저리 얽혀 있는 현상을 띤다. 여러 울림들이 모여 하나의 커다란
-              세계가 만들어진다. 울림과 진동, 유동적이고 자유로운 움직임을 가진 것들을
-              통해 나마의 STORY를 펼쳐나간다.
+              {data.content}
             </p>
             <Icon value="galaxy" size={20} />
             <Text typography="t6" bold="regular" color="white">
-              2024.05.22 ~ 2024.06.22
+              {formatDate(data.startDate)} <span>~</span> {formatDate(data.endDate)}
             </Text>
           </S.DescriptionBlock>
           <S.ButtonBlock>
-            <div className="price">₩ 5,000</div>
-            <div className="topay" onClick={onHandlePay}>
+            <div className="price">₩ {data.fee}</div>
+            <div className="topay" onClick={() => onHandlePay(data.hasTicket)}>
               입장하기
             </div>
           </S.ButtonBlock>
@@ -91,13 +123,13 @@ const GalleryInfo = ({ galleryId, open }: GalleryInfoProps) => {
             <S.ScoreWrap>
               <S.Score>
                 <Text color="white" bold="bold">
-                  {score}&nbsp;
+                  {data.reviewAverage}&nbsp;
                 </Text>
                 <Text color="white" bold="bold">
                   / 5
                 </Text>
               </S.Score>
-              {renderIcons()}
+              {renderIcons(data.reviewAverage)}
             </S.ScoreWrap>
             <Link to="/review">
               <Text typography="t7" color="gray300" bold="thin">

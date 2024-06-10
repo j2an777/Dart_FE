@@ -9,7 +9,7 @@ export const Container = styled.div`
     height : 600px;
     ${LayoutMap.displayFlex};
     flex-direction : column;
-    gap : 50px;
+    gap : 30px;
 `;
 
 export const ProfileBlock = styled.div`
@@ -26,12 +26,6 @@ export const ProfileLeft = styled.div`
     ${LayoutMap.displayFlex};
     justify-content : center;
     gap : 10px;
-
-    img {
-        width : 150px;
-        height : 150px;
-        object-fit : contain;
-    }
 `;
 
 export const ProfilePlus = styled.label`
@@ -68,16 +62,17 @@ export const ProfileRight = styled.div`
 
 export const EditBlock = styled.div`
     width : 100%;
-    height : 200px;
+    height : 300px;
     display: grid;
-    grid-template-columns: 100px auto auto;
-    grid-template-rows: auto auto auto auto;
+    grid-template-columns: 100px auto;
+    grid-template-rows: auto auto auto;
     gap : 20px;
     align-items: center;
+    padding: 0 50px;
+    box-sizing : border-box;
 `;
 
 export const Input = styled.input`
-  width: 150px;
   padding: 10px;
   border: 1px solid #ccc;
 `;
@@ -87,8 +82,8 @@ export const Textarea = styled.textarea`
   height: 100%;
   padding: 10px;
   border: 1px solid #ccc;
-  grid-column: 3;
-  grid-row: 1 / span 3;
+  grid-column: 2;
+  grid-row: 2 / span 3;
 `;
 
 export const CancelBtn = styled.button`
@@ -115,8 +110,8 @@ export const ButtonContainer = styled.div`
   display: flex;
   justify-content: flex-end;
   gap: 15px;
-  grid-column: 1 / span 3;
-  grid-row : 4;
+  grid-column: 1 / span 2;
+  grid-row : 5;
 `;
 
 export const Error = styled.p`

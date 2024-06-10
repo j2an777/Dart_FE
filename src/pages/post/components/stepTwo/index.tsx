@@ -4,10 +4,15 @@ import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautif
 import Text from '@/components/Text';
 import DropZone from '@/components/dropZone';
 import { alertStore } from '@/stores/modal';
-import { Item } from '@/types/post';
 import { InputBox, TextBox } from '../inputs/styles';
 
 import * as S from './styles';
+
+interface Item {
+  image: File;
+  imageTitle: string;
+  description: string;
+}
 
 const StepTwo = () => {
   const open = alertStore((state) => state.open);
@@ -16,6 +21,19 @@ const StepTwo = () => {
   const [image, setImage] = useState<File | null>(null);
   const [imageTitle, setTitle] = useState<string>('');
   const [description, setDescription] = useState<string>('');
+
+  const updateGalleryForm = (newGallery: Item[]) => {
+    setGallery(newGallery);
+
+    const imageArray = newGallery.map((item) => item.image);
+    const infoArray = newGallery.map((item) => ({
+      title: item.imageTitle,
+      description: item.description,
+    }));
+
+    setValue('images', imageArray);
+    setValue('gallery.information', infoArray);
+  };
 
   const onFileDrop = (file: File) => {
     setImage(file);
@@ -28,8 +46,7 @@ const StepTwo = () => {
     const newGallery = Array.from(gallery);
     const [movedItem] = newGallery.splice(result.source.index, 1);
     newGallery.splice(result.destination.index, 0, movedItem);
-    setGallery(newGallery);
-    setValue('Images', newGallery);
+    updateGalleryForm(newGallery);
   };
 
   const addItem = () => {
@@ -45,11 +62,10 @@ const StepTwo = () => {
 
     if (gallery.length < 20) {
       const newGallery = [...gallery, { image, imageTitle, description }];
-      setGallery(newGallery);
+      updateGalleryForm(newGallery);
       setImage(null);
       setTitle('');
       setDescription('');
-      setValue('Images', newGallery);
     } else {
       open({
         title: '작품 등록',
@@ -136,8 +152,7 @@ const StepTwo = () => {
                           <button
                             onClick={() => {
                               const newGallery = gallery.filter((_, i) => i !== index);
-                              setGallery(newGallery);
-                              setValue('Images', newGallery);
+                              updateGalleryForm(newGallery);
                             }}
                           >
                             삭제
