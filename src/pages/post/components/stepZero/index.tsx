@@ -11,7 +11,7 @@ const StepZero = () => {
     dateNfeeStore();
 
   useEffect(() => {
-    setValue('fee', feeDetails.fee);
+    setValue('gallery.fee', feeDetails.fee);
   }, [feeDetails.fee, setValue]);
 
   useEffect(() => {
@@ -36,10 +36,10 @@ const StepZero = () => {
       }
       setFeeDetails({ ...feeDetails, totalPay: pay });
       setDateRange({ ...dateRange, endDate });
-      setValue('startDate', formatDateInKST(dateRange.startDate));
-      setValue('endDate', formatDateInKST(endDate));
+      setValue('gallery.startDate', formatDateInKST(dateRange.startDate));
+      setValue('gallery.endDate', formatDateInKST(endDate));
     } else {
-      setValue('startDate', formatDateInKST(dateRange.startDate));
+      setValue('gallery.startDate', formatDateInKST(dateRange.startDate));
       setFeeDetails({ ...feeDetails, totalPay: 0 });
       setDateRange({ ...dateRange, endDate: null });
     }
@@ -54,8 +54,8 @@ const StepZero = () => {
     if (buttonType === 'free') {
       setFeeDetails({ fee: 0, totalPay: 0, period: null });
       setDateRange({ ...dateRange, endDate: null });
-      setValue('fee', 0);
-      setValue('endDate', null);
+      setValue('gallery.fee', 0);
+      setValue('gallery.endDate', null);
     }
   };
 

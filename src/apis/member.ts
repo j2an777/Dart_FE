@@ -28,3 +28,8 @@ export const putMemberEditInfo = async (formData: FormData) => {
   );
   return response?.data;
 };
+
+export const getMyPage = async (nickname?: string) => {
+  const response = await instance.get(`/api/mypage?nickname=${nickname}`);
+  return response?.data;
+};
