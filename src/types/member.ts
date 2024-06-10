@@ -3,7 +3,7 @@ export interface SignupFormData {
   email: string;
   nickname: string;
   password: string;
-  age?: string;
+  birthday?: string;
   bank?: string;
   account?: string;
   introduce?: string;
@@ -20,10 +20,12 @@ export interface Member {
 }
 
 export type EditFormData = Partial<
-  Pick<SignupFormData, 'nickname' | 'password' | 'bank' | 'account' | 'introduce'>
+  Pick<SignupFormData, 'nickname' | 'password' | 'introduce'>
 > & {
-  profileImage?: string;
+  profileImage?: File;
 };
+
+export type PutFormData = Partial<Pick<EditFormData, 'nickname' | 'introduce' | 'profileImage'>>;
 
 export interface ExtendedSignupForm extends SignupFormData {
   passwordConfirm: string;

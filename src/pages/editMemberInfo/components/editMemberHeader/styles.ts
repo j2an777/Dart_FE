@@ -7,6 +7,7 @@ export const Container = styled.div`
     height : 60px;
     ${LayoutMap.displayFlex};
     justify-content : center;
+    padding-bottom : 10px;
     border-bottom : 1px solid black;
 `;
 

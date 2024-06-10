@@ -4,19 +4,40 @@ import { Icon } from '@/components';
 import { alertStore } from '@/stores/modal';
 import ReviewModal from '../reviewModal';
 import { useNavigate } from 'react-router-dom';
+import { PostReview } from '@/types/post';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { postReview } from '@/apis/gallery';
 
 const GalleryHeader = () => {
   const open = alertStore((state) => state.open);
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationKey: ['review'],
+    mutationFn: async (data: PostReview) => postReview(data),
+    onSettled: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['review'],
+      })
+    },
+  });
+
+  const handleReviewSubmit = (data: PostReview & { rating: number }) => {
+    mutation.mutateAsync(data);
+  };
 
   const onHandleToggle = (name: string) => {
     if (name === 'review') {
       open({
         title: '후기 등록하기',
-        description: <ReviewModal />,
+        description: <ReviewModal onSubmit={handleReviewSubmit}/>,
         buttonLabel: '등록',
         onClickButton: () => {
-          // api 요청 함수 호출구문
+          const form = document.querySelector('form');
+          if (form) {
+            form.requestSubmit();
+          }
         },
       });
     } else if (name === 'chat') {

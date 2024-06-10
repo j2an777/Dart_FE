@@ -36,6 +36,7 @@ export interface GalleryDesc extends Gallery {
   profileImage: string;
   reviewAverage: number;
   hasTicket: boolean;
+  content: string;
 }
 
 export interface FilterType {

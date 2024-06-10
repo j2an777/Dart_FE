@@ -1,23 +1,74 @@
 import { useForm } from 'react-hook-form';
-import { Text } from '@/components';
+import { Text, UserCircle } from '@/components';
 import * as S from './styles';
-import Profile from '@/assets/images/profile.png';
 import { EditFormData } from '@/types/member';
-import postMemberEditInfo from '../../hooks/postMemberEditInfo';
 import { alertStore } from '@/stores/modal';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { getMemberInfo, putMemberEditInfo } from '@/apis/member';
 
 const EditMemberForm = () => {
   const open = alertStore((state) => state.open);
+  const queryClient = useQueryClient();
+
+  const { data: editData, error, isLoading } = useQuery({
+    queryKey: ['edit'],
+    queryFn: ({ queryKey }) => getMemberInfo(queryKey[0])
+  });
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<EditFormData>();
+    reset
+  } = useForm<EditFormData>({
+    mode: 'onChange',
+  });
 
-  const onSubmit = (data: EditFormData) => {
-    console.log(data);
-    postMemberEditInfo(data);
+  // 변경사항 저장에 대한 mutation
+  const mutation = useMutation({
+    mutationKey: ['edit'],
+    mutationFn: async (formData: FormData) => putMemberEditInfo(formData),
+    onSettled: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['edit'],
+      })
+    },
+  });
+
+  const onSubmit = async (data: EditFormData) => {
+    
+    const formData = new FormData();
+
+    formData.append('nickname', data.nickname || '');
+    formData.append('introduce', data.introduce || '');
+
+    if (data.profileImage) {
+      formData.append('profileImage', data.profileImage);
+    }
+
+    // formData 보내기 확인. 나중에 삭제 요망
+    console.log('FormData Entries:');
+    formData.forEach((value, key) => {
+        if (value instanceof File) {
+            console.log(`${key}: [File] ${value.name}, ${value.size} bytes, ${value.type}`);
+        } else {
+            console.log(`${key}: ${value}`);
+        }
+    });
+    
+    try {
+      await mutation.mutateAsync(formData);
+      open ({
+        title: '수정 완료',
+        description: '수정이 완료되었습니다.',
+        buttonLabel: '확인',
+        onClickButton: () => {
+          reset();
+        },
+      })
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const onHandleReset = () => {
@@ -26,24 +77,30 @@ const EditMemberForm = () => {
       description: '내용 삭제하시겠습니까?',
       buttonLabel: '확인',
       onClickButton: () => {
-        // field 내용들 초기화
+        reset();
       },
     });
   };
 
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error loading gallery data</div>;
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <S.Container>
         <S.ProfileBlock>
           <S.ProfileLeft>
-            <img src={Profile} alt="Profile" />
+            <UserCircle profileImage={editData.profileImage.MockImg} size={150} />
             <S.ProfilePlus htmlFor="avatar-upload">
               +
               <S.ProfilePlusBtn
                 {...register('profileImage')}
                 type="file"
-
                 id="avatar-upload"
                 accept="image/*"
               />
@@ -54,13 +111,13 @@ const EditMemberForm = () => {
               아이디
             </Text>
             <Text typography="t5" bold="medium">
-              dart123@gmail.com
+              {editData?.email}
             </Text>
             <Text typography="t5" bold="regular">
               나이
             </Text>
             <Text typography="t5" bold="medium">
-              21세
+              {`${editData?.birthday}세`}
             </Text>
           </S.ProfileRight>
         </S.ProfileBlock>
@@ -69,28 +126,15 @@ const EditMemberForm = () => {
             닉네임
           </Text>
           <S.Input
-            {...register('nickname', { required: '닉네임을 입력해주세요.' })}
+            {...register('nickname')}
             type="text"
+            placeholder='닉네임 입력'
+            defaultValue={editData?.nickname}
           />
           {errors.nickname && <S.Error>{errors.nickname.message}</S.Error>}
 
-          <Text typography="t5" bold="regular">
-            은행
-          </Text>
-          <S.Input {...register('bank')} type="text" placeholder="국민은행" />
-          {errors.bank && <S.Error>{errors.bank.message}</S.Error>}
-
-          <Text typography="t5" bold="regular">
-            계좌번호
-          </Text>
-          <S.Input
-            {...register('account', { required: '계좌번호를 입력해주세요.' })}
-            type="text"
-            placeholder="000000-00000000"
-          />
-          {errors.account && <S.Error>{errors.account.message}</S.Error>}
-
-          <S.Textarea {...register('introduce')} placeholder="자기소개 입력" />
+          <Text typography='t5' bold='regular'>자기소개</Text>
+          <S.Textarea {...register('introduce')} placeholder="자기소개 입력" defaultValue={editData?.introduce} />
           {errors.introduce && <S.Error>{errors.introduce.message}</S.Error>}
 
           <S.ButtonContainer>
@@ -104,6 +148,5 @@ const EditMemberForm = () => {
     </form>
   );
 };
-
 
 export default EditMemberForm;

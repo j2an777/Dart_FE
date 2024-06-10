@@ -1,4 +1,4 @@
-import { EditFormData, LoginFormData, SignupFormData } from '@/types/member';
+import { LoginFormData, SignupFormData } from '@/types/member';
 import instance from './instance';
 
 export const postSignup = async (formData: SignupFormData) => {
@@ -18,15 +18,13 @@ export const postLogin = async (formData: LoginFormData) => {
 
 export const getMemberInfo = async (nickname?: string) => {
   const response = await instance.get(`/api/members?nickname=${nickname}`);
-  return response?.data as { nickname: string };
-};
-
-export const getGalleryInfo = async () => {
-  const response = await instance.get(`/api/galleries`);
   return response?.data;
 };
 
-export const putMemberEditInfo = async (formData: EditFormData) => {
-  const response = await instance.put('/api/members', formData);
+export const putMemberEditInfo = async (formData: FormData) => {
+  const response = await instance.put(
+    `${import.meta.env.VITE_DEV_URL}api/members`, 
+    formData
+  );
   return response?.data;
 };

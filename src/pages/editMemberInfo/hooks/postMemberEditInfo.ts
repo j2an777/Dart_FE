@@ -1,12 +1,17 @@
-import { EditFormData } from "@/types/member";
-
-const postMemberEditInfo = async (data: EditFormData) => {
+const postMemberEditInfo = async (data: FormData) => {
     if (!data) return;
 
+    const accessToken = localStorage.getItem('accessToken');
+    if (!accessToken) {
+        throw new Error('로그인이 필요합니다.');
+    }
     
     const response = await fetch('/api/members', {
         method: 'PUT',
-        body: JSON.stringify(data)
+        headers: {
+            'Authorization': `Bearer ${accessToken}`
+        },
+        body: data
     });
 
     if (!response.ok) {
