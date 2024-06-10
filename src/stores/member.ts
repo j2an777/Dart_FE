@@ -33,7 +33,7 @@ export const memberStore = create<memberState>()(
       logout: () =>
         set((prev) => ({
           ...prev,
-          atuh: initalState,
+          auth: initalState,
           accessToken: null,
         })),
     }),

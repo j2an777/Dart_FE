@@ -1,4 +1,5 @@
 import { Alert } from '@/components';
+import { GalleryInfo } from '@/pages/main/components';
 import { ComponentProps } from 'react';
 import { create } from 'zustand';
 
@@ -35,14 +36,22 @@ export const alertStore = create<AlertState>((set, get) => ({
     })),
 }));
 
+type GalleryInfoProps = ComponentProps<typeof GalleryInfo>;
+
 export interface GalleryInfoState {
-  value: boolean;
-  open: () => void;
+  galleryInfoValue: GalleryInfoProps;
+  open: (galleryId: number) => void;
   close: () => void;
 }
 
+const galleryInfoDefaultValue: GalleryInfoProps = {
+  galleryId: null,
+  open: false,
+};
+
 export const galleryInfoStore = create<GalleryInfoState>((set) => ({
-  value: false,
-  open: () => set((state) => ({ ...state, value: true })),
-  close: () => set((state) => ({ ...state, value: false })),
+  galleryInfoValue: galleryInfoDefaultValue,
+  open: (galleryId: number) =>
+    set((state) => ({ ...state, galleryInfoValue: { open: true, galleryId } })),
+  close: () => set((state) => ({ ...state, galleryInfoValue: galleryInfoDefaultValue })),
 }));

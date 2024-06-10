@@ -5,10 +5,10 @@ import parseDate from '@/utils/parseDate';
 import * as S from './styles';
 import { galleryInfoStore } from '@/stores/modal';
 
-const GalleryItem = ({ title, startDate, endDate, thumbnail }: Gallery) => {
+const GalleryItem = ({ title, startDate, endDate, thumbnail, galleryId }: Gallery) => {
   const open = galleryInfoStore((state) => state.open);
   return (
-    <S.Container onClick={open}>
+    <S.Container onClick={() => open(galleryId)}>
       <S.Thumbnail src={thumbnail} alt="thumbnail-image" />
       <Text color="gray500" typography="t7" bold="thin">
         {parseDate(startDate)} ~ {parseDate(endDate)}

@@ -11,6 +11,11 @@ export const postEmailCode = async (formData: { email: string }) => {
   return response?.data;
 };
 
+export const postCheckNickname = async (formData: { nickname: string }) => {
+  const response = await instance.post('/api/signup/nickname/check', formData);
+  return response?.data;
+};
+
 export const postLogin = async (formData: LoginFormData) => {
   const response = await instance.post(`/api/login`, formData);
   return response?.data;

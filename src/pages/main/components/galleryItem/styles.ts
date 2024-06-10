@@ -9,6 +9,7 @@ export const Container = styled.div`
   gap: 5px;
   width: fit-content;
   height: fit-content;
+  cursor: pointer;
 `;
 
 export const Thumbnail = styled.img`

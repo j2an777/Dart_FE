@@ -6,13 +6,20 @@ import { Link } from 'react-router-dom';
 import { Colors } from '@/styles/colorPalette';
 
 import * as S from './styles';
-import { GalleryInfoState, alertStore } from '@/stores/modal';
+
+
+
+import { galleryInfoStore, alertStore } from '@/stores/modal';
 import { useQuery } from '@tanstack/react-query';
 import { getGalleryDetail } from '@/apis/gallery';
 
-const GalleryInfo = ({ close }: Pick<GalleryInfoState, 'close'>) => {
-  const open = alertStore((state) => state.open);
+interface GalleryInfoProps {
+  galleryId: number | null;
+  open: boolean;
+}
 
+const GalleryInfo = ({ galleryId, open }: GalleryInfoProps) => {
+  const open = alertStore((state) => state.open);
   const { data, error, isLoading } = useQuery({
     queryKey: ['detail'],
     queryFn: ({ queryKey }) => getGalleryDetail(queryKey[0])
@@ -74,7 +81,7 @@ const GalleryInfo = ({ close }: Pick<GalleryInfoState, 'close'>) => {
     const day = String(date.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
   };
-
+  if (!open) return;
   return (
     <Dimmed>
       <S.Container>
