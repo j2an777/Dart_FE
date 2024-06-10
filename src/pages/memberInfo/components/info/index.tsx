@@ -1,13 +1,8 @@
-import { useEffect } from 'react';
 import { UserCircle } from '@/components';
 import { Text } from '@/components';
-import { getMemberInfo } from '@/apis/member';
 import * as S from './style';
 
 const Info = () => {
-  const data = getMemberInfo();
-
-  useEffect(() => {});
   return (
     <S.Container>
       <S.Box>

@@ -4,8 +4,6 @@ import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { optionalFormData } from '@/consts/signup';
 import { ExtendedSignupForm } from '@/types/member';
 
-import * as S from './styles';
-
 interface SignupFormProps {
   register: UseFormRegister<ExtendedSignupForm>;
   errors: FieldErrors<ExtendedSignupForm>;
@@ -24,19 +22,6 @@ const SignupOptionalForm = ({ register, errors }: SignupFormProps) => {
               value={form.value}
               error={errors[form.value]}
             />
-          );
-        } else if (form.type === 'bankBox') {
-          return (
-            <S.BankBox key={index}>
-              {form.items?.map(({ value, label }) => (
-                <InputField
-                  key={value}
-                  register={register(value)}
-                  label={label}
-                  value={value}
-                />
-              ))}
-            </S.BankBox>
           );
         } else {
           return (
