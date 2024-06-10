@@ -7,11 +7,16 @@ import { useState } from 'react';
 import { Colors } from '@/styles/colorPalette';
 
 import * as S from './styles';
-import { GalleryInfoState } from '@/stores/modal';
+import { galleryInfoStore } from '@/stores/modal';
 
-const GalleryInfo = ({ close }: Pick<GalleryInfoState, 'close'>) => {
+interface GalleryInfoProps {
+  galleryId: number | null;
+  open: boolean;
+}
+
+const GalleryInfo = ({ galleryId, open }: GalleryInfoProps) => {
   const [score, setScore] = useState(4.5);
-
+  const close = galleryInfoStore((state) => state.close);
   const renderIcons = () => {
     const icons = [];
     for (let i = 0; i < 5; i++) {
@@ -41,7 +46,7 @@ const GalleryInfo = ({ close }: Pick<GalleryInfoState, 'close'>) => {
   const onHandlePay = () => {
     // 여기서 토스페이 연동 구문
   };
-
+  if (!open) return;
   return (
     <Dimmed>
       <S.Container>

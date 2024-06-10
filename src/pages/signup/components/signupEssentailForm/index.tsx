@@ -14,7 +14,8 @@ import { Navigate } from 'react-router-dom';
 import { alertStore } from '@/stores/modal';
 
 import * as S from './styles';
-import { postEmailCode } from '@/apis/member';
+import { postCheckNickname, postEmailCode } from '@/apis/member';
+import { useState } from 'react';
 
 interface SignupFormProps {
   register: UseFormRegister<ExtendedSignupForm>;
@@ -111,18 +112,26 @@ const CheckModal = ({
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm({ mode: 'onChange', defaultValues: { email: '' } });
-
-  const onSubmit = async (form: { email: string }) => {
-    await postEmailCode(form).then(() =>
-      setValue('email', form.email, { shouldValidate: true }),
-    );
+  } = useForm<{ [key: string]: string }>({
+    mode: 'onChange',
+    defaultValues: { [value]: '' },
+  });
+  const [isView, setIsView] = useState<boolean>(false);
+  const onSubmit = async (form: { [key: string]: string }) => {
+    const value = Object.keys(form)[0];
+    if (value === 'email') {
+      await postEmailCode(form as { email: string }).then(() => {
+        setValue('email', form.email, { shouldValidate: true }), setIsView(true);
+      });
+    } else {
+      await postCheckNickname(form as { nickname: string });
+    }
   };
   return (
     <S.CheckModalContainer onSubmit={handleSubmit(onSubmit)}>
       <InputField
-        register={register('email', registerOptions)}
-        error={errors.email}
+        register={register(value, registerOptions)}
+        error={errors[value]}
         label={label}
         value={value}
         inputType="alert"
@@ -130,6 +139,7 @@ const CheckModal = ({
       <Button buttonType="RoundBlack" size="sm" type="submit">
         확인버튼
       </Button>
+      {isView && <>확인란</>}
     </S.CheckModalContainer>
   );
 };
