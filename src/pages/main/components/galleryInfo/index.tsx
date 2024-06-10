@@ -4,25 +4,23 @@ import Icon, { IconValues } from '@/components/icon';
 import Text from '@/components/Text';
 import { Link } from 'react-router-dom';
 import { Colors } from '@/styles/colorPalette';
-
-import * as S from './styles';
-
-
-
-import { galleryInfoStore, alertStore } from '@/stores/modal';
+import { alertStore } from '@/stores/modal';
 import { useQuery } from '@tanstack/react-query';
 import { getGalleryDetail } from '@/apis/gallery';
+
+import * as S from './styles';
 
 interface GalleryInfoProps {
   galleryId: number | null;
   open: boolean;
+  close: () => void;
 }
 
-const GalleryInfo = ({ galleryId, open }: GalleryInfoProps) => {
+const GalleryInfo = ({ galleryId, open: isOpen, close }: GalleryInfoProps) => {
   const open = alertStore((state) => state.open);
   const { data, error, isLoading } = useQuery({
     queryKey: ['detail'],
-    queryFn: ({ queryKey }) => getGalleryDetail(queryKey[0])
+    queryFn: ({ queryKey }) => getGalleryDetail(queryKey[0]),
   });
 
   const renderIcons = (reviewAverage: number) => {
@@ -81,7 +79,7 @@ const GalleryInfo = ({ galleryId, open }: GalleryInfoProps) => {
     const day = String(date.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
   };
-  if (!open) return;
+  if (!isOpen) return;
   return (
     <Dimmed>
       <S.Container>
@@ -100,9 +98,7 @@ const GalleryInfo = ({ galleryId, open }: GalleryInfoProps) => {
                 </Text>
               </S.User>
             </S.Top>
-            <p id="descript">
-              {data.content}
-            </p>
+            <p id="descript">{data.content}</p>
             <Icon value="galaxy" size={20} />
             <Text typography="t6" bold="regular" color="white">
               {formatDate(data.startDate)} <span>~</span> {formatDate(data.endDate)}

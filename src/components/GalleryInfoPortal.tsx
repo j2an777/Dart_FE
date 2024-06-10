@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import { GalleryInfo } from '@/pages/main/components';
 
 const GalleryInfoPortal = () => {
-  const { galleryInfoValue } = galleryInfoStore();
+  const { galleryInfoValue, close } = galleryInfoStore();
   const $portal_root = document.getElementById('gallery-info-portal');
   return (
     <>
@@ -11,10 +11,7 @@ const GalleryInfoPortal = () => {
         ? createPortal(
             <div>
               {galleryInfoValue.open && (
-                <GalleryInfo
-                  galleryId={galleryInfoValue.galleryId}
-                  open={galleryInfoValue.open}
-                />
+                <GalleryInfo close={close} {...galleryInfoValue} />
               )}
             </div>,
             $portal_root,

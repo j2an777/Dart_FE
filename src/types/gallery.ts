@@ -16,7 +16,7 @@ export interface Gallery {
   thumbnail: string;
   title: string;
   startDate: Date;
-  endDate: Date;
+  endDate: Date | null;
   fee: number;
   hashtags: string[];
 }
@@ -51,4 +51,3 @@ export type CategoryValues = FilterType['category'];
 export type DispalyValues = FilterType['display'];
 export type SortValues = FilterType['sort'];
 export type CostValues = FilterType['cost'];
-

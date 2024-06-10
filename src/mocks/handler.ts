@@ -62,7 +62,7 @@ const galleries1 = {
 
 export const handlers = [
   // 회원정보 가져오기
-  http.get('/api/members?nickname=user1', async ({ request }) => {
+  http.get('/api/members', async ({ request }) => {
     const url = new URL(request.url);
     const nickname = url.searchParams.get('nickname');
     const accessToken = request.headers.get('Authorization');
@@ -88,9 +88,9 @@ export const handlers = [
     console.log('Received data: ');
     data.forEach((value, key) => {
       if (value instanceof File) {
-          console.log(`${key}: [File] ${value.name}, ${value.size} bytes, ${value.type}`);
+        console.log(`${key}: [File] ${value.name}, ${value.size} bytes, ${value.type}`);
       } else {
-          console.log(`${key}: ${value}`);
+        console.log(`${key}: ${value}`);
       }
     });
 
@@ -99,21 +99,18 @@ export const handlers = [
         message: 'ok',
         data,
       },
-      { status: 200 }
+      { status: 200 },
     );
   }),
   http.get('/api/galleries', () => {
     return HttpResponse.json(galleries1, { status: 200 });
   }),
-  http.get('/api/galleries/info?=1', () => {
-    return HttpResponse.json(GalleryDetailData, {status: 200});
+  http.get('/api/galleries/1', () => {
+    return HttpResponse.json(GalleryDetailData, { status: 200 });
   }),
   http.post('/api/reviews', async ({ request }) => {
     const data = await request.json();
 
-    return HttpResponse.json(
-      data,
-      { status: 200 }
-    );
-  })
+    return HttpResponse.json(data, { status: 200 });
+  }),
 ];

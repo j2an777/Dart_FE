@@ -36,7 +36,7 @@ export const alertStore = create<AlertState>((set, get) => ({
     })),
 }));
 
-type GalleryInfoProps = ComponentProps<typeof GalleryInfo>;
+type GalleryInfoProps = Omit<ComponentProps<typeof GalleryInfo>, 'close'>;
 
 export interface GalleryInfoState {
   galleryInfoValue: GalleryInfoProps;

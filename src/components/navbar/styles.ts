@@ -15,6 +15,7 @@ export const Container = styled.div`
 export const MaxWidthWrapper = styled.div`
   max-width: 1440px;
   width: 100%;
+  padding: 0px 80px;
   ${LayoutMap.displayFlex}
   justify-content: space-between;
 `;

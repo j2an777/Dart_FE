@@ -29,34 +29,43 @@ export const postGalleries = async (formData: PostGalleries) => {
 };
 
 interface GetGalleriesParams extends Partial<FilterType> {
-  page?: number;
+  pageIndex?: number;
   size?: number;
 }
 
-export const getGalleries = async ({ page = 0, size = 6 }: GetGalleriesParams) => {
+export const getGalleries = async ({
+  pageIndex = 0,
+  size = 6,
+  category = 'title',
+  cost = 'free',
+  display = 'all',
+  keyword = '',
+  sort = 'latest',
+}: GetGalleriesParams) => {
   const response = await instance.get(
-    `${import.meta.env.VITE_DEV_URL}api/galleries?page=${page}&size=${size}`,
+    `${import.meta.env.VITE_DEV_URL}api/galleries?page=${pageIndex}&size=${size}&category=${category}&cost=${cost}&display=${display}&keyword=${keyword}&sort=${sort}`,
   );
   return response?.data as GalleriesData;
 };
 
 export const getGalleryInfo = async (id: string) => {
   const response = await instance.get(
-    `${import.meta.env.VITE_DEV_URL}api/galleries/${id}`
+    `${import.meta.env.VITE_DEV_URL}api/galleries/${id}`,
   );
   return response?.data;
-}
+};
 
 export const getGalleryDetail = async (id: string) => {
   const response = await instance.get(
-    `${import.meta.env.VITE_DEV_URL}api/galleries/info?gallery-id=${id}`
+    `${import.meta.env.VITE_DEV_URL}api/galleries/info?gallery-id=${id}`,
   );
   return response?.data;
-}
+};
 
 export const postReview = async (reviewData: PostReview) => {
   const response = await instance.post(
-    `${import.meta.env.VITE_DEV_URL}api/reviews`, reviewData
+    `${import.meta.env.VITE_DEV_URL}api/reviews`,
+    reviewData,
   );
   return response?.data;
-}
+};
