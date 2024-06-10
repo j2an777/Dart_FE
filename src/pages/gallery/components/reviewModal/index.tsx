@@ -3,13 +3,16 @@ import * as S from './styles';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { PostReview } from '@/types/post';
+import { useNavigate } from 'react-router-dom';
 
 type ReviewModalProps = {
   onSubmit: (data: PostReview & { rating: number }) => void;
+  close: () => void;
 }
 
-const ReviewModal = ({ onSubmit }: ReviewModalProps) => {
+const ReviewModal = ({ onSubmit, close }: ReviewModalProps) => {
   const [rating, setRating] = useState(0);
+  const navigate = useNavigate();
 
   const onHandleRating = (index: number) => {
     setRating(index + 1);
@@ -24,6 +27,11 @@ const ReviewModal = ({ onSubmit }: ReviewModalProps) => {
 
   const handleFormSubmit = (data: PostReview) => {
     onSubmit({ ...data, rating });
+  };
+
+  const toHandleReview = () => {
+    navigate('/review');
+    close();
   };
 
   return (
@@ -47,7 +55,7 @@ const ReviewModal = ({ onSubmit }: ReviewModalProps) => {
           height={300}
           placeholder='관람 후기를 작성해주세요.'
           {...register('content')}/>
-        <S.ToReview to='/review'>전체리뷰 보기 &gt;</S.ToReview>
+        <S.ToReview onClick={toHandleReview}>전체리뷰 보기 &gt;</S.ToReview>
       </form>
     </S.Container>
   )
