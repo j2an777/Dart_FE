@@ -30,3 +30,8 @@ export const putMemberEditInfo = async (formData: EditFormData) => {
   const response = await instance.put('/api/members', formData);
   return response?.data;
 };
+
+export const getMyPage = async (nickname?: string) => {
+  const response = await instance.get(`/api/mypage?nickname=${nickname}`);
+  return response?.data;
+};
