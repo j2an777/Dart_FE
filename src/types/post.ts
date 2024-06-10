@@ -21,6 +21,6 @@ export interface PostGalleries {
 
 export interface PostReview {
   galleryId: number;
-  content: string;
+  content?: string;
   score: number;
 }
