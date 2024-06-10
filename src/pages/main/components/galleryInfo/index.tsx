@@ -2,27 +2,26 @@ import Dimmed from '@/components/Dimmed';
 import mainlogo from '@/assets/images/mainLogo.png';
 import Icon, { IconValues } from '@/components/icon';
 import Text from '@/components/Text';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Colors } from '@/styles/colorPalette';
-
 import * as S from './styles';
-
-
-
-import { galleryInfoStore, alertStore } from '@/stores/modal';
+import { alertStore, galleryInfoStore } from '@/stores/modal';
 import { useQuery } from '@tanstack/react-query';
 import { getGalleryDetail } from '@/apis/gallery';
 
 interface GalleryInfoProps {
-  galleryId: number | null;
+  galleryId: number;
   open: boolean;
 }
 
-const GalleryInfo = ({ galleryId, open }: GalleryInfoProps) => {
-  const open = alertStore((state) => state.open);
+const GalleryInfo = ({ galleryId = 1, open }: GalleryInfoProps) => {
+  const openModal = alertStore((state) => state.open);
+  const navigate = useNavigate();
+  const close = galleryInfoStore(state => state.close);
+
   const { data, error, isLoading } = useQuery({
     queryKey: ['detail'],
-    queryFn: ({ queryKey }) => getGalleryDetail(queryKey[0])
+    queryFn: () => getGalleryDetail(galleryId),
   });
 
   const renderIcons = (reviewAverage: number) => {
@@ -53,9 +52,10 @@ const GalleryInfo = ({ galleryId, open }: GalleryInfoProps) => {
 
   const onHandlePay = (ticket: boolean) => {
     if (ticket) {
-      // props로 받은 galleryId에 해당하는 전시 경로 이동
+      navigate(`/gallery/${galleryId}`);
+      close();
     } else {
-      open({
+      openModal({
         title: '티켓 구매하기',
         description: '티켓을 구매하시겠습니까?',
         buttonLabel: '확인',

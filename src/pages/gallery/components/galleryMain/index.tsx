@@ -3,7 +3,8 @@ import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import GalleryDetail from '../galleryDetail';
 import { galleryImages } from '@/types/gallery';
-import fetchGalleryData from '../../hooks/fetchGalleryData';
+import { useParams } from 'react-router-dom';
+import { getGallery } from '@/apis/gallery';
 
 const GalleryMain = () => {
   const [degrees, setDegrees] = useState(0);
@@ -13,9 +14,12 @@ const GalleryMain = () => {
   const [transZ, setTransZ] = useState(400);
   const [dataDegree, setDataDegree] = useState(0);
 
+  const { galleryId: galleryIdStr } = useParams<{ galleryId?: string }>();
+  const galleryId = galleryIdStr ? parseInt(galleryIdStr, 10) : NaN;
+
   const { data: galleryData, error, isLoading } = useQuery({
     queryKey: ['galleryData'],
-    queryFn: fetchGalleryData
+    queryFn: () => getGallery(galleryId),
   });
 
   useEffect(() => {
@@ -65,7 +69,7 @@ const GalleryMain = () => {
   return (
     <S.Container>
       <S.MainBlock degrees={degrees}>
-        {galleryData?.images.slice(0, 10).map((gallery, index) => (
+        {galleryData?.images.slice(0, 10).map((gallery: galleryImages, index: number) => (
           <S.ImageBox 
             key={index} 
             i={index} 

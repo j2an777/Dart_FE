@@ -1,7 +1,7 @@
 import { http, HttpResponse } from 'msw';
-import { GalleryData } from './mockData/galleryData';
 import { GalleryDetailData } from './mockData/galleryDetail';
 import { EditData } from './mockData/editData';
+import { GalleryData } from './mockData/galleryData';
 
 const galleries1 = {
   pages: [
@@ -79,9 +79,6 @@ export const handlers = [
     }
     return HttpResponse.json(EditData, { status: 200 });
   }),
-  http.get('/api/galleries/1', () => {
-    return HttpResponse.json(GalleryData, { status: 200 });
-  }),
   http.put('/api/members', async ({ request }) => {
     const data = await request.formData();
     // formData 보내기 확인. 나중에 삭제 요망
@@ -102,11 +99,17 @@ export const handlers = [
       { status: 200 }
     );
   }),
+  // 전시 전체 조회
   http.get('/api/galleries', () => {
     return HttpResponse.json(galleries1, { status: 200 });
   }),
-  http.get('/api/galleries/info?=1', () => {
-    return HttpResponse.json(GalleryDetailData, {status: 200});
+  // 전시 단건 조회
+  http.get('/api/galleries/1', () => {
+    return HttpResponse.json(GalleryData, { status: 200 });
+  }),
+  // 전시 정보 조회
+  http.get('/api/galleries/info?gallery-id=1', () => {
+    return HttpResponse.json(GalleryDetailData, { status: 200 });
   }),
   http.post('/api/reviews', async ({ request }) => {
     const data = await request.json();
