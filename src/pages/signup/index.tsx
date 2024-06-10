@@ -29,15 +29,11 @@ const SignupPage = () => {
     defaultValues,
   });
   const onSubmit = async (data: ExtendedSignupForm) => {
-    const isAgree = sessionStorage.getItem('isAgree') === 'true';
-
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { passwordConfirm, ...formData } = data;
-    const newForm = { ...formData, isAgree };
-    await postSignup(newForm).then(() => {
+    await postSignup(formData).then(() => {
       reset();
       navigate('/login');
-      sessionStorage.removeItem('isAgree');
     });
   };
   return (

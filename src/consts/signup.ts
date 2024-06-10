@@ -57,7 +57,7 @@ export const essentiolFormData: FormField[] = [
 export const optionalFormData: FormField[] = [
   {
     label: '생년월일',
-    value: 'age',
+    value: 'birthday',
     type: 'input',
     registerOptions: {
       pattern: {
@@ -78,10 +78,10 @@ export const defaultValues = {
   nickname: '',
   password: '',
   passwordConfirm: '',
-  age: '',
-  bank: '',
-  account: '',
+  birthday: '',
   introduce: '',
+  isCheckedNickname: false,
+  isCheckedEmail: false,
 };
 
 export const signupFormType = ['필수', '선택'];

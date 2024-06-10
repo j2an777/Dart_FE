@@ -1,22 +1,23 @@
 export interface SignupFormData {
-  isAgree: boolean;
   email: string;
   nickname: string;
   password: string;
-  birthday?: string;
-  bank?: string;
-  account?: string;
+  isCheckedEmail: boolean;
+  isCheckedNickname: boolean;
   introduce?: string;
+  birthday?: string;
 }
 
 export interface Member {
   email: string;
   nickname: string;
   profileImage: string;
-  age: Date;
-  bank: string;
-  account: string;
+  birthday: Date;
   introduce: string;
+}
+
+export interface EmailVerify extends Pick<Member, 'email'> {
+  code: string;
 }
 
 export type EditFormData = Partial<
@@ -25,13 +26,12 @@ export type EditFormData = Partial<
   profileImage?: File;
 };
 
-export type PutFormData = Partial<Pick<EditFormData, 'nickname' | 'introduce' | 'profileImage'>>;
+export type PutFormData = Partial<
+  Pick<EditFormData, 'nickname' | 'introduce' | 'profileImage'>
+>;
 
 export interface ExtendedSignupForm extends SignupFormData {
   passwordConfirm: string;
 }
 
-export interface LoginFormData {
-  email: string;
-  password: string;
-}
+export type LoginFormData = Pick<SignupFormData, 'email' | 'password'>;

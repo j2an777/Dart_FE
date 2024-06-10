@@ -9,7 +9,7 @@ export const CheckBox = styled.div`
   justify-content: space-between;
 `;
 
-export const CheckModalContainer = styled.form`
+export const Container = styled.form`
   ${LayoutMap.displayFlex}
   position: relative;
   align-items: flex-end;
