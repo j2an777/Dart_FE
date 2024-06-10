@@ -7,9 +7,7 @@ import { Colors } from '@/styles/colorPalette';
 
 import * as S from './styles';
 
-
-
-import { galleryInfoStore, alertStore } from '@/stores/modal';
+import { alertStore } from '@/stores/modal';
 import { useQuery } from '@tanstack/react-query';
 import { getGalleryDetail } from '@/apis/gallery';
 
@@ -18,11 +16,12 @@ interface GalleryInfoProps {
   open: boolean;
 }
 
-const GalleryInfo = ({ galleryId, open }: GalleryInfoProps) => {
+const GalleryInfo = ({ galleryId }: GalleryInfoProps) => {
   const open = alertStore((state) => state.open);
+  console.log(galleryId);
   const { data, error, isLoading } = useQuery({
     queryKey: ['detail'],
-    queryFn: ({ queryKey }) => getGalleryDetail(queryKey[0])
+    queryFn: ({ queryKey }) => getGalleryDetail(queryKey[0]),
   });
 
   const renderIcons = (reviewAverage: number) => {
@@ -100,9 +99,7 @@ const GalleryInfo = ({ galleryId, open }: GalleryInfoProps) => {
                 </Text>
               </S.User>
             </S.Top>
-            <p id="descript">
-              {data.content}
-            </p>
+            <p id="descript">{data.content}</p>
             <Icon value="galaxy" size={20} />
             <Text typography="t6" bold="regular" color="white">
               {formatDate(data.startDate)} <span>~</span> {formatDate(data.endDate)}

@@ -57,7 +57,7 @@ export const essentiolFormData: FormField[] = [
 export const optionalFormData: FormField[] = [
   {
     label: '생년월일',
-    value: 'age',
+    value: 'birthday',
     type: 'input',
     registerOptions: {
       pattern: {
