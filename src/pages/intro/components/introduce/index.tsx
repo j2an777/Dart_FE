@@ -57,7 +57,17 @@ const Introduce = () => {
             </S.DemoBlock>
         </S.DemoBox>
         <S.AddBox>
-            <img src={InItem2} alt='소개 이미지2' />
+            <motion.div
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: false }}
+                transition={{
+                    ease: 'easeInOut',
+                    duration: 1,
+                    x: { duration: 1}
+            }}>
+                <img src={InItem2} alt='소개 이미지2' />
+            </motion.div>
             <S.AddBlock>
                 <Text typography='t2' bold='semibold'>
                     관람
@@ -86,7 +96,17 @@ const Introduce = () => {
                     대화를 나눠보세요.
                 </Text>
             </S.AddBlock>
-            <img src={InItem3} alt='소개 이미지3' />
+            <motion.div
+                initial={{ opacity: 0, x: 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: false }}
+                transition={{
+                    ease: 'easeInOut',
+                    duration: 1,
+                    x: { duration: 1}
+            }}>
+                <img src={InItem3} alt='소개 이미지3' />
+            </motion.div>
         </S.AddBox>
     </S.Container>
   )
