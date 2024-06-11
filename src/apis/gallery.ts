@@ -40,6 +40,7 @@ export const getGalleries = async ({ page = 0, size = 6 }: GetGalleriesParams) =
   return response?.data as GalleriesData;
 };
 
+// 전시 페이지 get
 export const getGallery = async (galleryId: number) => {
   const response = await instance.get(
     `${import.meta.env.VITE_DEV_URL}api/galleries/${galleryId}`
@@ -47,14 +48,8 @@ export const getGallery = async (galleryId: number) => {
   return response?.data;
 };
 
-export const getGalleryInfo = async (id: string) => {
-  const response = await instance.get(
-    `${import.meta.env.VITE_DEV_URL}api/galleries/${id}`
-  );
-  return response?.data;
-};
-
-export const getGalleryDetail = async (id: number) => {
+// 전시 설명 모달
+export const getGalleryInfo = async (id: number) => {
   const response = await instance.get(
     `${import.meta.env.VITE_DEV_URL}api/galleries/info?gallery-id=${id}`
   );

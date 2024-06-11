@@ -28,7 +28,7 @@ export const getMemberInfo = async (nickname?: string) => {
 
 export const putMemberEditInfo = async (formData: FormData) => {
   const response = await instance.put(
-    `${import.meta.env.VITE_DEV_URL}api/members`, 
+    `/api/members`, 
     formData
   );
   return response?.data;
