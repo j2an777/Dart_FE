@@ -69,6 +69,15 @@ const Introduce = () => {
                 <img src={InItem2} alt='소개 이미지2' />
             </motion.div>
             <S.AddBlock>
+                <motion.div
+                    initial={{ opacity: 0, x: 50 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: false }}
+                    transition={{
+                        ease: 'easeInOut',
+                        duration: 1,
+                        x: { duration: 1}
+                }}>
                 <Text typography='t2' bold='semibold'>
                     관람
                     <span>시간 장소에 제약없는 관람</span>
@@ -80,10 +89,20 @@ const Introduce = () => {
                     <br/>
                     기간 내 관람이 가능합니다.
                 </Text>
+                </motion.div>
             </S.AddBlock>
         </S.AddBox>
         <S.AddBox>
             <S.AddBlock>
+                <motion.div
+                    initial={{ opacity: 0, x: -50 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: false }}
+                    transition={{
+                        ease: 'easeInOut',
+                        duration: 1,
+                        x: { duration: 1}
+                }}>
                 <Text typography='t2' bold='semibold' style={{ textAlign: 'right' }}>
                     소통
                     <span>작가, 관객과 소통하며 즐기는 시간</span>
@@ -95,6 +114,7 @@ const Introduce = () => {
                     <br/>
                     대화를 나눠보세요.
                 </Text>
+                </motion.div>
             </S.AddBlock>
             <motion.div
                 initial={{ opacity: 0, x: 50 }}
