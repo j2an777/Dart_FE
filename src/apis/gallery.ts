@@ -35,7 +35,7 @@ interface GetGalleriesParams extends Partial<FilterType> {
 
 export const getGalleries = async ({ page = 0, size = 6 }: GetGalleriesParams) => {
   const response = await instance.get(
-    `${import.meta.env.VITE_DEV_URL}api/galleries?page=${page}&size=${size}`,
+    `/api/galleries?page=${page}&size=${size}`,
   );
   return response?.data as GalleriesData;
 };
@@ -43,15 +43,15 @@ export const getGalleries = async ({ page = 0, size = 6 }: GetGalleriesParams) =
 // 전시 페이지 get
 export const getGallery = async (galleryId: number) => {
   const response = await instance.get(
-    `${import.meta.env.VITE_DEV_URL}api/galleries/${galleryId}`
+    `/api/galleries/${galleryId}`
   );
   return response?.data;
 };
 
 // 전시 설명 모달
-export const getGalleryInfo = async (id: number) => {
+export const getGalleryInfo = async (galleryId: number) => {
   const response = await instance.get(
-    `${import.meta.env.VITE_DEV_URL}api/galleries/info?gallery-id=${id}`
+    `/api/galleries/info?gallery-id=${galleryId}`
   );
   return response?.data;
 };
