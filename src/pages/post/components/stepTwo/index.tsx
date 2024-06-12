@@ -5,7 +5,6 @@ import Text from '@/components/Text';
 import DropZone from '@/components/dropZone';
 import { alertStore } from '@/stores/modal';
 import { InputBox, TextBox } from '../inputs/styles';
-
 import * as S from './styles';
 
 interface Item {
@@ -21,6 +20,7 @@ const StepTwo = () => {
   const [image, setImage] = useState<File | null>(null);
   const [imageTitle, setTitle] = useState<string>('');
   const [description, setDescription] = useState<string>('');
+  const [clearFiles, setClearFiles] = useState(false);
 
   const updateGalleryForm = (newGallery: Item[]) => {
     setGallery(newGallery);
@@ -32,11 +32,12 @@ const StepTwo = () => {
     }));
 
     setValue('images', imageArray);
-    setValue('gallery.information', infoArray);
+    setValue('gallery.informations', infoArray);
   };
 
   const onFileDrop = (file: File) => {
     setImage(file);
+    setClearFiles(false);
   };
 
   const onDragEnd = (result: DropResult) => {
@@ -49,7 +50,8 @@ const StepTwo = () => {
     updateGalleryForm(newGallery);
   };
 
-  const addItem = () => {
+  const addItem = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
     if (!image || !imageTitle || !description) {
       open({
         title: '등록 오류',
@@ -66,6 +68,7 @@ const StepTwo = () => {
       setImage(null);
       setTitle('');
       setDescription('');
+      setClearFiles(true);
     } else {
       open({
         title: '작품 등록',
@@ -74,6 +77,14 @@ const StepTwo = () => {
         onClickButton: () => {},
       });
     }
+  };
+
+  const cancelItem = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    setImage(null);
+    setTitle('');
+    setDescription('');
+    setClearFiles(true);
   };
 
   return (
@@ -86,7 +97,7 @@ const StepTwo = () => {
         <S.BorderLine />
         <S.Block>
           <section>
-            <DropZone onFileUpload={onFileDrop} />
+            <DropZone onFileUpload={onFileDrop} clearFiles={clearFiles} />
           </section>
           <article>
             <InputBox
@@ -104,15 +115,7 @@ const StepTwo = () => {
         </S.Block>
         <S.Buttons>
           <button onClick={addItem}>등록</button>
-          <button
-            onClick={() => {
-              setImage(null);
-              setTitle('');
-              setDescription('');
-            }}
-          >
-            취소
-          </button>
+          <button onClick={cancelItem}>취소</button>
         </S.Buttons>
       </S.Box>
       <S.BorderLine />
@@ -150,7 +153,8 @@ const StepTwo = () => {
                           <div>{item.imageTitle}</div>
                           <p>{item.description}</p>
                           <button
-                            onClick={() => {
+                            onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                              e.preventDefault();
                               const newGallery = gallery.filter((_, i) => i !== index);
                               updateGalleryForm(newGallery);
                             }}
