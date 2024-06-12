@@ -8,3 +8,5 @@ export { default as IntroPage } from './intro';
 export { default as ErrorPage } from './error';
 export { default as EditUserInfo } from './editMemberInfo';
 export { default as MemberInfo } from './memberInfo';
+export { default as SuccessPage } from './payment/success';
+export { default as FailPage } from './payment/fail';
