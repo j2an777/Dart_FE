@@ -4,6 +4,7 @@ import DropZone from '@/components/dropZone';
 import { formatDateInKST } from '@/utils/formatDateInKST';
 import * as S from './styles';
 import { dateNfeeStore } from '@/stores/post';
+import { Icon } from '@/components';
 
 const StepZero = () => {
   const { setValue } = useFormContext();
@@ -15,9 +16,11 @@ const StepZero = () => {
   }, [feeDetails.fee, setValue]);
 
   useEffect(() => {
+    // 유료 전시
     if (activeBtn === 'pay' && dateRange.startDate) {
       let endDate: Date | null = null;
       let pay = 0;
+      // 기간에 따라 -> 이용료와 캘린더 endDate 설정
       switch (feeDetails.period) {
         case '7days':
           pay = 1000;
@@ -34,42 +37,59 @@ const StepZero = () => {
         default:
           break;
       }
+      // 이용료와 기간 상태 업데이트
       setFeeDetails({ ...feeDetails, totalPay: pay });
       setDateRange({ ...dateRange, endDate });
+      // 이용료와 기간 formData 업데이트
       setValue('gallery.startDate', formatDateInKST(dateRange.startDate));
       setValue('gallery.endDate', formatDateInKST(endDate));
     } else {
+      // 무료 전시
       setValue('gallery.startDate', formatDateInKST(dateRange.startDate));
       setFeeDetails({ ...feeDetails, totalPay: 0 });
       setDateRange({ ...dateRange, endDate: null });
     }
-  }, [
-    feeDetails.period,
-    activeBtn,
-    dateRange.startDate,
-    setValue,
-    dateRange,
-    feeDetails,
-    setFeeDetails,
-    setDateRange,
-  ]);
+  }, [activeBtn, feeDetails.period, feeDetails.fee]);
 
   const onFileDrop = (file: File) => {
     setValue('thumbnail', file);
   };
 
-  const onBtnClick = (buttonType: 'free' | 'pay') => {
+  const onBtnClick = (
+    buttonType: 'free' | 'pay',
+    event: React.MouseEvent<HTMLButtonElement>,
+  ) => {
+    event.preventDefault();
     setActiveBtn(buttonType);
     if (buttonType === 'free') {
       setFeeDetails({ fee: 0, totalPay: 0, period: null });
       setDateRange({ ...dateRange, endDate: null });
       setValue('gallery.fee', 0);
       setValue('gallery.endDate', null);
+    } else if (buttonType === 'pay') {
+      setFeeDetails({ fee: 1000, totalPay: 0, period: null });
     }
   };
 
-  const onPeriodClick = (period: string) => {
+  const onPeriodClick = (period: string, event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
     setFeeDetails({ ...feeDetails, period });
+  };
+
+  const increaseFee = () => {
+    if (feeDetails.fee < 20000) {
+      const newFee = feeDetails.fee + 1000;
+      setFeeDetails({ ...feeDetails, fee: newFee });
+      setValue('gallery.fee', newFee);
+    }
+  };
+
+  const decreaseFee = () => {
+    if (feeDetails.fee > 1000) {
+      const newFee = feeDetails.fee - 1000;
+      setFeeDetails({ ...feeDetails, fee: newFee });
+      setValue('gallery.fee', newFee);
+    }
   };
 
   const tileClassName = ({ date, view }: { date: Date; view: string }) => {
@@ -81,41 +101,33 @@ const StepZero = () => {
     return null;
   };
 
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
-    if (event.key === 'Enter') {
-      event.preventDefault();
-    }
-  };
-
   return (
-    <S.Container onKeyDown={handleKeyDown}>
+    <S.Container>
       <S.Box>
         <DropZone info="권장 이미지 크기: 700*700" onFileUpload={onFileDrop} />
       </S.Box>
       <S.Box>
         <S.Block>
-          <S.Button isActive={activeBtn === 'free'} onClick={() => onBtnClick('free')}>
+          <S.Button
+            isActive={activeBtn === 'free'}
+            onClick={(e) => onBtnClick('free', e)}
+          >
             무료 전시
           </S.Button>
-          <S.Button isActive={activeBtn === 'pay'} onClick={() => onBtnClick('pay')}>
+          <S.Button isActive={activeBtn === 'pay'} onClick={(e) => onBtnClick('pay', e)}>
             유료 전시
           </S.Button>
         </S.Block>
-        {activeBtn === 'pay' && (
-          <S.Block>
-            <S.Range
-              type="range"
-              min={0}
-              max={20000}
-              step={1000}
-              value={feeDetails.fee}
-              onChange={(event) =>
-                setFeeDetails({ ...feeDetails, fee: event.target.valueAsNumber })
-              }
-            />
-            ₩ {feeDetails.fee}
-          </S.Block>
-        )}
+        <S.Block>
+          <a>전시 입장료</a>
+          {activeBtn === 'pay' && (
+            <S.PayButtons>
+              <Icon value="down" onClick={decreaseFee} />
+              <Icon value="up" onClick={increaseFee} />
+            </S.PayButtons>
+          )}
+          <div>₩ {feeDetails.fee}</div>
+        </S.Block>
         <S.Date>
           <S.StyledCalendar
             value={dateRange.startDate}
@@ -129,32 +141,35 @@ const StepZero = () => {
             tileClassName={tileClassName}
           />
         </S.Date>
-        {activeBtn === 'pay' && (
-          <S.Block>
-            <p>전시 기간</p>
-            <S.Button
-              isActive={feeDetails.period === '7days'}
-              onClick={() => onPeriodClick('7days')}
-            >
-              7 일
-            </S.Button>
-            <S.Button
-              isActive={feeDetails.period === '15days'}
-              onClick={() => onPeriodClick('15days')}
-            >
-              15 일
-            </S.Button>
-            <S.Button
-              isActive={feeDetails.period === '30days'}
-              onClick={() => onPeriodClick('30days')}
-            >
-              30 일
-            </S.Button>
-          </S.Block>
-        )}
         <S.Block>
-          <p>총 이용료</p>
-          <div> ₩ {feeDetails.totalPay}</div>
+          <a>전시 기간</a>
+          {activeBtn === 'pay' && (
+            <>
+              <S.Button
+                isActive={feeDetails.period === '7days'}
+                onClick={(e) => onPeriodClick('7days', e)}
+              >
+                7 일
+              </S.Button>
+              <S.Button
+                isActive={feeDetails.period === '15days'}
+                onClick={(e) => onPeriodClick('15days', e)}
+              >
+                15 일
+              </S.Button>
+              <S.Button
+                isActive={feeDetails.period === '30days'}
+                onClick={(e) => onPeriodClick('30days', e)}
+              >
+                30 일
+              </S.Button>
+            </>
+          )}
+          {activeBtn === 'free' && <div>무기한</div>}
+        </S.Block>
+        <S.Block>
+          <a>총 이용료</a>
+          <S.Total typography="t6">₩ {feeDetails.totalPay}</S.Total>
         </S.Block>
       </S.Box>
     </S.Container>

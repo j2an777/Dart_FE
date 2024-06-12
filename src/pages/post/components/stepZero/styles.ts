@@ -1,3 +1,4 @@
+import { Text } from '@/components';
 import { colors } from '@/styles/colorPalette';
 import { LayoutMap } from '@/styles/layout';
 import { bolderMap, typographyMap } from '@/styles/typography';
@@ -25,6 +26,7 @@ export const Box = styled.div`
 `;
 
 export const Block = styled.div`
+  position: relative;
   display: flex;
   align-items: center;
   width: 100%;
@@ -34,14 +36,15 @@ export const Block = styled.div`
     border-bottom: none;
   }
 
-  p {
+  a {
     ${LayoutMap.displayFlex}
     height: 100%;
     padding: 0 20px;
     border-right: 2px solid ${colors.black};
   }
-  div {
-    margin-left: 200px;
+  div,
+  p {
+    margin-left: 240px;
   }
 `;
 
@@ -51,6 +54,11 @@ export const Button = styled.button<{ isActive?: boolean }>`
   justify-content: center;
   align-items: center;
   height: 100%;
+
+  &:hover {
+    background: ${colors.black};
+    color: ${colors.white};
+  }
 
   &:nth-of-type(1) {
     border-right: 2px solid ${colors.black};
@@ -67,6 +75,70 @@ export const Button = styled.button<{ isActive?: boolean }>`
     `}
 `;
 
+export const PayButtons = styled.section`
+  position: absolute;
+  right: 100px;
+  display: flex;
+  gap: 25px;
+`;
+
+export const Date = styled.div`
+  flex: 1;
+  border-bottom: 2px solid ${colors.black};
+  display: flex;
+  justify-content: center;
+`;
+
+export const Total = styled(Text)`
+  color: ${colors.red};
+`;
+
+export const StyledCalendar = styled(Calendar)`
+  position: absolute;
+  top: 285px;
+  left: 50%;
+  transform: translateX(15%);
+  width: 500px;
+  border: none;
+  ${typographyMap.t5}
+
+  .react-calendar__navigation__label {
+    ${typographyMap.t4}
+    ${bolderMap.semibold}
+  }
+
+  // 오늘 날짜
+  .react-calendar__tile--now {
+    background: none;
+    border: 1px solid ${colors.red};
+  }
+
+  .react-calendar__tile--now:enabled:hover,
+  .react-calendar__tile--now:enabled:focus {
+    background: ${colors.gray100};
+  }
+
+  //시작 날짜
+  .react-calendar__tile--active {
+    position: relative;
+    overflow: visible;
+    background: ${colors.gray600};
+    color: ${colors.white};
+  }
+  .react-calendar__tile--active:enabled:hover,
+  .react-calendar__tile--active:enabled:focus {
+    background: ${colors.gray600};
+    color: ${colors.white};
+  }
+
+  //기간
+  .highlight {
+    background: ${colors.gray600};
+    color: ${colors.white};
+  }
+`;
+
+// 가격 슬라이더
 interface RangeProps {
   value: number;
   min: number;
@@ -114,54 +186,4 @@ export const Range = styled.input<RangeProps>`
     const percentage = ((props.value - props.min) / (props.max - props.min)) * 100;
     return `linear-gradient(to right, ${colors.black} ${percentage}%, ${colors.gray100} ${percentage}%)`;
   }};
-`;
-
-export const Date = styled.div`
-  flex: 1;
-  border-bottom: 2px solid ${colors.black};
-  display: flex;
-  justify-content: center;
-`;
-
-export const StyledCalendar = styled(Calendar)`
-  position: absolute;
-  top: 285px;
-  left: 50%;
-  transform: translateX(15%);
-  width: 500px;
-  border: none;
-  ${typographyMap.t5}
-
-  .react-calendar__navigation__label {
-    ${typographyMap.t4}
-    ${bolderMap.semibold}
-  }
-
-  // 오늘 날짜
-  .react-calendar__tile--now {
-    background: none;
-    border: 1px solid ${colors.red};
-  }
-
-  .react-calendar__tile--now:enabled:hover,
-  .react-calendar__tile--now:enabled:focus {
-    background: ${colors.gray100};
-  }
-
-  //시작 날짜
-  .react-calendar__tile--active {
-    background: ${colors.gray600};
-    color: ${colors.white};
-  }
-  .react-calendar__tile--active:enabled:hover,
-  .react-calendar__tile--active:enabled:focus {
-    background: ${colors.gray600};
-    color: ${colors.white};
-  }
-
-  //기간
-  .highlight {
-    background: ${colors.gray600};
-    color: ${colors.white};
-  }
 `;

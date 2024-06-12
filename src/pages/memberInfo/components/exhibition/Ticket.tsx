@@ -98,7 +98,7 @@ const Ticket = ({
         {hashtags.map((tag) => `#${tag}`).join(' ')}
       </S.HashTags>
       <S.Fee typography="t5" bold="regular">
-        ₩{fee}
+        ₩ {fee}
       </S.Fee>
       <S.Thumbnail profileImage={thumbnail} />
     </S.TicketContainer>

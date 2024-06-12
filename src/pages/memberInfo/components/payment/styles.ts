@@ -2,15 +2,23 @@ import { colors } from '@/styles/colorPalette';
 import styled from '@emotion/styled';
 
 export const Container = styled.div`
+  position: relative;
   width: 100%;
   height: 100%;
-  padding: 40px 20px;
+  padding: 0px 20px;
+
+  footer {
+    position: absolute;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 `;
 
 export const ListContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 0 0 20px 0;
+  padding: 20px 0;
   gap: 10px;
   border-bottom: 1px solid ${colors.black};
 `;

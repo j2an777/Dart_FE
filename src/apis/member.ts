@@ -28,13 +28,18 @@ export const getMemberInfo = async (nickname?: string) => {
 
 export const putMemberEditInfo = async (formData: FormData) => {
   const response = await instance.put(
-    `${import.meta.env.VITE_DEV_URL}api/members`, 
-    formData
+    `${import.meta.env.VITE_DEV_URL}api/members`,
+    formData,
   );
   return response?.data;
 };
 
-export const getMyPage = async (nickname?: string) => {
-  const response = await instance.get(`/api/mypage?nickname=${nickname}`);
+export const getMypage = async (nickname: string, page: number, size: number) => {
+  const response = await instance.get(`/api/mypage?nickname=${nickname}`, {
+    params: {
+      page,
+      size,
+    },
+  });
   return response?.data;
 };
