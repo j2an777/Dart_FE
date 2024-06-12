@@ -16,7 +16,7 @@ export interface Gallery {
   thumbnail: string;
   title: string;
   startDate: Date;
-  endDate: Date;
+  endDate: Date | null;
   fee: number;
   hashtags: string[];
 }

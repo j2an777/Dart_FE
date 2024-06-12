@@ -36,8 +36,27 @@ export const LineBlock = styled.div`
         cursor : pointer;
         transition : all 0.3s ease;
 
-        &:hover{
-            text-decoration : underline;
+        &:hover a::after {
+            width: 100%;
+            left: 0;
+        }
+
+        a {
+            position: relative;
+            display: inline-block;
+            text-decoration: none;
+            color: inherit;
+
+            &::after {
+                content: '';
+                position: absolute;
+                width: 0;
+                height: 2px;
+                bottom: -2px;
+                left: 50%;
+                background-color: black;
+                transition: width 0.3s ease, left 0.3s ease;
+            }
         }
     }
 `;

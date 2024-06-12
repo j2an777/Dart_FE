@@ -2,26 +2,29 @@ import Dimmed from '@/components/Dimmed';
 
 import Icon, { IconValues } from '@/components/icon';
 import Text from '@/components/Text';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Colors } from '@/styles/colorPalette';
-import { galleryInfoStore, alertStore } from '@/stores/modal';
-import { useQuery } from '@tanstack/react-query';
-import { getGalleryDetail } from '@/apis/gallery';
-import { postPayment } from '@/apis/payment';
 import * as S from './styles';
+import { alertStore, galleryInfoStore } from '@/stores/modal';
+import { useQuery } from '@tanstack/react-query';
+import { getGalleryInfo } from '@/apis/gallery';
+import { postPayment } from '@/apis/payment';
 
 interface GalleryInfoProps {
-  galleryId: number | null;
+  galleryId: number;
   open: boolean;
 }
 
-const GalleryInfo = ({ galleryId }: GalleryInfoProps) => {
-  const open = alertStore((state) => state.open);
-  console.log(galleryId);
+const GalleryInfo = ({ galleryId, open }: GalleryInfoProps) => {
+  const openModal = alertStore((state) => state.open);
+  const navigate = useNavigate();
+  const close = galleryInfoStore(state => state.close);
+
   const { data, error, isLoading } = useQuery({
     queryKey: ['detail'],
-    queryFn: ({ queryKey }) => getGalleryDetail(queryKey[0]),
+    queryFn: () => getGalleryInfo(galleryId),
   });
+  console.log(data);
 
   const renderIcons = (reviewAverage: number) => {
     const icons = [];
@@ -49,11 +52,12 @@ const GalleryInfo = ({ galleryId }: GalleryInfoProps) => {
     return icons;
   };
 
-  const onHandlePay = (ticket: boolean) => {
-    if (ticket) {
-      // props로 받은 galleryId에 해당하는 전시 경로 이동
+  const onHandlePay = (ticket: boolean, fee: number) => {
+    if (ticket || fee === 0) {
+      navigate(`/gallery/${galleryId}`);
+      close();
     } else {
-      open({
+      openModal({
         title: '티켓 구매하기',
         description: '티켓을 구매하시겠습니까?',
         buttonLabel: '확인',
@@ -110,7 +114,7 @@ const GalleryInfo = ({ galleryId }: GalleryInfoProps) => {
           </S.DescriptionBlock>
           <S.ButtonBlock>
             <div className="price">₩ {data.fee}</div>
-            <div className="topay" onClick={() => onHandlePay(data.hasTicket)}>
+            <div className="topay" onClick={() => onHandlePay(data.hasTicket, data.fee)}>
               입장하기
             </div>
           </S.ButtonBlock>

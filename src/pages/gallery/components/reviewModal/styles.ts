@@ -1,7 +1,6 @@
 import { colors } from "@/styles/colorPalette";
 import { bolderMap, typographyMap } from "@/styles/typography";
 import styled from "@emotion/styled";
-import { Link } from "react-router-dom";
 
 export const Container = styled.div`
     width : 100%;
@@ -11,7 +10,12 @@ export const Container = styled.div`
     display : flex;
     flex-direction : column;
     justify-content : center;
-    gap : 20px;
+    
+    form {
+        display : flex;
+        flex-direction : column;
+        gap : 15px;
+    }
 `;
 
 export const ScoreBox = styled.div`
@@ -58,8 +62,13 @@ export const TextReview = styled.textarea<{ width: number; height: number; }>`
     }
 `;
 
-export const ToReview = styled(Link)`
+export const ToReview = styled.p`
     align-self : end;
     ${typographyMap.t6};
     ${bolderMap.medium};
+
+    &:hover{
+        text-decoration: underline;
+        cursor : pointer;
+    }
 `;
