@@ -5,14 +5,17 @@ import { EditFormData } from '@/types/member';
 import { alertStore } from '@/stores/modal';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getMemberInfo, putMemberEditInfo } from '@/apis/member';
+import { memberStore } from '@/stores/member';
+import BasicProfile from '@/assets/images/defaultUser.png';
 
 const EditMemberForm = () => {
   const open = alertStore((state) => state.open);
   const queryClient = useQueryClient();
+  const { auth: { nickname } } = memberStore();
 
   const { data: editData, error, isLoading } = useQuery({
     queryKey: ['edit'],
-    queryFn: ({ queryKey }) => getMemberInfo(queryKey[0])
+    queryFn: () => getMemberInfo(nickname)
   });
 
   const {
@@ -82,6 +85,10 @@ const EditMemberForm = () => {
     });
   };
 
+  const onHandleCheck = () => {
+    
+  };
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -90,12 +97,14 @@ const EditMemberForm = () => {
     return <div>Error loading gallery data</div>;
   }
 
+  const profileImageSrc = editData?.profileImage?.MockImg ? editData.profileImage.MockImg : BasicProfile;
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <S.Container>
         <S.ProfileBlock>
           <S.ProfileLeft>
-            <UserCircle profileImage={editData.profileImage.MockImg} size={150} />
+            <UserCircle profileImage={profileImageSrc} size={150} />
             <S.ProfilePlus htmlFor="avatar-upload">
               +
               <S.ProfilePlusBtn
@@ -132,6 +141,8 @@ const EditMemberForm = () => {
             defaultValue={editData?.nickname}
           />
           {errors.nickname && <S.Error>{errors.nickname.message}</S.Error>}
+
+          <S.CheckBtn onClick={onHandleCheck}>중복 확인</S.CheckBtn>
 
           <Text typography='t5' bold='regular'>자기소개</Text>
           <S.Textarea {...register('introduce')} placeholder="자기소개 입력" defaultValue={editData?.introduce} />
