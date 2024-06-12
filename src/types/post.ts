@@ -10,7 +10,7 @@ export interface Gallery {
   endDate: Date;
   fee: number;
   hashTags: string[];
-  information: Info[];
+  informations: Info[];
 }
 
 export interface PostGalleries {
@@ -21,6 +21,6 @@ export interface PostGalleries {
 
 export interface PostReview {
   galleryId: number;
-  content: string;
+  content?: string;
   score: number;
 }

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Exhibition, Payment } from '../index';
+import { Exhibition, PaymentMenu } from '../index';
 import * as S from './styles';
 
 const Menu = () => {
@@ -9,7 +9,7 @@ const Menu = () => {
       case 'exhibition':
         return <Exhibition />;
       case 'purchase':
-        return <Payment />;
+        return <PaymentMenu />;
     }
   };
 

@@ -1,7 +1,6 @@
 import {
   EditMemberInfoPage,
   ErrorPage,
-  FailedPage,
   GalleryPage,
   IntroPage,
   LoginPage,
@@ -11,6 +10,7 @@ import {
   ReviewPage,
   SignupPage,
   SuccessPage,
+  FailPage,
 } from '@/pages';
 
 interface RouteInfo {
@@ -32,7 +32,7 @@ export const routes: RouteInfo[] = [
   { path: '/login', Element: LoginPage, withAuth: true },
   { path: '/signup', Element: SignupPage, withAuth: true },
   { path: '/payment/success', Element: SuccessPage, withAuth: true },
-  { path: '/payment/falied', Element: FailedPage, withAuth: true },
+  { path: '/payment/fail', Element: FailPage, withAuth: true },
   { path: '*', Element: ErrorPage },
 ];
 

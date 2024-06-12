@@ -33,11 +33,13 @@ const TagsInput = ({ value, onChange }: TagsProps) => {
       inputVal.length <= 10 &&
       tags.length < 5
     ) {
-      // event.preventDefault();
+      event.preventDefault();
       const newTags = [...tags, inputVal];
       setTags(newTags);
       onChange(newTags);
       (event.target as HTMLInputElement).value = '';
+    } else if (event.key === 'Enter' && tags.includes(inputVal)) {
+      event.preventDefault();
     }
   };
 

@@ -1,6 +1,6 @@
 import instance from './instance';
 import { FilterType, GalleriesData } from '@/types/gallery';
-import { PostGalleries, PostReview } from '@/types/post';
+import { PostGalleries } from '@/types/post';
 
 export const postGalleries = async (formData: PostGalleries) => {
   const { thumbnail, images, gallery } = formData;
@@ -48,24 +48,18 @@ export const getGalleries = async ({
   return response?.data as GalleriesData;
 };
 
-export const getGalleryInfo = async (id: string) => {
+// 전시 페이지 get
+export const getGallery = async (galleryId: number) => {
   const response = await instance.get(
-    `${import.meta.env.VITE_DEV_URL}api/galleries/${id}`,
+    `/api/galleries/${galleryId}`
   );
   return response?.data;
 };
 
-export const getGalleryDetail = async (id: string) => {
+// 전시 설명 모달
+export const getGalleryInfo = async (galleryId: number) => {
   const response = await instance.get(
-    `${import.meta.env.VITE_DEV_URL}api/galleries/info?gallery-id=${id}`,
-  );
-  return response?.data;
-};
-
-export const postReview = async (reviewData: PostReview) => {
-  const response = await instance.post(
-    `${import.meta.env.VITE_DEV_URL}api/reviews`,
-    reviewData,
+    `/api/galleries/info?gallery-id=${galleryId}`
   );
   return response?.data;
 };

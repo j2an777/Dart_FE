@@ -64,7 +64,7 @@ export const EditBlock = styled.div`
     width : 100%;
     height : 300px;
     display: grid;
-    grid-template-columns: 100px auto;
+    grid-template-columns: 100px auto 120PX;
     grid-template-rows: auto auto auto;
     gap : 20px;
     align-items: center;
@@ -82,7 +82,7 @@ export const Textarea = styled.textarea`
   height: 100%;
   padding: 10px;
   border: 1px solid #ccc;
-  grid-column: 2;
+  grid-column: 2 / span 2;
   grid-row: 2 / span 3;
 `;
 
@@ -117,4 +117,14 @@ export const ButtonContainer = styled.div`
 export const Error = styled.p`
   ${typographyMap.t7};
   color : ${colors.red};
+`;
+
+export const CheckBtn = styled.button`
+  width : 100%;
+  height : 40px;
+  ${buttonTypeMap.rectangleWhite};
+
+  &:hover {
+    ${buttonTypeMap.rectangleBlack};
+  }
 `;
