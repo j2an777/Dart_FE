@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Exhibition, PaymentMenu } from '../index';
+
 import * as S from './styles';
 
 const Menu = () => {
@@ -30,7 +31,7 @@ const Menu = () => {
           구매
         </S.MenuBlock>
       </S.MenuBox>
-      {renderContent()}
+      {/* {renderContent()} */}
     </S.Container>
   );
 };

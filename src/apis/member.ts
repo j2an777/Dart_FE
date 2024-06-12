@@ -32,10 +32,7 @@ export const getMemberInfo = async (nickname?: string) => {
 };
 
 export const putMemberEditInfo = async (formData: FormData) => {
-  const response = await instance.put(
-    `/api/members`, 
-    formData
-  );
+  const response = await instance.put(`/api/members`, formData);
   return response?.data;
 };
 
@@ -46,5 +43,10 @@ export const getMypage = async (nickname: string, page: number, size: number) =>
       size,
     },
   });
+  return response?.data;
+};
+
+export const getNewToken = async () => {
+  const response = await instance.get('/api/reissue');
   return response?.data;
 };
