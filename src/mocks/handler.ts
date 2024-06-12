@@ -1,7 +1,4 @@
 import { http, HttpResponse } from 'msw';
-import { GalleryDetailData } from './mockData/galleryDetail';
-import { EditData } from './mockData/editData';
-import { GalleryData } from './mockData/galleryData';
 
 const galleries1 = {
   pages: [
@@ -61,24 +58,6 @@ const galleries1 = {
 };
 
 export const handlers = [
-  // 회원정보 가져오기
-  http.get('/api/members?nickname=user1', async ({ request }) => {
-    const url = new URL(request.url);
-    const nickname = url.searchParams.get('nickname');
-    const accessToken = request.headers.get('Authorization');
-    if (!accessToken) {
-      return HttpResponse.json(
-        {
-          message: '로그인 후 가능합니다',
-        },
-        { status: 401 },
-      );
-    }
-    if (nickname === 'undefined') {
-      return HttpResponse.json(EditData, { status: 200 });
-    }
-    return HttpResponse.json(EditData, { status: 200 });
-  }),
   http.put('/api/members', async ({ request }) => {
     const data = await request.formData();
     // formData 보내기 확인. 나중에 삭제 요망
@@ -102,14 +81,6 @@ export const handlers = [
   // 전시 전체 조회
   http.get('/api/galleries', () => {
     return HttpResponse.json(galleries1, { status: 200 });
-  }),
-  // 전시 단건 조회
-  http.get('/api/galleries/1', () => {
-    return HttpResponse.json(GalleryData, { status: 200 });
-  }),
-  // 전시 정보 조회
-  http.get('/api/galleries/info?gallery-id=1', () => {
-    return HttpResponse.json(GalleryDetailData, { status: 200 });
   }),
   // 리뷰 작성
   http.post('/api/reviews', async ({ request }) => {
