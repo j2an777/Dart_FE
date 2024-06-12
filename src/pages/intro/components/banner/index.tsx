@@ -14,7 +14,7 @@ const Banner = () => {
       <S.LineBlock>
         <S.Border></S.Border>
         <Text typography='t5' bold='regular' className='right'>
-          <Link to="/">
+          <Link to="/" className='hover-underline'>
             Entrance
           </Link>
         </Text>

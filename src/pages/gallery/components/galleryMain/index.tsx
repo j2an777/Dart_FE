@@ -45,7 +45,6 @@ const GalleryMain = () => {
       setDegrees(degrees - dataDegree);
       setFrontIndex((frontIndex + 1) % galleryData.images.length);
     }
-    console.log(frontIndex);
   };
 
   const onHandlePopup = (imageData: galleryImages) => {
