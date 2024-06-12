@@ -7,22 +7,23 @@ import { Colors } from '@/styles/colorPalette';
 import * as S from './styles';
 import { alertStore, galleryInfoStore } from '@/stores/modal';
 import { useQuery } from '@tanstack/react-query';
-import { getGalleryDetail } from '@/apis/gallery';
+import { getGalleryInfo } from '@/apis/gallery';
 
 interface GalleryInfoProps {
   galleryId: number;
   open: boolean;
 }
 
-const GalleryInfo = ({ galleryId = 1, open }: GalleryInfoProps) => {
+const GalleryInfo = ({ galleryId, open }: GalleryInfoProps) => {
   const openModal = alertStore((state) => state.open);
   const navigate = useNavigate();
   const close = galleryInfoStore(state => state.close);
 
   const { data, error, isLoading } = useQuery({
     queryKey: ['detail'],
-    queryFn: () => getGalleryDetail(galleryId),
+    queryFn: () => getGalleryInfo(galleryId),
   });
+  console.log(data);
 
   const renderIcons = (reviewAverage: number) => {
     const icons = [];
@@ -50,8 +51,8 @@ const GalleryInfo = ({ galleryId = 1, open }: GalleryInfoProps) => {
     return icons;
   };
 
-  const onHandlePay = (ticket: boolean) => {
-    if (ticket) {
+  const onHandlePay = (ticket: boolean, fee: number) => {
+    if (ticket || fee === 0) {
       navigate(`/gallery/${galleryId}`);
       close();
     } else {
@@ -108,7 +109,7 @@ const GalleryInfo = ({ galleryId = 1, open }: GalleryInfoProps) => {
           </S.DescriptionBlock>
           <S.ButtonBlock>
             <div className="price">₩ {data.fee}</div>
-            <div className="topay" onClick={() => onHandlePay(data.hasTicket)}>
+            <div className="topay" onClick={() => onHandlePay(data.hasTicket, data.fee)}>
               입장하기
             </div>
           </S.ButtonBlock>
