@@ -6,16 +6,16 @@ import { PostReview } from '@/types/post';
 import { useNavigate } from 'react-router-dom';
 
 type ReviewModalProps = {
-  onSubmit: (data: PostReview & { rating: number }) => void;
+  onSubmit: (data: PostReview & { score: number }) => void;
   close: () => void;
 }
 
 const ReviewModal = ({ onSubmit, close }: ReviewModalProps) => {
-  const [rating, setRating] = useState(0);
+  const [score, setScore] = useState(0);
   const navigate = useNavigate();
 
   const onHandleRating = (index: number) => {
-    setRating(index + 1);
+    setScore(index + 1);
   };
 
   const {
@@ -26,7 +26,7 @@ const ReviewModal = ({ onSubmit, close }: ReviewModalProps) => {
   });
 
   const handleFormSubmit = (data: PostReview) => {
-    onSubmit({ ...data, rating });
+    onSubmit({ ...data, score });
   };
 
   const toHandleReview = () => {
@@ -38,14 +38,14 @@ const ReviewModal = ({ onSubmit, close }: ReviewModalProps) => {
     <S.Container>
       <form onSubmit={handleSubmit(handleFormSubmit)}>
         <S.ScoreBox>
-          <p>{rating}</p>
+          <p>{score}</p>
           <span>/ 5</span>
           {Array.from({ length: 5 }, (_, index) => (
             <Icon 
               key={index} 
               value='review' 
               size={30} 
-              fillColor={index < rating ? 'black' : 'white'}
+              fillColor={index < score ? 'black' : 'white'}
               onClick={() => onHandleRating(index)}/>
           ))}
         </S.ScoreBox>

@@ -27,7 +27,7 @@ const GalleryHeader = () => {
     },
   });
 
-  const handleReviewSubmit = (data: PostReview & { rating: number }) => {
+  const handleReviewSubmit = (data: PostReview & { score: number }) => {
     if (!isNaN(galleryId)) {
       mutation.mutateAsync({ ...data, galleryId });
     } else {
