@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 import { pageStore } from '@/stores/page';
-import PageButtons from '../pageButtons';
 import PaidList from './PaidList';
 import { useStore } from 'zustand';
 import useGetPayment from '../../hooks/useGetPayment';
 import { PaidInfo } from '@/types/payment';
 import * as S from './styles';
+import { PageButtons } from '@/components';
 
 const PaymentMenu = () => {
   const { pageInfo, setPageInfo } = useStore(pageStore);

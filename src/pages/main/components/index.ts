@@ -4,6 +4,5 @@ export { default as PostButton } from './postButton';
 export { default as GalleryItem } from './galleryItem';
 export { default as GalleryInfo } from './galleryInfo';
 export { default as GalleryList } from './galleryList';
-export { default as PageButtons } from './pageButtons';
 export { default as KeywordFilter } from './keywordFilter';
 export { default as CostFilter } from './costFilter';

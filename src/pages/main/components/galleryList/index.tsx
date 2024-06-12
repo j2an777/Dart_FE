@@ -5,13 +5,15 @@ import { useLayoutEffect } from 'react';
 import withSuspense from '@/hooks/withSuspense';
 
 import * as S from './styles';
+import { useStore } from 'zustand';
 
 const GalleryList = () => {
   const { data } = useGetGalleries();
-  const setPageInfo = pageStore((state) => state.setPageInfo);
+  const { setPageInfo, resetPageInfo } = useStore(pageStore);
   useLayoutEffect(() => {
     setPageInfo(data.pageParams);
-  }, [data.pageParams, setPageInfo]);
+    return () => resetPageInfo();
+  }, [data.pageParams, resetPageInfo, setPageInfo]);
 
   return (
     <S.Container>
