@@ -25,6 +25,7 @@ const KeywordFilter = ({
   const { category } = filterStore((state) => state.filterValue);
   const keyword = useDebounce({ value: form.keyword });
   const { data } = useGetSearchDatas({ keyword, category });
+  console.log(data);
   useEffect(() => {
     if (keyword) setIsExpand(true);
     return () => setIsExpand(false);

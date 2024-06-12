@@ -36,8 +36,8 @@ const Exhibition = () => {
           key={data.galleryId}
           thumbnail={data.thumbnail}
           title={data.title}
-          startDate={new Date(data.startDate)}
-          endDate={new Date(data.endDate)}
+          startDate={data.startDate}
+          endDate={data.endDate}
           fee={data.fee}
           hashtags={data.hashtags}
         />

@@ -1,5 +1,4 @@
 import Dimmed from '@/components/Dimmed';
-
 import Icon, { IconValues } from '@/components/icon';
 import Text from '@/components/Text';
 import { Link, useNavigate } from 'react-router-dom';
@@ -12,7 +11,7 @@ import { getGalleryInfo } from '@/apis/gallery';
 import { postPayment } from '@/apis/payment';
 
 interface GalleryInfoProps {
-  galleryId: number;
+  galleryId: number | null;
   open: boolean;
   close: () => void;
 }
@@ -23,7 +22,7 @@ const GalleryInfo = ({ galleryId, open: isOpen, close }: GalleryInfoProps) => {
 
   const { data, error, isLoading } = useQuery({
     queryKey: ['detail'],
-    queryFn: () => getGalleryInfo(galleryId),
+    queryFn: () => getGalleryInfo(galleryId as number),
   });
 
   const renderIcons = (reviewAverage: number) => {
