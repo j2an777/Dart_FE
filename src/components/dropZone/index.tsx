@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import * as S from './styles';
 import Icon from '../icon';
 import Text from '@/components/Text';
+import * as S from './styles';
 
 interface FileWithPreview extends File {
   preview: string;
@@ -11,11 +11,13 @@ interface FileWithPreview extends File {
 interface DropZoneProps {
   info?: string;
   onFileUpload: (file: FileWithPreview) => void;
+  clearFiles?: boolean;
 }
 
-const DropZone = ({ info, onFileUpload }: DropZoneProps) => {
+const DropZone = ({ info, onFileUpload, clearFiles }: DropZoneProps) => {
   const [files, setFiles] = useState<FileWithPreview[]>([]);
   const { getRootProps, getInputProps } = useDropzone({
+    maxFiles: 1,
     accept: {
       'image/png': [],
       'image/jpeg': [],
@@ -31,6 +33,12 @@ const DropZone = ({ info, onFileUpload }: DropZoneProps) => {
       onFileUpload(previewFiles[0]);
     },
   });
+
+  useEffect(() => {
+    if (clearFiles) {
+      setFiles([]);
+    }
+  }, [clearFiles]);
 
   const thumbs = files.map((file) => (
     <S.Block key={file.name}>

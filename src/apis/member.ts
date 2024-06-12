@@ -34,7 +34,12 @@ export const putMemberEditInfo = async (formData: FormData) => {
   return response?.data;
 };
 
-export const getMyPage = async (nickname?: string) => {
-  const response = await instance.get(`/api/mypage?nickname=${nickname}`);
+export const getMypage = async (nickname: string, page: number, size: number) => {
+  const response = await instance.get(`/api/mypage?nickname=${nickname}`, {
+    params: {
+      page,
+      size,
+    },
+  });
   return response?.data;
 };

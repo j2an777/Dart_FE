@@ -3,11 +3,18 @@ import Text from '@/components/Text';
 import { colors } from '@/styles/colorPalette';
 
 export const Container = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   gap: 50px;
+  height: 100%;
+
+  footer {
+    position: absolute;
+    bottom: 100px;
+  }
 `;
 
 export const TicketContainer = styled.div`

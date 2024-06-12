@@ -1,5 +1,5 @@
 import Dimmed from '@/components/Dimmed';
-import mainlogo from '@/assets/images/mainLogo.png';
+
 import Icon, { IconValues } from '@/components/icon';
 import Text from '@/components/Text';
 import { Link, useNavigate } from 'react-router-dom';
@@ -8,6 +8,7 @@ import * as S from './styles';
 import { alertStore, galleryInfoStore } from '@/stores/modal';
 import { useQuery } from '@tanstack/react-query';
 import { getGalleryInfo } from '@/apis/gallery';
+import { postPayment } from '@/apis/payment';
 
 interface GalleryInfoProps {
   galleryId: number;
@@ -62,6 +63,10 @@ const GalleryInfo = ({ galleryId, open }: GalleryInfoProps) => {
         buttonLabel: '확인',
         onClickButton: () => {
           // 결제 페이지 api 함수 호출 구문
+          async () => {
+            const payment = await postPayment(galleryId, 'ticket');
+            window.location.href = payment.next_redirect_pc_url;
+          };
         },
       });
     }
@@ -88,7 +93,7 @@ const GalleryInfo = ({ galleryId, open }: GalleryInfoProps) => {
       <S.Container>
         <S.InfoBox>
           <S.CancelIcon value="cancel" size={20} onClick={close} />
-          <S.MainLogo alt="main-logo" src={mainlogo} />
+          <S.MainLogo alt="main-logo" src={'안녕'} />
           <S.DescriptionBlock>
             <S.Top>
               <Text typography="t5" color="white" bold="medium">

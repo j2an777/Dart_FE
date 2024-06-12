@@ -1,4 +1,6 @@
 import { http, HttpResponse } from 'msw';
+import { TicketData } from './mockData/ticketData';
+import { PaymentData } from './mockData/paymentData';
 
 const galleries1 = {
   pages: [
@@ -64,9 +66,9 @@ export const handlers = [
     console.log('Received data: ');
     data.forEach((value, key) => {
       if (value instanceof File) {
-          console.log(`${key}: [File] ${value.name}, ${value.size} bytes, ${value.type}`);
+        console.log(`${key}: [File] ${value.name}, ${value.size} bytes, ${value.type}`);
       } else {
-          console.log(`${key}: ${value}`);
+        console.log(`${key}: ${value}`);
       }
     });
 
@@ -75,7 +77,7 @@ export const handlers = [
         message: 'ok',
         data,
       },
-      { status: 200 }
+      { status: 200 },
     );
   }),
   // 전시 전체 조회
@@ -85,10 +87,12 @@ export const handlers = [
   // 리뷰 작성
   http.post('/api/reviews', async ({ request }) => {
     const data = await request.json();
-
-    return HttpResponse.json(
-      data,
-      { status: 200 }
-    );
-  })
+    return HttpResponse.json(data, { status: 200 });
+  }),
+  http.get('/api/mypage?nickname=user1', () => {
+    return HttpResponse.json(TicketData, { status: 200 });
+  }),
+  http.get('/api/payment?page=1&size=6', () => {
+    return HttpResponse.json(PaymentData, { status: 200 });
+  }),
 ];
