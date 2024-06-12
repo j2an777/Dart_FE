@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { buttonTypeMap, buttonSizeMap } from '@/styles/button';
+import { buttonTypeMap, buttonSizeMap, buttonActiveMap } from '@/styles/button';
 import { bolderMap } from '@/styles/typography';
 import { ButtonProp } from '.';
 import { LayoutMap } from '@/styles/layout';
@@ -12,19 +12,17 @@ export const Container = styled.div`
 `;
 
 export const Button = styled.button<ButtonProp>`
-  display: flex;
+  ${LayoutMap.displayFlex}
+  justify-content: center;
+  transition: all 0.3s ease;
   flex: 1;
   ${({ size = 'md' }) => buttonSizeMap[size]}
-  ${({ buttonType = 'reverseRadius' }) => buttonTypeMap[buttonType]}
-    ${({ bold = 'thin' }) => bolderMap[bold]};
-  justify-content: center;
-  align-items: center;
-  ${({ color }) =>
-    color
-      ? css`
-          color: ${color};
-        `
-      : css``};
+  ${({ buttonType = 'reverseRadius' }) => css`
+    ${buttonTypeMap[buttonType]};
+  `};
+  ${({ buttonType = 'reverseRadius', $active = true }) =>
+    $active ? `${buttonActiveMap[buttonType]}` : null};
+  ${({ bold = 'thin' }) => bolderMap[bold]};
   ${({ fontSize }) =>
     fontSize
       ? css`

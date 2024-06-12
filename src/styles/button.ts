@@ -125,5 +125,94 @@ export const buttonTypeMap = {
   `,
 };
 
+export const buttonActiveMap = {
+  reverseRounDash: css`
+    background-color: ${colors.white};
+    border: 1px dashed ${colors.black};
+    color: ${colors.gray500};
+    border-radius: 30px;
+  `,
+  reverseRadius: css`
+    background-color: ${colors.white};
+    border: 2px solid ${colors.gray500};
+    color: ${colors.gray500};
+    border-radius: 10px;
+  `,
+  rectangleBlack: css`
+    background-color: ${colors.black};
+    color: ${colors.white};
+  `,
+  rectangleGray: css`
+    background-color: ${colors.gray200};
+    color: ${colors.gray500};
+  `,
+  rectangleWhite: css`
+    background-color: ${colors.white};
+    border: 1px solid ${colors.black};
+    color: ${colors.black};
+  `,
+  reverseRectangleGray: css`
+    :hover {
+      background-color: ${colors.gray200};
+      color: ${colors.gray500};
+    }
+    :active {
+      background-color: ${colors.gray200};
+      color: ${colors.gray500};
+      transform: scale(0.9);
+    }
+  `,
+  reverseRectangleWhite: css`
+    :hover {
+      background-color: ${colors.white};
+      border: 1px solid ${colors.black};
+      color: ${colors.black};
+    }
+    :active {
+      background-color: ${colors.white};
+      border: 1px solid ${colors.black};
+      color: ${colors.black};
+      transform: scale(0.9);
+    }
+  `,
+  RoundBlack: css`
+    cursor: inherit;
+  `,
+  reverseRoundBlack: css`
+    :hover {
+      background-color: ${colors.gray100};
+      border: 1px solid ${colors.gray100};
+    }
+    :active {
+      background-color: ${colors.gray100};
+      border: 1px solid ${colors.gray100};
+      font-weight: bold;
+      transform: scale(0.9);
+    }
+  `,
+  onlyText: css`
+    :hover {
+      font-weight: bold;
+    }
+    :active {
+      font-weight: bold;
+      transform: scale(0.9);
+    }
+  `,
+  circle: css``,
+  reverseCircle: css`
+    :hover {
+      background-color: ${colors.gray100};
+      border: 1px solid ${colors.gray100};
+    }
+    :active {
+      background-color: ${colors.gray100};
+      border: 1px solid ${colors.gray100};
+      font-weight: bold;
+      transform: scale(0.9);
+    }
+  `,
+};
+
 export type ButtonType = keyof typeof buttonTypeMap;
 export type ButtonSize = keyof typeof buttonSizeMap;
