@@ -26,10 +26,16 @@ export const Label = styled.label<{ isFocused: boolean }>`
   transition: all 0.5s;
 `;
 
-export const Input = styled.input<{ inputType?: 'default' | 'alert' }>`
+export const Input = styled.input<{ inputType?: 'default' | 'alert'; disabled: boolean }>`
   font-size: 24px;
-  padding: 10px;
-
+  margin-top: 10px;
+  padding: 0 10px 10px;
+  ${({ disabled }) =>
+    disabled
+      ? css`
+          background-color: ${colors.gray500};
+        `
+      : null};
   ${({ inputType = 'default' }) =>
     inputType === 'default'
       ? css`

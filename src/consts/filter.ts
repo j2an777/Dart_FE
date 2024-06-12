@@ -37,7 +37,7 @@ export const searchButtonInfo: SearchInfoType[] = [
 
 export const displayButtonInfo: DisplayInfoType[] = [
   {
-    value: 'upcomming',
+    value: 'upcoming',
     label: '전시예정',
   },
   {

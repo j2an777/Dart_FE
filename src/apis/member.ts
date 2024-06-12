@@ -17,10 +17,7 @@ export const postEmailVerify = async (formData: EmailVerify) => {
 };
 
 export const postCheckNickname = async (formData: { nickname: string }) => {
-  const response = await instance.post(
-    `${import.meta.env.VITE_DEV_URL}api/signup/nickname/check`,
-    formData,
-  );
+  const response = await instance.post(`api/nickname/check`, formData);
   return response?.data;
 };
 

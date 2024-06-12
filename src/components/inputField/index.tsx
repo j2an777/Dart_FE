@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import getInputFieldOptions from '@/utils/getInputFieldOptions';
 import { FieldError, UseFormRegisterReturn } from 'react-hook-form';
 
@@ -23,7 +23,15 @@ const InputField = ({
 }: InputFieldProps) => {
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const [isBlind, setIsBlind] = useState<boolean>(true);
+
   const inputOptions = getInputFieldOptions(value, isBlind);
+
+  useEffect(() => {
+    if (value === 'email' || value === 'nickname') {
+      setIsFocused(true);
+    }
+  }, [value]);
+
   return (
     <S.Container>
       <S.Label htmlFor={value} children={label} isFocused={isFocused} />
