@@ -6,13 +6,21 @@ export default css`
   ${fontStyles}
   ${colorPalette}
   :root {
-    --dimmed-zindex: 10;
+    --detailList-zindex: 8;
     --select-zindex: 9;
+    --dimmed-zindex: 10;
+    --modal-zindex: 11;
+  }
+  div {
+    box-sizing: border-box;
+  }
+
+  html {
+    scrollbar-gutter: stable;
   }
 
   html,
   body,
-  div,
   span,
   applet,
   object,
@@ -112,7 +120,7 @@ export default css`
     display: block;
   }
   body {
-    line-height: 1;
+    overflow-x: hidden;
   }
   ol,
   ul {
@@ -148,5 +156,21 @@ export default css`
   a {
     color: inherit;
     text-decoration: inherit;
+  }
+  input {
+    background-color: inherit;
+    border: none;
+    :focus {
+      outline: none;
+    }
+  }
+  textarea {
+    all: unset;
+    white-space: normal;
+    word-wrap: break-word;
+    :focus {
+      outline: none;
+    }
+    box-sizing: border-box;
   }
 `;

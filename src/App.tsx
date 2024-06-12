@@ -1,28 +1,28 @@
 import { Route, Routes } from 'react-router-dom';
-import {
-  DetailPage,
-  EditUserInfoPage,
-  LoginPage,
-  MainPage,
-  ReviewPage,
-  SignupPage,
-  UserInfoPage,
-} from './pages';
-import Navbar from './components/Navbar';
+import { Navbar } from '@/components';
+import { routes } from './routes';
+import ProtectedRoute from './routes/ProtectedRoute';
 
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Navbar />}>
-        <Route path="/" element={<MainPage />} />
-        <Route path="/user" element={<UserInfoPage />} />
-        <Route path="/user/:userId" element={<UserInfoPage />} />
-        <Route path="/user/edit" element={<EditUserInfoPage />} />
-        <Route path="/review/:galleryId" element={<ReviewPage />} />
-      </Route>
-      <Route path="/gallery/:galleryId" element={<DetailPage />} />
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/signup" element={<SignupPage />} />
+      {routes.map(({ Element, path, withNav, withAuth }) => {
+        const elemet = withAuth ? (
+          <ProtectedRoute path={path}>
+            <Element />
+          </ProtectedRoute>
+        ) : (
+          <Element />
+        );
+        if (withNav) {
+          return (
+            <Route key={path} path="/" element={<Navbar />}>
+              <Route path={path} element={elemet} />
+            </Route>
+          );
+        }
+        return <Route key={path} path={path} element={elemet} />;
+      })}
     </Routes>
   );
 }
