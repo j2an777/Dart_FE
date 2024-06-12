@@ -84,6 +84,11 @@ export const handlers = [
   http.get('/api/galleries', () => {
     return HttpResponse.json(galleries1, { status: 200 });
   }),
+
+  http.get('/api/galleries/1', () => {
+    return HttpResponse.json(GalleryDetailData, { status: 200 });
+  }),
+
   // 리뷰 작성
   http.post('/api/reviews', async ({ request }) => {
     const data = await request.json();
@@ -94,5 +99,5 @@ export const handlers = [
   }),
   http.get('/api/payment?page=1&size=6', () => {
     return HttpResponse.json(PaymentData, { status: 200 });
-  }),
+  })
 ];

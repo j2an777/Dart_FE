@@ -7,15 +7,14 @@ import {
   UseFormRegister,
   UseFormSetValue,
   UseFormWatch,
-  useForm,
 } from 'react-hook-form';
 import { essentiolFormData } from '@/consts/signup';
 import { Navigate } from 'react-router-dom';
 import { alertStore } from '@/stores/modal';
+import SignupCheck from '../signupCheck';
 
 import * as S from './styles';
-import { postCheckNickname, postEmailCode } from '@/apis/member';
-import { useState } from 'react';
+import { useEffect } from 'react';
 
 interface SignupFormProps {
   register: UseFormRegister<ExtendedSignupForm>;
@@ -26,6 +25,9 @@ interface SignupFormProps {
 
 const SignupEssentailForm = ({ watch, register, errors, setValue }: SignupFormProps) => {
   const open = alertStore((state) => state.open);
+  useEffect(() => {
+    return () => sessionStorage.removeItem('isAgree');
+  }, []);
   const isAgree = sessionStorage.getItem('isAgree');
   if (!isAgree) return <Navigate to={'/'} />;
 
@@ -51,7 +53,7 @@ const SignupEssentailForm = ({ watch, register, errors, setValue }: SignupFormPr
                     title: props.title,
                     buttonLabel: '닫기',
                     description: (
-                      <CheckModal
+                      <SignupCheck
                         setValue={setValue}
                         label={label}
                         value={value}
@@ -96,50 +98,3 @@ const SignupEssentailForm = ({ watch, register, errors, setValue }: SignupFormPr
 };
 
 export default SignupEssentailForm;
-
-const CheckModal = ({
-  setValue,
-  label,
-  value,
-  registerOptions,
-}: {
-  setValue: UseFormSetValue<ExtendedSignupForm>;
-  label: string;
-  value: string;
-  registerOptions: RegisterOptions;
-}) => {
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-  } = useForm<{ [key: string]: string }>({
-    mode: 'onChange',
-    defaultValues: { [value]: '' },
-  });
-  const [isView, setIsView] = useState<boolean>(false);
-  const onSubmit = async (form: { [key: string]: string }) => {
-    const value = Object.keys(form)[0];
-    if (value === 'email') {
-      await postEmailCode(form as { email: string }).then(() => {
-        setValue('email', form.email, { shouldValidate: true }), setIsView(true);
-      });
-    } else {
-      await postCheckNickname(form as { nickname: string });
-    }
-  };
-  return (
-    <S.CheckModalContainer onSubmit={handleSubmit(onSubmit)}>
-      <InputField
-        register={register(value, registerOptions)}
-        error={errors[value]}
-        label={label}
-        value={value}
-        inputType="alert"
-      />
-      <Button buttonType="RoundBlack" size="sm" type="submit">
-        확인버튼
-      </Button>
-      {isView && <>확인란</>}
-    </S.CheckModalContainer>
-  );
-};

@@ -7,6 +7,7 @@ export const Container = styled.div`
   flex-direction: column;
   width: 100%;
   gap: 10px;
+  position: relative;
 `;
 
 export const SeacchBox = styled.div`
@@ -28,4 +29,15 @@ export const SeacchButtonBlock = styled.div`
   ${LayoutMap.displayFlex}
   width: 100%;
   justify-content: space-between;
+`;
+
+export const SeacchContent = styled.ul`
+  position: absolute;
+  bottom: 0;
+  transform: translateY(20%);
+  width: 100%;
+  background-color: ${colors.white};
+  border: 1px solid ${colors.black};
+  border-radius: 10px;
+  padding: 16px;
 `;

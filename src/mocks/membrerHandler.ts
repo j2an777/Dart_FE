@@ -42,4 +42,7 @@ export const memberHandler = [
       return HttpResponse.json({ message: 'ok' }, { status: 200 });
     else return HttpResponse.json({ message: '이메일 전송 실패' }, { status: 400 });
   }),
+  http.post('/api/signup/nickname/check', async () => {
+    return HttpResponse.json({ message: 'ok' }, { status: 200 });
+  }),
 ];

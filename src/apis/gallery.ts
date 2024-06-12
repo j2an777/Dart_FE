@@ -29,13 +29,21 @@ export const postGalleries = async (formData: PostGalleries) => {
 };
 
 interface GetGalleriesParams extends Partial<FilterType> {
-  page?: number;
+  pageIndex?: number;
   size?: number;
 }
 
-export const getGalleries = async ({ page = 0, size = 6 }: GetGalleriesParams) => {
+export const getGalleries = async ({
+  pageIndex = 0,
+  size = 6,
+  category = 'title',
+  cost = 'free',
+  display = 'all',
+  keyword = '',
+  sort = 'latest',
+}: GetGalleriesParams) => {
   const response = await instance.get(
-    `/api/galleries?page=${page}&size=${size}`,
+    `/api/galleries?page=${pageIndex}&size=${size}&category=${category}&cost=${cost}&display=${display}&keyword=${keyword}&sort=${sort}`,
   );
   return response?.data as GalleriesData;
 };

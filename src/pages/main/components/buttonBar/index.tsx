@@ -1,8 +1,9 @@
-import { Button, Icon, Text } from '@/components';
+import { Icon, Text } from '@/components';
 import { DisplayInfoType, SortInfoType } from '@/consts/filter';
 import { FilterType } from '@/types/gallery';
 
 import * as S from './styles';
+import { useState } from 'react';
 
 interface ButtonBarProps {
   title: string;
@@ -13,6 +14,7 @@ interface ButtonBarProps {
 }
 
 const ButtonBar = ({ title, selected, keyPorp, onChange, buttons }: ButtonBarProps) => {
+  const [position, setPosition] = useState<number>(keyPorp === 'display' ? -2 : 0);
   return (
     <S.Container>
       <S.TitleBox>
@@ -24,26 +26,29 @@ const ButtonBar = ({ title, selected, keyPorp, onChange, buttons }: ButtonBarPro
             value="all"
             size={25}
             color={selected === 'all' ? 'black' : 'gray200'}
-            onClick={() => onChange({ [keyPorp]: 'all' })}
+            onClick={() => {
+              onChange({ [keyPorp]: 'all' });
+              setPosition(-2);
+            }}
             $active={!(selected === 'all')}
           />
         )}
       </S.TitleBox>
       <S.ButtonBox>
-        {buttons.map(({ value, label }) => {
-          const buttonType = selected === value ? 'RoundBlack' : 'onlyText';
-          const color = selected === value ? 'white' : 'black';
+        {buttons.map(({ value, label }, index) => {
           return (
-            <Button
+            <S.Button
+              selected={selected === value}
               key={value}
-              buttonType={buttonType}
-              size="xs"
               children={label}
-              color={color}
-              onClick={() => onChange({ [keyPorp]: value })}
+              onClick={() => {
+                onChange({ [keyPorp]: value });
+                setPosition(index);
+              }}
             />
           );
         })}
+        <S.SelectedButton width={buttons.length} position={position} />
       </S.ButtonBox>
     </S.Container>
   );

@@ -13,19 +13,6 @@ export const Container = styled.div`
   }
 `;
 
-export const BankBox = styled.div`
-  display: flex;
-  gap: 40px;
-
-  & > :first-of-type {
-    width: 100px;
-  }
-  & > :last-of-type {
-    flex: 2;
-  }
-`;
-// 여기 조금 애매하네.. ㄷㄷ inputArea에 flex:1이 있어서 이런식으로밖에 안된다
-
 export const Textarea = styled.textarea`
   resize: none;
   width: 100%;

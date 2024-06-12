@@ -15,18 +15,7 @@ const LoginLinkButton = ({ title, buttonLabel, path }: LoginLinkButtonProps) => 
   const open = alertStore((state) => state.open);
 
   return (
-    <S.Container
-      onClick={
-        path
-          ? () => navigate(path)
-          : () =>
-              open({
-                title: '에러',
-                buttonLabel: '확인',
-                description: '구현 예정입니다',
-              })
-      }
-    >
+    <S.Container>
       <S.Description typography="t6" color="white" bold="thin">
         {title}
       </S.Description>
@@ -36,6 +25,16 @@ const LoginLinkButton = ({ title, buttonLabel, path }: LoginLinkButtonProps) => 
         buttonType="onlyText"
         size="fit"
         type="button"
+        onClick={
+          path
+            ? () => navigate(path)
+            : () =>
+                open({
+                  title: '에러',
+                  buttonLabel: '확인',
+                  description: '구현 예정입니다',
+                })
+        }
       />
     </S.Container>
   );

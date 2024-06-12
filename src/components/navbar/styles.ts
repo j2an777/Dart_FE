@@ -15,6 +15,7 @@ export const Container = styled.div`
 export const MaxWidthWrapper = styled.div`
   max-width: 1440px;
   width: 100%;
+  padding: 0px 80px;
   ${LayoutMap.displayFlex}
   justify-content: space-between;
 `;
@@ -45,6 +46,7 @@ export const MoreBox = styled.div`
   bottom: 0;
   transform: translate(-25%, 110%);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: var(--detailList-zindex);
 `;
 
 export const MoreItem = styled(Text)<{ isLast: boolean }>`

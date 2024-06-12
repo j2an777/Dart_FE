@@ -7,10 +7,9 @@ import * as S from './styles';
 const PageButtons = () => {
   const {
     nextPage,
-    pageInfo: { isDone, isFirst, page },
+    pageInfo: { isDone, isFirst, pageIndex },
     prevPage,
   } = pageStore();
-  console.log(isDone);
   return (
     <S.Container>
       <S.ButtonBox>
@@ -21,7 +20,7 @@ const PageButtons = () => {
           $active={!isFirst}
           color={isFirst ? 'gray300' : 'black'}
         />
-        <Text typography="t3" bold="regular" children={getVisiblePage(page + 1)} />
+        <Text typography="t3" bold="regular" children={getVisiblePage(pageIndex + 1)} />
         <Icon
           value="plus"
           size={15}

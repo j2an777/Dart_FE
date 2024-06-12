@@ -4,18 +4,22 @@ import Icon, { IconValues } from '@/components/icon';
 import Text from '@/components/Text';
 import { Link, useNavigate } from 'react-router-dom';
 import { Colors } from '@/styles/colorPalette';
+
 import * as S from './styles';
 import { alertStore, galleryInfoStore } from '@/stores/modal';
 import { useQuery } from '@tanstack/react-query';
 import { getGalleryInfo } from '@/apis/gallery';
 import { postPayment } from '@/apis/payment';
 
+import * as S from './styles';
+
 interface GalleryInfoProps {
   galleryId: number;
   open: boolean;
+  close: () => void;
 }
 
-const GalleryInfo = ({ galleryId, open }: GalleryInfoProps) => {
+const GalleryInfo = ({ galleryId, open: isOpen, close }: GalleryInfoProps) => {
   const openModal = alertStore((state) => state.open);
   const navigate = useNavigate();
   const close = galleryInfoStore(state => state.close);
@@ -87,7 +91,7 @@ const GalleryInfo = ({ galleryId, open }: GalleryInfoProps) => {
     const day = String(date.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
   };
-  if (!open) return;
+  if (!isOpen) return;
   return (
     <Dimmed>
       <S.Container>

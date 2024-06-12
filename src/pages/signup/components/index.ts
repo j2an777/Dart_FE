@@ -6,3 +6,4 @@ export { default as SignupTextarea } from './signupTextarea';
 export { default as SignupFormLayout } from './signupFormLayout';
 export { default as SignupOptionalForm } from './signupOptionalForm';
 export { default as SignupEssentailForm } from './signupEssentailForm';
+export { default as SignupCheck } from './signupCheck';

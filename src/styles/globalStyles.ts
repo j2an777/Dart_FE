@@ -6,8 +6,9 @@ export default css`
   ${fontStyles}
   ${colorPalette}
   :root {
-    --dimmed-zindex: 10;
+    --detailList-zindex: 8;
     --select-zindex: 9;
+    --dimmed-zindex: 10;
     --modal-zindex: 11;
   }
   div {
