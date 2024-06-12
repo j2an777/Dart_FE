@@ -43,7 +43,7 @@ export const getGalleries = async ({
   sort = 'latest',
 }: GetGalleriesParams) => {
   const response = await instance.get(
-    `${import.meta.env.VITE_DEV_URL}api/galleries?page=${pageIndex}&size=${size}&category=${category}&cost=${cost}&display=${display}&keyword=${keyword}&sort=${sort}`,
+    `/api/galleries?page=${pageIndex}&size=${size}&category=${category}&cost=${cost}&display=${display}&keyword=${keyword}&sort=${sort}`,
   );
   return response?.data as GalleriesData;
 };

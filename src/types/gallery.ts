@@ -44,7 +44,7 @@ export interface FilterType {
   category: 'hashtag' | 'author' | 'title';
   sort: 'latest' | 'hot' | 'liked';
   cost: 'all' | 'free' | 'pay';
-  display: 'all' | 'upcomming' | 'inprogress' | 'finished';
+  display: 'all' | 'upcoming' | 'inprogress' | 'finished';
 }
 
 export type CategoryValues = FilterType['category'];
