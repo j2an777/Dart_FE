@@ -3,9 +3,7 @@ import styled from '@emotion/styled';
 
 export const Container = styled.div`
   ${LayoutMap.displayFlex}
-  width: 1440px;
+  gap: 10px;
   height: fit-content;
-  flex-direction: column;
-  padding: 0 80px;
-  margin: auto;
+  justify-content: center;
 `;
