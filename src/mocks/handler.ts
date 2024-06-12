@@ -86,7 +86,7 @@ export const handlers = [
   }),
 
   http.get('/api/galleries/1', () => {
-    return HttpResponse.json(GalleryDetailData, { status: 200 });
+    return HttpResponse.json({ status: 200 });
   }),
 
   // 리뷰 작성
@@ -99,5 +99,5 @@ export const handlers = [
   }),
   http.get('/api/payment?page=1&size=6', () => {
     return HttpResponse.json(PaymentData, { status: 200 });
-  })
+  }),
 ];

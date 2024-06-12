@@ -92,7 +92,7 @@ const Ticket = ({
         {title}
       </S.Title>
       <S.Date typography="t5" bold="regular">
-        {parseDate(startDate)} - {parseDate(endDate)}
+        {parseDate(startDate)} - {parseDate(endDate as Date)}
       </S.Date>
       <S.HashTags typography="t5" bold="regular">
         {hashtags.map((tag) => `#${tag}`).join(' ')}

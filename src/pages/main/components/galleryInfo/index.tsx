@@ -1,12 +1,9 @@
 import Dimmed from '@/components/Dimmed';
-
 import Icon, { IconValues } from '@/components/icon';
 import Text from '@/components/Text';
 import { Link, useNavigate } from 'react-router-dom';
 import { Colors } from '@/styles/colorPalette';
-
-import * as S from './styles';
-import { alertStore, galleryInfoStore } from '@/stores/modal';
+import { alertStore } from '@/stores/modal';
 import { useQuery } from '@tanstack/react-query';
 import { getGalleryInfo } from '@/apis/gallery';
 import { postPayment } from '@/apis/payment';
@@ -14,7 +11,7 @@ import { postPayment } from '@/apis/payment';
 import * as S from './styles';
 
 interface GalleryInfoProps {
-  galleryId: number;
+  galleryId: number | null;
   open: boolean;
   close: () => void;
 }
@@ -22,11 +19,10 @@ interface GalleryInfoProps {
 const GalleryInfo = ({ galleryId, open: isOpen, close }: GalleryInfoProps) => {
   const openModal = alertStore((state) => state.open);
   const navigate = useNavigate();
-  const close = galleryInfoStore(state => state.close);
 
   const { data, error, isLoading } = useQuery({
     queryKey: ['detail'],
-    queryFn: () => getGalleryInfo(galleryId),
+    queryFn: () => getGalleryInfo(galleryId as number),
   });
   console.log(data);
 
