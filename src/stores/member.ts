@@ -1,5 +1,5 @@
 import { Member } from '@/types/member';
-import decodedToekn from '@/utils/decodedToekn';
+import decodedToken from '@/utils/decodedToken';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
@@ -23,7 +23,7 @@ export const memberStore = create<memberState>()(
       auth: initalState,
       accessToken: null,
       setMember: (accessToken) => {
-        const data = decodedToekn(accessToken);
+        const data = decodedToken(accessToken);
         set((prev) => ({
           ...prev,
           auth: data,

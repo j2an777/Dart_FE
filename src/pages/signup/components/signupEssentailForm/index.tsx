@@ -14,6 +14,7 @@ import { alertStore } from '@/stores/modal';
 import SignupCheck from '../signupCheck';
 
 import * as S from './styles';
+import { useEffect } from 'react';
 
 interface SignupFormProps {
   register: UseFormRegister<ExtendedSignupForm>;
@@ -24,6 +25,9 @@ interface SignupFormProps {
 
 const SignupEssentailForm = ({ watch, register, errors, setValue }: SignupFormProps) => {
   const open = alertStore((state) => state.open);
+  useEffect(() => {
+    return () => sessionStorage.removeItem('isAgree');
+  }, []);
   const isAgree = sessionStorage.getItem('isAgree');
   if (!isAgree) return <Navigate to={'/'} />;
 

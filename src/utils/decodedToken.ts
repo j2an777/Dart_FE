@@ -1,4 +1,4 @@
-const decodedToekn = (accessToekn: string) => {
+const decodedToken = (accessToekn: string) => {
   const base64Url = accessToekn.split('.')[1];
   const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
   const jsonPayload = decodeURIComponent(
@@ -15,4 +15,4 @@ const decodedToekn = (accessToekn: string) => {
   return { email, nickname, profileImage };
 };
 
-export default decodedToekn;
+export default decodedToken;
