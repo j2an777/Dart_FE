@@ -1,15 +1,17 @@
 import {
+  EditMemberInfoPage,
   ErrorPage,
+  FailedPage,
   GalleryPage,
   IntroPage,
   LoginPage,
   MainPage,
+  MemberInfoPage,
   PostPage,
   ReviewPage,
   SignupPage,
+  SuccessPage,
 } from '@/pages';
-import MemberInfoPage from '@/pages/memberInfo';
-import EditMemberInfoPage from '@/pages/editMemberInfo';
 
 interface RouteInfo {
   path: string;
@@ -29,6 +31,8 @@ export const routes: RouteInfo[] = [
   { path: '/intro', Element: IntroPage },
   { path: '/login', Element: LoginPage, withAuth: true },
   { path: '/signup', Element: SignupPage, withAuth: true },
+  { path: '/payment/success', Element: SuccessPage, withAuth: true },
+  { path: '/payment/falied', Element: FailedPage, withAuth: true },
   { path: '*', Element: ErrorPage },
 ];
 
