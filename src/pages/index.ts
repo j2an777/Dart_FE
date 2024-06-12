@@ -10,4 +10,3 @@ export { default as EditMemberInfoPage } from './editMemberInfo';
 export { default as MemberInfoPage } from './memberInfo';
 export { default as SuccessPage } from './payment/success';
 export { default as FailPage } from './payment/fail';
-
