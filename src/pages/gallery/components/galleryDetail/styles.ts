@@ -52,10 +52,11 @@ export const Frame = styled(motion.div)`
   z-index : 12;
 
   img {
-    width: 100%;
+    width: auto;
     height: 100%;
     object-fit: contain;
-    border-radius: 50px;
+    border-radius: 0;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
   }
 `;
 
@@ -64,6 +65,7 @@ export const DetailContent = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
+  align-items : end;
   padding: 20px;
   box-sizing: border-box;
   gap: 20px;
@@ -78,9 +80,10 @@ export const DetailContent = styled.div`
   }
 `;
 
-export const Top = styled.div`
+export const DetailText = styled(motion.div)`
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
+  gap : 20px;
 `;
