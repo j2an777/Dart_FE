@@ -105,7 +105,7 @@ const GalleryMain = () => {
             </S.ContentBox>
           </S.ImageBox>
         ))}
-        <Text typography='t3' bold='bold' color='white'>{galleryData.title}</Text>
+        <Text typography='t1' bold='bold' color='white' className='galleryTitle'>{galleryData.title}</Text>
       </S.MainBlock>
       {galleryData.images.length > 1 && (
         <S.BtnBlock>

@@ -22,6 +22,13 @@ export const MainBlock = styled.div<MainBlockProps>`
     transform-style: preserve-3d;
     transition: transform 1.5s;
     transform: perspective(1000px) rotateY(${props => `${props.degrees}deg`});
+
+    .galleryTitle {
+        position : absolute;
+        top : 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
 `;
 
 interface ImageBoxProps {

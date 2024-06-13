@@ -51,7 +51,7 @@ export const getGalleries = async ({
 // 전시 페이지 get
 export const getGallery = async (galleryId: number) => {
   const response = await instance.get(
-    `${import.meta.env.VITE_DEV_URL}api/galleries/${galleryId}`
+    `/api/galleries/${galleryId}`
   );
   return response?.data;
 };
