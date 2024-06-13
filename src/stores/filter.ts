@@ -10,7 +10,7 @@ interface FilterState {
 
 const defaultVale: FilterType = {
   category: 'title',
-  cost: 'free',
+  cost: 'all',
   display: 'all',
   keyword: '',
   sort: 'latest',
@@ -18,7 +18,7 @@ const defaultVale: FilterType = {
 
 export const filterStore = create<FilterState>((set) => ({
   filterValue: defaultVale,
-  costArray: ['free'],
+  costArray: ['free', 'pay'],
   onChange: (newValue) =>
     set((prev) => ({
       ...prev,

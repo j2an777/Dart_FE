@@ -94,10 +94,10 @@ export const handlers = [
     const data = await request.json();
     return HttpResponse.json(data, { status: 200 });
   }),
-  http.get('/api/mypage?nickname=user1', () => {
+  http.get('/api/mypage', () => {
     return HttpResponse.json(TicketData, { status: 200 });
   }),
-  http.get('/api/payment?page=1&size=6', () => {
+  http.get('/api/payment', () => {
     return HttpResponse.json(PaymentData, { status: 200 });
   }),
 ];
