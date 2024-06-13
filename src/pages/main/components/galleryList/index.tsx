@@ -3,9 +3,11 @@ import { useGetGalleries } from '../../hooks';
 import { pageStore } from '@/stores/page';
 import { useLayoutEffect } from 'react';
 import withSuspense from '@/hooks/withSuspense';
+import { NoneData } from '@/components';
+import { useStore } from 'zustand';
+import GalleryListFallback from '../fallback/GalleryListFallback';
 
 import * as S from './styles';
-import { useStore } from 'zustand';
 
 const GalleryList = () => {
   const { data } = useGetGalleries();
@@ -14,6 +16,8 @@ const GalleryList = () => {
     setPageInfo(data.pageParams);
     return () => resetPageInfo();
   }, [data.pageParams, resetPageInfo, setPageInfo]);
+
+  if (data.pages.length === 0) return <NoneData children="게시글이 존재하지 않습니다" />;
 
   return (
     <S.Container>
@@ -24,4 +28,7 @@ const GalleryList = () => {
   );
 };
 
-export default withSuspense(GalleryList, { fallback: <>loading</> });
+const SideEffectWithGalleryList = withSuspense(GalleryList, {
+  fallback: <GalleryListFallback />,
+});
+export default SideEffectWithGalleryList;
