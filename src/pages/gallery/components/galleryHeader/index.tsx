@@ -3,15 +3,16 @@ import GalleryLogo from '@/assets/images/galleryLogo.png';
 import { Icon } from '@/components';
 import { alertStore } from '@/stores/modal';
 import ReviewModal from '../reviewModal';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { PostReview } from '@/types/post';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { postReview } from '@/apis/review';
+import useCustomNavigate from '@/hooks/useCustomNavigate';
 
 const GalleryHeader = () => {
   const open = alertStore((state) => state.open);
   const close = alertStore((state) => state.close);
-  const navigate = useNavigate();
+  const navigate = useCustomNavigate();
   const queryClient = useQueryClient();
 
   const { galleryId: galleryIdStr } = useParams<{ galleryId?: string }>();
@@ -23,7 +24,7 @@ const GalleryHeader = () => {
     onSettled: () => {
       queryClient.invalidateQueries({
         queryKey: ['review'],
-      })
+      });
     },
   });
 
@@ -39,7 +40,7 @@ const GalleryHeader = () => {
     if (name === 'review') {
       open({
         title: '후기 등록하기',
-        description: <ReviewModal onSubmit={handleReviewSubmit} close={close}/>,
+        description: <ReviewModal onSubmit={handleReviewSubmit} close={close} />,
         buttonLabel: '등록',
         onClickButton: () => {
           const form = document.querySelector('form');

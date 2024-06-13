@@ -2,8 +2,6 @@ export interface SignupFormData {
   email: string;
   nickname: string;
   password: string;
-  isCheckedEmail: boolean;
-  isCheckedNickname: boolean;
   introduce?: string;
   birthday?: string;
 }

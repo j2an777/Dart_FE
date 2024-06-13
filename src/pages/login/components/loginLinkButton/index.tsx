@@ -1,8 +1,8 @@
 import { Button, Icon } from '@/components';
+import { alertStore } from '@/stores/modal';
+import useCustomNavigate from '@/hooks/useCustomNavigate';
 
 import * as S from './styles';
-import { useNavigate } from 'react-router-dom';
-import { alertStore } from '@/stores/modal';
 
 interface LoginLinkButtonProps {
   title: string;
@@ -11,7 +11,7 @@ interface LoginLinkButtonProps {
 }
 
 const LoginLinkButton = ({ title, buttonLabel, path }: LoginLinkButtonProps) => {
-  const navigate = useNavigate();
+  const navigate = useCustomNavigate();
   const open = alertStore((state) => state.open);
 
   return (
