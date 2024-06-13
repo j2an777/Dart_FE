@@ -9,6 +9,7 @@ import { alertStore } from '@/stores/modal';
 import { useQuery } from '@tanstack/react-query';
 import { getGalleryInfo } from '@/apis/gallery';
 import { postPayment } from '@/apis/payment';
+import Logo from '@/assets/images/mainLogo.png';
 
 interface GalleryInfoProps {
   galleryId: number | null;
@@ -92,7 +93,7 @@ const GalleryInfo = ({ galleryId, open: isOpen, close }: GalleryInfoProps) => {
       <S.Container>
         <S.InfoBox>
           <S.CancelIcon value="cancel" size={20} onClick={close} />
-          <S.MainLogo alt="main-logo" src={'안녕'} />
+          <S.MainLogo alt="main-logo" src={Logo} />
           <S.DescriptionBlock>
             <S.Top>
               <Text typography="t5" color="white" bold="medium">
