@@ -1,17 +1,18 @@
 import * as S from './styles';
 import GalleryLogo from '@/assets/images/galleryLogo.png';
 import { Icon } from '@/components';
-import { alertStore } from '@/stores/modal';
+import { alertStore, chatStore } from '@/stores/modal';
 import ReviewModal from '../reviewModal';
 import { useParams } from 'react-router-dom';
 import { PostReview } from '@/types/post';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { postReview } from '@/apis/review';
 import useCustomNavigate from '@/hooks/useCustomNavigate';
+import { useStore } from 'zustand';
 
 const GalleryHeader = () => {
-  const open = alertStore((state) => state.open);
-  const close = alertStore((state) => state.close);
+  const { open, close } = useStore(alertStore);
+  const openChat = chatStore((state) => state.open);
   const navigate = useCustomNavigate();
   const queryClient = useQueryClient();
 
@@ -50,15 +51,14 @@ const GalleryHeader = () => {
         },
       });
     } else if (name === 'chat') {
-      // 여기에 채팅창 열어지는 함수 호출 구문 작성
-      // ******* 채팅 ********
+      openChat();
     } else if (name === 'out') {
       open({
         title: '전시관 나가기',
         description: '전시관에서 나가시겠습니까?',
         buttonLabel: '확인',
         onClickButton: () => {
-          navigate(-1);
+          navigate('/');
         },
       });
     } else {
@@ -84,7 +84,7 @@ const GalleryHeader = () => {
             onClick={() => onHandleToggle('review')}
             strokeColor="white"
           />
-          <Icon value="chat" size={30} onClick={() => onHandleToggle('chqt')} />
+          <Icon value="chat" size={30} onClick={() => onHandleToggle('chat')} />
           <Icon value="out" size={30} onClick={() => onHandleToggle('out')} />
         </S.MenuBox>
       </S.MenuBlock>

@@ -62,14 +62,30 @@ export const ProfileRight = styled.div`
 
 export const EditBlock = styled.div`
     width : 100%;
-    height : 300px;
-    display: grid;
-    grid-template-columns: 100px auto 120PX;
-    grid-template-rows: auto auto auto;
-    gap : 20px;
-    align-items: center;
+    height : auto;
+    ${LayoutMap.displayFlex};
+    flex-direction : column;
+    gap : 40px;
     padding: 0 50px;
     box-sizing : border-box;
+`;
+
+export const NicknameBox = styled.div`
+  position : relative;
+  width : 100%;
+  height : auto;
+  display : grid;
+  grid-template-columns: 100px 1fr 120px;
+  gap : 20px;
+`;
+
+export const IntroduceBox = styled.div`
+  width : 100%;
+  height : auto;
+  display : grid;
+  grid-template-columns: 100px 1fr 120px;
+  grid-template-rows : 50px 50px;
+  gap : 20px;
 `;
 
 export const Input = styled.input`
@@ -82,8 +98,8 @@ export const Textarea = styled.textarea`
   height: 100%;
   padding: 10px;
   border: 1px solid #ccc;
-  grid-column: 2 / span 2;
-  grid-row: 2 / span 3;
+  grid-column: 2 / span 3;
+  grid-row: 1 / span 2;
 `;
 
 export const CancelBtn = styled.button`
@@ -114,9 +130,12 @@ export const ButtonContainer = styled.div`
   grid-row : 5;
 `;
 
-export const Error = styled.p`
+export const Error = styled.p<{nicknameError: string}>`
+  position : absolute;
+  left : 20%;
+  bottom : -20px;
   ${typographyMap.t7};
-  color : ${colors.red};
+   color: ${props => props.nicknameError === '사용 가능한 닉네임입니다.' ? colors.green : colors.red};
 `;
 
 export const CheckBtn = styled.button`

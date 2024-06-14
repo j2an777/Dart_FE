@@ -9,7 +9,6 @@ const useGetSearchDatas = ({
   return useQuery({
     queryKey: ['search', [keyword, category]],
     queryFn: async () => await getSearchData({ keyword, category }),
-    initialData: { results: [] },
     enabled: !!keyword,
   });
 };

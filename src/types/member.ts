@@ -19,14 +19,11 @@ export interface EmailVerify extends Pick<Member, 'email'> {
 }
 
 export type EditFormData = Partial<
-  Pick<SignupFormData, 'nickname' | 'password' | 'introduce'>
+  Pick<Member, 'nickname' | 'introduce'>
 > & {
   profileImage?: File;
+  isCheckedNickname: boolean;
 };
-
-export type PutFormData = Partial<
-  Pick<EditFormData, 'nickname' | 'introduce' | 'profileImage'>
->;
 
 export interface ExtendedSignupForm extends SignupFormData {
   passwordConfirm: string;

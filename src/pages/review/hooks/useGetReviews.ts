@@ -11,7 +11,6 @@ const useGetReviews = ({
   return useSuspenseQuery({
     queryKey: ['reviews', pageIndex],
     queryFn: () => getReveiws({ galleryId, page: pageIndex, size: 10 }),
-    initialData: { pageInfo: { isDone: true, pageIndex: 0 }, pages: [] },
     select: (data) => ({
       pages: data.pages,
       pageParams: data.pageInfo,

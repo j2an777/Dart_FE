@@ -12,6 +12,11 @@ export const postPayment = async (
 };
 
 export const getPayment = async (page: number, size: number) => {
-  const response = await instance.get(`/api/payment/?page=${page}&size=${size}`);
+  const response = await instance.get('/api/payment', {
+    params: {
+      page,
+      size,
+    },
+  });
   return response?.data;
 };

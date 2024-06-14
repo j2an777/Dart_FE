@@ -1,6 +1,7 @@
 import { http, HttpResponse } from 'msw';
 import { TicketData } from './mockData/ticketData';
 import { PaymentData } from './mockData/paymentData';
+import { GalleryData } from './mockData/galleryData';
 
 const galleries1 = {
   pages: [
@@ -86,7 +87,7 @@ export const handlers = [
   }),
 
   http.get('/api/galleries/1', () => {
-    return HttpResponse.json({ status: 200 });
+    return HttpResponse.json(GalleryData, { status: 200 });
   }),
 
   // 리뷰 작성

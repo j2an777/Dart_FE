@@ -1,37 +1,37 @@
-import { useEffect, useState } from 'react';
-import { Exhibition, PaymentMenu } from '../index';
-
+import { useState } from 'react';
+import { Exhibition, Purchase } from '../index';
 import * as S from './styles';
 
 const Menu = () => {
-  const [selectedMenu, setSelectedMenu] = useState('exhibition');
+  const [currentTab, setCurrentTab] = useState('exhibition');
+
+  const tabs = [
+    { id: 'exhibition', label: '전시', component: Exhibition },
+    { id: 'purchase', label: '구매', component: Purchase },
+  ];
+
   const renderContent = () => {
-    switch (selectedMenu) {
-      case 'exhibition':
-        return <Exhibition />;
-      case 'purchase':
-        return <PaymentMenu />;
+    const activeTab = tabs.find((tab) => tab.id === currentTab);
+    if (activeTab) {
+      const Component = activeTab.component;
+      return <Component />;
     }
   };
 
-  useEffect(() => {});
   return (
     <S.Container>
       <S.MenuBox>
-        <S.MenuBlock
-          isActive={selectedMenu === 'exhibition'}
-          onClick={() => setSelectedMenu('exhibition')}
-        >
-          전시
-        </S.MenuBlock>
-        <S.MenuBlock
-          isActive={selectedMenu === 'purchase'}
-          onClick={() => setSelectedMenu('purchase')}
-        >
-          구매
-        </S.MenuBlock>
+        {tabs.map((tab) => (
+          <S.MenuBlock
+            key={tab.id}
+            isActive={currentTab === tab.id}
+            onClick={() => setCurrentTab(tab.id)}
+          >
+            {tab.label}
+          </S.MenuBlock>
+        ))}
       </S.MenuBox>
-      {/* {renderContent()} */}
+      {renderContent()}
     </S.Container>
   );
 };

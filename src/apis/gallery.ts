@@ -10,9 +10,11 @@ export const postGalleries = async (formData: PostGalleries) => {
     data.append('thumbnail', thumbnail);
   }
 
-  images.forEach((image: File, index: number) => {
-    data.append(`images[${index}]`, image);
-  });
+  if (images) {
+    images.forEach((image) => {
+      data.append('images', image);
+    });
+  }
 
   data.append(
     'gallery',
