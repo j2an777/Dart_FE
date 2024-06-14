@@ -1,12 +1,15 @@
 import Dimmed from '@/components/Dimmed';
 import Icon, { IconValues } from '@/components/icon';
 import Text from '@/components/Text';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Colors } from '@/styles/colorPalette';
+
 import { alertStore } from '@/stores/modal';
 import { useQuery } from '@tanstack/react-query';
 import { getGalleryInfo } from '@/apis/gallery';
 import { postPayment } from '@/apis/payment';
+import Logo from '@/assets/images/mainLogo.png';
+import useCustomNavigate from '@/hooks/useCustomNavigate';
 
 import * as S from './styles';
 
@@ -18,13 +21,12 @@ interface GalleryInfoProps {
 
 const GalleryInfo = ({ galleryId, open: isOpen, close }: GalleryInfoProps) => {
   const openModal = alertStore((state) => state.open);
-  const navigate = useNavigate();
+  const navigate = useCustomNavigate();
 
   const { data, error, isLoading } = useQuery({
     queryKey: ['detail'],
     queryFn: () => getGalleryInfo(galleryId as number),
   });
-  console.log(data);
 
   const renderIcons = (reviewAverage: number) => {
     const icons = [];
@@ -61,12 +63,10 @@ const GalleryInfo = ({ galleryId, open: isOpen, close }: GalleryInfoProps) => {
         title: '티켓 구매하기',
         description: '티켓을 구매하시겠습니까?',
         buttonLabel: '확인',
-        onClickButton: () => {
-          // 결제 페이지 api 함수 호출 구문
-          async () => {
-            const payment = await postPayment(galleryId, 'ticket');
-            window.location.href = payment.next_redirect_pc_url;
-          };
+        // 결제 페이지 api 함수 호출 구문
+        onClickButton: async () => {
+          const payment = await postPayment(galleryId, 'ticket');
+          window.location.href = payment.next_redirect_pc_url;
         },
       });
     }
@@ -93,7 +93,7 @@ const GalleryInfo = ({ galleryId, open: isOpen, close }: GalleryInfoProps) => {
       <S.Container>
         <S.InfoBox>
           <S.CancelIcon value="cancel" size={20} onClick={close} />
-          <S.MainLogo alt="main-logo" src={'안녕'} />
+          <S.MainLogo alt="main-logo" src={Logo} />
           <S.DescriptionBlock>
             <S.Top>
               <Text typography="t5" color="white" bold="medium">

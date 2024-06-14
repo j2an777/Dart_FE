@@ -1,4 +1,4 @@
-import { bolderMap, typographyMap } from "@/styles/typography";
+import { typographyMap } from "@/styles/typography";
 import styled from "@emotion/styled";
 
 export const Container = styled.div`
@@ -10,13 +10,25 @@ export const Container = styled.div`
     position: relative;
 `;
 
-export const MainBlock = styled.div<{ degrees: number }>`
+interface MainBlockProps {
+    degrees: number;
+    size: number;
+}
+
+export const MainBlock = styled.div<MainBlockProps>`
     position: relative;
-    width: 300px;
-    height: 300px;
+    width: ${props => props.size}px;
+    height: ${props => props.size}px;
     transform-style: preserve-3d;
     transition: transform 1.5s;
     transform: perspective(1000px) rotateY(${props => `${props.degrees}deg`});
+
+    .galleryTitle {
+        position : absolute;
+        top : 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
 `;
 
 interface ImageBoxProps {
@@ -45,25 +57,33 @@ export const ImageBox = styled.div<ImageBoxProps>`
         height: 100%;
         object-fit: contain;
         user-select: none;
+        transition: transform 0.5s ease;
     }
 
     ${props => props.isFront && `
-        &:hover div {
-            opacity: 1;
-            cursor: pointer;
-            * {
-                transform: translateY(0px);
+        &:hover {
+            div {
+                opacity: 1;
+                transform: scale(1.1);
+                cursor: pointer;
+                * {
+                    transform: translateY(0px);
+                }
+            }
+
+            img {
+                transform : scale(1.1);
             }
         }
     `}
 `;
 
-export const ContentBox = styled.div`
+export const ContentBox = styled.div<{size: number}>`
     position: absolute;
     top: 0;
     left: 0;
-    width: 300px;
-    height: 300px;
+    width: ${props => props.size}px;
+    height: ${props => props.size}px;
     background: rgba(0, 0, 0, 0.6);
     display: flex;
     flex-direction: column;
@@ -81,16 +101,7 @@ export const ContentBox = styled.div`
         transition: transform 0.6s;
     }
 
-    h1 {
-        ${typographyMap.t5};
-        ${bolderMap.semibold};
-    }
-
     p {
-        width: 100%;
-        height: 100%;
-        ${typographyMap.t7};
-        ${bolderMap.thin};
         word-break: break-word;
     }
 `;

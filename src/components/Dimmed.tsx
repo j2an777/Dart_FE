@@ -6,7 +6,7 @@ const Dimmed = styled.div`
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: rgba(0, 0, 0, 0.25);
+  background-color: rgba(0, 0, 0, 0.35);
   z-index: var(--dimmed-zindex);
 `;
 

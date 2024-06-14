@@ -1,14 +1,14 @@
-export type galleryImages = {
+export type GalleryImages = {
   image: string;
   imageTitle: string;
   description: string;
 };
 
-export type galleryData = {
+export type GalleryData = {
   title: string;
   thumbnail: string;
   hasComment: boolean;
-  images: galleryImages[];
+  images: GalleryImages[];
 };
 
 export interface Gallery {

@@ -27,7 +27,7 @@ const StepTwo = () => {
 
     const imageArray = newGallery.map((item) => item.image);
     const infoArray = newGallery.map((item) => ({
-      title: item.imageTitle,
+      imageTitle: item.imageTitle,
       description: item.description,
     }));
 

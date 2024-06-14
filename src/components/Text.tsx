@@ -3,7 +3,7 @@ import { css } from '@emotion/react';
 import { Colors, colors } from '@/styles/colorPalette';
 import { BoldType, Typograph, bolderMap, typographyMap } from '@/styles/typography';
 
-interface TextProps {
+export interface TextProps {
   typography?: Typograph;
   bold?: BoldType;
   color?: Colors;

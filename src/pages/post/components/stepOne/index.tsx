@@ -5,6 +5,8 @@ import TagsInput from '../inputs/TagsInput';
 
 const StepOne = () => {
   const { control } = useFormContext();
+  const { setValue } = useFormContext();
+
   return (
     <S.Container>
       <S.Step>01</S.Step>
@@ -21,7 +23,12 @@ const StepOne = () => {
           name="gallery.hashtags"
           control={control}
           render={({ field }) => (
-            <TagsInput value={field.value} onChange={field.onChange} />
+            <TagsInput
+              value={field.value || []}
+              onChange={(tags) => {
+                setValue('gallery.hashtags', tags);
+              }}
+            />
           )}
         />
         <Controller

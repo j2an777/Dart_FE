@@ -3,16 +3,25 @@ import { pageStore } from '@/stores/page';
 import getVisiblePage from '@/utils/getPage';
 
 import * as S from './styles';
+import { Typograph } from '@/styles/typography';
 
-const PageButtons = () => {
+export interface PageButtonsProps {
+  orientation?: 'horizontal' | 'vertical';
+  numberSize?: Typograph;
+}
+
+const PageButtons = ({
+  orientation = 'horizontal',
+  numberSize = 't4',
+}: PageButtonsProps) => {
   const {
     nextPage,
     pageInfo: { isDone, isFirst, pageIndex },
     prevPage,
   } = pageStore();
   return (
-    <S.Container>
-      <S.ButtonBox>
+    <S.Container orientation={orientation}>
+      <S.ButtonBox orientation={orientation}>
         <Icon
           value="minus"
           size={15}
@@ -20,7 +29,11 @@ const PageButtons = () => {
           $active={!isFirst}
           color={isFirst ? 'gray300' : 'black'}
         />
-        <Text typography="t3" bold="regular" children={getVisiblePage(pageIndex + 1)} />
+        <Text
+          typography={numberSize}
+          bold="regular"
+          children={getVisiblePage(pageIndex + 1)}
+        />
         <Icon
           value="plus"
           size={15}
@@ -29,7 +42,7 @@ const PageButtons = () => {
           color={isDone ? 'gray300' : 'black'}
         />
       </S.ButtonBox>
-      <S.Line />
+      <S.Line orientation={orientation} />
     </S.Container>
   );
 };

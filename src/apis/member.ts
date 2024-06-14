@@ -1,5 +1,6 @@
-import { EmailVerify, LoginFormData, SignupFormData } from '@/types/member';
+import { EmailVerify, LoginFormData, Member, SignupFormData } from '@/types/member';
 import instance from './instance';
+import { GalleriesData } from '@/types/gallery';
 
 export const postSignup = async (formData: SignupFormData) => {
   const response = await instance.post('/api/signup', formData);
@@ -17,7 +18,7 @@ export const postEmailVerify = async (formData: EmailVerify) => {
 };
 
 export const postCheckNickname = async (formData: { nickname: string }) => {
-  const response = await instance.post(`api/nickname/check`, formData);
+  const response = await instance.post(`/api/nickname/check`, formData);
   return response?.data;
 };
 
@@ -28,23 +29,30 @@ export const postLogin = async (formData: LoginFormData) => {
 
 export const getMemberInfo = async (nickname?: string) => {
   const response = await instance.get(`/api/members?nickname=${nickname}`);
-  return response?.data;
+  return response?.data as Member;
 };
 
 export const putMemberEditInfo = async (formData: FormData) => {
-  const response = await instance.put(
-    `/api/members`, 
-    formData
-  );
+  const response = await instance.put(`/api/members`, formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
   return response?.data;
 };
 
 export const getMypage = async (nickname: string, page: number, size: number) => {
-  const response = await instance.get(`/api/mypage?nickname=${nickname}`, {
+  const response = await instance.get('/api/mypage', {
     params: {
+      nickname,
       page,
       size,
     },
   });
+  return response?.data as GalleriesData;
+};
+
+export const getNewToken = async () => {
+  const response = await instance.get('/api/reissue');
   return response?.data;
 };

@@ -1,21 +1,20 @@
-import { useNavigate } from 'react-router-dom';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { StepZero, StepOne, StepTwo } from './components';
 import { Icon } from '@/components';
 import { PostGalleries } from '@/types/post';
 import { postGalleries } from '@/apis/gallery';
-import { postPayment } from '@/apis/payment';
 import { alertStore } from '@/stores/modal';
+import useCustomNavigate from '@/hooks/useCustomNavigate';
+
 import * as S from './styles';
 
 const PostPage = () => {
   const methods = useForm<PostGalleries>();
   const { handleSubmit } = methods;
-  const navigate = useNavigate();
+  const navigate = useCustomNavigate();
   const open = alertStore((state) => state.open);
 
   const onSubmit: SubmitHandler<PostGalleries> = async (data) => {
-    console.log(data);
     open({
       title: '전시 등록',
       description: (
@@ -42,8 +41,9 @@ const PostPage = () => {
       if (galleryId) {
         // 이용료 있을 때만 결제 진행
         if (data.gallery.fee !== 0) {
-          const payment = await postPayment(galleryId, 'paidGallery');
-          window.location.href = payment.next_redirect_pc_url;
+          navigate(`/post/${galleryId}/pay`);
+        } else {
+          navigate(`/post/${galleryId}/free`);
         }
       }
     } else {

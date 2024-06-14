@@ -1,15 +1,13 @@
 import { getGalleries } from '@/apis/gallery';
 import { filterStore } from '@/stores/filter';
-import { pageStore } from '@/stores/page';
 import { useSuspenseQuery } from '@tanstack/react-query';
 
-const useGetGalleries = () => {
-  const { pageIndex } = pageStore((state) => state.pageInfo);
+const useGetGalleries = (pageIndex: number) => {
   const filterValue = filterStore((state) => state.filterValue);
-
+  const size = 6;
   return useSuspenseQuery({
     queryKey: ['galleries', [pageIndex, ...Object.values(filterValue)]],
-    queryFn: () => getGalleries({ ...filterValue, pageIndex }),
+    queryFn: () => getGalleries({ page: pageIndex, size, ...filterValue }),
     select: (data) => ({
       pages: data.pages,
       pageParams: data.pageInfo,

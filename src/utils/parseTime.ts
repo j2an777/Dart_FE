@@ -1,6 +1,6 @@
 const parseTime = (value: Date) => {
-  const hours = value.getUTCHours().toString().padStart(2, '0');
-  const minutes = value.getUTCMinutes().toString().padStart(2, '0');
+  const hours = String(value.getHours()).padStart(2, '0');
+  const minutes = String(value.getMinutes()).padStart(2, '0');
 
   return `${hours}:${minutes}`;
 };

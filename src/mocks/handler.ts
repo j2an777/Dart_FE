@@ -1,6 +1,7 @@
 import { http, HttpResponse } from 'msw';
 import { TicketData } from './mockData/ticketData';
 import { PaymentData } from './mockData/paymentData';
+import { GalleryData } from './mockData/galleryData';
 
 const galleries1 = {
   pages: [
@@ -86,7 +87,7 @@ export const handlers = [
   }),
 
   http.get('/api/galleries/1', () => {
-    return HttpResponse.json({ status: 200 });
+    return HttpResponse.json(GalleryData, { status: 200 });
   }),
 
   // 리뷰 작성
@@ -94,10 +95,10 @@ export const handlers = [
     const data = await request.json();
     return HttpResponse.json(data, { status: 200 });
   }),
-  http.get('/api/mypage?nickname=user1', () => {
+  http.get('/api/mypage', () => {
     return HttpResponse.json(TicketData, { status: 200 });
   }),
-  http.get('/api/payment?page=1&size=6', () => {
+  http.get('/api/payment', () => {
     return HttpResponse.json(PaymentData, { status: 200 });
   }),
 ];

@@ -1,37 +1,27 @@
 import { useEffect } from 'react';
 import useGetMypage from '../../hooks/useGetMypage';
-import PageButtons from '../pageButtons';
 import Ticket from './Ticket';
 import { pageStore } from '@/stores/page';
 import { useStore } from 'zustand';
 import { Gallery } from '@/types/gallery';
 import * as S from './styles';
+import { PageButtons } from '@/components';
+import { memberStore } from '@/stores/member';
 
 const Exhibition = () => {
-  const memberInfoString = localStorage.getItem('memberInfo');
-  let nickname = null;
-  if (memberInfoString !== null) {
-    const memberInfo = JSON.parse(memberInfoString);
-    nickname = memberInfo.state.auth.nickname;
-  }
-
+  const { nickname } = memberStore((state) => state.auth);
   const { pageInfo, setPageInfo } = useStore(pageStore);
   const { data } = useGetMypage(nickname, pageInfo.pageIndex, 2);
 
   useEffect(() => {
-    if (data && data.pageParams) {
-      setPageInfo({
-        pageIndex: data.pageParams.pageIndex,
-        isDone: data.pageParams.isDone,
-      });
+    if (data) {
+      setPageInfo(data.pageParams);
     }
   }, [data, setPageInfo]);
-
-  const exhibitions = data.pages;
-
+  if (!data) return;
   return (
     <S.Container>
-      {exhibitions.map((data: Gallery) => (
+      {data.pages.map((data: Gallery) => (
         <Ticket
           key={data.galleryId}
           thumbnail={data.thumbnail}

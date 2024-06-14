@@ -1,9 +1,10 @@
 import { Icon, Text } from '@/components';
+import useCustomNavigate from '@/hooks/useCustomNavigate';
+
 import * as S from './styles';
-import { useNavigate } from 'react-router-dom';
 
 const EditMemberHeader = () => {
-  const navigate = useNavigate();
+  const navigate = useCustomNavigate();
 
   const onHandleBack = () => {
     navigate(-1);
@@ -12,11 +13,13 @@ const EditMemberHeader = () => {
   return (
     <S.Container>
       <S.BackBox onClick={onHandleBack}>
-        <Icon value='back' size={20} />
+        <Icon value="back" size={20} />
       </S.BackBox>
-      <Text typography='t2' bold='bold'>회원정보 수정</Text>
+      <Text typography="t2" bold="bold">
+        회원정보 수정
+      </Text>
     </S.Container>
-  )
-}
+  );
+};
 
-export default EditMemberHeader
+export default EditMemberHeader;
