@@ -1,5 +1,6 @@
 import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
+import { motion } from 'framer-motion';
 
 export const fadeUp = keyframes`
     0% {
@@ -11,7 +12,7 @@ export const fadeUp = keyframes`
     }
 `;
 
-export const Container = styled.div`
+export const Container = styled.div<{ frameBg?: string }>`
   position: absolute;
   top: 45%;
   left: 50%;
@@ -22,29 +23,40 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(255, 255, 255, 0.8);
   border-radius: 10px;
   z-index: 10;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(${props => props.frameBg});
+    background-size: cover;
+    background-position: center;
+    filter: blur(20px);
+    z-index: -1;
+  }
 `;
 
-export const Frame = styled.div`
+export const Frame = styled(motion.div)`
   width: 50%;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #d4d7dd;
-  border: 55px solid #fff;
-  box-shadow:
-    0 0 21px 3px rgba(0, 0, 0, 0.5) inset,
-    0 15px 54px 10px rgba(0, 0, 0, 0.2);
   padding: 16px;
-  border-radius: 10px;
+  z-index : 12;
 
   img {
-    width: 100%;
+    width: auto;
     height: 100%;
     object-fit: contain;
+    border-radius: 0;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
   }
 `;
 
@@ -53,14 +65,25 @@ export const DetailContent = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
+  align-items : end;
   padding: 20px;
   box-sizing: border-box;
   gap: 20px;
+  z-index : 12;
+
+  p {
+    width: 100%;
+    height: auto;
+    word-break: break-word;
+    white-space: normal;
+    overflow: visible;
+  }
 `;
 
-export const Top = styled.div`
+export const DetailText = styled(motion.div)`
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
+  gap : 20px;
 `;

@@ -17,7 +17,7 @@ export const postEmailVerify = async (formData: EmailVerify) => {
 };
 
 export const postCheckNickname = async (formData: { nickname: string }) => {
-  const response = await instance.post(`api/nickname/check`, formData);
+  const response = await instance.post(`/api/nickname/check`, formData);
   return response?.data;
 };
 
@@ -32,7 +32,15 @@ export const getMemberInfo = async (nickname?: string) => {
 };
 
 export const putMemberEditInfo = async (formData: FormData) => {
+<<<<<<< develop/plusapi
+  const response = await instance.put(`/api/members`, formData, {
+    headers: {
+      'Content-Type':'multipart/form-data'
+    }
+  });
+=======
   const response = await instance.put(`/api/members`, formData);
+>>>>>>> dev
   return response?.data;
 };
 

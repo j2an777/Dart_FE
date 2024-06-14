@@ -4,14 +4,18 @@ import * as S from './styles';
 import { EditFormData } from '@/types/member';
 import { alertStore } from '@/stores/modal';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { getMemberInfo, putMemberEditInfo } from '@/apis/member';
+import { getMemberInfo, postCheckNickname, putMemberEditInfo } from '@/apis/member';
 import { memberStore } from '@/stores/member';
 import BasicProfile from '@/assets/images/defaultUser.png';
+import { useState } from 'react';
+import axios from 'axios';
 
 const EditMemberForm = () => {
   const open = alertStore((state) => state.open);
   const queryClient = useQueryClient();
   const { auth: { nickname } } = memberStore();
+  const [nicknameError, setNicknameError] = useState('');
+  const [profileImageSrc, setProfileImageSrc] = useState<string | undefined>(BasicProfile);
 
   const { data: editData, error, isLoading } = useQuery({
     queryKey: ['edit'],
@@ -21,10 +25,14 @@ const EditMemberForm = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
-    reset
+    reset,
+    getValues,
+    setValue
   } = useForm<EditFormData>({
     mode: 'onChange',
+    defaultValues: {
+      isCheckedNickname: false,
+    }
   });
 
   // 변경사항 저장에 대한 mutation
@@ -38,26 +46,19 @@ const EditMemberForm = () => {
     },
   });
 
+  // 변경사항 저장 
   const onSubmit = async (data: EditFormData) => {
-    
     const formData = new FormData();
+    const jsonData = {
+      nickname: data.nickname || '',
+      introduce: data.introduce || '',
+      isCheckedNickname: data.isCheckedNickname,
+    };
 
-    formData.append('nickname', data.nickname || '');
-    formData.append('introduce', data.introduce || '');
-
+    formData.append('memberUpdateDto', JSON.stringify(jsonData));
     if (data.profileImage) {
       formData.append('profileImage', data.profileImage);
     }
-
-    // formData 보내기 확인. 나중에 삭제 요망
-    console.log('FormData Entries:');
-    formData.forEach((value, key) => {
-        if (value instanceof File) {
-            console.log(`${key}: [File] ${value.name}, ${value.size} bytes, ${value.type}`);
-        } else {
-            console.log(`${key}: ${value}`);
-        }
-    });
     
     try {
       await mutation.mutateAsync(formData);
@@ -85,8 +86,36 @@ const EditMemberForm = () => {
     });
   };
 
-  const onHandleCheck = () => {
-    
+  const onHandleCheck = async () => {
+    const nicknameValue = getValues('nickname');
+
+    if (nicknameValue) {
+        const formData = { nickname: nicknameValue };
+
+        try {
+          await postCheckNickname(formData);
+          setValue('isCheckedNickname', true);
+          setNicknameError('사용 가능한 닉네임입니다.');
+        } catch (error) {
+            if (axios.isAxiosError(error) && error.response?.status === 409) {
+              setNicknameError('이미 존재하는 닉네임입니다.');
+            }
+        }
+    } else {
+        console.error('Nickname value is undefined');
+    }
+  };
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setProfileImageSrc(reader.result as string);
+        setValue('profileImage', file);
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   if (isLoading) {
@@ -96,8 +125,6 @@ const EditMemberForm = () => {
   if (error) {
     return <div>Error loading gallery data</div>;
   }
-
-  const profileImageSrc = editData?.profileImage?.MockImg ? editData.profileImage.MockImg : BasicProfile;
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -112,6 +139,7 @@ const EditMemberForm = () => {
                 type="file"
                 id="avatar-upload"
                 accept="image/*"
+                onChange={(e) => handleImageChange(e)}
               />
             </S.ProfilePlus>
           </S.ProfileLeft>
@@ -131,22 +159,24 @@ const EditMemberForm = () => {
           </S.ProfileRight>
         </S.ProfileBlock>
         <S.EditBlock>
-          <Text typography="t5" bold="regular">
-            닉네임
-          </Text>
-          <S.Input
-            {...register('nickname')}
-            type="text"
-            placeholder='닉네임 입력'
-            defaultValue={editData?.nickname}
-          />
-          {errors.nickname && <S.Error>{errors.nickname.message}</S.Error>}
+          <S.NicknameBox>
+            <Text typography="t5" bold="regular">
+              닉네임
+            </Text>
+            <S.Input
+              {...register('nickname')}
+              type="text"
+              placeholder='닉네임 입력'
+              defaultValue={editData?.nickname}
+            />
+            <S.CheckBtn type="button" onClick={onHandleCheck}>중복 확인</S.CheckBtn>
+            {nicknameError && <S.Error nicknameError={nicknameError}>{nicknameError}</S.Error>}
+          </S.NicknameBox>
 
-          <S.CheckBtn onClick={onHandleCheck}>중복 확인</S.CheckBtn>
-
-          <Text typography='t5' bold='regular'>자기소개</Text>
-          <S.Textarea {...register('introduce')} placeholder="자기소개 입력" defaultValue={editData?.introduce} />
-          {errors.introduce && <S.Error>{errors.introduce.message}</S.Error>}
+          <S.IntroduceBox>
+            <Text typography='t5' bold='regular'>자기소개</Text>
+            <S.Textarea {...register('introduce')} placeholder="자기소개 입력" defaultValue={editData?.introduce} />
+          </S.IntroduceBox>
 
           <S.ButtonContainer>
             <S.CancelBtn type="button" onClick={onHandleReset}>
