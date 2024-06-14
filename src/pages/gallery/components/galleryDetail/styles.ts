@@ -52,11 +52,10 @@ export const Frame = styled(motion.div)`
   z-index : 12;
 
   img {
-    width: auto;
+    width: 100%;
     height: 100%;
     object-fit: contain;
     border-radius: 0;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
   }
 `;
 

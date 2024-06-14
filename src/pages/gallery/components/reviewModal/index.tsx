@@ -1,5 +1,5 @@
 import { Icon } from '@/components';
-import { useState } from 'react';
+import * as S from './styles';
 import { useForm } from 'react-hook-form';
 import { PostReview } from '@/types/post';
 import useCustomNavigate from '@/hooks/useCustomNavigate';
@@ -12,26 +12,33 @@ type ReviewModalProps = {
   galleryId: number;
 };
 
-const ReviewModal = ({ onSubmit, close, galleryId }: ReviewModalProps) => {
-  const [score, setScore] = useState(0);
-  const navigate = useCustomNavigate();
+const ReviewModal = ({ onSubmit, close }: ReviewModalProps) => {
+  const navigate = useNavigate();
 
-  const onHandleRating = (index: number) => {
-    setScore(index + 1);
-  };
-
-  const { register, handleSubmit } = useForm<PostReview>({
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    watch
+  } = useForm<PostReview>({
     mode: 'onChange',
+    defaultValues: { score: 0 },
   });
 
   const handleFormSubmit = (data: PostReview) => {
-    onSubmit({ ...data, score });
+    onSubmit({ ...data });
   };
+
+  const onHandleRating = (index: number) => {
+    setValue('score', index + 1);
+  }
 
   const toHandleReview = () => {
     navigate(`/review/${galleryId}`);
     close();
   };
+
+  const score = watch('score');
 
   return (
     <S.Container>

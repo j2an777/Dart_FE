@@ -2,19 +2,21 @@ import * as S from './styles';
 import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import GalleryDetail from '../galleryDetail';
-import { galleryImages } from '@/types/gallery';
 import { useParams } from 'react-router-dom';
 import { getGallery } from '@/apis/gallery';
 import { Text } from '@/components';
+import { GalleryImages } from '@/types/gallery';
 
 const GalleryMain = () => {
-  const [degrees, setDegrees] = useState(0);
-  const [frontIndex, setFrontIndex] = useState(0);
-  const [popUp, setPopUp] = useState(false);
-  const [selectedData, setSelectedData] = useState<galleryImages | null>(null);
-  const [transZ, setTransZ] = useState(400);
-  const [size, setSize] = useState(250);
-  const [dataDegree, setDataDegree] = useState(0);
+  const [state, setState] = useState({
+    degrees: 0,
+    frontIndex: 0,
+    popUp: false,
+    selectedData: null as GalleryImages | null,
+    transZ: 400,
+    size: 250,
+    dataDegree: 0
+  });
 
   const { galleryId: galleryIdStr } = useParams<{ galleryId?: string }>();
   const galleryId = galleryIdStr ? parseInt(galleryIdStr, 10) : NaN;
@@ -26,22 +28,24 @@ const GalleryMain = () => {
 
   useEffect(() => {
     if (galleryData) {
-      setDataDegree(360 / galleryData.images.length);
+      const newDataDegree = 360 / galleryData.images.length;
+      let newSize = 250;
+      let newTransZ = 500;
   
-      switch (true) {
-        case (galleryData.images.length >= 11 && galleryData.images.length < 15):
-          setSize(200);
-          setTransZ(480);
-          break;
-        case (galleryData.images.length >= 15):
-          setSize(150);
-          setTransZ(550);
-          break;
-        default:
-          setTransZ(500);
-          setSize(250);
-          break;
+      if (galleryData.images.length >= 11 && galleryData.images.length < 15) {
+        newSize = 200;
+        newTransZ = 480;
+      } else if (galleryData.images.length >= 15) {
+        newSize = 150;
+        newTransZ = 550;
       }
+
+      setState(prevState => ({
+        ...prevState,
+        dataDegree: newDataDegree,
+        size: newSize,
+        transZ: newTransZ
+      }));
     }
   }, [galleryData]);
   
@@ -60,23 +64,36 @@ const GalleryMain = () => {
   const onHandleChange = (translate: string) => {
     if (!galleryData) return;
 
-    if (translate === 'previous') {
-      setDegrees(degrees + dataDegree);
-      setFrontIndex((frontIndex - 1 + galleryData.images.length) % galleryData.images.length);
-    } else {
-      setDegrees(degrees - dataDegree);
-      setFrontIndex((frontIndex + 1) % galleryData.images.length);
-    }
+    setState(prevState => {
+      const newDegrees = translate === 'previous' 
+        ? prevState.degrees + prevState.dataDegree 
+        : prevState.degrees - prevState.dataDegree;
+      const newFrontIndex = translate === 'previous' 
+        ? (prevState.frontIndex - 1 + galleryData.images.length) % galleryData.images.length 
+        : (prevState.frontIndex + 1) % galleryData.images.length;
+
+      return {
+        ...prevState,
+        degrees: newDegrees,
+        frontIndex: newFrontIndex
+      };
+    });
   };
 
-  const onHandlePopup = (imageData: galleryImages) => {
-    setSelectedData(imageData);
-    setPopUp(true);
+  const onHandlePopup = (imageData: GalleryImages) => {
+    setState(prevState => ({
+      ...prevState,
+      selectedData: imageData,
+      popUp: true
+    }));
   };
 
   const onHandleClose = () => {
-    setPopUp(false);
-    setSelectedData(null);
+    setState(prevState => ({
+      ...prevState,
+      popUp: false,
+      selectedData: null
+    }));
   };
 
   if (isLoading) {
@@ -89,17 +106,17 @@ const GalleryMain = () => {
 
   return (
     <S.Container>
-      <S.MainBlock degrees={degrees} size={size}>
-        {galleryData?.images.map((gallery: galleryImages, index: number) => (
+      <S.MainBlock degrees={state.degrees} size={state.size}>
+        {galleryData?.images.map((gallery: GalleryImages, index: number) => (
           <S.ImageBox 
             key={index}
             i={index} 
-            isFront={index === frontIndex} 
-            dataDegree={dataDegree}
-            transZ={transZ}
+            isFront={index === state.frontIndex} 
+            dataDegree={state.dataDegree}
+            transZ={state.transZ}
             onClick={() => onHandlePopup(gallery)}>
             <img src={gallery.image} alt={gallery.imageTitle} />
-            <S.ContentBox size={size}>
+            <S.ContentBox size={state.size}>
               <Text typography='t5' bold='semibold' color='white'>Gallery {index+1}</Text>
               <Text typography='t7' bold='thin' color='white'>{gallery.imageTitle}</Text>
             </S.ContentBox>
@@ -113,8 +130,8 @@ const GalleryMain = () => {
           <S.Btn className='next' onClick={() => onHandleChange('next')}>Next</S.Btn>
         </S.BtnBlock>
       )}
-      {popUp && (
-        <GalleryDetail imageData={selectedData} onClose={onHandleClose}/>
+      {state.popUp && (
+        <GalleryDetail imageData={state.selectedData} onClose={onHandleClose}/>
       )}
     </S.Container>
   );
