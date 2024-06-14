@@ -2,16 +2,18 @@ import { GalleryItem } from '..';
 import { useGetGalleries } from '../../hooks';
 import { pageStore } from '@/stores/page';
 import { useLayoutEffect } from 'react';
-import withSuspense from '@/hooks/withSuspense';
 import { NoneData } from '@/components';
 import { useStore } from 'zustand';
-import GalleryListFallback from '../fallback/GalleryListFallback';
 
 import * as S from './styles';
 
 const GalleryList = () => {
-  const { data } = useGetGalleries();
-  const { setPageInfo, resetPageInfo } = useStore(pageStore);
+  const {
+    pageInfo: { pageIndex },
+    setPageInfo,
+    resetPageInfo,
+  } = useStore(pageStore);
+  const { data } = useGetGalleries(pageIndex);
   useLayoutEffect(() => {
     setPageInfo(data.pageParams);
     return () => resetPageInfo();
@@ -28,7 +30,7 @@ const GalleryList = () => {
   );
 };
 
-const SideEffectWithGalleryList = withSuspense(GalleryList, {
-  fallback: <GalleryListFallback />,
-});
-export default SideEffectWithGalleryList;
+// const SideEffectWithGalleryList = withSuspense(GalleryList, {
+//   fallback: <GalleryListFallback />,
+// });
+export default GalleryList;

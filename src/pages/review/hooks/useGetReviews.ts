@@ -1,10 +1,13 @@
 import { getReveiws } from '@/apis/review';
-import { pageStore } from '@/stores/page';
 import { useSuspenseQuery } from '@tanstack/react-query';
 
-const useGetReviews = (galleryId: string) => {
-  const { pageIndex } = pageStore((state) => state.pageInfo);
-
+const useGetReviews = ({
+  galleryId,
+  pageIndex,
+}: {
+  galleryId: string;
+  pageIndex: number;
+}) => {
   return useSuspenseQuery({
     queryKey: ['reviews', pageIndex],
     queryFn: () => getReveiws({ galleryId, page: pageIndex, size: 10 }),

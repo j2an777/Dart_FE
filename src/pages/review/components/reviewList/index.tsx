@@ -3,17 +3,20 @@ import { useStore } from 'zustand';
 import { pageStore } from '@/stores/page';
 import { useLayoutEffect } from 'react';
 import useGetReviews from '../../hooks/useGetReviews';
+import { useParams } from 'react-router-dom';
 
 import * as S from './styles';
-import { useParams } from 'react-router-dom';
-import withSuspense from '@/hooks/withSuspense';
 
 const ReviewList = () => {
   const { galleryId } = useParams();
   const {
+    pageInfo: { pageIndex },
+    setPageInfo,
+    resetPageInfo,
+  } = useStore(pageStore);
+  const {
     data: { pageParams, pages },
-  } = useGetReviews(galleryId as string);
-  const { setPageInfo, resetPageInfo } = useStore(pageStore);
+  } = useGetReviews({ galleryId: galleryId as string, pageIndex });
 
   useLayoutEffect(() => {
     setPageInfo(pageParams);
@@ -29,4 +32,4 @@ const ReviewList = () => {
   );
 };
 
-export default withSuspense(ReviewList, { fallback: <>로딩중</> });
+export default ReviewList;
