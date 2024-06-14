@@ -3,7 +3,6 @@ import { StepZero, StepOne, StepTwo } from './components';
 import { Icon } from '@/components';
 import { PostGalleries } from '@/types/post';
 import { postGalleries } from '@/apis/gallery';
-import { postPayment } from '@/apis/payment';
 import { alertStore } from '@/stores/modal';
 import useCustomNavigate from '@/hooks/useCustomNavigate';
 
@@ -42,11 +41,9 @@ const PostPage = () => {
       if (galleryId) {
         // 이용료 있을 때만 결제 진행
         if (data.gallery.fee !== 0) {
-          // navigate(`/${galleryId}/pay`);
-          const payment = await postPayment(galleryId, 'paidGallery');
-          window.location.href = payment.next_redirect_pc_url;
+          navigate(`/post/${galleryId}/pay`);
         } else {
-          navigate(`/${galleryId}/free`);
+          navigate(`/post/${galleryId}/free`);
         }
       }
     } else {
