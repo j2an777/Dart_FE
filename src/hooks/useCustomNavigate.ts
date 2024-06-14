@@ -15,7 +15,7 @@ const useCustomNavigate = () => {
   function customNavigate(to: To, option?: CustomNavigateOption): void;
   function customNavigate(to: To | number, option?: CustomNavigateOption) {
     if (typeof to === 'number') {
-      return () => baseNavigate(to);
+      return baseNavigate(to);
     }
     if (option?.hasAuth && !isLogin) {
       open({ title: 'test', description: 'test' });

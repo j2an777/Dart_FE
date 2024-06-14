@@ -11,4 +11,5 @@ export const Container = styled.div`
   padding: 50px 80px;
   border-left: 2px solid ${colors.black};
   border-right: 2px solid ${colors.black};
+  flex: 1;
 `;
