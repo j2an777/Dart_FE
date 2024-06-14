@@ -6,26 +6,16 @@ import { useStore } from 'zustand';
 import { Gallery } from '@/types/gallery';
 import * as S from './styles';
 import { PageButtons } from '@/components';
+import { memberStore } from '@/stores/member';
 
 const Exhibition = () => {
-  const memberInfoString = localStorage.getItem('memberInfo');
-  let nickname = null;
-  if (memberInfoString !== null) {
-    const memberInfo = JSON.parse(memberInfoString);
-    nickname = memberInfo.state.auth.nickname;
-  }
-
+  const { nickname } = memberStore((state) => state.auth);
   const { pageInfo, setPageInfo } = useStore(pageStore);
   const { data, isLoading, isError } = useGetMypage(nickname, pageInfo.pageIndex, 2);
 
   useEffect(() => {
-    if (data && data.pageParams) {
-      setPageInfo({
-        pageIndex: data.pageParams.pageIndex,
-        isDone: data.pageParams.isDone,
-      });
-    }
-  }, [data, setPageInfo]);
+    setPageInfo(data.pageParams);
+  }, [data.pageParams, setPageInfo]);
 
   return (
     <S.Container>
