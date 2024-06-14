@@ -42,8 +42,11 @@ const PostPage = () => {
       if (galleryId) {
         // 이용료 있을 때만 결제 진행
         if (data.gallery.fee !== 0) {
+          // navigate(`/${galleryId}/pay`);
           const payment = await postPayment(galleryId, 'paidGallery');
           window.location.href = payment.next_redirect_pc_url;
+        } else {
+          navigate(`/${galleryId}/free`);
         }
       }
     } else {
