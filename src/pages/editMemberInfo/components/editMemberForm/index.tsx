@@ -93,9 +93,11 @@ const EditMemberForm = () => {
         const formData = { nickname: nicknameValue };
 
         try {
-          await postCheckNickname(formData);
-          setValue('isCheckedNickname', true);
-          setNicknameError('사용 가능한 닉네임입니다.');
+          await postCheckNickname(formData)
+            .then(() => {
+              setValue('isCheckedNickname', true);
+              setNicknameError('사용 가능한 닉네임입니다.');
+            })
         } catch (error) {
             if (axios.isAxiosError(error) && error.response?.status === 409) {
               setNicknameError('이미 존재하는 닉네임입니다.');
