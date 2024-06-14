@@ -16,7 +16,6 @@ const PostPage = () => {
   const open = alertStore((state) => state.open);
 
   const onSubmit: SubmitHandler<PostGalleries> = async (data) => {
-    console.log(data);
     open({
       title: '전시 등록',
       description: (

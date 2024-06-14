@@ -27,7 +27,7 @@ const KeywordFilter = ({
   const inputRef = useRef<HTMLInputElement>(null);
   const [form, onChange, setForm] = useInput({ keyword: '' });
   const {
-    filterValue: { category, keyword },
+    filterValue: { category },
     onChange: setFilterValue,
   } = useStore(filterStore);
   const debouncedKeyword = useDebounce({ value: form.keyword });
@@ -39,7 +39,7 @@ const KeywordFilter = ({
 
     return () => setIsExpand(false);
   }, [debouncedKeyword, inputFocus, setFilterValue, setIsExpand]);
-  console.log(keyword);
+
   return (
     <S.Container>
       <S.SearchInupt

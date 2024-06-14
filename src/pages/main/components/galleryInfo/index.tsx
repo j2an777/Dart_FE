@@ -25,7 +25,6 @@ const GalleryInfo = ({ galleryId, open: isOpen, close }: GalleryInfoProps) => {
     queryKey: ['detail'],
     queryFn: () => getGalleryInfo(galleryId as number),
   });
-  console.log(data);
 
   const renderIcons = (reviewAverage: number) => {
     const icons = [];
