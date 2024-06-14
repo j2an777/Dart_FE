@@ -1,4 +1,4 @@
-import { EmailVerify, LoginFormData, SignupFormData } from '@/types/member';
+import { EmailVerify, LoginFormData, Member, SignupFormData } from '@/types/member';
 import instance from './instance';
 
 export const postSignup = async (formData: SignupFormData) => {
@@ -28,7 +28,7 @@ export const postLogin = async (formData: LoginFormData) => {
 
 export const getMemberInfo = async (nickname?: string) => {
   const response = await instance.get(`/api/members?nickname=${nickname}`);
-  return response?.data;
+  return response?.data as Member;
 };
 
 export const putMemberEditInfo = async (formData: FormData) => {
