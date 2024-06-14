@@ -31,13 +31,24 @@ export const SeacchButtonBlock = styled.div`
   justify-content: space-between;
 `;
 
-export const SeacchContent = styled.ul`
+export const SearchContent = styled.ul`
+  display: flex;
+  flex-direction: column;
   position: absolute;
-  bottom: 0;
-  transform: translateY(20%);
+  top: 40px;
   width: 100%;
   background-color: ${colors.white};
   border: 1px solid ${colors.black};
   border-radius: 10px;
-  padding: 16px;
+  padding: 8px 0;
+  gap: 8px;
+`;
+
+export const SearchItem = styled.li`
+  padding: 4px 16px;
+  :hover {
+    text-decoration: underline;
+    background-color: ${colors.gray100};
+    font-weight: 700;
+  }
 `;

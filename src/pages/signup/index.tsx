@@ -1,6 +1,8 @@
 import { useForm } from 'react-hook-form';
+import { postSignup } from '@/apis/member';
 import { defaultValues } from '@/consts/signup';
 import { ExtendedSignupForm } from '@/types/member';
+import useCustomNavigate from '@/hooks/useCustomNavigate';
 import useGetSearchParams from '@/hooks/useGetSearchParams';
 import {
   SignupAgree,
@@ -11,12 +13,12 @@ import {
 } from './components';
 
 import * as S from './styles';
-import { postSignup } from '@/apis/member';
-import { useNavigate } from 'react-router-dom';
+import { alertStore } from '@/stores/modal';
 
 const SignupPage = () => {
   const page = useGetSearchParams('page');
-  const navigate = useNavigate();
+  const navigate = useCustomNavigate();
+  const open = alertStore((state) => state.open);
   const {
     watch,
     register,
@@ -33,7 +35,13 @@ const SignupPage = () => {
     const { passwordConfirm, ...formData } = data;
     await postSignup(formData).then(() => {
       reset();
-      navigate('/login');
+      open({
+        title: '회원가입 완료',
+        description: '로그인 페이지로 이동하시겠습니까?',
+        onClickButton: () => {
+          navigate('/login');
+        },
+      });
     });
   };
   return (

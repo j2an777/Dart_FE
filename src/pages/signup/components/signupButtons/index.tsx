@@ -1,15 +1,15 @@
 import { Button } from '@/components';
 import { agreeStore } from '@/stores/agree';
-import { useNavigate } from 'react-router-dom';
 
 import * as S from './styles';
+import useCustomNavigate from '@/hooks/useCustomNavigate';
 
 interface SignupButtonsProps {
   page: string | null;
 }
 
 const SignupButtons = ({ page }: SignupButtonsProps) => {
-  const navigate = useNavigate();
+  const navigate = useCustomNavigate();
   const allChecked = agreeStore((state) => state.allChecked);
   return (
     <S.Container>

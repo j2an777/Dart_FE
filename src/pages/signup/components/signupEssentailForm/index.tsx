@@ -33,66 +33,70 @@ const SignupEssentailForm = ({ watch, register, errors, setValue }: SignupFormPr
 
   return (
     <SignupFormLayout title="필수">
-      {essentiolFormData.map(({ value, label, ...props }) => {
-        if (value === 'email' || value === 'nickname') {
-          return (
-            <S.CheckBox key={value}>
+      {essentiolFormData.map(
+        ({ value, label, buttonLabel: SignupLabel, successMessage, ...props }) => {
+          if (value === 'email' || value === 'nickname') {
+            return (
+              <S.CheckBox key={value}>
+                <InputField
+                  register={register(value, props.registerOptions)}
+                  error={errors[value]}
+                  label={label}
+                  value={value}
+                  disabled
+                />
+                <Button
+                  size="smMd"
+                  buttonType="reverseRectangleWhite"
+                  type="button"
+                  onClick={() =>
+                    open({
+                      title: props.title,
+                      buttonLabel: '닫기',
+                      description: (
+                        <SignupCheck
+                          setValue={setValue}
+                          label={label}
+                          value={value}
+                          buttonLabel={SignupLabel as string}
+                          successMessage={successMessage as string}
+                          registerOptions={props.registerOptions as RegisterOptions}
+                        />
+                      ),
+                    })
+                  }
+                >
+                  {value === 'email' ? '인증번호 발송' : '중복 확인'}
+                </Button>
+              </S.CheckBox>
+            );
+          }
+          if (value === 'passwordConfirm') {
+            return (
               <InputField
-                register={register(value, props.registerOptions)}
+                key={value}
+                register={register(value, {
+                  ...props.registerOptions,
+                  validate: (value: string) =>
+                    watch().password !== value ? '비밀번호가 일치하지 않습니다' : true,
+                })}
                 error={errors[value]}
                 label={label}
                 value={value}
-                disabled
               />
-              <Button
-                size="smMd"
-                buttonType="reverseRectangleWhite"
-                type="button"
-                onClick={() =>
-                  open({
-                    title: props.title,
-                    buttonLabel: '닫기',
-                    description: (
-                      <SignupCheck
-                        setValue={setValue}
-                        label={label}
-                        value={value}
-                        registerOptions={props.registerOptions as RegisterOptions}
-                      />
-                    ),
-                  })
-                }
-              >
-                {value === 'email' ? '인증번호 발송' : '중복 확인'}
-              </Button>
-            </S.CheckBox>
-          );
-        }
-        if (value === 'passwordConfirm') {
+            );
+          }
           return (
             <InputField
               key={value}
-              register={register(value, {
-                ...props.registerOptions,
-                validate: (value: string) =>
-                  watch().password !== value ? '비밀번호가 일치하지 않습니다' : true,
-              })}
-              error={errors[value]}
               label={label}
               value={value}
+              register={register(value, props.registerOptions)}
+              error={errors[value]}
             />
           );
-        }
-        return (
-          <InputField
-            key={value}
-            label={label}
-            value={value}
-            register={register(value, props.registerOptions)}
-            error={errors[value]}
-          />
-        );
-      })}
+        },
+      )}
     </SignupFormLayout>
   );
 };

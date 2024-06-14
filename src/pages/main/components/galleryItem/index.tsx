@@ -11,7 +11,7 @@ const GalleryItem = ({ title, startDate, endDate, thumbnail, galleryId }: Galler
     <S.Container onClick={() => open(galleryId)}>
       <S.Thumbnail src={thumbnail} alt="thumbnail-image" />
       <Text color="gray500" typography="t7" bold="thin">
-        {parseDate(startDate)} ~ {parseDate(endDate as Date)}
+        {parseDate(startDate)} ~ {endDate && parseDate(endDate as Date)}
       </Text>
       <Text typography="t6" bold="regular">
         {title}

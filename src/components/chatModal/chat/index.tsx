@@ -13,7 +13,7 @@ const Message = ({ name, profileImage, content }: Props) => {
   return (
     <S.ChatBox>
       <section>
-        <UserCircle size={30} />
+        <UserCircle size={30} profileImage={profileImage} />
         <Text typography="t6" bold="regular" color="gray500">
           {name}
         </Text>

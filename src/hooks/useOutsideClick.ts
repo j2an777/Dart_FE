@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 
 const useOutsideClick = () => {
   const [isExpand, setIsExpand] = useState<boolean>(false);
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const handler = (e: globalThis.MouseEvent) => {
@@ -14,7 +14,7 @@ const useOutsideClick = () => {
     return () => document.removeEventListener('click', handler);
   }, []);
   const onToggle = () => setIsExpand((prev) => !prev);
-  return { isExpand, onToggle, ref };
+  return { isExpand, onToggle, ref, setIsExpand };
 };
 
 export default useOutsideClick;
