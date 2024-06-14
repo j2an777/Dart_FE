@@ -16,7 +16,7 @@ const Exhibition = () => {
   }
 
   const { pageInfo, setPageInfo } = useStore(pageStore);
-  const { data } = useGetMypage(nickname, pageInfo.pageIndex, 2);
+  const { data, isLoading, isError } = useGetMypage(nickname, pageInfo.pageIndex, 2);
 
   useEffect(() => {
     if (data && data.pageParams) {
@@ -27,21 +27,23 @@ const Exhibition = () => {
     }
   }, [data, setPageInfo]);
 
-  const exhibitions = data.pages;
-
   return (
     <S.Container>
-      {exhibitions.map((data: Gallery) => (
-        <Ticket
-          key={data.galleryId}
-          thumbnail={data.thumbnail}
-          title={data.title}
-          startDate={data.startDate}
-          endDate={data.endDate}
-          fee={data.fee}
-          hashtags={data.hashtags}
-        />
-      ))}
+      {isLoading && <div>Loading...</div>}
+      {isError && <div>전시 정보가 없습니다.</div>}
+      {!isError &&
+        !isLoading &&
+        data.pages.map((data: Gallery) => (
+          <Ticket
+            key={data.galleryId}
+            thumbnail={data.thumbnail}
+            title={data.title}
+            startDate={data.startDate}
+            endDate={data.endDate}
+            fee={data.fee}
+            hashtags={data.hashtags}
+          />
+        ))}
       <footer>
         <PageButtons />
       </footer>
