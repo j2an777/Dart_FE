@@ -1,7 +1,6 @@
 import { LayoutMap } from '@/styles/layout';
 import { bolderMap, typographyMap } from '@/styles/typography';
 import styled from '@emotion/styled';
-import modalBg from '@/assets/images/rectangle.png';
 import modalBottom from '@/assets/images/modalbottom.png';
 import { fadeUp } from '@/pages/gallery/components/galleryDetail/styles';
 import { Icon } from '@/components';
@@ -26,7 +25,7 @@ export const MainLogo = styled.img`
   cursor: pointer;
 `;
 
-export const InfoBox = styled.div`
+export const InfoBox = styled.div<{thumbnail: string}>`
   position: relative;
   width: 100%;
   height: 80vh;
@@ -35,8 +34,21 @@ export const InfoBox = styled.div`
   gap: 50px;
   padding: 100px;
   box-sizing: border-box;
-  background-image: url(${modalBg});
+  background-image: url(${props => props.thumbnail});
   background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: 12;
+`;
+
+export const Overlay = styled.div`
+  position : absolute;
+  top : 0;
+  left : 0;
+  bottom : 0;
+  right : 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index : -1;
 `;
 
 export const DescriptionBlock = styled.div`

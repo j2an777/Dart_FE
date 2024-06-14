@@ -91,7 +91,8 @@ const GalleryInfo = ({ galleryId, open: isOpen, close }: GalleryInfoProps) => {
   return (
     <Dimmed>
       <S.Container>
-        <S.InfoBox>
+        <S.InfoBox thumbnail={data.thumbnail}>
+          <S.Overlay />
           <S.CancelIcon value="cancel" size={20} onClick={close} />
           <S.MainLogo alt="main-logo" src={Logo} />
           <S.DescriptionBlock>
