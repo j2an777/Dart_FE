@@ -32,16 +32,14 @@ export const getMemberInfo = async (nickname?: string) => {
 };
 
 export const putMemberEditInfo = async (formData: FormData) => {
-  const response = await instance.put(
-    `/api/members`, 
-    formData
-  );
+  const response = await instance.put(`/api/members`, formData);
   return response?.data;
 };
 
 export const getMypage = async (nickname: string, page: number, size: number) => {
-  const response = await instance.get(`/api/mypage?nickname=${nickname}`, {
+  const response = await instance.get('/api/mypage', {
     params: {
+      nickname,
       page,
       size,
     },

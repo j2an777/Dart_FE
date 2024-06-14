@@ -1,4 +1,4 @@
-export const formatDateInKST = (date: Date | null) => {
+export const formatDateInKST = (date: Date | null): Date | null => {
   if (!date) return null;
 
   const year = date.getFullYear();
@@ -8,5 +8,6 @@ export const formatDateInKST = (date: Date | null) => {
   const minutes = String(date.getMinutes()).padStart(2, '0');
   const seconds = String(date.getSeconds()).padStart(2, '0');
 
-  return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
+  const formattedDateString = `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
+  return new Date(formattedDateString);
 };

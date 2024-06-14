@@ -10,6 +10,7 @@ const Ticket = ({
   fee,
   hashtags,
 }: Omit<Gallery, 'galleryId'>) => {
+  console.log(hashtags);
   return (
     <S.TicketContainer>
       <S.TicketSVG width="903" height="295" viewBox="0 0 903 295" fill="none">

@@ -34,7 +34,8 @@ export const Thumbnail = styled.div<{ profileImage: string }>`
   height: 259px;
   border: 1px solid ${colors.black};
   background-image: url(${(props) => props.profileImage});
-  background-size: cover;
+  background-size: contain;
+  background-repeat: no-repeat;
   background-position: center;
 `;
 
