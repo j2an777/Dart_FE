@@ -3,20 +3,20 @@ import GalleryLogo from '@/assets/images/galleryLogo.png';
 import { Icon } from '@/components';
 import { alertStore, chatStore } from '@/stores/modal';
 import ReviewModal from '../reviewModal';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { PostReview } from '@/types/post';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { postReview } from '@/apis/review';
+import useCustomNavigate from '@/hooks/useCustomNavigate';
 import { useStore } from 'zustand';
 
 const GalleryHeader = () => {
   const { open, close } = useStore(alertStore);
   const openChat = chatStore((state) => state.open);
-  const navigate = useNavigate();
+  const navigate = useCustomNavigate();
   const queryClient = useQueryClient();
 
-  const { galleryId: galleryIdStr } = useParams<{ galleryId?: string }>();
-  const galleryId = galleryIdStr ? parseInt(galleryIdStr, 10) : NaN;
+  const { galleryId } = useParams();
 
   const mutation = useMutation({
     mutationKey: ['review'],
@@ -29,18 +29,20 @@ const GalleryHeader = () => {
   });
 
   const handleReviewSubmit = (data: PostReview & { score: number }) => {
-    if (!isNaN(galleryId)) {
-      mutation.mutateAsync({ ...data, galleryId });
-    } else {
-      console.error('Invalid galleryId');
-    }
+    mutation.mutateAsync({ ...data, galleryId: Number(galleryId as string) });
   };
 
   const onHandleToggle = (name: string) => {
     if (name === 'review') {
       open({
         title: '후기 등록하기',
-        description: <ReviewModal onSubmit={handleReviewSubmit} close={close} />,
+        description: (
+          <ReviewModal
+            galleryId={Number(galleryId as string)}
+            onSubmit={handleReviewSubmit}
+            close={close}
+          />
+        ),
         buttonLabel: '등록',
         onClickButton: () => {
           const form = document.querySelector('form');

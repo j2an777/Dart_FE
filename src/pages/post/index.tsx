@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { StepZero, StepOne, StepTwo } from './components';
 import { Icon } from '@/components';
@@ -6,16 +5,17 @@ import { PostGalleries } from '@/types/post';
 import { postGalleries } from '@/apis/gallery';
 import { postPayment } from '@/apis/payment';
 import { alertStore } from '@/stores/modal';
+import useCustomNavigate from '@/hooks/useCustomNavigate';
+
 import * as S from './styles';
 
 const PostPage = () => {
   const methods = useForm<PostGalleries>();
   const { handleSubmit } = methods;
-  const navigate = useNavigate();
+  const navigate = useCustomNavigate();
   const open = alertStore((state) => state.open);
 
   const onSubmit: SubmitHandler<PostGalleries> = async (data) => {
-    console.log(data);
     open({
       title: '전시 등록',
       description: (

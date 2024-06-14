@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 import useGetMypage from '../../hooks/useGetMypage';
-import PageButtons from '../pageButtons';
 import Ticket from './Ticket';
 import { pageStore } from '@/stores/page';
 import { useStore } from 'zustand';
 import { Gallery } from '@/types/gallery';
 import * as S from './styles';
+import { PageButtons } from '@/components';
 
 const Exhibition = () => {
   const memberInfoString = localStorage.getItem('memberInfo');

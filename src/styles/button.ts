@@ -199,7 +199,18 @@ export const buttonActiveMap = {
       transform: scale(0.9);
     }
   `,
-  circle: css``,
+  circle: css`
+    :hover {
+      background-color: ${colors.black};
+      border: 1px solid ${colors.gray100};
+    }
+    :active {
+      background-color: ${colors.gray100};
+      border: 1px solid ${colors.gray100};
+      font-weight: bold;
+      transform: scale(0.9);
+    }
+  `,
   reverseCircle: css`
     :hover {
       background-color: ${colors.gray100};

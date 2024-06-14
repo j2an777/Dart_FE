@@ -11,6 +11,7 @@ interface PageState {
   nextPage: () => void;
   prevPage: () => void;
   setPageInfo: (form: Omit<PageInfo, 'isFirst'>) => void;
+  resetPageInfo: () => void;
 }
 
 const defaultValue: PageInfo = {
@@ -42,9 +43,11 @@ export const pageStore = create<PageState>((set, get) => ({
     return pageInfo.pageIndex === 0;
   },
   setPageInfo: (form) =>
-    set((prev) => ({
-      ...prev,
-      pageInfo: { ...prev.pageInfo, isDone: form.isDone, pageIndex: form.pageIndex },
-    })),
+    set((prev) => {
+      return {
+        ...prev,
+        pageInfo: { ...prev.pageInfo, isDone: form.isDone, pageIndex: form.pageIndex },
+      };
+    }),
+  resetPageInfo: () => set((prev) => ({ ...prev, pageInfo: defaultValue })),
 }));
-// isDone 부분만 수정을 하면 될 것 같다!!!

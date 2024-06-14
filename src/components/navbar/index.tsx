@@ -1,14 +1,15 @@
 import { Button, Text, UserCircle } from '..';
 import { navbarInfo, userBoxInfo } from '@/consts/navbar';
 import mainlogo from '@/assets/images/mainLogo.png';
-import { Link, Outlet, useNavigate } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import { memberStore } from '@/stores/member';
 import useOutsideClick from '@/hooks/useOutsideClick';
 
 import * as S from './styles';
+import useCustomNavigate from '@/hooks/useCustomNavigate';
 
 const Navbar = () => {
-  const navigate = useNavigate();
+  const navigate = useCustomNavigate();
   const {
     logout,
     accessToken,
@@ -66,10 +67,10 @@ interface UserBoxProps {
 }
 
 const UserBox = ({ logout, nickname, profileImage }: UserBoxProps) => {
-  const navigate = useNavigate();
+  const navigate = useCustomNavigate();
   const { isExpand, onToggle, ref } = useOutsideClick();
   return (
-    <S.UserBoxContainer ref={ref} onClick={onToggle}>
+    <S.UserBoxContainer ref={ref as React.RefObject<HTMLDivElement>} onClick={onToggle}>
       <UserCircle size={15} profileImage={profileImage} />
       <Text typography="t7" bold="regular" ellipsis={50}>
         {nickname}

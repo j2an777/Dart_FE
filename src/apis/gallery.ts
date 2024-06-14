@@ -35,18 +35,10 @@ interface GetGalleriesParams extends Partial<FilterType> {
   size?: number;
 }
 
-export const getGalleries = async ({
-  pageIndex = 0,
-  size = 6,
-  category = 'title',
-  cost = 'free',
-  display = 'all',
-  keyword = '',
-  sort = 'latest',
-}: GetGalleriesParams) => {
-  const response = await instance.get(
-    `/api/galleries?page=${pageIndex}&size=${size}&category=${category}&cost=${cost}&display=${display}&keyword=${keyword}&sort=${sort}`,
-  );
+export const getGalleries = async (params: GetGalleriesParams) => {
+  const response = await instance.get(`/api/galleries`, {
+    params,
+  });
   return response?.data as GalleriesData;
 };
 

@@ -9,7 +9,7 @@ interface Props {
 const Item = ({ name, profileImage }: Props) => {
   return (
     <S.Box>
-      <UserCircle size={40} />
+      <UserCircle size={40} profileImage={profileImage} />
       <Text typography="t6" color="gray600">
         {name}
       </Text>

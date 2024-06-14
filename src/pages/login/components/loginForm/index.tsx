@@ -4,8 +4,8 @@ import { LoginFormData } from '@/types/member';
 import LoginLinkButton from '../loginLinkButton';
 import { loginButtons, loginFormData } from '@/consts/login';
 import { postLogin } from '@/apis/member';
-import { useNavigate } from 'react-router-dom';
 import { memberStore } from '@/stores/member';
+import useCustomNavigate from '@/hooks/useCustomNavigate';
 
 import * as S from './styles';
 
@@ -16,7 +16,7 @@ const LoginForm = () => {
     handleSubmit,
   } = useForm<LoginFormData>();
   const setMember = memberStore((state) => state.setMember);
-  const navigate = useNavigate();
+  const navigate = useCustomNavigate();
   const onSubmit = async (data: LoginFormData) => {
     await postLogin(data)
       .then(({ accessToken }) => {

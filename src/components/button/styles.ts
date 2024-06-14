@@ -21,7 +21,11 @@ export const Button = styled.button<ButtonProp>`
     ${buttonTypeMap[buttonType]};
   `};
   ${({ buttonType = 'reverseRadius', $active = true }) =>
-    $active ? `${buttonActiveMap[buttonType]}` : null};
+    $active
+      ? css`
+          ${buttonActiveMap[buttonType]};
+        `
+      : null};
   ${({ bold = 'thin' }) => bolderMap[bold]};
   ${({ fontSize }) =>
     fontSize

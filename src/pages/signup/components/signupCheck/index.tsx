@@ -6,21 +6,26 @@ import { useInput } from '@/hooks/useInput';
 import { useState } from 'react';
 
 import * as S from './styles';
+import { Timer } from '..';
 
 const SignupCheck = ({
   setValue,
   label,
   value,
   registerOptions,
+  buttonLabel,
+  successMessage,
 }: {
   setValue: UseFormSetValue<ExtendedSignupForm>;
   label: string;
   value: string;
   registerOptions: RegisterOptions;
+  buttonLabel: string;
+  successMessage: string;
 }) => {
   const {
     register,
-    formState: { errors },
+    formState: { errors, isSubmitSuccessful },
     handleSubmit,
     getValues,
   } = useForm<{ [key: string]: string }>({
@@ -29,6 +34,7 @@ const SignupCheck = ({
   });
   const [isView, setIsView] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const onSubmit = async (form: { [key: string]: string }) => {
     setIsLoading(true);
     const value = Object.keys(form)[0];
@@ -36,11 +42,9 @@ const SignupCheck = ({
       if (value === 'email') {
         await postEmailCode(form as { email: string }).then(() => setIsView(true));
       } else {
-        await postCheckNickname(form as { nickname: string }).then(() => {
-          console.log('hill');
-          setValue('isCheckedNickname', true, { shouldValidate: true });
-          setValue('nickname', form.nickname, { shouldValidate: true });
-        });
+        await postCheckNickname(form as { nickname: string }).then(() =>
+          setValue('nickname', form.nickname, { shouldValidate: true }),
+        );
       }
     } finally {
       setIsLoading(false);
@@ -56,10 +60,25 @@ const SignupCheck = ({
         inputType="alert"
         disabled={isView}
       />
-      <Button buttonType="reverseRectangleGray" size="sm" type="submit" disabled={isView}>
-        {value === 'email' ? '인증번호 받기' : '중복확인'}
+      <Button
+        buttonType="reverseRectangleGray"
+        size="sm"
+        type="submit"
+        disabled={isView}
+        $active={!isView}
+      >
+        {buttonLabel}
       </Button>
-      {isView && <CheckInputBox email={getValues('email')} setValue={setValue} />}
+      {isSubmitSuccessful && (
+        <S.SuccessText typography="t7">{successMessage}</S.SuccessText>
+      )}
+      {isView && (
+        <CheckInputBox
+          email={getValues('email')}
+          setValue={setValue}
+          viewTimer={isSubmitSuccessful}
+        />
+      )}
       {isLoading && <CircleLoader />}
     </S.Container>
   );
@@ -68,30 +87,45 @@ const SignupCheck = ({
 const CheckInputBox = ({
   email,
   setValue,
+  viewTimer,
 }: {
   email: string;
   setValue: UseFormSetValue<ExtendedSignupForm>;
+  viewTimer: boolean;
 }) => {
   const [form, onChange] = useInput({ code: '' });
+  const [message, setMessage] = useState<string>('');
   const onClickVerifyEmail = async () => {
     await postEmailVerify({ code: form.code, email }).then(() => {
-      setValue('isCheckedEmail', true, { shouldValidate: true });
       setValue('email', email, { shouldValidate: true });
     });
   };
   return (
     <S.CheckInputBox>
+      {viewTimer && !message && <Timer />}
       <S.CheckModalInput
         name="code"
         placeholder="코드 입력"
         value={form.code}
         onChange={onChange}
       />
+      {message && (
+        <S.CheckModalMessage
+          typography="t7"
+          color={message === '인증 완료' ? 'green' : 'red'}
+        >
+          {message}
+        </S.CheckModalMessage>
+      )}
       <Button
         buttonType="reverseRectangleGray"
         size="sm"
         type="button"
-        onClick={onClickVerifyEmail}
+        onClick={() =>
+          onClickVerifyEmail()
+            .then(() => setMessage('인증 완료'))
+            .catch(() => setMessage('올바르지 않은 인증번호입니다'))
+        }
       >
         인증
       </Button>

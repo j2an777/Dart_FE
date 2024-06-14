@@ -1,11 +1,11 @@
 import { PropsWithChildren } from 'react';
 import { Icon } from '@/components';
-import { useNavigate } from 'react-router-dom';
+import useCustomNavigate from '@/hooks/useCustomNavigate';
 
 import * as S from './styles';
 
 const LoginLayout = ({ children }: PropsWithChildren) => {
-  const navigate = useNavigate();
+  const navigate = useCustomNavigate();
   return (
     <S.Container>
       <S.WhyNotImg />
