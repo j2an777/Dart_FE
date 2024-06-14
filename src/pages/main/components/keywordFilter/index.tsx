@@ -74,7 +74,7 @@ const KeywordFilter = ({
       </S.SeacchButtonBlock>
       {isExpand && (
         <S.SearchContent ref={ref as React.RefObject<HTMLUListElement>}>
-          {data.results.map((keyword, index) => (
+          {data?.results.map((keyword, index) => (
             <S.SearchItem
               key={index}
               onMouseDown={() => {

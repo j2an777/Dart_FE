@@ -4,9 +4,9 @@ import mainlogo from '@/assets/images/mainLogo.png';
 import { Link, Outlet } from 'react-router-dom';
 import { memberStore } from '@/stores/member';
 import useOutsideClick from '@/hooks/useOutsideClick';
+import useCustomNavigate from '@/hooks/useCustomNavigate';
 
 import * as S from './styles';
-import useCustomNavigate from '@/hooks/useCustomNavigate';
 
 const Navbar = () => {
   const navigate = useCustomNavigate();
