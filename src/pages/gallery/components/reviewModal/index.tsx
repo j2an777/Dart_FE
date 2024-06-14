@@ -9,9 +9,10 @@ import * as S from './styles';
 type ReviewModalProps = {
   onSubmit: (data: PostReview & { score: number }) => void;
   close: () => void;
+  galleryId: number;
 };
 
-const ReviewModal = ({ onSubmit, close }: ReviewModalProps) => {
+const ReviewModal = ({ onSubmit, close, galleryId }: ReviewModalProps) => {
   const [score, setScore] = useState(0);
   const navigate = useCustomNavigate();
 
@@ -28,7 +29,7 @@ const ReviewModal = ({ onSubmit, close }: ReviewModalProps) => {
   };
 
   const toHandleReview = () => {
-    navigate('/review');
+    navigate(`/review/${galleryId}`);
     close();
   };
 
