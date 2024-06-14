@@ -1,4 +1,5 @@
 import { Text } from '@/components';
+import { buttonActiveMap } from '@/styles/button';
 import { colors } from '@/styles/colorPalette';
 import { LayoutMap } from '@/styles/layout';
 import { bolderMap, typographyMap } from '@/styles/typography';
@@ -56,8 +57,7 @@ export const Button = styled.button<{ isActive?: boolean }>`
   height: 100%;
 
   &:hover {
-    background: ${colors.black};
-    color: ${colors.white};
+    ${buttonActiveMap.rectangleBlack}
   }
 
   &:nth-of-type(1) {
@@ -70,8 +70,7 @@ export const Button = styled.button<{ isActive?: boolean }>`
   ${({ isActive }) =>
     isActive &&
     css`
-      background: ${colors.black};
-      color: ${colors.white};
+      ${buttonActiveMap.rectangleBlack}
     `}
 `;
 

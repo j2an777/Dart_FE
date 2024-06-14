@@ -10,9 +10,11 @@ export const postGalleries = async (formData: PostGalleries) => {
     data.append('thumbnail', thumbnail);
   }
 
-  images.forEach((image: File, index: number) => {
-    data.append(`images[${index}]`, image);
-  });
+  if (images) {
+    images.forEach((image) => {
+      data.append('images', image);
+    });
+  }
 
   data.append(
     'gallery',
@@ -50,16 +52,12 @@ export const getGalleries = async ({
 
 // 전시 페이지 get
 export const getGallery = async (galleryId: number) => {
-  const response = await instance.get(
-    `/api/galleries/${galleryId}`
-  );
+  const response = await instance.get(`/api/galleries/${galleryId}`);
   return response?.data;
 };
 
 // 전시 설명 모달
 export const getGalleryInfo = async (galleryId: number) => {
-  const response = await instance.get(
-    `/api/galleries/info?gallery-id=${galleryId}`
-  );
+  const response = await instance.get(`/api/galleries/info?gallery-id=${galleryId}`);
   return response?.data;
 };

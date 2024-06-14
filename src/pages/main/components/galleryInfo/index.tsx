@@ -61,12 +61,10 @@ const GalleryInfo = ({ galleryId, open: isOpen, close }: GalleryInfoProps) => {
         title: '티켓 구매하기',
         description: '티켓을 구매하시겠습니까?',
         buttonLabel: '확인',
-        onClickButton: () => {
-          // 결제 페이지 api 함수 호출 구문
-          async () => {
-            const payment = await postPayment(galleryId, 'ticket');
-            window.location.href = payment.next_redirect_pc_url;
-          };
+        // 결제 페이지 api 함수 호출 구문
+        onClickButton: async () => {
+          const payment = await postPayment(galleryId, 'ticket');
+          window.location.href = payment.next_redirect_pc_url;
         },
       });
     }

@@ -7,9 +7,9 @@ import useGetPayment from '../../hooks/useGetPayment';
 import { PaidInfo } from '@/types/payment';
 import * as S from './styles';
 
-const PaymentMenu = () => {
+const Purchase = () => {
   const { pageInfo, setPageInfo } = useStore(pageStore);
-  const { data } = useGetPayment(pageInfo.pageIndex, 6);
+  const { data, isLoading, error } = useGetPayment(pageInfo.pageIndex, 6);
 
   useEffect(() => {
     if (data && data.pageParams) {
@@ -19,19 +19,22 @@ const PaymentMenu = () => {
       });
     }
   }, [data, setPageInfo]);
-  const payment = data.pages;
 
   return (
     <S.Container>
-      {payment.map((data: PaidInfo) => (
-        <PaidList
-          paymentId={data.paymentId}
-          amount={data.amount}
-          approvedAt={new Date(data.approvedAt)}
-          order={data.order}
-          galleryName={data.galleryName}
-        />
-      ))}
+      {isLoading && <p>Loading...</p>}
+      {error && <p>결제 정보를 불러오지 못 했습니다.</p>}
+      {!error &&
+        !isLoading &&
+        data.pages.map((data: PaidInfo) => (
+          <PaidList
+            paymentId={data.paymentId}
+            amount={data.amount}
+            approvedAt={new Date(data.approvedAt)}
+            order={data.order}
+            galleryName={data.galleryName}
+          />
+        ))}
       <footer>
         <PageButtons />
       </footer>
@@ -39,4 +42,4 @@ const PaymentMenu = () => {
   );
 };
 
-export default PaymentMenu;
+export default Purchase;

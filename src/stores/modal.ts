@@ -36,6 +36,7 @@ export const alertStore = create<AlertState>((set, get) => ({
     })),
 }));
 
+// 전시 상세 모달
 type GalleryInfoProps = Omit<ComponentProps<typeof GalleryInfo>, 'close'>;
 
 export interface GalleryInfoState {
@@ -54,4 +55,17 @@ export const galleryInfoStore = create<GalleryInfoState>((set) => ({
   open: (galleryId: number) =>
     set((state) => ({ ...state, galleryInfoValue: { open: true, galleryId } })),
   close: () => set((state) => ({ ...state, galleryInfoValue: galleryInfoDefaultValue })),
+}));
+
+// 채팅 모달
+interface ChatState {
+  chatValue: { open: boolean };
+  open: () => void;
+  close: () => void;
+}
+
+export const chatStore = create<ChatState>((set) => ({
+  chatValue: { open: false },
+  open: () => set({ chatValue: { open: true } }),
+  close: () => set({ chatValue: { open: false } }),
 }));
