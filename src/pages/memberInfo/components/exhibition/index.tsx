@@ -11,29 +11,27 @@ import { memberStore } from '@/stores/member';
 const Exhibition = () => {
   const { nickname } = memberStore((state) => state.auth);
   const { pageInfo, setPageInfo } = useStore(pageStore);
-  const { data, isLoading, isError } = useGetMypage(nickname, pageInfo.pageIndex, 2);
+  const { data } = useGetMypage(nickname, pageInfo.pageIndex, 2);
 
   useEffect(() => {
-    setPageInfo(data.pageParams);
-  }, [data.pageParams, setPageInfo]);
-
+    if (data) {
+      setPageInfo(data.pageParams);
+    }
+  }, [data, setPageInfo]);
+  if (!data) return;
   return (
     <S.Container>
-      {isLoading && <div>Loading...</div>}
-      {isError && <div>전시 정보가 없습니다.</div>}
-      {!isError &&
-        !isLoading &&
-        data.pages.map((data: Gallery) => (
-          <Ticket
-            key={data.galleryId}
-            thumbnail={data.thumbnail}
-            title={data.title}
-            startDate={data.startDate}
-            endDate={data.endDate}
-            fee={data.fee}
-            hashtags={data.hashtags}
-          />
-        ))}
+      {data.pages.map((data: Gallery) => (
+        <Ticket
+          key={data.galleryId}
+          thumbnail={data.thumbnail}
+          title={data.title}
+          startDate={data.startDate}
+          endDate={data.endDate}
+          fee={data.fee}
+          hashtags={data.hashtags}
+        />
+      ))}
       <footer>
         <PageButtons />
       </footer>

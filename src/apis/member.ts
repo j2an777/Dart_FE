@@ -1,5 +1,6 @@
 import { EmailVerify, LoginFormData, Member, SignupFormData } from '@/types/member';
 import instance from './instance';
+import { GalleriesData } from '@/types/gallery';
 
 export const postSignup = async (formData: SignupFormData) => {
   const response = await instance.post('/api/signup', formData);
@@ -48,7 +49,7 @@ export const getMypage = async (nickname: string, page: number, size: number) =>
       size,
     },
   });
-  return response?.data;
+  return response?.data as GalleriesData;
 };
 
 export const getNewToken = async () => {
