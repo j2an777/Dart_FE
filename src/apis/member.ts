@@ -24,7 +24,7 @@ export const postCheckNickname = async (formData: { nickname: string }) => {
 
 export const postLogin = async (formData: LoginFormData) => {
   const response = await instance.post(`/api/login`, formData);
-  return response?.data;
+  return response?.data as { accessToken: string };
 };
 
 export const getMemberInfo = async (nickname?: string) => {

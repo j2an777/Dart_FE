@@ -18,7 +18,7 @@ const initialState: State = {
   error: null,
 };
 
-class ApiErrorBoundary extends Component<PropsWithChildren<Props>, State> {
+class FetchBoundary extends Component<PropsWithChildren<Props>, State> {
   constructor(props: Props) {
     super(props);
     this.state = initialState;
@@ -42,4 +42,4 @@ class ApiErrorBoundary extends Component<PropsWithChildren<Props>, State> {
   }
 }
 
-export default ApiErrorBoundary;
+export default FetchBoundary;
