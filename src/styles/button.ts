@@ -132,12 +132,6 @@ export const buttonActiveMap = {
     color: ${colors.gray500};
     border-radius: 30px;
   `,
-  reverseRadius: css`
-    background-color: ${colors.white};
-    border: 2px solid ${colors.gray500};
-    color: ${colors.gray500};
-    border-radius: 10px;
-  `,
   rectangleBlack: css`
     background-color: ${colors.black};
     color: ${colors.white};
@@ -150,6 +144,17 @@ export const buttonActiveMap = {
     background-color: ${colors.white};
     border: 1px solid ${colors.black};
     color: ${colors.black};
+  `,
+  reverseRadius: css`
+    :hover {
+      background-color: ${colors.gray500};
+      color: ${colors.white};
+    }
+    :active {
+      background-color: ${colors.gray500};
+      color: ${colors.white};
+      transform: scale(0.9);
+    }
   `,
   reverseRectangleGray: css`
     :hover {

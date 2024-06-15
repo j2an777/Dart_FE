@@ -20,11 +20,7 @@ const Filter = () => {
         </Text>
         <Icon value="filter" $active={false} />
       </S.TitleBox>
-      <KeywordFilter
-        buttons={searchButtonInfo}
-        selected={filterValue.category}
-        onChange={onChange}
-      />
+      <KeywordFilter buttons={searchButtonInfo} />
       <CostFilter
         buttons={costButtonInfo}
         title="비용"

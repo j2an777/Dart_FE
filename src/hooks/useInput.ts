@@ -14,12 +14,12 @@ export const useInput = <T>(
       const value = event.target.value as unknown as T;
       const name = event.target.name;
       const newValue = {
-        ...value,
+        ...form,
         [name]: value,
       };
       setForm(newValue);
     },
-    [setForm],
+    [form],
   );
   return [form, onChange, setForm];
 };

@@ -1,5 +1,6 @@
 import { memberStore } from '@/stores/member';
 import { alertStore } from '@/stores/modal';
+import { LoginFormData } from '@/types/member';
 import { NavigateOptions, To, useNavigate } from 'react-router-dom';
 
 interface CustomNavigateOption extends NavigateOptions {
@@ -18,12 +19,15 @@ const useCustomNavigate = () => {
       return baseNavigate(to);
     }
     if (option?.hasAuth && !isLogin) {
-      open({ title: 'test', description: 'test' });
+      open({
+        title: '로그인 권장 서비스',
+        description: '로그인 페이지로 이동하시겠습니까?',
+        onClickButton: () => baseNavigate('/login'),
+      });
     } else {
       baseNavigate(to, option);
     }
   }
-
   return customNavigate;
 };
 

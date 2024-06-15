@@ -26,7 +26,7 @@ export const routes: RouteInfo[] = [
   { path: '/member', Element: MemberInfoPage, withNav: true, withAuth: true },
   { path: '/member/:memberId', Element: MemberInfoPage, withNav: true },
   { path: '/member/edit', Element: EditMemberInfoPage, withNav: true, withAuth: true },
-  { path: '/review/:galleryId', Element: ReviewPage, withNav: true, withAuth: true },
+  { path: '/review/:galleryId', Element: ReviewPage, withNav: true },
   { path: '/post', Element: PostPage, withNav: true, withAuth: true },
   { path: '/post/:galleryId/:cost', Element: PostLoaderPage, withAuth: true },
   { path: '/gallery/:galleryId', Element: GalleryPage },
