@@ -87,7 +87,9 @@ const GalleryInfo = ({ galleryId, open: isOpen, close }: GalleryInfoProps) => {
     const day = String(date.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
   };
+
   if (!isOpen) return;
+
   return (
     <Dimmed>
       <S.Container>
@@ -110,7 +112,7 @@ const GalleryInfo = ({ galleryId, open: isOpen, close }: GalleryInfoProps) => {
             <p id="descript">{data.content}</p>
             <Icon value="galaxy" size={20} />
             <Text typography="t6" bold="regular" color="white">
-              {formatDate(data.startDate)} <span>~</span> {formatDate(data.endDate)}
+              {formatDate(data.startDate)} <span>~</span> {formatDate(data.endDate) === '1970-01-01' ? null : formatDate(data.endDate)}
             </Text>
           </S.DescriptionBlock>
           <S.ButtonBlock>
