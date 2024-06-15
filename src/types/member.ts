@@ -18,6 +18,8 @@ export interface EmailVerify extends Pick<Member, 'email'> {
   code: string;
 }
 
+export type PutFormData = FormData;
+
 export type EditFormData = Partial<
   Pick<Member, 'nickname' | 'introduce'>
 > & {
