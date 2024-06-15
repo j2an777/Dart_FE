@@ -27,6 +27,7 @@ const GalleryInfo = ({ galleryId, open: isOpen, close }: GalleryInfoProps) => {
     queryKey: ['detail'],
     queryFn: () => getGalleryInfo(galleryId as number),
   });
+  console.log(data);
 
   const renderIcons = (reviewAverage: number) => {
     const icons = [];
@@ -54,19 +55,30 @@ const GalleryInfo = ({ galleryId, open: isOpen, close }: GalleryInfoProps) => {
     return icons;
   };
 
-  const onHandlePay = (ticket: boolean, fee: number) => {
-    if (ticket || fee === 0) {
-      navigate(`/gallery/${galleryId}`);
-      close();
+  const onHandlePay = (ticket: boolean, fee: number, isOpen: boolean) => {
+    if (isOpen) {
+      if (ticket || fee === 0) {
+        navigate(`/gallery/${galleryId}`);
+        close();
+      } else {
+        openModal({
+          title: '티켓 구매하기',
+          description: '티켓을 구매하시겠습니까?',
+          buttonLabel: '확인',
+          // 결제 페이지 api 함수 호출 구문
+          onClickButton: async () => {
+            const payment = await postPayment(galleryId, 'ticket');
+            window.location.href = payment.next_redirect_pc_url;
+          },
+        });
+      }
     } else {
       openModal({
-        title: '티켓 구매하기',
-        description: '티켓을 구매하시겠습니까?',
+        title: '전시 종료',
+        description: '전시가 종료되어 입장이 불가능합니다.',
         buttonLabel: '확인',
-        // 결제 페이지 api 함수 호출 구문
         onClickButton: async () => {
-          const payment = await postPayment(galleryId, 'ticket');
-          window.location.href = payment.next_redirect_pc_url;
+          close();
         },
       });
     }
@@ -117,7 +129,7 @@ const GalleryInfo = ({ galleryId, open: isOpen, close }: GalleryInfoProps) => {
           </S.DescriptionBlock>
           <S.ButtonBlock>
             <div className="price">₩ {data.fee}</div>
-            <div className="topay" onClick={() => onHandlePay(data.hasTicket, data.fee)}>
+            <div className="topay" onClick={() => onHandlePay(data.hasTicket, data.fee, data.isOpen)}>
               입장하기
             </div>
           </S.ButtonBlock>
