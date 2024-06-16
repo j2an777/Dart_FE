@@ -27,7 +27,6 @@ const GalleryInfo = ({ galleryId, open: isOpen, close }: GalleryInfoProps) => {
     queryKey: ['detail'],
     queryFn: () => getGalleryInfo(galleryId as number),
   });
-  console.log(data);
 
   const renderIcons = (reviewAverage: number) => {
     const icons = [];
@@ -56,33 +55,30 @@ const GalleryInfo = ({ galleryId, open: isOpen, close }: GalleryInfoProps) => {
   };
 
   const onHandlePay = (ticket: boolean, fee: number, isOpen: boolean) => {
-    if (isOpen) {
-      if (ticket || fee === 0) {
-        navigate(`/gallery/${galleryId}`);
-        close();
-      } else {
-        openModal({
-          title: '티켓 구매하기',
-          description: '티켓을 구매하시겠습니까?',
-          buttonLabel: '확인',
-          // 결제 페이지 api 함수 호출 구문
-          onClickButton: async () => {
-            const payment = await postPayment(galleryId, 'ticket');
-            window.location.href = payment.next_redirect_pc_url;
-          },
-        });
-      }
-    } else {
+    const showModal = (title: string, description: string, onClickButton: () => void) => {
       openModal({
-        title: '전시 종료',
-        description: '전시가 종료되어 입장이 불가능합니다.',
+        title,
+        description,
         buttonLabel: '확인',
-        onClickButton: async () => {
-          close();
-        },
+        onClickButton,
+      });
+    };
+  
+    if (!isOpen) {
+      showModal('일장 불가', '전시가 예정 및 종료 상태로 입장이 불가능합니다.', async () => close());
+      return;
+    }
+  
+    if (ticket || fee === 0) {
+      navigate(`/gallery/${galleryId}`);
+      close();
+    } else {
+      showModal('티켓 구매하기', '티켓을 구매하시겠습니까?', async () => {
+        const payment = await postPayment(galleryId, 'ticket');
+        window.location.href = payment.next_redirect_pc_url;
       });
     }
-  };
+  };  
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -116,16 +112,23 @@ const GalleryInfo = ({ galleryId, open: isOpen, close }: GalleryInfoProps) => {
               </Text>
               <S.User>
                 <S.Circle />
-                <Text typography="t7" bold="regular">
+                <Text typography="t7" bold="regular" color='white'>
                   {data.nickname}
                 </Text>
               </S.User>
             </S.Top>
             <p id="descript">{data.content}</p>
             <Icon value="galaxy" size={20} />
-            <Text typography="t6" bold="regular" color="white">
+            <Text typography="t7" bold="regular" color="white">
               {formatDate(data.startDate)} <span>~</span> {formatDate(data.endDate) === '1970-01-01' ? null : formatDate(data.endDate)}
             </Text>
+            <S.HashTags>
+              {data.hashtags.map((tag: string, index: number) => (
+                <Text key={index} typography='t7' bold='regular' color='gray300'>
+                  {`#${tag}`}
+                </Text>
+              ))}
+            </S.HashTags>
           </S.DescriptionBlock>
           <S.ButtonBlock>
             <div className="price">₩ {data.fee}</div>
