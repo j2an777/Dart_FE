@@ -22,7 +22,6 @@ export const CancelIcon = styled(Icon)`
 export const MainLogo = styled.img`
   width: fit-content;
   height: fit-content;
-  cursor: pointer;
 `;
 
 export const InfoBox = styled.div<{thumbnail: string}>`
