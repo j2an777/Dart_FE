@@ -1,13 +1,14 @@
 import * as S from './styles';
 import { useEffect, useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import GalleryDetail from '../galleryDetail';
-import { useParams } from 'react-router-dom';
-import { getGallery } from '@/apis/gallery';
+import GalleryDetail from '../../galleryDetail';
 import { Text } from '@/components';
-import { GalleryImages } from '@/types/gallery';
+import { GalleryData, GalleryImages } from '@/types/gallery';
 
-const GalleryMain = () => {
+interface GalleryMainProps {
+  galleryData: GalleryData;
+}
+
+const GalleryRotate = ({ galleryData }: GalleryMainProps) => {
   const [state, setState] = useState({
     degrees: 0,
     frontIndex: 0,
@@ -16,14 +17,6 @@ const GalleryMain = () => {
     transZ: 400,
     size: 250,
     dataDegree: 0
-  });
-
-  const { galleryId: galleryIdStr } = useParams<{ galleryId?: string }>();
-  const galleryId = galleryIdStr ? parseInt(galleryIdStr, 10) : NaN;
-
-  const { data: galleryData, error, isLoading } = useQuery({
-    queryKey: ['galleryData'],
-    queryFn: () => getGallery(galleryId),
   });
 
   useEffect(() => {
@@ -96,14 +89,6 @@ const GalleryMain = () => {
     }));
   };
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error loading gallery data</div>;
-  }
-
   return (
     <S.Container>
       <S.MainBlock degrees={state.degrees} size={state.size}>
@@ -137,4 +122,4 @@ const GalleryMain = () => {
   );
 }
 
-export default GalleryMain;
+export default GalleryRotate;

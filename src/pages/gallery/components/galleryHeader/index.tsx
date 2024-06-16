@@ -3,20 +3,23 @@ import GalleryLogo from '@/assets/images/galleryLogo.png';
 import { Icon } from '@/components';
 import { alertStore, chatStore } from '@/stores/modal';
 import ReviewModal from '../reviewModal';
-import { useParams } from 'react-router-dom';
 import { PostReview } from '@/types/post';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { postReview } from '@/apis/review';
 import useCustomNavigate from '@/hooks/useCustomNavigate';
 import { useStore } from 'zustand';
+import { memberStore } from '@/stores/member';
 
-const GalleryHeader = () => {
+interface GalleryHeaderProps {
+  galleryId: number;
+}
+
+const GalleryHeader = ({ galleryId }: GalleryHeaderProps) => {
   const { open, close } = useStore(alertStore);
   const openChat = chatStore((state) => state.open);
   const navigate = useCustomNavigate();
   const queryClient = useQueryClient();
-
-  const { galleryId } = useParams();
+  const { nickname, accessToken } = memberStore();
 
   const mutation = useMutation({
     mutationKey: ['review'],
@@ -29,7 +32,7 @@ const GalleryHeader = () => {
   });
 
   const handleReviewSubmit = (data: PostReview & { score: number }) => {
-    mutation.mutateAsync({ ...data, galleryId: Number(galleryId as string) });
+    mutation.mutateAsync({ ...data, galleryId });
   };
 
   const onHandleToggle = (name: string) => {
@@ -38,7 +41,7 @@ const GalleryHeader = () => {
         title: '후기 등록하기',
         description: (
           <ReviewModal
-            galleryId={Number(galleryId as string)}
+            galleryId={galleryId}
             onSubmit={handleReviewSubmit}
             close={close}
           />
@@ -79,12 +82,13 @@ const GalleryHeader = () => {
       <S.MenuBlock>
         <S.Logo src={GalleryLogo} onClick={() => onHandleToggle('toMain')} />
         <S.MenuBox>
-          <Icon
+          {accessToken ? 
+            <Icon
             value="review"
             size={30}
             onClick={() => onHandleToggle('review')}
-            strokeColor="white"
-          />
+            strokeColor="white"/>  
+         : null}
           <Icon value="chat" size={30} onClick={() => onHandleToggle('chat')} />
           <Icon value="out" size={30} onClick={() => onHandleToggle('out')} />
         </S.MenuBox>

@@ -6,8 +6,8 @@ export type GalleryImages = {
 
 export type GalleryData = {
   title: string;
-  thumbnail: string;
   hasComment: boolean;
+  nickname: string;
   images: GalleryImages[];
 };
 
