@@ -23,7 +23,7 @@ const Alert = ({
   if (!open) return;
 
   return (
-    <Dimmed>
+    <Dimmed style={{ zIndex: 12 }}>
       <S.Container>
         <S.HeaderBox>
           <Text typography="t4">{title}</Text>
