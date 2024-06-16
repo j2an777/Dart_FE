@@ -118,6 +118,12 @@ export const ButtonBlock = styled.div`
   }
 `;
 
+export const HashTags = styled.div`
+  ${LayoutMap.displayFlex};
+  justify-content: flex-start;
+  gap: 10px;
+`;
+
 export const ReviewBox = styled.div`
   position: relative;
   width: 100%;
@@ -138,6 +144,14 @@ export const ReviewBox = styled.div`
 export const ScoreBlock = styled.div`
   ${LayoutMap.displayFlex};
   justify-content: space-between;
+
+  a {
+    &:hover {
+      p {
+        text-decoration: underline;
+      }
+    }
+  }
 `;
 
 export const ScoreWrap = styled.div`
