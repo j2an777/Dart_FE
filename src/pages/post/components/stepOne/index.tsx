@@ -5,38 +5,29 @@ import TagsInput from '../inputs/TagsInput';
 
 const StepOne = () => {
   const { control } = useFormContext();
-  const { setValue } = useFormContext();
 
   return (
     <S.Container>
-      <S.Step>01</S.Step>
+      <S.Step value="step_one" $active={false} />
       <S.Block>
         <Controller
           name="gallery.title"
           control={control}
-          rules={{ required: '작품명을 입력해 주세요.' }}
+          rules={{
+            required: '전시 제목을 입력해 주세요.',
+            maxLength: { value: 20, message: '20자 이내로 입력해 주세요.' },
+          }}
           render={({ field }) => (
-            <InputBox placeholder="작품명을 입력해 주세요." width={750} {...field} />
+            <InputBox placeholder="전시 제목을 입력해 주세요." width={750} {...field} />
           )}
         />
-        <Controller
-          name="gallery.hashtags"
-          control={control}
-          render={({ field }) => (
-            <TagsInput
-              value={field.value || []}
-              onChange={(tags) => {
-                setValue('gallery.hashtags', tags);
-              }}
-            />
-          )}
-        />
+        <TagsInput name="gallery.hashtags" />
         <Controller
           name="gallery.content"
           control={control}
-          rules={{ required: '작품 소개를 입력해 주세요.' }}
+          rules={{ required: '전시 소개를 입력해 주세요.' }}
           render={({ field }) => (
-            <TextBox placeholder="작품 소개를 입력해 주세요." height={200} {...field} />
+            <TextBox placeholder="전시 소개를 입력해 주세요." height={200} {...field} />
           )}
         />
       </S.Block>
