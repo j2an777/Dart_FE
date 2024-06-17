@@ -10,7 +10,7 @@ import { RegisterOptions, UseFormSetValue, useForm } from 'react-hook-form';
 
 import * as S from './styles';
 
-interface SignupCheckProps {
+export interface SignupCheckProps {
   setValue: UseFormSetValue<ExtendedSignupForm>;
   label: string;
   value: string;
@@ -36,8 +36,16 @@ const SignupCheck = ({
     mode: 'onChange',
     defaultValues: { [value]: '' },
   });
-  const { mutate: emailCodeSend, isSuccess, isPending } = usePostEmailCodeSend();
-  const { mutate: nicknameCheck } = usePostNicknameCheck({ setValue });
+  const {
+    mutate: emailCodeSend,
+    isSuccess: emailSuccess,
+    isPending: emailPending,
+  } = usePostEmailCodeSend();
+  const {
+    mutate: nicknameCheck,
+    isSuccess: nicknameSuccess,
+    isPending: nicknamePending,
+  } = usePostNicknameCheck({ setValue });
   const onSubmit = async (form: { [key: string]: string }) => {
     const value = Object.keys(form)[0];
     if (value === 'email') {
@@ -53,27 +61,29 @@ const SignupCheck = ({
         error={errors[value]}
         label={label}
         value={value}
-        inputType="alert"
-        disabled={isSuccess}
+        disabled={emailSuccess || nicknameSuccess}
       />
       <Button
         buttonType="reverseRectangleGray"
         size="sm"
         type="submit"
-        disabled={isSuccess}
-        $active={!isSuccess}
+        disabled={emailSuccess || nicknameSuccess}
+        $active={!(emailSuccess || nicknameSuccess)}
       >
         {buttonLabel}
       </Button>
-      {isSuccess && <S.SuccessText typography="t7">{successMessage}</S.SuccessText>}
-      {isSuccess && (
+      {emailSuccess ||
+        (nicknameSuccess && (
+          <S.SuccessText typography="t7">{successMessage}</S.SuccessText>
+        ))}
+      {emailSuccess && (
         <CheckInputBox
           email={getValues('email')}
           setValue={setValue}
-          viewTimer={isSuccess}
+          viewTimer={emailSuccess}
         />
       )}
-      {isPending && <CircleLoader />}
+      {emailPending || (nicknamePending && <CircleLoader />)}
     </S.Container>
   );
 };

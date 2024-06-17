@@ -3,15 +3,15 @@ import { Button, InputField } from '@/components';
 import { ExtendedSignupForm } from '@/types/member';
 import { RegisterOptions, useFormContext } from 'react-hook-form';
 import { essentiolFormData, optionalFormData } from '@/consts/signup';
+import { checkModalStore } from '@/stores/modal';
 import { Navigate } from 'react-router-dom';
-import { alertStore } from '@/stores/modal';
 import SignupCheck from '../signupCheck';
 import { useEffect } from 'react';
 
 import * as S from './styles';
 
 const SignupForm = () => {
-  const open = alertStore((state) => state.open);
+  const open = checkModalStore((state) => state.open);
   useEffect(() => {
     return () => sessionStorage.removeItem('isAgree');
   }, []);
@@ -52,8 +52,7 @@ const SignupForm = () => {
                     onClick={() =>
                       open({
                         title: props.title,
-                        buttonLabel: '닫기',
-                        description: (
+                        content: (
                           <SignupCheck
                             setValue={setValue}
                             label={label}

@@ -8,3 +8,4 @@ export { default as SignupOptionalForm } from './signupOptionalForm';
 export { default as SignupForm } from './signupForm';
 export { default as SignupCheck } from './signupCheck';
 export { default as Timer } from './timer';
+export { default as CheckModal } from './checkModal';

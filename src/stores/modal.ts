@@ -1,23 +1,24 @@
 import { Alert } from '@/components';
 import { GalleryInfo } from '@/pages/main/components';
+import { CheckModal } from '@/pages/signup/components';
 import { ComponentProps } from 'react';
 import { create } from 'zustand';
 
-interface AlertState {
-  alertValue: ModalProps;
-  open: (form: Omit<ModalProps, 'open'>) => void;
+interface AlertModalState {
+  alertValue: AlertModalProps;
+  open: (form: Omit<AlertModalProps, 'open'>) => void;
   close: () => void;
 }
-type ModalProps = ComponentProps<typeof Alert>;
+type AlertModalProps = ComponentProps<typeof Alert>;
 
-const defaultValue: ModalProps = {
+const defaultValue = {
   open: false,
   title: null,
 };
 
-export const alertStore = create<AlertState>((set, get) => ({
+export const alertStore = create<AlertModalState>((set, get) => ({
   alertValue: defaultValue,
-  open: (form: Omit<ModalProps, 'open'>) =>
+  open: (form: Omit<AlertModalProps, 'open'>) =>
     set((state) => ({
       ...state,
       alertValue: {
@@ -68,4 +69,30 @@ export const chatStore = create<ChatState>((set) => ({
   chatValue: { open: false },
   open: () => set({ chatValue: { open: true } }),
   close: () => set({ chatValue: { open: false } }),
+}));
+
+type CheckModalProps = ComponentProps<typeof CheckModal>;
+
+interface CheckModalState {
+  checkModalValue: CheckModalProps;
+  open: (form: Omit<CheckModalProps, 'open'>) => void;
+  close: () => void;
+}
+
+// 회원가입 체크 모달
+export const checkModalStore = create<CheckModalState>((set) => ({
+  checkModalValue: defaultValue,
+  open: (form: Omit<CheckModalProps, 'open'>) =>
+    set((state) => ({
+      ...state,
+      checkModalValue: {
+        ...form,
+        open: true,
+      },
+    })),
+  close: () =>
+    set((state) => ({
+      ...state,
+      checkModalValue: defaultValue,
+    })),
 }));

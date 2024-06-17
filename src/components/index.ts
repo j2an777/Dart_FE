@@ -17,3 +17,4 @@ export { default as UserCircle } from './UserCircle';
 export { default as ChatPortal } from './ChatPortal';
 export { default as AlertPortal } from './AlertPortal';
 export { default as GalleryInfoPortal } from './GalleryInfoPortal';
+export { default as SignupCheckPortal } from './SignupCheckPortal';
