@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { Text, UserCircle } from '@/components';
 import * as S from './styles';
-import { EditFormData } from '@/types/member';
+import { EditFormData, PutFormData } from '@/types/member';
 import { alertStore } from '@/stores/modal';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getMemberInfo, postCheckNickname, putMemberEditInfo } from '@/apis/member';
@@ -38,7 +38,7 @@ const EditMemberForm = () => {
   // 변경사항 저장에 대한 mutation
   const mutation = useMutation({
     mutationKey: ['edit'],
-    mutationFn: async (formData: FormData) => putMemberEditInfo(formData),
+    mutationFn: async (formData: PutFormData) => putMemberEditInfo(formData),
     onSettled: () => {
       queryClient.invalidateQueries({
         queryKey: ['edit'],
