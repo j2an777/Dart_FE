@@ -15,6 +15,26 @@ export const ContentBox = styled.div`
   padding: 20px;
   flex: 1;
   overflow-y: auto;
+
+  /* 스크롤 스타일 */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 1);
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(150, 150, 150, 0.5);
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(85, 85, 85, 0.5);
+  }
 `;
 
 export const InputBox = styled.div`

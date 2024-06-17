@@ -52,23 +52,31 @@ const GalleryInfo = ({ galleryId, open: isOpen, close }: GalleryInfoProps) => {
     return icons;
   };
 
-  const onHandlePay = (ticket: boolean, fee: number) => {
+  const onHandlePay = (ticket: boolean, fee: number, isOpen: boolean) => {
+    const showModal = (title: string, description: string, onClickButton: () => void) => {
+      openModal({
+        title,
+        description,
+        buttonLabel: '확인',
+        onClickButton,
+      });
+    };
+  
+    if (!isOpen) {
+      showModal('일장 불가', '전시가 예정 및 종료 상태로 입장이 불가능합니다.', async () => close());
+      return;
+    }
+  
     if (ticket || fee === 0) {
       navigate(`/gallery/${galleryId}`);
       close();
     } else {
-      openModal({
-        title: '티켓 구매하기',
-        description: '티켓을 구매하시겠습니까?',
-        buttonLabel: '확인',
-        // 결제 페이지 api 함수 호출 구문
-        onClickButton: async () => {
-          const payment = await postPayment(galleryId, 'ticket');
-          window.location.href = payment.next_redirect_pc_url;
-        },
+      showModal('티켓 구매하기', '티켓을 구매하시겠습니까?', async () => {
+        const payment = await postPayment(galleryId, 'ticket');
+        window.location.href = payment.next_redirect_pc_url;
       });
     }
-  };
+  };  
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -85,12 +93,15 @@ const GalleryInfo = ({ galleryId, open: isOpen, close }: GalleryInfoProps) => {
     const day = String(date.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
   };
+
   if (!isOpen) return;
+
   return (
     <Dimmed>
       <S.Container>
-        <S.InfoBox>
-          <S.CancelIcon value="cancel" size={20} onClick={close} />
+        <S.InfoBox thumbnail={data.thumbnail}>
+          <S.Overlay />
+          <S.CancelIcon value="cancel" size={20} onClick={close} color='white'/>
           <S.MainLogo alt="main-logo" src={Logo} />
           <S.DescriptionBlock>
             <S.Top>
@@ -99,20 +110,27 @@ const GalleryInfo = ({ galleryId, open: isOpen, close }: GalleryInfoProps) => {
               </Text>
               <S.User>
                 <S.Circle />
-                <Text typography="t7" bold="regular">
+                <Text typography="t7" bold="regular" color='white'>
                   {data.nickname}
                 </Text>
               </S.User>
             </S.Top>
             <p id="descript">{data.content}</p>
             <Icon value="galaxy" size={20} />
-            <Text typography="t6" bold="regular" color="white">
-              {formatDate(data.startDate)} <span>~</span> {formatDate(data.endDate)}
+            <Text typography="t7" bold="regular" color="white">
+              {formatDate(data.startDate)} <span>~</span> {formatDate(data.endDate) === '1970-01-01' ? null : formatDate(data.endDate)}
             </Text>
+            <S.HashTags>
+              {data.hashtags.map((tag: string, index: number) => (
+                <Text key={index} typography='t7' bold='regular' color='gray300'>
+                  {`#${tag}`}
+                </Text>
+              ))}
+            </S.HashTags>
           </S.DescriptionBlock>
           <S.ButtonBlock>
             <div className="price">₩ {data.fee}</div>
-            <div className="topay" onClick={() => onHandlePay(data.hasTicket, data.fee)}>
+            <div className="topay" onClick={() => onHandlePay(data.hasTicket, data.fee, data.isOpen)}>
               입장하기
             </div>
           </S.ButtonBlock>

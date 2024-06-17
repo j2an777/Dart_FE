@@ -41,15 +41,15 @@ const StepZero = () => {
       setFeeDetails({ ...feeDetails, totalPay: pay });
       setDateRange({ ...dateRange, endDate });
       // 이용료와 기간 formData 업데이트
-      setValue('gallery.startDate', formatDateInKST(dateRange.startDate));
+      setValue('gallery.startDate', formatDateInKST(dateRange.startDate, true));
       setValue('gallery.endDate', formatDateInKST(endDate));
     } else {
       // 무료 전시
-      setValue('gallery.startDate', formatDateInKST(dateRange.startDate));
+      setValue('gallery.startDate', formatDateInKST(dateRange.startDate, true));
       setFeeDetails({ ...feeDetails, totalPay: 0 });
       setDateRange({ ...dateRange, endDate: null });
     }
-  }, [activeBtn, feeDetails.period, feeDetails.fee]);
+  }, [activeBtn, feeDetails.period, feeDetails.fee, dateRange.startDate]);
 
   const onFileDrop = (file: File) => {
     setValue('thumbnail', file);

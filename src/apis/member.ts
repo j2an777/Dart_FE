@@ -1,4 +1,4 @@
-import { EmailVerify, LoginFormData, Member, SignupFormData } from '@/types/member';
+import { EmailVerify, LoginFormData, Member, PutFormData, SignupFormData } from '@/types/member';
 import instance from './instance';
 import { GalleriesData } from '@/types/gallery';
 
@@ -32,7 +32,7 @@ export const getMemberInfo = async (nickname?: string) => {
   return response?.data as Member;
 };
 
-export const putMemberEditInfo = async (formData: FormData) => {
+export const putMemberEditInfo = async (formData: PutFormData) => {
   const response = await instance.put(`/api/members`, formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
