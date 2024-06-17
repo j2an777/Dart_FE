@@ -1,5 +1,4 @@
 import { Icon } from '@/components';
-import * as S from './styles';
 import { useForm } from 'react-hook-form';
 import { PostReview } from '@/types/post';
 import useCustomNavigate from '@/hooks/useCustomNavigate';
@@ -13,12 +12,7 @@ type ReviewModalProps = {
 const ReviewModal = ({ galleryId, onSubmit, close }: ReviewModalProps) => {
   const navigate = useCustomNavigate();
 
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    watch
-  } = useForm<PostReview>({
+  const { register, handleSubmit, setValue, watch } = useForm<PostReview>({
     mode: 'onChange',
     defaultValues: { score: 0 },
   });
@@ -29,7 +23,7 @@ const ReviewModal = ({ galleryId, onSubmit, close }: ReviewModalProps) => {
 
   const onHandleRating = (index: number) => {
     setValue('score', index + 1);
-  }
+  };
 
   const toHandleReview = () => {
     navigate(`/review/${galleryId}`);

@@ -4,7 +4,7 @@ import App from './App.tsx';
 import { BrowserRouter } from 'react-router-dom';
 import { Global } from '@emotion/react';
 import globalStyles from './styles/globalStyles.ts';
-import { AlertPortal, GalleryInfoPortal } from './components';
+import { AlertPortal, GalleryInfoPortal, ChatPortal } from './components';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
@@ -25,14 +25,15 @@ enableMocking().then(() =>
   ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.Fragment>
       <Global styles={globalStyles} />
-        <QueryClientProvider client={queryClient}>
-          <BrowserRouter>
-              <AlertPortal />
-              <GalleryInfoPortal />
-              <App />
-          </BrowserRouter>
-          <ReactQueryDevtools initialIsOpen={false} />
-        </QueryClientProvider>
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <AlertPortal />
+          <GalleryInfoPortal />
+          <ChatPortal />
+          <App />
+        </BrowserRouter>
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
     </React.Fragment>,
   ),
 );

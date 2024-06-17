@@ -6,6 +6,7 @@ import useGetPayment from '../../hooks/useGetPayment';
 import { PaidInfo } from '@/types/payment';
 import * as S from './styles';
 import { PageButtons } from '@/components';
+import withSuspense from '@/hooks/withSuspense';
 
 const Purchase = () => {
   const { pageInfo, setPageInfo } = useStore(pageStore);
@@ -28,6 +29,7 @@ const Purchase = () => {
         !isLoading &&
         data.pages.map((data: PaidInfo) => (
           <PaidList
+            key={data.paymentId}
             paymentId={data.paymentId}
             amount={data.amount}
             approvedAt={new Date(data.approvedAt)}
@@ -42,4 +44,6 @@ const Purchase = () => {
   );
 };
 
-export default Purchase;
+const PurchaseWithSuspense = withSuspense(Purchase, { suspenseFallback: <>loading</> });
+
+export default PurchaseWithSuspense;
