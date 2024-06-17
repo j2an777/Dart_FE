@@ -4,6 +4,7 @@ import getVisiblePage from '@/utils/getPage';
 
 import * as S from './styles';
 import { Typograph } from '@/styles/typography';
+import { useEffect } from 'react';
 
 export interface PageButtonsProps {
   orientation?: 'horizontal' | 'vertical';
@@ -18,7 +19,15 @@ const PageButtons = ({
     nextPage,
     pageInfo: { isDone, isFirst, pageIndex },
     prevPage,
+    resetPageInfo,
   } = pageStore();
+
+  useEffect(() => {
+    return () => {
+      console.log('hi');
+      resetPageInfo();
+    };
+  }, [resetPageInfo]);
   return (
     <S.Container orientation={orientation}>
       <S.ButtonBox orientation={orientation}>

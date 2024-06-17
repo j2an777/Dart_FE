@@ -21,6 +21,6 @@ export const Container = styled.div`
 
 export const Thumbnail = styled.img`
   border: 5px solid ${colors.black};
-  width: 220px;
-  height: 220px;
+  width: 240px;
+  height: 240px;
 `;

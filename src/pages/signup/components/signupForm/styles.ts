@@ -2,6 +2,14 @@ import { colors } from '@/styles/colorPalette';
 import { LayoutMap } from '@/styles/layout';
 import styled from '@emotion/styled';
 
+export const Container = styled.div`
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  gap: 50px;
+`;
+
 export const CheckBox = styled.div`
   display: flex;
   gap: 60px;

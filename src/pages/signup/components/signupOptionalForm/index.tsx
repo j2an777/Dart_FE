@@ -1,13 +1,6 @@
 import { InputField } from '@/components';
 import { SignupFormLayout, SignupTextarea } from '..';
-import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { optionalFormData } from '@/consts/signup';
-import { ExtendedSignupForm } from '@/types/member';
-
-interface SignupFormProps {
-  register: UseFormRegister<ExtendedSignupForm>;
-  errors: FieldErrors<ExtendedSignupForm>;
-}
 
 const SignupOptionalForm = ({ register, errors }: SignupFormProps) => {
   return (

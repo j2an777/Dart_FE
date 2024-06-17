@@ -1,3 +1,4 @@
+import { Icon, Text } from '@/components';
 import { colors } from '@/styles/colorPalette';
 import { LayoutMap } from '@/styles/layout';
 import styled from '@emotion/styled';
@@ -10,11 +11,15 @@ export const Container = styled.div`
   position: relative;
 `;
 
-export const SeacchBox = styled.div`
-  ${LayoutMap.displayFlex}
-  flex-direction: column;
+export const SeacchInputBox = styled.div`
+  position: relative;
   width: 100%;
-  gap: 10px;
+`;
+
+export const SearchIcon = styled(Icon)`
+  position: absolute;
+  right: 15px;
+  top: 10px;
 `;
 
 export const SearchInupt = styled.input`
@@ -25,7 +30,7 @@ export const SearchInupt = styled.input`
   box-sizing: border-box;
 `;
 
-export const SeacchButtonBlock = styled.div`
+export const SeacchButtons = styled.div`
   ${LayoutMap.displayFlex}
   width: 100%;
   justify-content: space-between;
@@ -51,4 +56,8 @@ export const SearchItem = styled.li`
     background-color: ${colors.gray100};
     font-weight: 700;
   }
+`;
+
+export const NoneSearchData = styled(Text)`
+  padding: 4px 16px;
 `;

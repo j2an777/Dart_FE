@@ -1,9 +1,7 @@
 import Dimmed from '@/components/Dimmed';
 import Icon, { IconValues } from '@/components/icon';
 import Text from '@/components/Text';
-import { Link } from 'react-router-dom';
 import { Colors } from '@/styles/colorPalette';
-
 import { alertStore } from '@/stores/modal';
 import { useQuery } from '@tanstack/react-query';
 import { getGalleryInfo } from '@/apis/gallery';
@@ -153,11 +151,17 @@ const GalleryInfo = ({ galleryId, open: isOpen, close }: GalleryInfoProps) => {
               </S.Score>
               {renderIcons(data.reviewAverage)}
             </S.ScoreWrap>
-            <Link to="/review">
-              <Text typography="t7" color="gray300" bold="thin">
-                상세 리뷰 보기 &gt;
-              </Text>
-            </Link>
+            <Text
+              typography="t7"
+              color="gray300"
+              bold="thin"
+              onClick={() => {
+                navigate(`/review/${galleryId}`);
+                close();
+              }}
+            >
+              상세 리뷰 보기 &gt;
+            </Text>
           </S.ScoreBlock>
         </S.ReviewBox>
       </S.Container>

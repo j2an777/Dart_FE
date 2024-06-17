@@ -19,15 +19,14 @@ instance.interceptors.request.use(async (config) => {
 });
 
 instance.interceptors.response.use(
-  (response) => {
-    return response;
-  },
+  (response) => response,
   async (error) => {
     const originalRequest = error.config;
-    const setMember = memberStore((state) => state.setMember);
+
     if (error.response.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
       try {
+        const setMember = memberStore().setMember;
         const response = await getNewToken();
         const { accessToken } = response.data;
         setMember(accessToken);
@@ -37,6 +36,7 @@ instance.interceptors.response.use(
         return Promise.reject(refreshError);
       }
     }
+
     return Promise.reject(error);
   },
 );

@@ -8,7 +8,9 @@ export const Container = styled.div`
   justify-content: space-between;
   ${LayoutMap.absoluteCenter}
   padding: 35px;
-  width: 600px;
+  width: fit-content;
+  max-width: 600px;
+  min-width: 400px;
   background-color: ${colors.white};
   border-radius: 10px;
   min-height: 300px;

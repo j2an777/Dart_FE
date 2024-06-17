@@ -4,9 +4,14 @@ import { agreeInfo } from '@/consts/agree';
 
 import * as S from './styles';
 import { agreeStore } from '@/stores/agree';
+import { useEffect } from 'react';
 
 const SignupAgree = () => {
-  const { agreements, allChecked, setAgreements, toggleAll } = agreeStore();
+  const { agreements, allChecked, setAgreements, toggleAll, resetAgreements } =
+    agreeStore();
+  useEffect(() => {
+    return resetAgreements;
+  }, [resetAgreements]);
   return (
     <S.Container>
       <S.Title typography="t1" color="white" bold="regular">

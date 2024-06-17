@@ -19,7 +19,9 @@ const Navbar = () => {
     <>
       <S.Container>
         <S.MaxWidthWrapper>
-          <S.MainLogo alt="main-logo" src={mainlogo} />
+          <a href="/">
+            <S.MainLogo alt="main-logo" src={mainlogo} />
+          </a>
           <S.ButtonBox>
             {navbarInfo.map(({ path, value }, index) => {
               if (value === '로그인') {

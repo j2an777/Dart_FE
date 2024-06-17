@@ -1,4 +1,4 @@
-// import { ApiErrorBoundary } from '@/components';
+// import { FetchBoundary } from '@/components';
 import { ComponentType, ReactNode, Suspense } from 'react';
 
 const withSuspense = <Props extends object>(
@@ -9,9 +9,9 @@ const withSuspense = <Props extends object>(
   return function SuspendedComponent(props: Props) {
     return (
       <Suspense fallback={options.suspenseFallback}>
-        {/* <ApiErrorBoundary fallback={options.erroBoundaryFallback}> */}
+        {/* <FetchBoundary fallback={options.erroBoundaryFallback}> */}
         <WrappedComponent {...(props as Props)} />
-        {/* </ApiErrorBoundary> */}
+        {/* </FetchBoundary> */}
       </Suspense>
     );
   };

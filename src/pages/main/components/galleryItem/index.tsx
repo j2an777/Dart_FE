@@ -5,8 +5,16 @@ import parseDate from '@/utils/parseDate';
 import * as S from './styles';
 import { galleryInfoStore } from '@/stores/modal';
 
-const GalleryItem = ({ title, startDate, endDate, thumbnail, galleryId }: Gallery) => {
+const GalleryItem = ({
+  title,
+  startDate,
+  endDate,
+  thumbnail,
+  galleryId,
+  hashtags,
+}: Gallery) => {
   const open = galleryInfoStore((state) => state.open);
+  console.log(hashtags, '처리하기!!!');
   return (
     <S.Container onClick={() => open(galleryId)}>
       <S.Thumbnail src={thumbnail} alt="thumbnail-image" />

@@ -5,6 +5,7 @@ export { default as SignupButtons } from './signupButtons';
 export { default as SignupTextarea } from './signupTextarea';
 export { default as SignupFormLayout } from './signupFormLayout';
 export { default as SignupOptionalForm } from './signupOptionalForm';
-export { default as SignupEssentailForm } from './signupEssentailForm';
+export { default as SignupForm } from './signupForm';
 export { default as SignupCheck } from './signupCheck';
 export { default as Timer } from './timer';
+export { default as CheckModal } from './checkModal';
