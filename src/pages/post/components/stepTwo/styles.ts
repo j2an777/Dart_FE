@@ -1,6 +1,6 @@
 import { colors } from '@/styles/colorPalette';
 import styled from '@emotion/styled';
-import { Text } from '@/components';
+import { Icon } from '@/components';
 import { buttonSizeMap, buttonTypeMap } from '@/styles/button';
 
 export const Container = styled.div`
@@ -14,13 +14,10 @@ export const Container = styled.div`
   height: 100%;
 `;
 
-export const Step = styled(Text)`
+export const Step = styled(Icon)`
   position: absolute;
-  top: -30px;
-  left: -15px;
-  font-size: 350px;
-  font-weight: 500;
-  letter-spacing: 5px;
+  top: 53px;
+  left: 2px;
 `;
 
 export const Box = styled.div`

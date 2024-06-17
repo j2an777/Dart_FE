@@ -89,7 +89,7 @@ const StepTwo = () => {
 
   return (
     <S.Container>
-      <S.Step>02</S.Step>
+      <S.Step value="step_two" $active={false} />
       <S.Box>
         <Text typography="t5" bold="regular">
           작품 리스트(최대 20개)

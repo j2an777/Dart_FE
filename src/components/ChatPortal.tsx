@@ -1,6 +1,6 @@
 import { chatStore } from '@/stores/modal';
 import { createPortal } from 'react-dom';
-import ChatModal from './chatModal';
+import ChatModal from '@/pages/chatModal';
 
 const ChatPortal = () => {
   const chatValue = chatStore((state) => state.chatValue);

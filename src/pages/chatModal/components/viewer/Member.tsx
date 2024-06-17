@@ -6,7 +6,7 @@ interface Props {
   name: string;
   profileImage: string;
 }
-const Item = ({ name, profileImage }: Props) => {
+const Member = ({ name, profileImage }: Props) => {
   return (
     <S.Box>
       <UserCircle size={40} profileImage={profileImage} />
@@ -17,14 +17,4 @@ const Item = ({ name, profileImage }: Props) => {
   );
 };
 
-const Viewer = () => {
-  return (
-    <S.Container>
-      {Array.from({ length: 20 }).map((_, index) => (
-        <Item key={index} name={`user ${index}`} profileImage={'defaultImage'} />
-      ))}
-    </S.Container>
-  );
-};
-
-export default Viewer;
+export default Member;
