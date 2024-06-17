@@ -147,12 +147,12 @@ export const buttonActiveMap = {
   `,
   reverseRadius: css`
     :hover {
-      background-color: ${colors.gray500};
-      color: ${colors.white};
+      background-color: ${colors.gray200};
+      color: ${colors.gray500};
     }
     :active {
-      background-color: ${colors.gray500};
-      color: ${colors.white};
+      background-color: ${colors.gray200};
+      color: ${colors.gray500};
       transform: scale(0.9);
     }
   `,
