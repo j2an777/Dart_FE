@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form';
-import { InputField } from '@/components';
+import { Icon, InputField } from '@/components';
 import useLogin from '../../hooks/usePostLogin';
 import { LoginFormData } from '@/types/member';
 import LoginLinkButton from '../loginLinkButton';
@@ -17,7 +17,7 @@ const LoginForm = () => {
   const onSubmit = (data: LoginFormData) => Login(data);
 
   return (
-    <S.Container>
+    <S.Container onSubmit={handleSubmit(onSubmit)}>
       <div>
         {loginFormData.map(({ label, registerOptions, value }) => (
           <InputField
@@ -33,11 +33,9 @@ const LoginForm = () => {
         {loginButtons.map((props, index) => (
           <LoginLinkButton key={index} {...props} />
         ))}
-        <S.SubmitIcon
-          value="arrow"
-          onClick={handleSubmit(onSubmit)}
-          $active={!isPending}
-        />
+        <S.SubmitButton type="submit">
+          <Icon value="arrow" $active={!isPending} />
+        </S.SubmitButton>
       </S.ButtonBox>
     </S.Container>
   );
