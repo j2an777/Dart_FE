@@ -14,22 +14,22 @@ const FooterData = [
 const Footer = () => {
   return (
     <S.Container>
-        <img src={Logo} alt='Logo'/>
-        <S.ContentBox>
-            <S.ContentBlock>
-              {FooterData.map((data, index) => (
-                <span key={index}>
-                  <Link to='/'>{data.name}</Link>
-                  {index < FooterData.length - 1 && <div className='line'></div>}
-                </span>
-              ))}
-            </S.ContentBlock>
-            <Text typography='t7' color='gray300' bold='regular'>
-                2024 Gallery from &copy; D'art Corp. All Rights Reserved.
-            </Text>
-        </S.ContentBox>
+      <img src={Logo} alt="Logo" />
+      <S.ContentBox>
+        <S.ContentBlock>
+          {FooterData.map((data, index) => (
+            <span key={index}>
+              <Link to="/">{data.name}</Link>
+              {index < FooterData.length - 1 && <div className="line"></div>}
+            </span>
+          ))}
+        </S.ContentBlock>
+        <Text typography="t8" color="gray300" bold="regular">
+          2024 Gallery from &copy; D'art Corp. All Rights Reserved.
+        </Text>
+      </S.ContentBox>
     </S.Container>
-  )
-}
+  );
+};
 
 export default Footer;
