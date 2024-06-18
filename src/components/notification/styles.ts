@@ -15,6 +15,7 @@ export const AlarmIcon = styled(Icon)`
   padding: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   z-index: 4;
+  background-color: ${colors.white};
 `;
 
 export const ExclamationIcon = styled(Icon)`

@@ -1,11 +1,11 @@
 import { GalleryItem } from '..';
-import { useGetGalleries } from '../../hooks';
-import { pageStore } from '@/stores/page';
-import { useLayoutEffect } from 'react';
-import { NoneData } from '@/components';
 import { useStore } from 'zustand';
-import withSuspense from '@/hooks/withSuspense';
+import { NoneData } from '@/components';
+import { useLayoutEffect } from 'react';
+import { pageStore } from '@/stores/page';
+import { useGetGalleries } from '../../hooks';
 import GalleryListFallback from '../fallback/GalleryListFallback';
+import withSuspenseNErrorBoundary from '@/hooks/withSuspenseNErrorBoundary';
 
 import * as S from './styles';
 
@@ -32,7 +32,8 @@ const GalleryList = () => {
   );
 };
 
-const SideEffectWithGalleryList = withSuspense(GalleryList, {
+const withGalleryList = withSuspenseNErrorBoundary(GalleryList, {
   suspenseFallback: <GalleryListFallback />,
 });
-export default SideEffectWithGalleryList;
+
+export default withGalleryList;

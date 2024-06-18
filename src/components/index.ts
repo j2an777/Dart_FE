@@ -6,9 +6,10 @@ export { default as NoneData } from './noneData';
 export { default as StarRate } from './starRate';
 export { default as InputField } from './inputField';
 export { default as PageButtons } from './pageButtons';
-export { default as CircleLoader } from './circleLoader';
-export { default as NicknameNProfile } from './nicknameNProfile';
 export { default as Notification } from './notification';
+export { default as CircleLoader } from './circleLoader';
+export { default as ErrorFallback } from './errorFallback';
+export { default as NicknameNProfile } from './nicknameNProfile';
 export { default as FetchBoundary } from './errorBoundary/FetchBoundary';
 export { default as GlobalBoundary } from './errorBoundary/GlobalBoundary';
 
@@ -21,3 +22,4 @@ export { default as GalleryInfoPortal } from './GalleryInfoPortal';
 export { default as SignupCheckPortal } from './SignupCheckPortal';
 export { default as NotificationPortal } from './NotificationPortal';
 export { default as Skeleton } from './Skeleton';
+export { default as withSuspenseNErrorBoundary } from '../hooks/withSuspenseNErrorBoundary';

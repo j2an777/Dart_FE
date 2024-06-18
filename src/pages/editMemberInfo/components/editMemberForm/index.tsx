@@ -13,26 +13,28 @@ import axios from 'axios';
 const EditMemberForm = () => {
   const open = alertStore((state) => state.open);
   const queryClient = useQueryClient();
-  const { auth: { nickname } } = memberStore();
+  const {
+    auth: { nickname },
+  } = memberStore();
   const [nicknameError, setNicknameError] = useState('');
-  const [profileImageSrc, setProfileImageSrc] = useState<string | undefined>(BasicProfile);
-
-  const { data: editData, error, isLoading } = useQuery({
-    queryKey: ['edit'],
-    queryFn: () => getMemberInfo(nickname)
-  });
+  const [profileImageSrc, setProfileImageSrc] = useState<string | undefined>(
+    BasicProfile,
+  );
 
   const {
-    register,
-    handleSubmit,
-    reset,
-    getValues,
-    setValue
-  } = useForm<EditFormData>({
+    data: editData,
+    error,
+    isLoading,
+  } = useQuery({
+    queryKey: ['edit'],
+    queryFn: () => getMemberInfo(nickname),
+  });
+
+  const { register, handleSubmit, reset, getValues, setValue } = useForm<EditFormData>({
     mode: 'onChange',
     defaultValues: {
       isCheckedNickname: false,
-    }
+    },
   });
 
   // 변경사항 저장에 대한 mutation
@@ -42,11 +44,11 @@ const EditMemberForm = () => {
     onSettled: () => {
       queryClient.invalidateQueries({
         queryKey: ['edit'],
-      })
+      });
     },
   });
 
-  // 변경사항 저장 
+  // 변경사항 저장
   const onSubmit = async (data: EditFormData) => {
     const formData = new FormData();
     const jsonData = {
@@ -55,21 +57,24 @@ const EditMemberForm = () => {
       isCheckedNickname: data.isCheckedNickname,
     };
 
-    formData.append('memberUpdateDto', JSON.stringify(jsonData));
+    formData.append(
+      'memberUpdateDto',
+      new Blob([JSON.stringify(jsonData)], { type: 'application/json' }),
+    );
     if (data.profileImage) {
       formData.append('profileImage', data.profileImage);
     }
-    
+
     try {
       await mutation.mutateAsync(formData);
-      open ({
+      open({
         title: '수정 완료',
         description: '수정이 완료되었습니다.',
         buttonLabel: '확인',
         onClickButton: () => {
           reset();
         },
-      })
+      });
     } catch (err) {
       console.error(err);
     }
@@ -90,21 +95,20 @@ const EditMemberForm = () => {
     const nicknameValue = getValues('nickname');
 
     if (nicknameValue) {
-        const formData = { nickname: nicknameValue };
+      const formData = { nickname: nicknameValue };
 
-        try {
-          await postCheckNickname(formData)
-            .then(() => {
-              setValue('isCheckedNickname', true);
-              setNicknameError('사용 가능한 닉네임입니다.');
-            })
-        } catch (error) {
-            if (axios.isAxiosError(error) && error.response?.status === 409) {
-              setNicknameError('이미 존재하는 닉네임입니다.');
-            }
+      try {
+        await postCheckNickname(formData).then(() => {
+          setValue('isCheckedNickname', true);
+          setNicknameError('사용 가능한 닉네임입니다.');
+        });
+      } catch (error) {
+        if (axios.isAxiosError(error) && error.response?.status === 409) {
+          setNicknameError('이미 존재하는 닉네임입니다.');
         }
+      }
     } else {
-        console.error('Nickname value is undefined');
+      console.error('Nickname value is undefined');
     }
   };
 
@@ -168,16 +172,26 @@ const EditMemberForm = () => {
             <S.Input
               {...register('nickname')}
               type="text"
-              placeholder='닉네임 입력'
+              placeholder="닉네임 입력"
               defaultValue={editData?.nickname}
             />
-            <S.CheckBtn type="button" onClick={onHandleCheck}>중복 확인</S.CheckBtn>
-            {nicknameError && <S.Error nicknameError={nicknameError}>{nicknameError}</S.Error>}
+            <S.CheckBtn type="button" onClick={onHandleCheck}>
+              중복 확인
+            </S.CheckBtn>
+            {nicknameError && (
+              <S.Error nicknameError={nicknameError}>{nicknameError}</S.Error>
+            )}
           </S.NicknameBox>
 
           <S.IntroduceBox>
-            <Text typography='t5' bold='regular'>자기소개</Text>
-            <S.Textarea {...register('introduce')} placeholder="자기소개 입력" defaultValue={editData?.introduce} />
+            <Text typography="t5" bold="regular">
+              자기소개
+            </Text>
+            <S.Textarea
+              {...register('introduce')}
+              placeholder="자기소개 입력"
+              defaultValue={editData?.introduce}
+            />
           </S.IntroduceBox>
 
           <S.ButtonContainer>
