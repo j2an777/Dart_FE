@@ -1,26 +1,23 @@
 import { Timer } from '..';
-import { useInput } from '@/hooks/useInput';
 import { useEffect, useState } from 'react';
-import { ExtendedSignupForm } from '@/types/member';
 import { Button, CircleLoader, InputField } from '@/components';
 import usePostEmailVerify from '../../hooks/usePostEmailVerify';
-import usePostNicknameCheck from '../../hooks/usePostNicknameCheck';
-import usePostEmailCodeSend from '../../hooks/usePostEmailCodeSend';
-import { RegisterOptions, UseFormSetValue, useForm } from 'react-hook-form';
+import { RegisterOptions, useForm } from 'react-hook-form';
+import usePostCheckEmailOrNickname, {
+  SignupCheckData,
+} from '../../hooks/usePostCheckEmailOrNickname';
 
 import * as S from './styles';
 
 export interface SignupCheckProps {
-  setValue: UseFormSetValue<ExtendedSignupForm>;
   label: string;
-  value: string;
+  value: 'email' | 'nickname';
   registerOptions: RegisterOptions;
   buttonLabel: string;
   successMessage: string;
 }
 
 const SignupCheck = ({
-  setValue,
   label,
   value,
   registerOptions,
@@ -32,86 +29,70 @@ const SignupCheck = ({
     formState: { errors },
     handleSubmit,
     getValues,
-  } = useForm<{ [key: string]: string }>({
+  } = useForm<SignupCheckData>({
     mode: 'onChange',
     defaultValues: { [value]: '' },
   });
-  const {
-    mutate: emailCodeSend,
-    isSuccess: emailSuccess,
-    isPending: emailPending,
-  } = usePostEmailCodeSend();
-  const {
-    mutate: nicknameCheck,
-    isSuccess: nicknameSuccess,
-    isPending: nicknamePending,
-  } = usePostNicknameCheck({ setValue });
-  const onSubmit = async (form: { [key: string]: string }) => {
-    const value = Object.keys(form)[0];
-    if (value === 'email') {
-      emailCodeSend(form as { email: string });
-    } else {
-      nicknameCheck(form as { nickname: string });
-    }
-  };
+  const { mutate, isPending, isSuccess } = usePostCheckEmailOrNickname({
+    value,
+  });
+  const onSubmit = async (form: SignupCheckData) => mutate(form);
   return (
     <S.Container onSubmit={handleSubmit(onSubmit)}>
-      <InputField
-        register={register(value, registerOptions)}
-        error={errors[value]}
-        label={label}
-        value={value}
-        disabled={emailSuccess || nicknameSuccess}
-      />
-      <Button
-        buttonType="reverseRectangleGray"
-        size="sm"
-        type="submit"
-        disabled={emailSuccess || nicknameSuccess}
-        $active={!(emailSuccess || nicknameSuccess)}
-      >
-        {buttonLabel}
-      </Button>
-      {emailSuccess ||
-        (nicknameSuccess && (
-          <S.SuccessText typography="t7">{successMessage}</S.SuccessText>
-        ))}
-      {emailSuccess && (
-        <CheckInputBox
-          email={getValues('email')}
-          setValue={setValue}
-          viewTimer={emailSuccess}
+      <S.InputBox>
+        <InputField
+          register={register(value, registerOptions)}
+          error={errors[value]}
+          label={label}
+          value={value}
+          disabled={isSuccess}
         />
+        <Button
+          buttonType="reverseRectangleGray"
+          size="sm"
+          type="submit"
+          disabled={isSuccess}
+          $active={!isSuccess}
+        >
+          {buttonLabel}
+        </Button>
+      </S.InputBox>
+      {isSuccess && <S.SuccessText typography="t7">{successMessage}</S.SuccessText>}
+      {value === 'email' && (
+        <CheckInputBox email={getValues('email')} isVisible={isSuccess} />
       )}
-      {emailPending || (nicknamePending && <CircleLoader />)}
+      {isPending && <CircleLoader />}
     </S.Container>
   );
 };
 
-const CheckInputBox = ({
-  email,
-  setValue,
-  viewTimer,
-}: {
-  email: string;
-  setValue: UseFormSetValue<ExtendedSignupForm>;
-  viewTimer: boolean;
-}) => {
-  const [form, onChange] = useInput({ code: '' });
-  const [message, setMessage] = useState<string>('');
-  const { mutate: emailVerify, isSuccess, isError } = usePostEmailVerify({ setValue });
+const CheckInputBox = ({ email, isVisible }: { email: string; isVisible: boolean }) => {
+  const {
+    register,
+    getValues,
+    formState: { errors },
+  } = useForm<{ email: string; code: string }>({
+    defaultValues: { email, code: '' },
+    mode: 'onChange',
+  });
+  const [message, setMessage] = useState<string>('올바르지 않은 인증번호입니다');
+  const { mutate: emailVerify, isSuccess, isError } = usePostEmailVerify();
   useEffect(() => {
     if (isSuccess) setMessage('인증 완료');
     if (isError) setMessage('올바르지 않은 인증번호입니다');
   }, [isError, isSuccess]);
   return (
-    <S.CheckInputBox>
-      {viewTimer && !message && <Timer />}
-      <S.CheckModalInput
-        name="code"
-        placeholder="코드 입력"
-        value={form.code}
-        onChange={onChange}
+    <S.CheckInputBox isVisible={isVisible}>
+      {isVisible && !message && (
+        <S.TimerBox>
+          <Timer />
+        </S.TimerBox>
+      )}
+      <InputField
+        register={register('code')}
+        label="코드 입력"
+        value="code"
+        error={errors.code}
       />
       {message && (
         <S.CheckModalMessage
@@ -125,7 +106,7 @@ const CheckInputBox = ({
         buttonType="reverseRectangleGray"
         size="sm"
         type="button"
-        onClick={() => emailVerify({ code: form.code, email })}
+        onClick={() => emailVerify({ email, code: getValues('code') })}
       >
         인증
       </Button>

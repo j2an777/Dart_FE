@@ -4,9 +4,11 @@ import styled from '@emotion/styled';
 
 export const Container = styled.div`
   ${LayoutMap.absoluteCenter}
-  min-width: 400px;
-  width: fit-content;
-  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 500px;
+  min-height: 400px;
   height: fit-content;
   background-color: ${colors.black100};
   border: 2px solid ${colors.white};

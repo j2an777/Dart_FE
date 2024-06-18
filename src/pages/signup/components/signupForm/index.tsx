@@ -18,12 +18,9 @@ const SignupForm = () => {
   const {
     watch,
     register,
-    setValue,
     formState: { errors },
   } = useFormContext<ExtendedSignupForm>();
-
   if (!sessionStorage.getItem('isAgree')) return <Navigate to={'/'} />;
-
   return (
     <S.Container>
       <SignupFormLayout title="필수">
@@ -54,7 +51,6 @@ const SignupForm = () => {
                         title: props.title,
                         content: (
                           <SignupCheck
-                            setValue={setValue}
                             label={label}
                             value={value}
                             registerOptions={registerOptions as RegisterOptions}
