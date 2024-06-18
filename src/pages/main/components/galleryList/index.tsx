@@ -14,16 +14,18 @@ const GalleryList = () => {
     pageInfo: { pageIndex },
     setPageInfo,
   } = useStore(pageStore);
-  const { data } = useGetGalleries(pageIndex);
+  const {
+    data: { pageParams, pages },
+  } = useGetGalleries(pageIndex);
   useLayoutEffect(() => {
-    setPageInfo(data.pageParams);
-  }, [data.pageParams, setPageInfo]);
+    setPageInfo(pageParams);
+  }, [pageParams, setPageInfo]);
 
-  if (data.pages.length === 0) return <NoneData children="게시글이 존재하지 않습니다" />;
+  if (pages.length === 0) return <NoneData content="전시중인 작품이 없습니다" />;
 
   return (
     <S.Container>
-      {data.pages.map((gallery) => (
+      {pages.map((gallery) => (
         <GalleryItem key={gallery.galleryId} {...gallery} />
       ))}
     </S.Container>

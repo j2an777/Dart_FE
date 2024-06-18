@@ -16,7 +16,7 @@ const GalleryRotate = ({ galleryData }: GalleryMainProps) => {
     selectedData: null as GalleryImages | null,
     transZ: 400,
     size: 250,
-    dataDegree: 0
+    dataDegree: 0,
   });
 
   useEffect(() => {
@@ -24,7 +24,7 @@ const GalleryRotate = ({ galleryData }: GalleryMainProps) => {
       const newDataDegree = 360 / galleryData.images.length;
       let newSize = 250;
       let newTransZ = 500;
-  
+
       if (galleryData.images.length >= 11 && galleryData.images.length < 15) {
         newSize = 200;
         newTransZ = 480;
@@ -33,15 +33,15 @@ const GalleryRotate = ({ galleryData }: GalleryMainProps) => {
         newTransZ = 550;
       }
 
-      setState(prevState => ({
+      setState((prevState) => ({
         ...prevState,
         dataDegree: newDataDegree,
         size: newSize,
-        transZ: newTransZ
+        transZ: newTransZ,
       }));
     }
   }, [galleryData]);
-  
+
   useEffect(() => {
     const handleContextMenu = (e: MouseEvent) => {
       e.preventDefault();
@@ -57,35 +57,38 @@ const GalleryRotate = ({ galleryData }: GalleryMainProps) => {
   const onHandleChange = (translate: string) => {
     if (!galleryData) return;
 
-    setState(prevState => {
-      const newDegrees = translate === 'previous' 
-        ? prevState.degrees + prevState.dataDegree 
-        : prevState.degrees - prevState.dataDegree;
-      const newFrontIndex = translate === 'previous' 
-        ? (prevState.frontIndex - 1 + galleryData.images.length) % galleryData.images.length 
-        : (prevState.frontIndex + 1) % galleryData.images.length;
+    setState((prevState) => {
+      const newDegrees =
+        translate === 'previous'
+          ? prevState.degrees + prevState.dataDegree
+          : prevState.degrees - prevState.dataDegree;
+      const newFrontIndex =
+        translate === 'previous'
+          ? (prevState.frontIndex - 1 + galleryData.images.length) %
+            galleryData.images.length
+          : (prevState.frontIndex + 1) % galleryData.images.length;
 
       return {
         ...prevState,
         degrees: newDegrees,
-        frontIndex: newFrontIndex
+        frontIndex: newFrontIndex,
       };
     });
   };
 
   const onHandlePopup = (imageData: GalleryImages) => {
-    setState(prevState => ({
+    setState((prevState) => ({
       ...prevState,
       selectedData: imageData,
-      popUp: true
+      popUp: true,
     }));
   };
 
   const onHandleClose = () => {
-    setState(prevState => ({
+    setState((prevState) => ({
       ...prevState,
       popUp: false,
-      selectedData: null
+      selectedData: null,
     }));
   };
 
@@ -93,33 +96,44 @@ const GalleryRotate = ({ galleryData }: GalleryMainProps) => {
     <S.Container>
       <S.MainBlock degrees={state.degrees} size={state.size}>
         {galleryData?.images.map((gallery: GalleryImages, index: number) => (
-          <S.ImageBox 
+          <S.ImageBox
             key={index}
-            i={index} 
-            isFront={index === state.frontIndex} 
+            i={index}
+            isFront={index === state.frontIndex}
             dataDegree={state.dataDegree}
             transZ={state.transZ}
-            onClick={() => onHandlePopup(gallery)}>
+            onClick={() => onHandlePopup(gallery)}
+          >
             <img src={gallery.image} alt={gallery.imageTitle} />
             <S.ContentBox size={state.size}>
-              <Text typography='t5' bold='semibold' color='white'>Gallery {index+1}</Text>
-              <Text typography='t7' bold='thin' color='white'>{gallery.imageTitle}</Text>
+              <Text typography="t5" bold="semibold" color="white">
+                Gallery {index + 1}
+              </Text>
+              <Text typography="t8" bold="thin" color="white">
+                {gallery.imageTitle}
+              </Text>
             </S.ContentBox>
           </S.ImageBox>
         ))}
-        <Text typography='t1' bold='bold' color='white' className='galleryTitle'>{galleryData.title}</Text>
+        <Text typography="t1" bold="bold" color="white" className="galleryTitle">
+          {galleryData.title}
+        </Text>
       </S.MainBlock>
       {galleryData.images.length > 1 && (
         <S.BtnBlock>
-          <S.Btn className='previous' onClick={() => onHandleChange('previous')}>Previous</S.Btn>
-          <S.Btn className='next' onClick={() => onHandleChange('next')}>Next</S.Btn>
+          <S.Btn className="previous" onClick={() => onHandleChange('previous')}>
+            Previous
+          </S.Btn>
+          <S.Btn className="next" onClick={() => onHandleChange('next')}>
+            Next
+          </S.Btn>
         </S.BtnBlock>
       )}
       {state.popUp && (
-        <GalleryDetail imageData={state.selectedData} onClose={onHandleClose}/>
+        <GalleryDetail imageData={state.selectedData} onClose={onHandleClose} />
       )}
     </S.Container>
   );
-}
+};
 
 export default GalleryRotate;
