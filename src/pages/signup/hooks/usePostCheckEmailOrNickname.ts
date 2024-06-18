@@ -4,16 +4,19 @@ import { AxoisErrorResponse } from '@/types/error';
 import { ExtendedSignupForm } from '@/types/member';
 import { useMutation } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
-import { useFormContext } from 'react-hook-form';
+import { UseFormSetValue } from 'react-hook-form';
 
 export type SignupCheckData = Record<'email' | 'nickname', string>;
 
 interface usePostCheckEmailOrNicknameProps {
   value: 'email' | 'nickname';
+  setValue: UseFormSetValue<ExtendedSignupForm>;
 }
 
-const usePostCheckEmailOrNickname = ({ value }: usePostCheckEmailOrNicknameProps) => {
-  const { setValue } = useFormContext<ExtendedSignupForm>();
+const usePostCheckEmailOrNickname = ({
+  value,
+  setValue,
+}: usePostCheckEmailOrNicknameProps) => {
   const open = alertStore((state) => state.open);
   return useMutation({
     mutationFn: (formData: SignupCheckData) => {

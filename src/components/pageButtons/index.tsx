@@ -24,7 +24,6 @@ const PageButtons = ({
 
   useEffect(() => {
     return () => {
-      console.log('hi');
       resetPageInfo();
     };
   }, [resetPageInfo]);

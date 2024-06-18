@@ -3,7 +3,7 @@ import { colors } from '@/styles/colorPalette';
 import { LayoutMap } from '@/styles/layout';
 import styled from '@emotion/styled';
 
-export const Container = styled.form`
+export const Container = styled.div`
   ${LayoutMap.displayFlex}
   flex-direction: column;
   position: relative;
