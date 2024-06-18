@@ -4,6 +4,8 @@ import { pageStore } from '@/stores/page';
 import { useLayoutEffect } from 'react';
 import useGetReviews from '../../hooks/useGetReviews';
 import { useParams } from 'react-router-dom';
+import withSuspense from '@/hooks/withSuspense';
+import { NoneData } from '@/components';
 
 import * as S from './styles';
 
@@ -25,11 +27,15 @@ const ReviewList = () => {
 
   return (
     <S.Container>
-      {pages.map(({ reviewId, ...review }) => (
-        <ReviewItem key={reviewId} {...review} />
-      ))}
+      {pages.length === 0 ? (
+        <NoneData content="작성된 후기가 없습니다" />
+      ) : (
+        pages.map(({ reviewId, ...review }) => <ReviewItem key={reviewId} {...review} />)
+      )}
     </S.Container>
   );
 };
 
-export default ReviewList;
+const SuspensedReviewList = withSuspense(ReviewList, { suspenseFallback: <>loading</> });
+
+export default SuspensedReviewList;
