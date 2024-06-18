@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import { HTMLAttributes } from 'react';
-import { IconValues } from '.';
 import { css } from '@emotion/react';
 import { Colors } from '@/styles/colorPalette';
 
@@ -9,7 +8,6 @@ interface IconContainerProps extends HTMLAttributes<HTMLDivElement> {
   size?: number;
   color?: Colors;
   $active?: boolean;
-  value: IconValues;
 }
 
 export const Container = styled.div<IconContainerProps>`
@@ -32,11 +30,11 @@ export const Container = styled.div<IconContainerProps>`
     $active
       ? css`
           &:hover {
-            transform: scale(1.1);
+            transform: scale(1.05);
             cursor: pointer;
           }
           &:active {
-            transform: scale(0.9);
+            transform: scale(0.95);
           }
         `
       : null}

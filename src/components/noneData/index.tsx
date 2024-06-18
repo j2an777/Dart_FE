@@ -1,11 +1,14 @@
-import { PropsWithChildren } from 'react';
+import { Icon, Text } from '..';
 
 import * as S from './styles';
 
-const NoneData = ({ children }: PropsWithChildren) => {
+const NoneData = ({ content }: { content: string }) => {
   return (
     <S.Container>
-      <div>{children}</div>
+      <Icon value="mainLogo" $active={false} color="gray400" />
+      <Text typography="t5" color="gray400">
+        {content}
+      </Text>
     </S.Container>
   );
 };
