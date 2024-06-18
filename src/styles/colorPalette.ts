@@ -14,6 +14,7 @@ export const colorPalette = css`
     --black100: #252525;
     --white: #ffffff;
     --green: #70a076;
+    --red50: #fd5d5d;
   }
 `;
 
@@ -30,6 +31,7 @@ export const colors = {
   black100: 'var(--black100)',
   white: 'var(--white)',
   green: 'var(--green)',
+  red50: 'var(--red50)',
 };
 
 export type Colors = keyof typeof colors;
