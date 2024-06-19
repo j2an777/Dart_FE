@@ -421,7 +421,7 @@ const renderIcon = (
     case 'select':
       return (
         <svg width="14" height="7" viewBox="0 0 14 7" fill="none">
-          <g clip-path="url(#clip0_664_184)">
+          <g clipPath="url(#clip0_664_184)">
             <path
               d="M0 0H1.99511L6.9658 5.66699L6.81759 5.61914H7.15961L6.9886 5.66699L12.0163 0H14.0114L7.64984 7H6.33876L0 0Z"
               fill="black"
