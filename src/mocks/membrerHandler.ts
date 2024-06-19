@@ -14,14 +14,14 @@ function isEqual(obj1: object, obj2: object) {
 }
 
 export const memberHandler = [
-  http.post('/api/signup', async ({ request }) => {
+  http.post('/signup', async ({ request }) => {
     const newMember = await request.json();
     members.set(1, newMember);
 
     return HttpResponse.json(newMember, { status: 200 });
   }),
   // 로그인
-  http.post('/api/login', async ({ request }) => {
+  http.post('/login', async ({ request }) => {
     const userInfo = await request.json();
     if (isEqual(user1, userInfo as object))
       return HttpResponse.json(
@@ -36,13 +36,13 @@ export const memberHandler = [
       { status: 404 },
     );
   }),
-  http.post('/api/email/send', async ({ request }) => {
+  http.post('/email/send', async ({ request }) => {
     const email = await request.json();
     if (isEqual(email as object, testEmail))
       return HttpResponse.json({ message: 'ok' }, { status: 200 });
     else return HttpResponse.json({ message: '이메일 전송 실패' }, { status: 400 });
   }),
-  http.post('/api/signup/nickname/check', async () => {
+  http.post('/signup/nickname/check', async () => {
     return HttpResponse.json({ message: 'ok' }, { status: 200 });
   }),
 ];

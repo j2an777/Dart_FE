@@ -3,7 +3,7 @@ import instance from './instance';
 import { ReviewInfo, ReviewsData } from '@/types/review';
 
 export const postReview = async (reviewData: PostReview) => {
-  const response = await instance.post(`/api/reviews`, reviewData);
+  const response = await instance.post(`/reviews`, reviewData);
   if (response.status === 200) {
     console.log('성공');
   } else {
@@ -18,7 +18,7 @@ interface ReviewParams {
 }
 export const getReveiws = async (getReviewParams: ReviewParams) => {
   const { galleryId, page, size } = getReviewParams;
-  const response = await instance.get(`/api/reviews/${galleryId}`, {
+  const response = await instance.get(`/reviews/${galleryId}`, {
     params: {
       page,
       size,
@@ -28,6 +28,6 @@ export const getReveiws = async (getReviewParams: ReviewParams) => {
 };
 
 export const getReveiwsInfo = async (galleryId: string) => {
-  const response = await instance.get(`/api/reviews/info?gallery-id=${galleryId}`);
+  const response = await instance.get(`/reviews/info?gallery-id=${galleryId}`);
   return response.data as ReviewInfo;
 };
