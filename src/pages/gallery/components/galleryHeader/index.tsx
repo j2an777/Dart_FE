@@ -83,14 +83,14 @@ const GalleryHeader = ({ galleryId, galleryNick }: GalleryHeaderProps) => {
       <S.MenuBlock>
         <S.Logo src={GalleryLogo} onClick={() => onHandleToggle('toMain')} />
         <S.MenuBox>
-          {(accessToken || nickname === galleryNick)? 
+          {(accessToken || nickname === galleryNick) ? 
             <Icon
               value="review"
               size={30}
               onClick={() => onHandleToggle('review')}
               strokeColor="white"
             />
-          ) : null}
+           : null}
           <Icon value="chat" size={30} onClick={() => onHandleToggle('chat')} />
           <Icon value="out" size={30} onClick={() => onHandleToggle('out')} />
         </S.MenuBox>
