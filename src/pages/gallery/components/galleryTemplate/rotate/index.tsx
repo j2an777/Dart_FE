@@ -1,14 +1,10 @@
 import * as S from './styles';
 import { useEffect, useState } from 'react';
 import GalleryDetail from '../../galleryDetail';
-import { Text } from '@/components';
-import { GalleryData, GalleryImages } from '@/types/gallery';
+import { Icon, Text } from '@/components';
+import { GalleryDataProps, GalleryImages } from '@/types/gallery';
 
-interface GalleryMainProps {
-  galleryData: GalleryData;
-}
-
-const GalleryRotate = ({ galleryData }: GalleryMainProps) => {
+const GalleryRotate = ({ galleryData }: GalleryDataProps) => {
   const [state, setState] = useState({
     degrees: 0,
     frontIndex: 0,
@@ -73,19 +69,11 @@ const GalleryRotate = ({ galleryData }: GalleryMainProps) => {
     });
   };
 
-  const onHandlePopup = (imageData: GalleryImages) => {
+  const onHandlePopup = (imageData: GalleryImages | null) => {
     setState(prevState => ({
       ...prevState,
       selectedData: imageData,
-      popUp: true
-    }));
-  };
-
-  const onHandleClose = () => {
-    setState(prevState => ({
-      ...prevState,
-      popUp: false,
-      selectedData: null
+      popUp: imageData !== null
     }));
   };
 
@@ -111,12 +99,12 @@ const GalleryRotate = ({ galleryData }: GalleryMainProps) => {
       </S.MainBlock>
       {galleryData.images.length > 1 && (
         <S.BtnBlock>
-          <S.Btn className='previous' onClick={() => onHandleChange('previous')}>Previous</S.Btn>
-          <S.Btn className='next' onClick={() => onHandleChange('next')}>Next</S.Btn>
+          <S.Btn className='previous' onClick={() => onHandleChange('previous')}><Icon value='left' size={50} color='white'/></S.Btn>
+          <S.Btn className='next' onClick={() => onHandleChange('next')}><Icon value='left' size={50} $rotate={true} color='white'/></S.Btn>
         </S.BtnBlock>
       )}
       {state.popUp && (
-        <GalleryDetail imageData={state.selectedData} onClose={onHandleClose}/>
+        <GalleryDetail imageData={state.selectedData} onClose={() => onHandlePopup(null)}/>
       )}
     </S.Container>
   );

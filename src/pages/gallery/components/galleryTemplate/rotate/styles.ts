@@ -1,13 +1,11 @@
-import { typographyMap } from "@/styles/typography";
 import styled from "@emotion/styled";
 
 export const Container = styled.div`
     width: 100%;
-    height: 100vh;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;
 `;
 
 interface MainBlockProps {
@@ -107,25 +105,17 @@ export const ContentBox = styled.div<{size: number}>`
 `;
 
 export const BtnBlock = styled.div`
+    width : 100%;
     position: absolute;
-    top: 100px;
-    left: 0;
+    bottom: 30px;
+    left : 0;
     display: flex;
-    flex-direction: column;
+    justify-content : space-between;
     gap: 20px;
+    padding : 0 500px;
     transform: translateY(-50%);
 `;
 
 export const Btn = styled.div`
-    color: white;
     cursor: pointer;
-    ${typographyMap.t4};
-
-    &:hover {
-        color: #aaa;
-    }
-
-    &:active {
-        color: #aaa;
-    }
 `;
