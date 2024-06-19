@@ -3,10 +3,16 @@ import { useParams } from 'react-router-dom';
 import { postPayment } from '@/apis/payment';
 
 const TotalCostBox = () => {
-  const { galleryId } = useParams();
+  const { galleryId, order } = useParams<{
+    galleryId: string;
+    order: 'ticket' | 'paidGallery';
+  }>();
 
   const paidGallery = async () => {
-    const payment = await postPayment(Number(galleryId), 'paidGallery');
+    const payment = await postPayment(
+      Number(galleryId),
+      order as 'ticket' | 'paidGallery',
+    );
     window.location.href = payment.next_redirect_pc_url;
   };
 
@@ -22,7 +28,7 @@ const TotalCostBox = () => {
         </S.Block>
         <S.Block>
           <>할인금액</>
-          <span>20000원</span>
+          <span>- 20000원</span>
         </S.Block>
         <S.Total>최종 결제금액</S.Total>
         <S.Button onClick={paidGallery}>결제하기</S.Button>

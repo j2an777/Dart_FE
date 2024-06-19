@@ -5,7 +5,6 @@ import { Colors } from '@/styles/colorPalette';
 import { alertStore } from '@/stores/modal';
 import { useQuery } from '@tanstack/react-query';
 import { getGalleryInfo } from '@/apis/gallery';
-import { postPayment } from '@/apis/payment';
 import Logo from '@/assets/images/mainLogo.png';
 import useCustomNavigate from '@/hooks/useCustomNavigate';
 
