@@ -31,7 +31,8 @@ export type IconValues =
   | 'search'
   | 'send'
   | 'step_one'
-  | 'step_two';
+  | 'step_two'
+  | 'left';
 
 interface IconProps {
   value: IconValues;
@@ -42,6 +43,7 @@ interface IconProps {
   color?: Colors;
   strokeColor?: Colors;
   fillColor?: Colors;
+  swing?: number;
 }
 
 const Icon = ({
@@ -50,10 +52,11 @@ const Icon = ({
   color = 'black',
   strokeColor,
   fillColor,
+  swing,
   ...props
 }: IconProps) => {
   return (
-    <S.Container value={value} $active={$active} {...props}>
+    <S.Container value={value} $active={$active} swing={swing} {...props}>
       {renderIcon(value, color, strokeColor, fillColor)}
     </S.Container>
   );
@@ -460,6 +463,12 @@ const renderIcon = (
             d="M13.7504 18.0499C13.4404 18.0499 13.1404 17.9099 12.9404 17.6399L9.4404 12.8199C9.1204 12.3699 9.2104 11.7499 9.6604 11.4199C10.1104 11.0899 10.7304 11.1899 11.0604 11.6399L14.5604 16.4599C14.8804 16.9099 14.7904 17.5299 14.3404 17.8599C14.1604 17.9899 13.9604 18.0499 13.7504 18.0499Z"
             fill="black"
           />
+        </svg>
+      );
+    case 'left':
+      return (
+        <svg width="200" height="300" viewBox="0 0 200 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M133.333 280L40 150L133.333 20" stroke={colors[color]} strokeWidth="13.3333" strokeLinecap="square"/>
         </svg>
       );
   }

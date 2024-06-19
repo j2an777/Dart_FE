@@ -10,6 +10,7 @@ interface IconContainerProps extends HTMLAttributes<HTMLDivElement> {
   color?: Colors;
   $active?: boolean;
   value: IconValues;
+  swing?: number;
 }
 
 export const Container = styled.div<IconContainerProps>`
@@ -18,6 +19,7 @@ export const Container = styled.div<IconContainerProps>`
   svg {
     width: 100%;
     height: 100%;
+    transform: rotate(${({ swing }) => (swing ? `${swing}deg` : `0deg`)});
   }
   ${({ $rotate }) =>
     $rotate
@@ -39,5 +41,6 @@ export const Container = styled.div<IconContainerProps>`
             transform: scale(0.9);
           }
         `
-      : null}
+      : null};
+  
 `;
