@@ -18,7 +18,6 @@ const SignupForm = () => {
   const {
     watch,
     register,
-    setValue,
     formState: { errors },
   } = useFormContext<ExtendedSignupForm>();
   if (!sessionStorage.getItem('isAgree')) return <Navigate to={'/'} />;
@@ -54,7 +53,6 @@ const SignupForm = () => {
                           <SignupCheck
                             label={label}
                             value={value}
-                            setValue={setValue}
                             registerOptions={registerOptions as RegisterOptions}
                             {...checkOption}
                           />

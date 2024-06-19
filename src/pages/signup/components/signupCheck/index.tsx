@@ -2,8 +2,7 @@ import { Timer } from '..';
 import { useEffect, useState } from 'react';
 import { Button, CircleLoader, InputField } from '@/components';
 import usePostEmailVerify from '../../hooks/usePostEmailVerify';
-import { RegisterOptions, UseFormSetValue, useForm } from 'react-hook-form';
-import { ExtendedSignupForm } from '@/types/member';
+import { RegisterOptions, useForm } from 'react-hook-form';
 import usePostCheckEmailOrNickname, {
   SignupCheckData,
 } from '../../hooks/usePostCheckEmailOrNickname';
@@ -16,7 +15,6 @@ export interface SignupCheckProps {
   registerOptions: RegisterOptions;
   buttonLabel: string;
   successMessage: string;
-  setValue: UseFormSetValue<ExtendedSignupForm>;
 }
 
 const SignupCheck = ({
@@ -25,7 +23,6 @@ const SignupCheck = ({
   registerOptions,
   buttonLabel,
   successMessage,
-  setValue,
 }: SignupCheckProps) => {
   const {
     register,
@@ -38,7 +35,6 @@ const SignupCheck = ({
   });
   const { mutate, isPending, isSuccess } = usePostCheckEmailOrNickname({
     value,
-    setValue,
   });
   const onSubmit = async (form: SignupCheckData) => mutate(form);
   return (
@@ -64,26 +60,14 @@ const SignupCheck = ({
       </S.InputBox>
       {isSuccess && <S.SuccessText typography="t7">{successMessage}</S.SuccessText>}
       {value === 'email' && (
-        <CheckInputBox
-          email={getValues('email')}
-          isVisible={isSuccess}
-          setValue={setValue}
-        />
+        <CheckInputBox email={getValues('email')} isVisible={isSuccess} />
       )}
       {isPending && <CircleLoader />}
     </S.Container>
   );
 };
 
-const CheckInputBox = ({
-  email,
-  isVisible,
-  setValue,
-}: {
-  email: string;
-  isVisible: boolean;
-  setValue: UseFormSetValue<ExtendedSignupForm>;
-}) => {
+const CheckInputBox = ({ email, isVisible }: { email: string; isVisible: boolean }) => {
   const {
     register,
     getValues,
@@ -93,7 +77,7 @@ const CheckInputBox = ({
     mode: 'onChange',
   });
   const [message, setMessage] = useState<string>('올바르지 않은 인증번호입니다');
-  const { mutate: emailVerify, isSuccess, isError } = usePostEmailVerify({ setValue });
+  const { mutate: emailVerify, isSuccess, isError } = usePostEmailVerify();
   useEffect(() => {
     if (isSuccess) setMessage('인증 완료');
     if (isError) setMessage('올바르지 않은 인증번호입니다');
