@@ -12,14 +12,15 @@ import { memberStore } from '@/stores/member';
 
 interface GalleryHeaderProps {
   galleryId: number;
+  galleryNick: string;
 }
 
-const GalleryHeader = ({ galleryId }: GalleryHeaderProps) => {
+const GalleryHeader = ({ galleryId, galleryNick }: GalleryHeaderProps) => {
   const { open, close } = useStore(alertStore);
   const openChat = chatStore((state) => state.open);
   const navigate = useCustomNavigate();
   const queryClient = useQueryClient();
-  const { nickname, accessToken } = memberStore();
+  const { auth: {nickname}, accessToken } = memberStore();
 
   const mutation = useMutation({
     mutationKey: ['review'],
@@ -82,7 +83,7 @@ const GalleryHeader = ({ galleryId }: GalleryHeaderProps) => {
       <S.MenuBlock>
         <S.Logo src={GalleryLogo} onClick={() => onHandleToggle('toMain')} />
         <S.MenuBox>
-          {accessToken ? 
+          {(accessToken || nickname === galleryNick)? 
             <Icon
             value="review"
             size={30}
