@@ -13,7 +13,7 @@ export const Container = styled.div`
 export const Box = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 20px 40px;
+  padding: 40px 10px;
   gap: 20px;
 `;
 
@@ -26,14 +26,17 @@ export const Block = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 20px;
-  gap: 20px;
+  border: 1px solid ${colors.black};
+
+  span {
+    color: ${colors.red50};
+  }
 `;
 
 export const Total = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 20px;
-  gap: 20px;
+  padding: 40px 20px;
 `;
 
 export const Button = styled.button`
