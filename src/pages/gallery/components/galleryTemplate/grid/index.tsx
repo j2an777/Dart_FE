@@ -61,8 +61,8 @@ const GalleryGrid = ({ galleryData }: GalleryDataProps) => {
       </S.Title>
       {galleryData.images.length > 1 && (
         <S.BtnBlock>
-          <S.Btn className='previous' onClick={() => onHandleScroll('up')}><Icon value='left' size={50} color="white" swing={90}/></S.Btn>
-          <S.Btn className='next' onClick={() => onHandleScroll('down')}><Icon value='left' size={50} color="white" $rotate={true} swing={270}/></S.Btn>
+          <S.Btn className='previous' onClick={() => onHandleScroll('up')}><Icon value='upArrow' size={50} color="white" /></S.Btn>
+          <S.Btn className='next' onClick={() => onHandleScroll('down')}><Icon value='downArrow' size={50} color="white" /></S.Btn>
         </S.BtnBlock>
       )}
       {state.popUp && (

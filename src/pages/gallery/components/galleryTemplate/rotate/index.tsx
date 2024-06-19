@@ -99,8 +99,8 @@ const GalleryRotate = ({ galleryData }: GalleryDataProps) => {
       </S.MainBlock>
       {galleryData.images.length > 1 && (
         <S.BtnBlock>
-          <S.Btn className='previous' onClick={() => onHandleChange('previous')}><Icon value='left' size={50} color='white'/></S.Btn>
-          <S.Btn className='next' onClick={() => onHandleChange('next')}><Icon value='left' size={50} $rotate={true} color='white'/></S.Btn>
+          <S.Btn className='previous' onClick={() => onHandleChange('previous')}><Icon value='leftArrow' size={50} color='white'/></S.Btn>
+          <S.Btn className='next' onClick={() => onHandleChange('next')}><Icon value='rightArrow' size={50} color='white'/></S.Btn>
         </S.BtnBlock>
       )}
       {state.popUp && (

@@ -93,18 +93,17 @@ const GallerySlide = ({ galleryData }: GalleryDataProps) => {
       <S.BtnBlock>
         <S.Btn onClick={() => onHandleDirection('left')}>
           <Icon 
-            value='left' 
+            value='leftArrow' 
             size={50} 
             color={state.frontIndex === 0 ? 'gray500' : 'white'}
             $active={state.frontIndex === 0 ? false : true}/>
         </S.Btn>
         <S.Btn onClick={() => onHandleDirection('right')}>
           <Icon 
-            value='left' 
+            value='rightArrow' 
             size={50} 
             color={state.frontIndex === galleryData.images.length-1 ? 'gray600' : 'white'}
-            $active={state.frontIndex === galleryData.images.length-1 ? false : true}
-            $rotate={true}/>
+            $active={state.frontIndex === galleryData.images.length-1 ? false : true}/>
         </S.Btn>
       </S.BtnBlock>
       )}

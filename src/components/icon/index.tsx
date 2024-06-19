@@ -32,7 +32,10 @@ export type IconValues =
   | 'send'
   | 'step_one'
   | 'step_two'
-  | 'left';
+  | 'leftArrow'
+  | 'rightArrow'
+  | 'upArrow'
+  | 'downArrow';
 
 interface IconProps {
   value: IconValues;
@@ -43,7 +46,6 @@ interface IconProps {
   color?: Colors;
   strokeColor?: Colors;
   fillColor?: Colors;
-  swing?: number;
 }
 
 const Icon = ({
@@ -52,11 +54,10 @@ const Icon = ({
   color = 'black',
   strokeColor,
   fillColor,
-  swing,
   ...props
 }: IconProps) => {
   return (
-    <S.Container value={value} $active={$active} swing={swing} {...props}>
+    <S.Container value={value} $active={$active} {...props}>
       {renderIcon(value, color, strokeColor, fillColor)}
     </S.Container>
   );
@@ -465,10 +466,42 @@ const renderIcon = (
           />
         </svg>
       );
-    case 'left':
+    case 'leftArrow':
       return (
         <svg width="200" height="300" viewBox="0 0 200 300" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M133.333 280L40 150L133.333 20" stroke={colors[color]} strokeWidth="13.3333" strokeLinecap="square"/>
+        </svg>
+      );
+    case 'downArrow':
+      return (
+        <svg width="300" height="200" viewBox="0 0 300 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g clip-path="url(#clip0_709_17)">
+            <path d="M280 66.6667L150 160L20 66.6667" stroke="white" stroke-width="13.3333" stroke-linecap="square"/>
+          </g>
+          <defs>
+          <clipPath id="clip0_709_17">
+          <rect width="200" height="300" fill="white" transform="matrix(0 -1 1 0 0 200)"/>
+          </clipPath>
+          </defs>
+        </svg>
+      );
+    case 'upArrow':
+      return (
+        <svg width="300" height="200" viewBox="0 0 300 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g clip-path="url(#clip0_709_17)">
+        <path d="M280 133.333L150 40L20 133.333" stroke="white" stroke-width="13.3333" stroke-linecap="square"/>
+        </g>
+        <defs>
+        <clipPath id="clip0_709_17">
+        <rect width="200" height="300" fill="white" transform="matrix(0 1 1 0 0 0)"/>
+        </clipPath>
+        </defs>
+        </svg>
+      );
+    case 'rightArrow':
+      return (
+        <svg width="200" height="300" viewBox="0 0 200 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M66.6667 20L160 150L66.6667 280" stroke="white" stroke-width="13.3333" stroke-linecap="square"/>
         </svg>
       );
   }
