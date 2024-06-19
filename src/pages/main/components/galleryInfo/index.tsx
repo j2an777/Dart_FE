@@ -5,7 +5,6 @@ import { Colors } from '@/styles/colorPalette';
 import { alertStore } from '@/stores/modal';
 import { useQuery } from '@tanstack/react-query';
 import { getGalleryInfo } from '@/apis/gallery';
-import { postPayment } from '@/apis/payment';
 import Logo from '@/assets/images/mainLogo.png';
 import useCustomNavigate from '@/hooks/useCustomNavigate';
 
@@ -75,9 +74,8 @@ const GalleryInfo = ({ galleryId, open: isOpen, close }: GalleryInfoProps) => {
       navigate(`/gallery/${galleryId}`);
       close();
     } else {
-      showModal('티켓 구매하기', '티켓을 구매하시겠습니까?', async () => {
-        const payment = await postPayment(galleryId, 'ticket');
-        window.location.href = payment.next_redirect_pc_url;
+      showModal('티켓 구매하기', '티켓을 구매하시겠습니까?', () => {
+        navigate(`/payment/${galleryId}/ticket`);
       });
     }
   };
@@ -129,7 +127,7 @@ const GalleryInfo = ({ galleryId, open: isOpen, close }: GalleryInfoProps) => {
             </Text>
             <S.HashTags>
               {data.hashtags.map((tag: string, index: number) => (
-                <Text key={index} typography="t8" bold="regular" color="gray300">
+                <Text key={index} typography="t7" bold="regular" color="gray300">
                   {`#${tag}`}
                 </Text>
               ))}

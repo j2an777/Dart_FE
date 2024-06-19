@@ -11,6 +11,10 @@ export type GalleryData = {
   images: GalleryImages[];
 };
 
+export interface GalleryDataProps {
+  galleryData: GalleryData;
+}
+
 export interface Gallery {
   galleryId: number;
   thumbnail: string;

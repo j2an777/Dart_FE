@@ -26,8 +26,8 @@ const LogoLoader = () => {
               pathLength: 1,
               fill: "rgba(255, 255, 255, 1)",
               transition: {
-                default: { duration: 2, ease: "easeInOut" },
-                fill: { delay: 2, duration: 1, ease: "easeInOut" }
+                default: { duration: 1, ease: "easeInOut" },
+                fill: { delay: 1, duration: 1, ease: "easeInOut" }
               }
             }
           }}

@@ -3,6 +3,7 @@
 import { GalleryImages } from '@/types/gallery';
 import * as S from './styles';
 import { Dimmed, Icon, Text } from '@/components';
+import { useEffect, useRef } from 'react';
 
 type GalleryDetailProps = {
     imageData: GalleryImages | null;
@@ -11,14 +12,29 @@ type GalleryDetailProps = {
 
 const GalleryDetail = ({ imageData, onClose }: GalleryDetailProps) => {
 
+    const containerRef = useRef<HTMLDivElement>(null);
+
     const toHandleBack = () => {
         onClose();
     };
+
+    const handleClickOutside = (event: MouseEvent) => {
+        if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+            onClose();
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
     
     return (
         <>
             <Dimmed />
-            <S.Container frameBg={imageData?.image}>
+            <S.Container frameBg={imageData?.image} style={{ zIndex : 200 }} ref={containerRef}>
                 <Dimmed />
                 <S.Frame
                     initial={{ opacity: 0, y: 30 }}

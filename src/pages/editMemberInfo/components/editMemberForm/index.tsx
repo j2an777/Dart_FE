@@ -1,20 +1,22 @@
 import { useForm } from 'react-hook-form';
 import { Text, UserCircle } from '@/components';
-import * as S from './styles';
-import { EditFormData, PutFormData } from '@/types/member';
+import { EditFormData } from '@/types/member';
 import { alertStore } from '@/stores/modal';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getMemberInfo, postCheckNickname, putMemberEditInfo } from '@/apis/member';
 import { memberStore } from '@/stores/member';
 import BasicProfile from '@/assets/images/defaultUser.png';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
+
+import * as S from './styles';
 
 const EditMemberForm = () => {
   const open = alertStore((state) => state.open);
   const queryClient = useQueryClient();
   const {
     auth: { nickname },
+    setMember,
   } = memberStore();
   const [nicknameError, setNicknameError] = useState('');
   const [profileImageSrc, setProfileImageSrc] = useState<string | undefined>(
@@ -30,17 +32,9 @@ const EditMemberForm = () => {
     queryFn: () => getMemberInfo(nickname),
   });
 
-  const { register, handleSubmit, reset, getValues, setValue } = useForm<EditFormData>({
-    mode: 'onChange',
-    defaultValues: {
-      isCheckedNickname: false,
-    },
-  });
-
-  // 변경사항 저장에 대한 mutation
   const mutation = useMutation({
     mutationKey: ['edit'],
-    mutationFn: async (formData: PutFormData) => putMemberEditInfo(formData),
+    mutationFn: async (formData: FormData) => putMemberEditInfo(formData),
     onSettled: () => {
       queryClient.invalidateQueries({
         queryKey: ['edit'],
@@ -48,32 +42,54 @@ const EditMemberForm = () => {
     },
   });
 
-  // 변경사항 저장
+  const birthday =
+    editData?.birthday.toString() === '1997-01-07'
+      ? '정보 없음'
+      : editData?.birthday.toString();
+
+  useEffect(() => {
+    if (editData?.profileImage) {
+      setProfileImageSrc(editData.profileImage);
+    }
+  }, [editData]);
+
+  const { register, handleSubmit, reset, getValues, setValue } = useForm<EditFormData>({
+    mode: 'onChange',
+  });
+
   const onSubmit = async (data: EditFormData) => {
     const formData = new FormData();
     const jsonData = {
       nickname: data.nickname || '',
       introduce: data.introduce || '',
-      isCheckedNickname: data.isCheckedNickname,
     };
 
-    formData.append(
-      'memberUpdateDto',
-      new Blob([JSON.stringify(jsonData)], { type: 'application/json' }),
-    );
+    const json = JSON.stringify(jsonData);
+    const blob = new Blob([json], { type: 'application/json' });
+    formData.append('memberUpdateDto', blob);
+
     if (data.profileImage) {
       formData.append('profileImage', data.profileImage);
     }
 
+    // 콘솔 로그로 FormData 객체 확인
+    for (const pair of formData.entries()) {
+      console.log(pair[0], pair[1]);
+    }
+
     try {
-      await mutation.mutateAsync(formData);
-      open({
-        title: '수정 완료',
-        description: '수정이 완료되었습니다.',
-        buttonLabel: '확인',
-        onClickButton: () => {
-          reset();
-        },
+      await mutation.mutateAsync(formData).then(() => {
+        if (data.nickname) {
+          setMember(data.nickname);
+        }
+        open({
+          title: '수정 완료',
+          description: '수정이 완료되었습니다.',
+          buttonLabel: '확인',
+          onClickButton: () => {
+            reset();
+          },
+        });
       });
     } catch (err) {
       console.error(err);
@@ -99,7 +115,6 @@ const EditMemberForm = () => {
 
       try {
         await postCheckNickname(formData).then(() => {
-          setValue('isCheckedNickname', true);
           setNicknameError('사용 가능한 닉네임입니다.');
         });
       } catch (error) {
@@ -145,7 +160,7 @@ const EditMemberForm = () => {
                 type="file"
                 id="avatar-upload"
                 accept="image/*"
-                onChange={(e) => handleImageChange(e)}
+                onChange={handleImageChange}
               />
             </S.ProfilePlus>
           </S.ProfileLeft>
@@ -160,7 +175,7 @@ const EditMemberForm = () => {
               나이
             </Text>
             <Text typography="t5" bold="medium">
-              {`${editData?.birthday}세`}
+              {birthday}
             </Text>
           </S.ProfileRight>
         </S.ProfileBlock>

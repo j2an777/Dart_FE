@@ -14,7 +14,7 @@ export const Container = styled.div`
   z-index: var(--dimmed-zindex);
   display: inline-block;
   height: 96vh;
-  width: 28vw;
+  width: 400px;
   padding: 10px;
   background: rgba(255, 255, 255, 0.95);
   border-radius: 10px;

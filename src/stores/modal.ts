@@ -60,15 +60,15 @@ export const galleryInfoStore = create<GalleryInfoState>((set) => ({
 
 // 채팅 모달
 interface ChatState {
-  chatValue: { open: boolean };
-  open: () => void;
+  chatValue: { open: boolean; galleryId: number };
+  open: (galleryId: number) => void;
   close: () => void;
 }
 
 export const chatStore = create<ChatState>((set) => ({
-  chatValue: { open: false },
-  open: () => set({ chatValue: { open: true } }),
-  close: () => set({ chatValue: { open: false } }),
+  chatValue: { open: false, galleryId: 0 },
+  open: (galleryId: number) => set({ chatValue: { open: true, galleryId } }),
+  close: () => set({ chatValue: { open: false, galleryId: 0 } }),
 }));
 
 type CheckModalProps = ComponentProps<typeof CheckModal>;

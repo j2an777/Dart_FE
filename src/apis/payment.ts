@@ -1,9 +1,6 @@
 import instance from './instance';
 
-export const postPayment = async (
-  galleryId: number | null,
-  order: 'ticket' | 'paidGallery',
-) => {
+export const postPayment = async (galleryId: number, order: 'ticket' | 'paidGallery') => {
   const response = await instance.post(`/payment`, {
     galleryId,
     order,

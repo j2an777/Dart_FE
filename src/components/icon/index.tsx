@@ -34,6 +34,7 @@ export type IconValues =
   | 'coupon'
   | 'step_one'
   | 'step_two'
+  | 'left'
   | 'alarm'
   | 'exclamation';
 
@@ -46,12 +47,16 @@ interface IconProps {
   color?: Colors;
   strokeColor?: Colors;
   fillColor?: Colors;
+  swing?: number;
 }
 
 const Icon = forwardRef<HTMLDivElement, IconProps>(
-  ({ value, $active = true, color = 'black', strokeColor, fillColor, ...props }, ref) => {
+  (
+    { value, $active = true, color = 'black', strokeColor, fillColor, swing, ...props },
+    ref,
+  ) => {
     return (
-      <S.Container ref={ref} $active={$active} {...props}>
+      <S.Container ref={ref} $active={$active} {...props} swing={swing}>
         {renderIcon(value, color, strokeColor, fillColor)}
       </S.Container>
     );
@@ -417,7 +422,7 @@ const renderIcon = (
     case 'select':
       return (
         <svg width="14" height="7" viewBox="0 0 14 7" fill="none">
-          <g clip-path="url(#clip0_664_184)">
+          <g clipPath="url(#clip0_664_184)">
             <path
               d="M0 0H1.99511L6.9658 5.66699L6.81759 5.61914H7.15961L6.9886 5.66699L12.0163 0H14.0114L7.64984 7H6.33876L0 0Z"
               fill="black"
@@ -458,6 +463,23 @@ const renderIcon = (
           <path
             d="M13.7504 18.0499C13.4404 18.0499 13.1404 17.9099 12.9404 17.6399L9.4404 12.8199C9.1204 12.3699 9.2104 11.7499 9.6604 11.4199C10.1104 11.0899 10.7304 11.1899 11.0604 11.6399L14.5604 16.4599C14.8804 16.9099 14.7904 17.5299 14.3404 17.8599C14.1604 17.9899 13.9604 18.0499 13.7504 18.0499Z"
             fill="black"
+          />
+        </svg>
+      );
+    case 'left':
+      return (
+        <svg
+          width="200"
+          height="300"
+          viewBox="0 0 200 300"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M133.333 280L40 150L133.333 20"
+            stroke={colors[color]}
+            strokeWidth="13.3333"
+            strokeLinecap="square"
           />
         </svg>
       );

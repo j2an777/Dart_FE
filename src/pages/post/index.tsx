@@ -41,9 +41,9 @@ const PostPage = () => {
       if (galleryId) {
         // 이용료 있을 때만 결제 진행
         if (data.gallery.fee !== 0) {
-          navigate(`/post/${galleryId}/pay`);
+          navigate(`/payment/${galleryId}/paidGallery`);
         } else {
-          navigate(`/post/${galleryId}/free`);
+          navigate(`/payment/success/${galleryId}/create`);
         }
       }
     } else {

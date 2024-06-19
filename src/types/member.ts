@@ -24,7 +24,7 @@ export type EditFormData = Partial<
   Pick<Member, 'nickname' | 'introduce'>
 > & {
   profileImage?: File;
-  isCheckedNickname: boolean;
+  birthday: string;
 };
 
 export interface ExtendedSignupForm extends SignupFormData {
