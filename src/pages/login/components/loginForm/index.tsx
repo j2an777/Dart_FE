@@ -34,7 +34,7 @@ const LoginForm = () => {
           <LoginLinkButton key={index} {...props} />
         ))}
         <S.SubmitButton type="submit">
-          <Icon value="arrow" $active={!isPending} />
+          <Icon value="arrow" color="white" $active={!isPending} />
         </S.SubmitButton>
       </S.ButtonBox>
     </S.Container>

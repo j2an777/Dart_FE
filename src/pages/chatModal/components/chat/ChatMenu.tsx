@@ -21,15 +21,15 @@ const ChatMenu = ({ chatRoomId }: { chatRoomId: number }) => {
   };
 
   // 과거 채팅
-  const { data } = useGetMessages(chatRoomId);
-  useEffect(() => {
-    if (data) {
-      setMessages(data);
-    }
-    scrollToBottom();
-  }, [data]);
+  // const { data } = useGetMessages(chatRoomId);
+  // useEffect(() => {
+  //   if (data) {
+  //     setMessages(data);
+  //   }
+  //   scrollToBottom();
+  // }, [data]);
 
-  // // 새로운 메시지 수신 처리
+  // 새로운 메시지 수신 처리
   const handleIncomingMessage = useCallback((msg: ChatMessageResponse) => {
     setMessages((prevMessages) => [...prevMessages, msg]);
   }, []);

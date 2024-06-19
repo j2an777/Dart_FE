@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Client, Message, StompConfig } from '@stomp/stompjs';
 import { ChatMessageResponse } from '@/types/chat';
 import { memberStore } from '@/stores/member';
+import SockJS from 'sockjs-client';
 
 const useWebSocket = (
   chatRoomId: number,
@@ -15,12 +16,10 @@ const useWebSocket = (
       console.error('No access token available');
       return;
     }
-
+    const soket = new SockJS(`${import.meta.env.VITE_SOCKET_URL}`);
     const client = new Client({
-      brokerURL: import.meta.env.VITE_SOCKET_URL,
-      connectHeaders: {
-        Authorization: `Bearer ${accessToken}`,
-      },
+      webSocketFactory: () => soket,
+
       reconnectDelay: 5000,
       onConnect: () => {
         console.log('Connected to WebSocket');
@@ -30,14 +29,13 @@ const useWebSocket = (
           onMessage(msg);
         });
       },
-
       //에러 메세지
       onStompError: (frame) => {
         console.error('Broker reported error: ' + frame.headers['message']);
         console.error('Additional details: ' + frame.body);
       },
       onWebSocketError: (event) => {
-        console.error('WebSocket Error:', event);
+        console.error('WebSocket Error:', event.target);
       },
       onWebSocketClose: (event) => {
         console.error('WebSocket Closed:', event);

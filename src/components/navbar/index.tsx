@@ -9,11 +9,7 @@ import * as S from './styles';
 
 const Navbar = () => {
   const navigate = useCustomNavigate();
-  const {
-    logout,
-    accessToken,
-    auth: { nickname, profileImage },
-  } = memberStore();
+  const { accessToken } = memberStore();
   return (
     <>
       <S.Container>
@@ -25,12 +21,7 @@ const Navbar = () => {
             {navbarInfo.map(({ path, value }, index) => {
               if (value === '로그인') {
                 return accessToken ? (
-                  <UserBox
-                    key={index}
-                    logout={logout}
-                    nickname={nickname}
-                    profileImage={profileImage}
-                  />
+                  <UserBox key={index} />
                 ) : (
                   <Button
                     buttonType="rectangleBlack"
@@ -74,14 +65,12 @@ const Navbar = () => {
 
 export default Navbar;
 
-interface UserBoxProps {
-  logout: () => void;
-  nickname: string;
-  profileImage: string;
-}
-
-const UserBox = ({ logout, nickname, profileImage }: UserBoxProps) => {
+const UserBox = () => {
   const navigate = useCustomNavigate();
+  const {
+    logout,
+    auth: { nickname, profileImage },
+  } = memberStore();
   const { isExpand, onToggle, ref } = useOutsideClick();
   return (
     <S.UserBoxContainer ref={ref as React.RefObject<HTMLDivElement>} onClick={onToggle}>
