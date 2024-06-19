@@ -28,7 +28,7 @@ export const MainLogo = styled.img`
 
 export const ButtonBox = styled.div`
   ${LayoutMap.displayFlex}
-  gap: 60px;
+  gap: 40px;
 `;
 
 export const UserBoxContainer = styled.div`
@@ -57,5 +57,12 @@ export const MoreItem = styled(Text)<{ isLast: boolean }>`
   border-bottom: 1px solid ${colors.gray100};
   :hover {
     background-color: ${colors.gray100};
+  }
+`;
+
+export const NavItem = styled(Text)`
+  cursor: pointer;
+  :hover {
+    border-bottom: 2px solid ${colors.gray100};
   }
 `;

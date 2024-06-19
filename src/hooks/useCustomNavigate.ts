@@ -1,6 +1,5 @@
 import { memberStore } from '@/stores/member';
 import { alertStore } from '@/stores/modal';
-import { LoginFormData } from '@/types/member';
 import { NavigateOptions, To, useNavigate } from 'react-router-dom';
 
 interface CustomNavigateOption extends NavigateOptions {

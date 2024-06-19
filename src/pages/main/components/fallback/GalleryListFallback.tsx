@@ -1,3 +1,5 @@
+import { Skeleton } from '@/components';
+
 import * as S from './styles';
 
 const GalleryListFallback = () => {
@@ -16,9 +18,9 @@ export default GalleryListFallback;
 export const SkeletonItem = () => {
   return (
     <S.SkeletonItemContainer>
-      <S.Skeleton width={220} height={220} />
-      <S.Skeleton width={145} height={15} />
-      <S.Skeleton width={42} height={19} />
+      <Skeleton width={220} height={220} />
+      <Skeleton width={145} height={15} />
+      <Skeleton width={42} height={19} />
     </S.SkeletonItemContainer>
   );
 };

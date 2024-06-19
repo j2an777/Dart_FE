@@ -8,10 +8,9 @@ import SelectTemplate from './hooks/selectTemplate';
 import { useEffect, useState } from 'react';
 
 const GalleryPage = () => {
-
   const { galleryId: galleryIdStr } = useParams<{ galleryId?: string }>();
   const galleryId = galleryIdStr ? parseInt(galleryIdStr, 10) : NaN;
-  const template = "four";
+  const template = 'one';
   const [loading, setLoading] = useState(true);
 
   const { data: galleryData, error } = useQuery({
@@ -31,16 +30,16 @@ const GalleryPage = () => {
     return <div>Error loading gallery data</div>;
   }
 
-  if(loading) {
-    return <LogoLoader/>;
+  if (loading) {
+    return <LogoLoader />;
   }
-  
+
   return (
     <S.Container>
-      <GalleryHeader galleryId={galleryId} galleryNick={galleryData.nickname}/>
+      <GalleryHeader galleryId={galleryId} galleryNick={galleryData.nickname} />
       <SelectTemplate template={template} galleryData={galleryData} />
     </S.Container>
-  )
-}
+  );
+};
 
-export default GalleryPage
+export default GalleryPage;

@@ -1,11 +1,15 @@
-import { Component, ComponentType, PropsWithChildren } from 'react';
+import { Component, ComponentProps, ComponentType, PropsWithChildren } from 'react';
+import { ErrorFallback } from '..';
 
 export interface FallbackProps {
   error: Error | null;
 }
 
+type ErrorFallbackProps = ComponentProps<typeof ErrorFallback>;
+
 interface Props {
-  fallback: ComponentType<FallbackProps>;
+  fallback: ComponentType<ErrorFallbackProps>;
+  onReset: () => void;
 }
 
 interface State {
@@ -25,6 +29,7 @@ class FetchBoundary extends Component<PropsWithChildren<Props>, State> {
   }
   reset() {
     this.setState(initialState);
+    this.props.onReset();
   }
 
   static getDerivedStateFromError(error: Pick<State, 'error'>) {
@@ -33,9 +38,9 @@ class FetchBoundary extends Component<PropsWithChildren<Props>, State> {
 
   render() {
     const Fallback = this.props.fallback;
-    const { error } = this.state;
+    const onReset = this.reset.bind(this);
     if (this.state.error) {
-      return <Fallback error={error} />;
+      return <Fallback onReset={onReset} />;
     }
 
     return this.props.children;

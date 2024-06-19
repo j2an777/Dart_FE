@@ -1,5 +1,5 @@
 import { checkModalStore } from '@/stores/modal';
-import { Button, Dimmed } from '@/components';
+import { Button, Dimmed, Text } from '@/components';
 
 import * as S from './styles';
 
@@ -17,7 +17,9 @@ const CheckModal = ({ open, title, content }: CheckModalProps) => {
   return (
     <Dimmed style={{ zIndex: 9 }}>
       <S.Container>
-        {title}
+        <Text color="white" typography="t3">
+          {title}
+        </Text>
         {content}
         <Button onClick={close}>닫기</Button>
       </S.Container>

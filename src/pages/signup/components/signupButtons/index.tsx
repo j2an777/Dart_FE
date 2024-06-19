@@ -17,6 +17,7 @@ const SignupButtons = ({ page }: SignupButtonsProps) => {
         size="lg"
         buttonType="rectangleGray"
         bold="regular"
+        type="button"
         onClick={() => navigate(-1)}
       >
         {page === '1' ? '취소' : '이전'}

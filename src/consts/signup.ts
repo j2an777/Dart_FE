@@ -94,8 +94,6 @@ export const defaultValues = {
   passwordConfirm: '',
   birthday: '',
   introduce: '',
-  isCheckedNickname: true,
-  isCheckedEmail: true,
 };
 
 export const signupFormType = ['필수', '선택'];

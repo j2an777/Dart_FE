@@ -1,7 +1,7 @@
 import instance from './instance';
 
 export const postPayment = async (galleryId: number, order: 'ticket' | 'paidGallery') => {
-  const response = await instance.post(`/api/payment`, {
+  const response = await instance.post(`/payment`, {
     galleryId,
     order,
   });
@@ -9,7 +9,7 @@ export const postPayment = async (galleryId: number, order: 'ticket' | 'paidGall
 };
 
 export const getPayment = async (page: number, size: number) => {
-  const response = await instance.get('/api/payment', {
+  const response = await instance.get('/payment', {
     params: {
       page,
       size,

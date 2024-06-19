@@ -20,7 +20,10 @@ const GalleryHeader = ({ galleryId, galleryNick }: GalleryHeaderProps) => {
   const openChat = chatStore((state) => state.open);
   const navigate = useCustomNavigate();
   const queryClient = useQueryClient();
-  const { auth: {nickname}, accessToken } = memberStore();
+  const {
+    auth: { nickname },
+    accessToken,
+  } = memberStore();
 
   const mutation = useMutation({
     mutationKey: ['review'],
@@ -83,7 +86,7 @@ const GalleryHeader = ({ galleryId, galleryNick }: GalleryHeaderProps) => {
       <S.MenuBlock>
         <S.Logo src={GalleryLogo} onClick={() => onHandleToggle('toMain')} />
         <S.MenuBox>
-          {(accessToken || nickname === galleryNick)? 
+          {accessToken || nickname === galleryNick ? (
             <Icon
               value="review"
               size={30}

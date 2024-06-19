@@ -21,7 +21,7 @@ export const postGalleries = async (formData: PostGalleries) => {
     new Blob([JSON.stringify(gallery)], { type: 'application/json' }),
   );
 
-  const response = await instance.post('/api/galleries', data, {
+  const response = await instance.post('/galleries', data, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },
@@ -36,18 +36,18 @@ interface GetGalleriesParams extends Partial<FilterType> {
 }
 
 export const getGalleries = async (params: GetGalleriesParams) => {
-  const response = await instance.get(`/api/galleries`, { params });
+  const response = await instance.get(`/galleries`, { params });
   return response?.data as GalleriesData;
 };
 
 // 전시 페이지 get
 export const getGallery = async (galleryId: number) => {
-  const response = await instance.get(`/api/galleries/${galleryId}`);
+  const response = await instance.get(`/galleries/${galleryId}`);
   return response?.data;
 };
 
 // 전시 설명 모달
 export const getGalleryInfo = async (galleryId: number) => {
-  const response = await instance.get(`/api/galleries/info?gallery-id=${galleryId}`);
+  const response = await instance.get(`/galleries/info?gallery-id=${galleryId}`);
   return response?.data;
 };
