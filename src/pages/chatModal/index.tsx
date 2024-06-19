@@ -1,18 +1,18 @@
 import { useState } from 'react';
 import { chatStore } from '@/stores/modal';
-
 import Text from '@/components/Text';
 import ChatMenu from './components/chat/ChatMenu';
 import ViewerMenu from './components/viewer/ViewerMenu';
-import * as S from './styles';
 import { memberStore } from '@/stores/member';
 import useCustomNavigate from '@/hooks/useCustomNavigate';
+import * as S from './styles';
 
 interface Props {
   open: boolean;
+  galleryId: number;
 }
 
-const ChatModal = ({ open }: Props) => {
+const ChatModal = ({ open, galleryId }: Props) => {
   const close = chatStore((state) => state.close);
   const navigate = useCustomNavigate();
   const isLogin = !!memberStore((state) => state.accessToken);
@@ -32,9 +32,9 @@ const ChatModal = ({ open }: Props) => {
       case '실시간 접속자':
         return <ViewerMenu />;
       case '실시간 채팅':
-        return <ChatMenu />;
+        return <ChatMenu chatRoomId={galleryId} />;
       default:
-        return <ChatMenu />;
+        return <ChatMenu chatRoomId={galleryId} />;
     }
   };
 
