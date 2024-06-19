@@ -14,7 +14,6 @@ const GalleryItem = ({
   hashtags,
 }: Gallery) => {
   const open = galleryInfoStore((state) => state.open);
-  console.log(hashtags, '처리하기!!!');
   return (
     <S.Container onClick={() => open(galleryId)}>
       <S.Thumbnail src={thumbnail} alt="thumbnail-image" />
