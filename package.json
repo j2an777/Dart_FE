@@ -17,6 +17,7 @@
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
     "@stomp/stompjs": "^7.0.0",
+    "@studio-freight/lenis": "^1.0.42",
     "@tanstack/react-query": "^5.32.0",
     "@tanstack/react-query-devtools": "^5.32.0",
     "axios": "^1.6.8",
@@ -29,7 +30,6 @@
     "react-dropzone": "^14.2.3",
     "react-hook-form": "^7.51.3",
     "react-router-dom": "^6.23.0",
-    "slick-carousel": "^1.8.1",
     "swiper": "^11.1.4",
     "zustand": "^4.5.2"
   },
