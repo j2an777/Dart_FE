@@ -55,7 +55,7 @@ const GalleryHeader = ({ galleryId }: GalleryHeaderProps) => {
         },
       });
     } else if (name === 'chat') {
-      openChat();
+      openChat(galleryId);
     } else if (name === 'out') {
       open({
         title: '전시관 나가기',
@@ -82,13 +82,14 @@ const GalleryHeader = ({ galleryId }: GalleryHeaderProps) => {
       <S.MenuBlock>
         <S.Logo src={GalleryLogo} onClick={() => onHandleToggle('toMain')} />
         <S.MenuBox>
-          {accessToken ? 
+          {accessToken ? (
             <Icon
-            value="review"
-            size={30}
-            onClick={() => onHandleToggle('review')}
-            strokeColor="white"/>  
-         : null}
+              value="review"
+              size={30}
+              onClick={() => onHandleToggle('review')}
+              strokeColor="white"
+            />
+          ) : null}
           <Icon value="chat" size={30} onClick={() => onHandleToggle('chat')} />
           <Icon value="out" size={30} onClick={() => onHandleToggle('out')} />
         </S.MenuBox>

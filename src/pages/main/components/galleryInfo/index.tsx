@@ -61,22 +61,25 @@ const GalleryInfo = ({ galleryId, open: isOpen, close }: GalleryInfoProps) => {
         onClickButton,
       });
     };
-  
+
     if (!isOpen) {
-      showModal('일장 불가', '전시가 예정 및 종료 상태로 입장이 불가능합니다.', async () => close());
+      showModal(
+        '일장 불가',
+        '전시가 예정 및 종료 상태로 입장이 불가능합니다.',
+        async () => close(),
+      );
       return;
     }
-  
+
     if (ticket || fee === 0) {
       navigate(`/gallery/${galleryId}`);
       close();
     } else {
-      showModal('티켓 구매하기', '티켓을 구매하시겠습니까?', async () => {
-        const payment = await postPayment(galleryId, 'ticket');
-        window.location.href = payment.next_redirect_pc_url;
+      showModal('티켓 구매하기', '티켓을 구매하시겠습니까?', () => {
+        navigate(`/payment/${galleryId}/ticket`);
       });
     }
-  };  
+  };
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -101,7 +104,7 @@ const GalleryInfo = ({ galleryId, open: isOpen, close }: GalleryInfoProps) => {
       <S.Container>
         <S.InfoBox thumbnail={data.thumbnail}>
           <S.Overlay />
-          <S.CancelIcon value="cancel" size={20} onClick={close} color='white'/>
+          <S.CancelIcon value="cancel" size={20} onClick={close} color="white" />
           <S.MainLogo alt="main-logo" src={Logo} />
           <S.DescriptionBlock>
             <S.Top>
@@ -110,7 +113,7 @@ const GalleryInfo = ({ galleryId, open: isOpen, close }: GalleryInfoProps) => {
               </Text>
               <S.User>
                 <S.Circle />
-                <Text typography="t7" bold="regular" color='white'>
+                <Text typography="t7" bold="regular" color="white">
                   {data.nickname}
                 </Text>
               </S.User>
@@ -118,11 +121,14 @@ const GalleryInfo = ({ galleryId, open: isOpen, close }: GalleryInfoProps) => {
             <p id="descript">{data.content}</p>
             <Icon value="galaxy" size={20} />
             <Text typography="t7" bold="regular" color="white">
-              {formatDate(data.startDate)} <span>~</span> {formatDate(data.endDate) === '1970-01-01' ? null : formatDate(data.endDate)}
+              {formatDate(data.startDate)} <span>~</span>{' '}
+              {formatDate(data.endDate) === '1970-01-01'
+                ? null
+                : formatDate(data.endDate)}
             </Text>
             <S.HashTags>
               {data.hashtags.map((tag: string, index: number) => (
-                <Text key={index} typography='t7' bold='regular' color='gray300'>
+                <Text key={index} typography="t7" bold="regular" color="gray300">
                   {`#${tag}`}
                 </Text>
               ))}
@@ -130,7 +136,10 @@ const GalleryInfo = ({ galleryId, open: isOpen, close }: GalleryInfoProps) => {
           </S.DescriptionBlock>
           <S.ButtonBlock>
             <div className="price">₩ {data.fee}</div>
-            <div className="topay" onClick={() => onHandlePay(data.hasTicket, data.fee, data.isOpen)}>
+            <div
+              className="topay"
+              onClick={() => onHandlePay(data.hasTicket, data.fee, data.isOpen)}
+            >
               입장하기
             </div>
           </S.ButtonBlock>
