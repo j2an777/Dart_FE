@@ -7,15 +7,11 @@ export interface ChatMessage {
 }
 
 export interface ChatMessageRequest {
-  from: string;
   content: string;
-  chatRoomId: number;
 }
 
 export interface ChatMessageResponse {
-  chatRoomId: number;
-  nickname: string;
-  profileImage: string;
+  sender: string;
   content: string;
-  sendAt: Date;
+  createAt: Date;
 }
