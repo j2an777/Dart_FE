@@ -33,12 +33,31 @@ export const getMemberInfo = async (nickname?: string) => {
 };
 
 export const putMemberEditInfo = async (formData: PutFormData) => {
-  const response = await instance.put(`/api/members`, formData, {
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    },
-  });
-  return response?.data;
+  // FormData의 내용을 출력
+  for (const [key, value] of formData.entries()) {
+    if (key === 'profileImage' && value instanceof File) {
+      console.log(`Key: ${key}, Filename: ${value.name}, Filetype: ${value.type}`);
+    } else if (key === 'memberUpdateDto' && value instanceof Blob) {
+      // Blob을 JSON 문자열로 변환하여 출력
+      value.text().then(text => {
+        console.log(`Key: ${key}, Value: ${text}`);
+      });
+    } else {
+      console.log(`Key: ${key}, Value: ${value}`);
+    }
+  }
+
+  try {
+    const response = await instance.put(`/api/members`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response?.data;
+  } catch (error) {
+    console.log('Error: ', error);
+    throw error;
+  }
 };
 
 export const getMypage = async (nickname: string, page: number, size: number) => {
