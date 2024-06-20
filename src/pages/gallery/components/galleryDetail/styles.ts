@@ -66,6 +66,7 @@ export const Frame = styled(motion.div)`
     height: auto;
     object-fit: contain;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    border-radius: 20px;
   }
 `;
 

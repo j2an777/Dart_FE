@@ -10,7 +10,7 @@ export const Container = styled.div`
   top : 0px;
 `;
 
-export const CardItem = styled(motion.div)<{ bgColor: string }>`
+export const CardItem = styled(motion.div)`
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -18,8 +18,7 @@ export const CardItem = styled(motion.div)<{ bgColor: string }>`
     top: 0;
     height: 500px;
     width: 700px;
-    padding:50px;
-    background-color: ${props => props.bgColor};
+    background-color: transparent;
 
     h2 {
       text-align: center;
@@ -48,7 +47,7 @@ export const CardInner = styled(motion.div)`
   img {
     width : 100%;
     height : 100%;
-    object-fit: cover;
+    object-fit: contain;
   }
 `;
 

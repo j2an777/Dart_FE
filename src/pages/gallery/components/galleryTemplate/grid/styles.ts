@@ -109,9 +109,3 @@ export const BtnBlock = styled.div`
 export const Btn = styled.button`
     cursor: pointer;
 `;
-
-export const Title = styled.div`
-    position : absolute;
-    top : 180px;
-    left : 50px;
-`;

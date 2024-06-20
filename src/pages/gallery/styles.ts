@@ -8,7 +8,7 @@ export const Container = styled.div<{ expand: number }>`
     right : 0;
     bottom : 0;
     width : 100vw;
-    height: ${props => props.expand !== 0 ? `${props.expand+1}00vh` : '100vh'};
+    height: ${props => props.expand !== 0 ? `${(props.expand+1)*100}vh` : '100vh'};
     padding : 50px;
     box-sizing : border-box;
     display : flex;
