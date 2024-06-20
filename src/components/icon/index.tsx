@@ -476,7 +476,7 @@ const renderIcon = (
       return (
         <svg width="300" height="200" viewBox="0 0 300 200" fill="none" xmlns="http://www.w3.org/2000/svg">
           <g clip-path="url(#clip0_709_17)">
-            <path d="M280 66.6667L150 160L20 66.6667" stroke="white" stroke-width="13.3333" stroke-linecap="square"/>
+            <path d="M280 66.6667L150 160L20 66.6667" stroke="white" strokeWidth="13.3333" strokeLinecap="square"/>
           </g>
           <defs>
           <clipPath id="clip0_709_17">
@@ -489,7 +489,7 @@ const renderIcon = (
       return (
         <svg width="300" height="200" viewBox="0 0 300 200" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g clip-path="url(#clip0_709_17)">
-        <path d="M280 133.333L150 40L20 133.333" stroke="white" stroke-width="13.3333" stroke-linecap="square"/>
+        <path d="M280 133.333L150 40L20 133.333" stroke="white" strokeWidth="13.3333" strokeLinecap="square"/>
         </g>
         <defs>
         <clipPath id="clip0_709_17">
@@ -501,7 +501,7 @@ const renderIcon = (
     case 'rightArrow':
       return (
         <svg width="200" height="300" viewBox="0 0 200 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M66.6667 20L160 150L66.6667 280" stroke="white" stroke-width="13.3333" stroke-linecap="square"/>
+          <path d="M66.6667 20L160 150L66.6667 280" stroke="white" strokeWidth="13.3333" strokeLinecap="square"/>
         </svg>
       );
   }
