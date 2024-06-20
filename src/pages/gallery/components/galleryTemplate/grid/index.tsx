@@ -1,16 +1,20 @@
 import { GalleryDataProps, GalleryImages } from "@/types/gallery"
 import * as S from './styles';
-import { GalleryDetailPortal, Icon, Text } from "@/components";
+import { CircleLoader, GalleryDetailPortal, Icon, Text } from "@/components";
 import { useRef } from "react";
 import { galleryDetailStore } from "@/stores/modal";
+import useImagesLoaded from "@/pages/gallery/hooks/useImagesLoaded";
 
 const GalleryGrid = ({ galleryData }: GalleryDataProps) => {
 
   const galleryRef = useRef<HTMLDivElement>(null);
   const { open } = galleryDetailStore();
 
+  const imageSources = galleryData ? galleryData.images.map(img => img.image) : [];
+  const isLoaded = useImagesLoaded(imageSources);
+
   const onHandleScroll = (direction: string) => {
-    const scrollAmount = 250; // 스크롤할 픽셀 양
+    const scrollAmount = 250;
 
     if (galleryRef.current) {
       if (direction === 'up') {
@@ -20,6 +24,10 @@ const GalleryGrid = ({ galleryData }: GalleryDataProps) => {
       }
     }
   };
+
+  if (!isLoaded) {
+    return <CircleLoader />;
+  }
 
   return (
     <S.Container ref={galleryRef}>
@@ -34,9 +42,7 @@ const GalleryGrid = ({ galleryData }: GalleryDataProps) => {
           </S.ImageBox>
         ))}
       </S.GridGallery>
-      <S.Title>
-        <Text typography='t1' bold='bold' color='white' className='galleryTitle'>{galleryData.title}</Text>
-      </S.Title>
+    
       {galleryData.images.length > 1 && (
         <S.BtnBlock>
           <S.Btn className='previous' onClick={() => onHandleScroll('up')}><Icon value='upArrow' size={50} color="white" /></S.Btn>

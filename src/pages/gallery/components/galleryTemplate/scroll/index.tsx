@@ -4,6 +4,8 @@ import Card from './card';
 import { useScroll } from 'framer-motion';
 import { useEffect, useRef } from 'react';
 import Lenis from '@studio-freight/lenis';
+import useImagesLoaded from '@/pages/gallery/hooks/useImagesLoaded';
+import { CircleLoader } from '@/components';
 
 const GalleryScroll = ({ galleryData }: GalleryDataProps) => {
     const container = useRef(null);
@@ -11,14 +13,6 @@ const GalleryScroll = ({ galleryData }: GalleryDataProps) => {
         target: container,
         offset: ['start start', 'end end']
     });
-
-    const colors = [
-        { color: '#bbacaf'},
-        { color: '#977f60'},
-        { color: '#c2491d'},
-        { color: '#b62429'},
-        { color: '#88a28d'},
-    ];
 
     useEffect(() => {
         const lenis = new Lenis();
@@ -31,12 +25,17 @@ const GalleryScroll = ({ galleryData }: GalleryDataProps) => {
         requestAnimationFrame(raf);
     }, []);
 
+    const imageSources = galleryData ? galleryData.images.map(img => img.image) : [];
+    const isLoaded = useImagesLoaded(imageSources);
+
+    if (!isLoaded) {
+        return <CircleLoader />;
+    }
+
     return (
         <S.Container ref={container}>
             {galleryData.images.map((gallery, index) => {
                 const targetScale = 1 - ((galleryData.images.length - index) * 0.05);
-                const colorIndex = index % colors.length;
-                const cardColor = colors[colorIndex].color;
                 return (
                     <Card 
                         key={index} 
@@ -45,7 +44,6 @@ const GalleryScroll = ({ galleryData }: GalleryDataProps) => {
                         progress={scrollYProgress} 
                         range={[index * 0.05, 1]} 
                         targetScale={targetScale}
-                        color={cardColor}
                     />
                 );
             })}

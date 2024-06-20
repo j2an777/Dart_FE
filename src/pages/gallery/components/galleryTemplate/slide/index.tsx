@@ -6,9 +6,10 @@ import { EffectCoverflow, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
-import { GalleryDetailPortal, Icon, Text } from '@/components';
+import { CircleLoader, GalleryDetailPortal, Icon, Text } from '@/components';
 import { useRef, useState } from 'react';
 import { galleryDetailStore } from '@/stores/modal';
+import useImagesLoaded from '@/pages/gallery/hooks/useImagesLoaded';
 
 const GallerySlide = ({ galleryData }: GalleryDataProps) => {
     const [state, setState] = useState({
@@ -17,6 +18,9 @@ const GallerySlide = ({ galleryData }: GalleryDataProps) => {
 
     const swiperRef = useRef<SwiperClass | null>(null);
     const { open } = galleryDetailStore();
+
+    const imageSources = galleryData ? galleryData.images.map(img => img.image) : [];
+    const isLoaded = useImagesLoaded(imageSources);
 
     const handleSlideChange = (swiper: SwiperClass) => {
         setState((prevState) => ({
@@ -34,6 +38,10 @@ const GallerySlide = ({ galleryData }: GalleryDataProps) => {
             }
         }
     };
+
+    if (!isLoaded) {
+        return <CircleLoader />;
+    }
 
     return (
         <S.Container>
@@ -69,7 +77,7 @@ const GallerySlide = ({ galleryData }: GalleryDataProps) => {
                     </SwiperSlide>
                 ))}
             </Swiper>
-            {galleryData.images.length > 0 && (
+            {galleryData.images.length > 1 && (
                 <S.BtnBlock>
                     <S.Btn onClick={() => onHandleDirection('left')}>
                         <Icon 

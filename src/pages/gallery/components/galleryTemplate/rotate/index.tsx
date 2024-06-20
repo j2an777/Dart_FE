@@ -1,8 +1,9 @@
 import * as S from './styles';
 import { useEffect, useState } from 'react';
-import { GalleryDetailPortal, Icon, Text } from '@/components';
+import { CircleLoader, GalleryDetailPortal, Icon, Text } from '@/components'; // LogoLoader 추가
 import { GalleryDataProps, GalleryImages } from '@/types/gallery';
 import { galleryDetailStore } from '@/stores/modal';
+import useImagesLoaded from '@/pages/gallery/hooks/useImagesLoaded';
 
 const GalleryRotate = ({ galleryData }: GalleryDataProps) => {
   const [state, setState] = useState({
@@ -37,6 +38,9 @@ const GalleryRotate = ({ galleryData }: GalleryDataProps) => {
       }));
     }
   }, [galleryData]);
+
+  const imageSources = galleryData ? galleryData.images.map(img => img.image) : [];
+  const isLoaded = useImagesLoaded(imageSources);
   
   useEffect(() => {
     const handleContextMenu = (e: MouseEvent) => {
@@ -68,6 +72,10 @@ const GalleryRotate = ({ galleryData }: GalleryDataProps) => {
       };
     });
   };
+
+  if (!isLoaded) {
+    return <CircleLoader />;
+  }
 
   return (
     <S.Container>
