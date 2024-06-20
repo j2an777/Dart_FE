@@ -34,9 +34,11 @@ const GalleryPage = () => {
   if(loading) {
     return <LogoLoader/>;
   }
+
+  const expand = galleryData && template === "four" ? galleryData.images.length : 0;
   
   return (
-    <S.Container>
+    <S.Container expand={expand}>
       <GalleryHeader galleryId={galleryId} galleryNick={galleryData.nickname}/>
       <SelectTemplate template={template} galleryData={galleryData} />
     </S.Container>
