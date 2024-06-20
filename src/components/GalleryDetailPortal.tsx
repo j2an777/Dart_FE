@@ -10,9 +10,15 @@ const GalleryDetailPortal = () => {
         <>
             {$portal_root 
                 ? createPortal(
-                    <div>
+                    <div style={{
+                        position: 'fixed',
+                        top: '50%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)',
+                        zIndex: 200,
+                    }}>
                         {galleryDetailValue.open && galleryDetailValue.gallery && (
-                            <GalleryDetail imageData={galleryDetailValue.gallery} />
+                            <GalleryDetail imageData={galleryDetailValue.gallery}/>
                         )}
                     </div>,
                     $portal_root,

@@ -36,6 +36,7 @@ const GalleryDetail = ({ imageData }: GalleryDetailProps) => {
         <>
             <Dimmed />
             <S.Container frameBg={imageData?.image} style={{ zIndex : 200 }} ref={containerRef}>
+                <S.Overlay />
                 <S.Frame
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}

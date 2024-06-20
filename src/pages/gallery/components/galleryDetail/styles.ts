@@ -34,8 +34,22 @@ export const Container = styled.div<{ frameBg?: string }>`
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(255, 255, 255, 1);
+    background-image: url(${props => props.frameBg});
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    filter : blur(8px);
   }
+`;
+
+export const Overlay = styled.div`
+  position : absolute;
+  top : 0;
+  left : 0;
+  right : 0;
+  bottom : 0;
+  background-color: rgba(255, 255, 255, 0.44);
+  z-index: 21;
 `;
 
 export const Frame = styled(motion.div)`
@@ -44,14 +58,14 @@ export const Frame = styled(motion.div)`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 16px;
+  padding: 24px;
   z-index : 21;
 
   img {
     width: 100%;
-    height: 100%;
+    height: auto;
     object-fit: contain;
-    border-radius: 0;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
   }
 `;
 
