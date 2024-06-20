@@ -11,10 +11,9 @@ interface CardProps {
   progress: MotionValue<number>;
   range: [number, number];
   targetScale: number;
-  color: string;
 }
 
-const Card = ({ gallery, i, progress, range, targetScale, color }: CardProps) => {
+const Card = ({ gallery, i, progress, range, targetScale }: CardProps) => {
 
   const container = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -29,7 +28,7 @@ const Card = ({ gallery, i, progress, range, targetScale, color }: CardProps) =>
 
   return (
     <S.Container ref={container} onClick={() => open(gallery)}>
-      <S.CardItem style={{ scale, top: `calc(0% + ${i * 25}px)` }} bgColor={color}>
+      <S.CardItem style={{ scale, top: `calc(0% + ${i * 10}px)` }}>
         <S.CardImg>
           <S.CardInner style={{ scale: imageScale }}>
             <img src={gallery.image} />
