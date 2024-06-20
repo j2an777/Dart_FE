@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 
 export const Container = styled.div`
-  margin: 0;
+  margin: 80px 0 0 0;
   padding: 0;
 
   .gallerySwiper {
