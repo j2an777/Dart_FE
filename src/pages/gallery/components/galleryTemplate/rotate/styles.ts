@@ -24,9 +24,10 @@ export const MainBlock = styled.div<MainBlockProps>`
 
     .galleryTitle {
         position : absolute;
-        top : 50%;
+        top : 100%;
         left: 50%;
         transform: translate(-50%, -50%);
+        -webkit-box-reflect: below 0px linear-gradient(transparent, transparent, #0004);
     }
 `;
 
@@ -47,6 +48,7 @@ export const ImageBox = styled.div<ImageBoxProps>`
     transform-style: preserve-3d;
     transform: rotateY(${props => `calc(${props.i} * ${props.dataDegree}deg)`}) translateZ(${props => `${props.transZ}px`});
     -webkit-box-reflect: below 0px linear-gradient(transparent, transparent, #0004);
+    pointer-events: ${props => (props.isFront ? 'auto' : 'none')};
 
     img {
         position: absolute;

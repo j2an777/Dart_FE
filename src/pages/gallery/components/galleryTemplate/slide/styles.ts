@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 export const Container = styled.div`
   margin: 80px 0 0 0;
   padding: 0;
+  width : 100%;
 
   .gallerySwiper {
     width: 100%;
@@ -15,18 +16,18 @@ export const Container = styled.div`
 
   .swiperSlide {
     position: relative;
-    width: 500px;
-    height: 500px;
+    width: 400px;
+    height: 400px;
     transition: opacity 0.5s;
 
     &:not(.swiper-slide-active) {
       filter: blur(5px);
+      pointer-events: none;
     }
 
     img {
       width: 100%;
       object-fit: contain;
-      -webkit-box-reflect: below 1px linear-gradient(transparent, transparent, #0006);
     }
   }
 `;
@@ -82,7 +83,7 @@ export const BtnBlock = styled.div`
     justify-content : space-between;
     gap: 20px;
     padding : 0 300px;
-    z-index : 11;
+    z-index : 9;
 `;
 
 export const Btn = styled.button`
