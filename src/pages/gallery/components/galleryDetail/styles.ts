@@ -24,7 +24,7 @@ export const Container = styled.div<{ frameBg?: string }>`
   justify-content: center;
   align-items: center;
   border-radius: 10px;
-  z-index: 10;
+  z-index: 20;
   overflow: hidden;
 
   &::before {
@@ -34,11 +34,7 @@ export const Container = styled.div<{ frameBg?: string }>`
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url(${props => props.frameBg});
-    background-size: cover;
-    background-position: center;
-    filter: blur(20px);
-    z-index: -1;
+    background-color: rgba(255, 255, 255, 1);
   }
 `;
 
@@ -49,7 +45,7 @@ export const Frame = styled(motion.div)`
   justify-content: center;
   align-items: center;
   padding: 16px;
-  z-index : 12;
+  z-index : 21;
 
   img {
     width: 100%;
@@ -68,7 +64,7 @@ export const DetailContent = styled.div`
   padding: 20px;
   box-sizing: border-box;
   gap: 20px;
-  z-index : 12;
+  z-index : 22;
 
   p {
     width: 100%;

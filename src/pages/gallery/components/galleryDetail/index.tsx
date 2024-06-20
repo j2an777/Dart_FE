@@ -4,23 +4,24 @@ import { GalleryImages } from '@/types/gallery';
 import * as S from './styles';
 import { Dimmed, Icon, Text } from '@/components';
 import { useEffect, useRef } from 'react';
+import { galleryDetailStore } from '@/stores/modal';
 
 type GalleryDetailProps = {
     imageData: GalleryImages | null;
-    onClose: () => void;
 }
 
-const GalleryDetail = ({ imageData, onClose }: GalleryDetailProps) => {
+const GalleryDetail = ({ imageData }: GalleryDetailProps) => {
 
     const containerRef = useRef<HTMLDivElement>(null);
+    const close = galleryDetailStore(state => state.close);
 
     const toHandleBack = () => {
-        onClose();
+        close();
     };
 
     const handleClickOutside = (event: MouseEvent) => {
         if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
-            onClose();
+            close();
         }
     };
 
@@ -35,7 +36,6 @@ const GalleryDetail = ({ imageData, onClose }: GalleryDetailProps) => {
         <>
             <Dimmed />
             <S.Container frameBg={imageData?.image} style={{ zIndex : 200 }} ref={containerRef}>
-                <Dimmed />
                 <S.Frame
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -51,7 +51,7 @@ const GalleryDetail = ({ imageData, onClose }: GalleryDetailProps) => {
                         value='cancel' 
                         size={30} 
                         onClick={toHandleBack}
-                        color='white'/>
+                        color='black'/>
                     <S.DetailText
                         initial={{ opacity: 0, x: -50 }}
                         whileInView={{ opacity: 1, x: 0 }}
@@ -60,8 +60,8 @@ const GalleryDetail = ({ imageData, onClose }: GalleryDetailProps) => {
                             ease: 'easeInOut',
                             duration: 0.5,
                         }}>
-                        <Text typography='t1' bold='bold' color='white'>{imageData?.imageTitle}</Text>
-                        <Text typography='t5' color='white' bold='thin'>{imageData?.description}</Text>
+                        <Text typography='t1' bold='bold' color='black'>{imageData?.imageTitle}</Text>
+                        <Text typography='t5' color='black' bold='thin'>{imageData?.description}</Text>
                     </S.DetailText>
                 </S.DetailContent>
             </S.Container>

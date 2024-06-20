@@ -9,6 +9,7 @@ import {
   ChatPortal,
   SignupCheckPortal,
   GalleryInfoPortal,
+  GalleryDetailPortal,
 } from './components';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -37,6 +38,7 @@ enableMocking().then(() =>
           <ChatPortal />
           <SignupCheckPortal />
           <AlertPortal />
+          <GalleryDetailPortal />
           <App />
         </BrowserRouter>
         <ReactQueryDevtools initialIsOpen={false} />

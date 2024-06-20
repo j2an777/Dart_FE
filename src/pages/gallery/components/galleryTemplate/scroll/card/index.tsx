@@ -1,9 +1,9 @@
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import * as S from './styles';
 import { MotionValue, useScroll, useTransform } from 'framer-motion';
-import { Text } from '@/components';
-import GalleryDetail from '../../../galleryDetail';
+import { GalleryDetailPortal, Text } from '@/components';
 import { GalleryImages } from '@/types/gallery';
+import { galleryDetailStore } from '@/stores/modal';
 
 interface CardProps {
   gallery: GalleryImages;
@@ -15,10 +15,6 @@ interface CardProps {
 }
 
 const Card = ({ gallery, i, progress, range, targetScale, color }: CardProps) => {
-  const [state, setState] = useState({
-    popUp: false,
-    selectedData: null as GalleryImages | null,
-  });
 
   const container = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -26,30 +22,13 @@ const Card = ({ gallery, i, progress, range, targetScale, color }: CardProps) =>
     offset: ['start end', 'start start']
   });
 
+  const { open } = galleryDetailStore();
+
   const imageScale = useTransform(scrollYProgress, [0, 1], [2, 1]);
   const scale = useTransform(progress, range, [1, targetScale]);
 
-  const onHandlePopup = (popup: string, imageData?: GalleryImages) => {
-    setState(prevState => {
-      if (imageData && popup === 'open') {
-        return {
-          ...prevState,
-          selectedData: imageData,
-          popUp: true
-        };
-      } else if (popup === 'close') {
-        return {
-          ...prevState,
-          popUp: false,
-          selectedData: null
-        };
-      }
-      return prevState;
-    });
-  };
-
   return (
-    <S.Container ref={container} onClick={() => onHandlePopup('open', gallery)}>
+    <S.Container ref={container} onClick={() => open(gallery)}>
       <S.CardItem style={{ scale, top: `calc(0% + ${i * 25}px)` }} bgColor={color}>
         <S.CardImg>
           <S.CardInner style={{ scale: imageScale }}>
@@ -61,9 +40,7 @@ const Card = ({ gallery, i, progress, range, targetScale, color }: CardProps) =>
         <Text typography='t3' color='white' bold='semibold'>Gallery {i + 1}</Text>
         <Text typography='t1' color='white' bold='semibold'>{gallery.imageTitle}</Text>
       </S.ContentBox>
-      {state.popUp && (
-        <GalleryDetail imageData={state.selectedData} onClose={() => onHandlePopup('close')} />
-      )}
+      <GalleryDetailPortal />
     </S.Container>
   );
 };

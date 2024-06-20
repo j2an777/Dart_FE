@@ -1,19 +1,19 @@
 import * as S from './styles';
 import { useEffect, useState } from 'react';
-import GalleryDetail from '../../galleryDetail';
-import { Icon, Text } from '@/components';
+import { GalleryDetailPortal, Icon, Text } from '@/components';
 import { GalleryDataProps, GalleryImages } from '@/types/gallery';
+import { galleryDetailStore } from '@/stores/modal';
 
 const GalleryRotate = ({ galleryData }: GalleryDataProps) => {
   const [state, setState] = useState({
     degrees: 0,
     frontIndex: 0,
-    popUp: false,
-    selectedData: null as GalleryImages | null,
     transZ: 400,
     size: 250,
     dataDegree: 0
   });
+
+  const { open } = galleryDetailStore();
 
   useEffect(() => {
     if (galleryData) {
@@ -69,14 +69,6 @@ const GalleryRotate = ({ galleryData }: GalleryDataProps) => {
     });
   };
 
-  const onHandlePopup = (imageData: GalleryImages | null) => {
-    setState(prevState => ({
-      ...prevState,
-      selectedData: imageData,
-      popUp: imageData !== null
-    }));
-  };
-
   return (
     <S.Container>
       <S.MainBlock degrees={state.degrees} size={state.size}>
@@ -87,7 +79,7 @@ const GalleryRotate = ({ galleryData }: GalleryDataProps) => {
             isFront={index === state.frontIndex} 
             dataDegree={state.dataDegree}
             transZ={state.transZ}
-            onClick={() => onHandlePopup(gallery)}>
+            onClick={() => open(gallery)}>
             <img src={gallery.image} alt={gallery.imageTitle} />
             <S.ContentBox size={state.size}>
               <Text typography='t5' bold='semibold' color='white'>Gallery {index+1}</Text>
@@ -103,9 +95,7 @@ const GalleryRotate = ({ galleryData }: GalleryDataProps) => {
           <S.Btn className='next' onClick={() => onHandleChange('next')}><Icon value='rightArrow' size={50} color='white'/></S.Btn>
         </S.BtnBlock>
       )}
-      {state.popUp && (
-        <GalleryDetail imageData={state.selectedData} onClose={() => onHandlePopup(null)}/>
-      )}
+      <GalleryDetailPortal />
     </S.Container>
   );
 }
