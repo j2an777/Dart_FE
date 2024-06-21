@@ -36,8 +36,8 @@ const Card = ({ gallery, i, progress, range, targetScale }: CardProps) => {
         </S.CardImg>
       </S.CardItem>
       <S.ContentBox>
-        <Text typography='t3' color='white' bold='semibold'>Gallery {i + 1}</Text>
-        <Text typography='t1' color='white' bold='semibold'>{gallery.imageTitle}</Text>
+        <Text typography='t3' color='white' bold='thin'>Gallery {i + 1}</Text>
+        <Text typography='t1' color='white' bold='semibold' className='description'>{gallery.imageTitle}</Text>
       </S.ContentBox>
       <GalleryDetailPortal />
     </S.Container>

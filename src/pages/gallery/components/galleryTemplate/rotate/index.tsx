@@ -90,8 +90,8 @@ const GalleryRotate = ({ galleryData }: GalleryDataProps) => {
             onClick={() => open(gallery)}>
             <img src={gallery.image} alt={gallery.imageTitle} />
             <S.ContentBox size={state.size}>
-              <Text typography='t5' bold='semibold' color='white'>Gallery {index+1}</Text>
-              <Text typography='t7' bold='thin' color='white'>{gallery.imageTitle}</Text>
+              <Text typography='t6' bold='thin' color='white'>Gallery {index+1}</Text>
+              <Text typography='t5' bold='semibold' color='white' className='description'>{gallery.imageTitle}</Text>
             </S.ContentBox>
           </S.ImageBox>
         ))}

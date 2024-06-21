@@ -71,8 +71,8 @@ const GallerySlide = ({ galleryData }: GalleryDataProps) => {
                             onClick={() => open(gallery)}
                             isFront={index === state.frontIndex}
                         >
-                            <Text typography='t3' color='white' bold='semibold'>Gallery {index + 1}</Text>
-                            <Text typography='t5' color='white' bold='semibold'>{gallery.imageTitle}</Text>
+                            <Text typography='t3' color='white' bold='thin'>Gallery {index + 1}</Text>
+                            <Text typography='t1' color='white' bold='semibold' className='description'>{gallery.imageTitle}</Text>
                         </S.ContentBox>
                     </SwiperSlide>
                 ))}

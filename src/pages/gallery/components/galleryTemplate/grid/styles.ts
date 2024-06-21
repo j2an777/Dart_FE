@@ -90,8 +90,14 @@ export const ContentBox = styled.div`
       }
     }
 
-    p {
+    .p {
       word-break: break-word;
+    }
+
+    .description {
+      white-space: normal;
+      word-break: break-word;
+      text-align: center;
     }
 `;
 

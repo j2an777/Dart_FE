@@ -105,17 +105,23 @@ export const ContentBox = styled.div<{size: number}>`
     p {
         word-break: break-word;
     }
+
+    .description {
+        white-space: normal;
+        word-break: break-word;
+        text-align: center;
+    }
 `;
 
 export const BtnBlock = styled.div`
     width : 100%;
     position: absolute;
-    bottom: 30px;
+    bottom: 50px;
     left : 0;
     display: flex;
     justify-content : space-between;
     gap: 20px;
-    padding : 0 500px;
+    padding : 0 300px;
     transform: translateY(-50%);
 `;
 

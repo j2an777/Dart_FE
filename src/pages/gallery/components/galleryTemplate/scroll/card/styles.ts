@@ -53,7 +53,7 @@ export const CardInner = styled(motion.div)`
 
 export const ContentBox = styled.div`
     position: absolute;
-    width : 700px;
+    width : 500px;
     height : 500px;
     background: rgba(0, 0, 0, 0.6);
     display: flex;
@@ -83,7 +83,9 @@ export const ContentBox = styled.div`
       }
     }
 
-    p {
+    .description {
+      white-space: normal;
       word-break: break-word;
+      text-align: center;
     }
 `;

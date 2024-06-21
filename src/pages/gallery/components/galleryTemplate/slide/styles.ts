@@ -61,7 +61,6 @@ export const ContentBox = styled.div<{ isFront: boolean }>`
       props.isFront &&
       `
       opacity: 1;
-      transform: scale(1.1);
 
       * {
         transform: translateY(0px);
@@ -71,6 +70,12 @@ export const ContentBox = styled.div<{ isFront: boolean }>`
 
   p {
     word-break: break-word;
+  }
+
+  .description {
+    white-space: normal;
+    word-break: break-word;
+    text-align: center;
   }
 `;
 
