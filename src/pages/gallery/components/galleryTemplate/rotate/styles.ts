@@ -24,7 +24,7 @@ export const MainBlock = styled.div<MainBlockProps>`
 
     .galleryTitle {
         position : absolute;
-        top : 100%;
+        top : 70%;
         left: 50%;
         transform: translate(-50%, -50%);
         -webkit-box-reflect: below 0px linear-gradient(transparent, transparent, #0004);
