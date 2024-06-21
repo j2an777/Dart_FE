@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import Text from '@/components/Text';
 import { colors } from '@/styles/colorPalette';
+import { Icon } from '@/components';
 
 export const Container = styled.div`
   position: relative;
@@ -21,7 +22,7 @@ export const TicketContainer = styled.div`
   position: relative;
 `;
 
-export const TicketSVG = styled.svg`
+export const TicketIcon = styled(Icon)`
   width: 900px;
   height: 290px;
 `;
@@ -43,6 +44,10 @@ export const Title = styled(Text)`
   position: absolute;
   top: 35px;
   left: 35px;
+  width: 300px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 export const Date = styled(Text)`
