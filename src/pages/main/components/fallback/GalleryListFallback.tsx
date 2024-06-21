@@ -18,7 +18,7 @@ export default GalleryListFallback;
 export const SkeletonItem = () => {
   return (
     <S.SkeletonItemContainer>
-      <Skeleton width={220} height={220} />
+      <Skeleton width={270} height={270} />
       <Skeleton width={145} height={15} />
       <Skeleton width={42} height={19} />
     </S.SkeletonItemContainer>
