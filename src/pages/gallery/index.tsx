@@ -36,7 +36,11 @@ const GalleryPage = () => {
 
   return (
     <S.Container>
-      <GalleryHeader galleryId={galleryId} galleryNick={galleryData.nickname} />
+      <GalleryHeader
+        galleryId={galleryId}
+        galleryNick={galleryData.nickname}
+        chatRoomId={galleryData.chatRoomId}
+      />
       <SelectTemplate template={template} galleryData={galleryData} />
     </S.Container>
   );
