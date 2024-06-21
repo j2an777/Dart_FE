@@ -7,9 +7,17 @@ import * as S from './styles';
 
 const GalleryItem = ({ title, startDate, endDate, thumbnail, galleryId }: Gallery) => {
   const open = galleryInfoStore((state) => state.open);
+
+  const today = new Date();
+  const parsedEndDate = endDate ? new Date(endDate as Date) : null;
+  const hasEnded = parsedEndDate ? parsedEndDate < today : false;
+
   return (
-    <S.Container onClick={() => open(galleryId)}>
-      <S.Thumbnail src={thumbnail} alt="thumbnail-image" />
+    <S.Container onClick={() => open(galleryId, hasEnded)}>
+      <S.ThumbnailBox>
+        <S.Thumbnail src={thumbnail} alt="thumbnail-image" />
+        {hasEnded && <S.Overlay />}
+      </S.ThumbnailBox>
       <Text color="gray500" typography="t7" bold="thin">
         {parseDate(startDate)} ~ {endDate && parseDate(endDate as Date)}
       </Text>

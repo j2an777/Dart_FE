@@ -17,12 +17,23 @@ export const Container = styled.div`
   }
 `;
 
-export const Thumbnail = styled.img`
-  border: 5px solid ${colors.black};
+export const ThumbnailBox = styled.div`
+  position: relative;
   width: 240px;
   height: 240px;
-  transition: filter 0.5s ease;
-  :hover {
-    filter: grayscale(100%);
-  }
+`;
+
+export const Thumbnail = styled.img`
+  width: 100%;
+  height: 100%;
+  border: 5px solid ${colors.black};
+`;
+
+export const Overlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
 `;

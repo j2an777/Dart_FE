@@ -43,19 +43,20 @@ type GalleryInfoProps = Omit<ComponentProps<typeof GalleryInfo>, 'close'>;
 
 export interface GalleryInfoState {
   galleryInfoValue: GalleryInfoProps;
-  open: (galleryId: number) => void;
+  open: (galleryId: number, hasEnded: boolean) => void;
   close: () => void;
 }
 
 const galleryInfoDefaultValue: GalleryInfoProps = {
   galleryId: null,
   open: false,
+  hasEnded: false
 };
 
 export const galleryInfoStore = create<GalleryInfoState>((set) => ({
   galleryInfoValue: galleryInfoDefaultValue,
-  open: (galleryId: number) =>
-    set((state) => ({ ...state, galleryInfoValue: { open: true, galleryId } })),
+  open: (galleryId: number, hasEnded: boolean) =>
+    set((state) => ({ ...state, galleryInfoValue: { open: true, galleryId, hasEnded } })),
   close: () => set((state) => ({ ...state, galleryInfoValue: galleryInfoDefaultValue })),
 }));
 
