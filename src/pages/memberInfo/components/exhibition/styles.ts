@@ -27,14 +27,14 @@ export const TicketIcon = styled(Icon)`
   height: 290px;
 `;
 
-export const Thumbnail = styled.div<{ profileImage: string }>`
+export const Thumbnail = styled.div<{ imageUrl: string }>`
   position: absolute;
   top: 15px;
   left: 375px;
   width: 368px;
   height: 259px;
   border: 1px solid ${colors.black};
-  background-image: url(${(props) => props.profileImage});
+  background-image: url(${(props) => props.imageUrl});
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;

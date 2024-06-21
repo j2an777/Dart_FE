@@ -26,6 +26,7 @@ const Ticket = ({
       <S.Fee typography="t5" bold="regular">
         ₩ {fee}
       </S.Fee>
+      <S.Thumbnail imageUrl={thumbnail} />
     </S.TicketContainer>
   );
 };
