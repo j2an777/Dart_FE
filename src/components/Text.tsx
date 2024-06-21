@@ -16,12 +16,14 @@ const Text = styled.p<TextProps>`
   ${({ bold = 'semibold' }) => bolderMap[bold]};
   color: ${({ color = 'black' }) => colors[color]};
   line-height: normal;
-  ${({ ellipsis }) => css`
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    width: ${ellipsis}px;
-  `}
+  ${({ ellipsis = false }) =>
+    ellipsis &&
+    css`
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      width: ${ellipsis}px;
+    `}
   ${({ clickable = false }) =>
     clickable
       ? css`

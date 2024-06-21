@@ -1,11 +1,12 @@
-import { FormProvider, useForm } from 'react-hook-form';
 import { defaultValues } from '@/consts/signup';
+import usePostSingup from './hooks/usePostSingup';
 import { ExtendedSignupForm } from '@/types/member';
+import { FormProvider, useForm } from 'react-hook-form';
 import useGetSearchParams from '@/hooks/useGetSearchParams';
+import { CircleLoader, SignupCheckPortal } from '@/components';
 import { SignupAgree, SignupButtons, SignupForm, TitleNumber } from './components';
 
 import * as S from './styles';
-import usePostSingup from './hooks/usePostSingup';
 
 const SignupPage = () => {
   const page = useGetSearchParams('page');
@@ -13,7 +14,7 @@ const SignupPage = () => {
     mode: 'onChange',
     defaultValues,
   });
-  const { mutate: signup } = usePostSingup({ reset: () => methods.reset() });
+  const { mutate: signup, isPending } = usePostSingup({ reset: () => methods.reset() });
   const onSubmit = async (data: ExtendedSignupForm) => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { passwordConfirm, ...formData } = data;
@@ -30,7 +31,9 @@ const SignupPage = () => {
         </S.TitleBox>
         {page === '2' ? <SignupForm /> : <SignupAgree />}
         <SignupButtons page={page ?? '1'} />
+        {isPending && <CircleLoader />}
       </S.Container>
+      <SignupCheckPortal />
     </FormProvider>
   );
 };

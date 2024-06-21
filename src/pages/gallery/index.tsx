@@ -8,7 +8,6 @@ import SelectTemplate from './hooks/selectTemplate';
 import useCustomNavigate from '@/hooks/useCustomNavigate';
 
 const GalleryPage = () => {
-
   const { galleryId: galleryIdStr } = useParams<{ galleryId?: string }>();
   const galleryId = galleryIdStr ? parseInt(galleryIdStr, 10) : NaN;
   const navigate = useCustomNavigate();
@@ -38,7 +37,7 @@ const GalleryPage = () => {
       <GalleryHeader galleryId={galleryId} galleryNick={galleryData.nickname}/>
       <SelectTemplate template={galleryData.template} galleryData={galleryData} />
     </S.Container>
-  )
-}
+  );
+};
 
-export default GalleryPage
+export default GalleryPage;

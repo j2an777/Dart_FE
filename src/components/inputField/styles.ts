@@ -10,6 +10,7 @@ export const Container = styled.div`
   position: relative;
   margin-top: 40px;
   flex: 1;
+  color: ${colors.white};
 `;
 
 export const Label = styled.label<{ isFocused: boolean }>`
@@ -44,7 +45,7 @@ export const Input = styled.input<{ disabled: boolean }>`
   :-webkit-autofill:hover,
   :-webkit-autofill:focus,
   :-webkit-autofill:active {
-    -webkit-text-fill-color: ${colors.black};
+    -webkit-text-fill-color: ${colors.white};
     -webkit-box-shadow: 0 0 0px 1000px inherit inset;
     box-shadow: 0 0 0px 1000px inherit inset;
     transition: background-color 5000s ease-in-out 0s;

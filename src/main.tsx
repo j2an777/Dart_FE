@@ -7,11 +7,10 @@ import globalStyles from './styles/globalStyles.ts';
 import {
   AlertPortal,
   ChatPortal,
-  SignupCheckPortal,
   GalleryInfoPortal,
   GalleryDetailPortal,
+  NotificationPortal,
 } from './components';
-
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
@@ -36,9 +35,9 @@ enableMocking().then(() =>
         <BrowserRouter>
           <GalleryInfoPortal />
           <ChatPortal />
-          <SignupCheckPortal />
           <AlertPortal />
           <GalleryDetailPortal />
+          <NotificationPortal />
           <App />
         </BrowserRouter>
         <ReactQueryDevtools initialIsOpen={false} />

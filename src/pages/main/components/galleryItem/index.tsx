@@ -1,18 +1,11 @@
 import { Text } from '@/components';
 import { Gallery } from '@/types/gallery';
 import parseDate from '@/utils/parseDate';
-
-import * as S from './styles';
 import { galleryInfoStore } from '@/stores/modal';
 
-const GalleryItem = ({
-  title,
-  startDate,
-  endDate,
-  thumbnail,
-  galleryId,
-  hashtags,
-}: Gallery) => {
+import * as S from './styles';
+
+const GalleryItem = ({ title, startDate, endDate, thumbnail, galleryId }: Gallery) => {
   const open = galleryInfoStore((state) => state.open);
   return (
     <S.Container onClick={() => open(galleryId)}>

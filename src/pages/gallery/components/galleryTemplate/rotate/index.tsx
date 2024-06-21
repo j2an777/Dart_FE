@@ -11,7 +11,7 @@ const GalleryRotate = ({ galleryData }: GalleryDataProps) => {
     frontIndex: 0,
     transZ: 400,
     size: 250,
-    dataDegree: 0
+    dataDegree: 0,
   });
 
   const { open } = galleryDetailStore();
@@ -21,7 +21,7 @@ const GalleryRotate = ({ galleryData }: GalleryDataProps) => {
       const newDataDegree = 360 / galleryData.images.length;
       let newSize = 250;
       let newTransZ = 500;
-  
+
       if (galleryData.images.length >= 11 && galleryData.images.length < 15) {
         newSize = 200;
         newTransZ = 480;
@@ -30,18 +30,18 @@ const GalleryRotate = ({ galleryData }: GalleryDataProps) => {
         newTransZ = 550;
       }
 
-      setState(prevState => ({
+      setState((prevState) => ({
         ...prevState,
         dataDegree: newDataDegree,
         size: newSize,
-        transZ: newTransZ
+        transZ: newTransZ,
       }));
     }
   }, [galleryData]);
 
   const imageSources = galleryData ? galleryData.images.map(img => img.image) : [];
   const isLoaded = useImagesLoaded(imageSources);
-  
+ 
   useEffect(() => {
     const handleContextMenu = (e: MouseEvent) => {
       e.preventDefault();
@@ -57,18 +57,21 @@ const GalleryRotate = ({ galleryData }: GalleryDataProps) => {
   const onHandleChange = (translate: string) => {
     if (!galleryData) return;
 
-    setState(prevState => {
-      const newDegrees = translate === 'previous' 
-        ? prevState.degrees + prevState.dataDegree 
-        : prevState.degrees - prevState.dataDegree;
-      const newFrontIndex = translate === 'previous' 
-        ? (prevState.frontIndex - 1 + galleryData.images.length) % galleryData.images.length 
-        : (prevState.frontIndex + 1) % galleryData.images.length;
+    setState((prevState) => {
+      const newDegrees =
+        translate === 'previous'
+          ? prevState.degrees + prevState.dataDegree
+          : prevState.degrees - prevState.dataDegree;
+      const newFrontIndex =
+        translate === 'previous'
+          ? (prevState.frontIndex - 1 + galleryData.images.length) %
+            galleryData.images.length
+          : (prevState.frontIndex + 1) % galleryData.images.length;
 
       return {
         ...prevState,
         degrees: newDegrees,
-        frontIndex: newFrontIndex
+        frontIndex: newFrontIndex,
       };
     });
   };
@@ -81,10 +84,10 @@ const GalleryRotate = ({ galleryData }: GalleryDataProps) => {
     <S.Container>
       <S.MainBlock degrees={state.degrees} size={state.size}>
         {galleryData?.images.map((gallery: GalleryImages, index: number) => (
-          <S.ImageBox 
+          <S.ImageBox
             key={index}
-            i={index} 
-            isFront={index === state.frontIndex} 
+            i={index}
+            isFront={index === state.frontIndex}
             dataDegree={state.dataDegree}
             transZ={state.transZ}
             onClick={() => open(gallery)}>
@@ -95,7 +98,9 @@ const GalleryRotate = ({ galleryData }: GalleryDataProps) => {
             </S.ContentBox>
           </S.ImageBox>
         ))}
-        <Text typography='t1' bold='bold' color='white' className='galleryTitle'>{galleryData.title}</Text>
+        <Text typography="t1" bold="bold" color="white" className="galleryTitle">
+          {galleryData.title}
+        </Text>
       </S.MainBlock>
       {galleryData.images.length > 1 && (
         <S.BtnBlock>
@@ -106,6 +111,6 @@ const GalleryRotate = ({ galleryData }: GalleryDataProps) => {
       <GalleryDetailPortal />
     </S.Container>
   );
-}
+};
 
 export default GalleryRotate;

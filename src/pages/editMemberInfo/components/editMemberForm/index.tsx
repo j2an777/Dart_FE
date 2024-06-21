@@ -1,6 +1,5 @@
 import { useForm } from 'react-hook-form';
 import { Text, UserCircle } from '@/components';
-import * as S from './styles';
 import { EditFormData } from '@/types/member';
 import { alertStore } from '@/stores/modal';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -10,14 +9,25 @@ import BasicProfile from '@/assets/images/defaultUser.png';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
+import * as S from './styles';
+
 const EditMemberForm = () => {
   const open = alertStore((state) => state.open);
   const queryClient = useQueryClient();
-  const { auth: { nickname }, setMember } = memberStore();
+  const {
+    auth: { nickname },
+    setMember,
+  } = memberStore();
   const [nicknameError, setNicknameError] = useState('');
-  const [profileImageSrc, setProfileImageSrc] = useState<string | undefined>(BasicProfile);
+  const [profileImageSrc, setProfileImageSrc] = useState<string | undefined>(
+    BasicProfile,
+  );
 
-  const { data: editData, error, isLoading } = useQuery({
+  const {
+    data: editData,
+    error,
+    isLoading,
+  } = useQuery({
     queryKey: ['edit'],
     queryFn: () => getMemberInfo(nickname),
   });
@@ -32,7 +42,10 @@ const EditMemberForm = () => {
     },
   });
 
-  const birthday = editData?.birthday.toString() === '1997-01-07' ? '정보 없음' : editData?.birthday.toString();
+  const birthday =
+    editData?.birthday.toString() === '1997-01-07'
+      ? '정보 없음'
+      : editData?.birthday.toString();
 
   useEffect(() => {
     if (editData?.profileImage) {
@@ -40,13 +53,7 @@ const EditMemberForm = () => {
     }
   }, [editData]);
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    getValues,
-    setValue
-  } = useForm<EditFormData>({
+  const { register, handleSubmit, reset, getValues, setValue } = useForm<EditFormData>({
     mode: 'onChange',
   });
 
@@ -102,10 +109,9 @@ const EditMemberForm = () => {
       const formData = { nickname: nicknameValue };
 
       try {
-        await postCheckNickname(formData)
-          .then(() => {
-            setNicknameError('사용 가능한 닉네임입니다.');
-          });
+        await postCheckNickname(formData).then(() => {
+          setNicknameError('사용 가능한 닉네임입니다.');
+        });
       } catch (error) {
         if (axios.isAxiosError(error) && error.response?.status === 409) {
           setNicknameError('이미 존재하는 닉네임입니다.');
@@ -176,16 +182,26 @@ const EditMemberForm = () => {
             <S.Input
               {...register('nickname')}
               type="text"
-              placeholder='닉네임 입력'
+              placeholder="닉네임 입력"
               defaultValue={editData?.nickname}
             />
-            <S.CheckBtn type="button" onClick={onHandleCheck}>중복 확인</S.CheckBtn>
-            {nicknameError && <S.Error nicknameError={nicknameError}>{nicknameError}</S.Error>}
+            <S.CheckBtn type="button" onClick={onHandleCheck}>
+              중복 확인
+            </S.CheckBtn>
+            {nicknameError && (
+              <S.Error nicknameError={nicknameError}>{nicknameError}</S.Error>
+            )}
           </S.NicknameBox>
 
           <S.IntroduceBox>
-            <Text typography='t5' bold='regular'>자기소개</Text>
-            <S.Textarea {...register('introduce')} placeholder="자기소개 입력" defaultValue={editData?.introduce} />
+            <Text typography="t5" bold="regular">
+              자기소개
+            </Text>
+            <S.Textarea
+              {...register('introduce')}
+              placeholder="자기소개 입력"
+              defaultValue={editData?.introduce}
+            />
           </S.IntroduceBox>
 
           <S.ButtonContainer>

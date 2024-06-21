@@ -9,7 +9,9 @@ export interface Gallery {
   startDate: Date;
   endDate: Date;
   fee: number;
+  generatedCost: number;
   hashTags: string[];
+  template: 'one' | 'two' | 'three' | 'four';
   informations: Info[];
 }
 

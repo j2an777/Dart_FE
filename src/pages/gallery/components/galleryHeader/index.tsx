@@ -13,9 +13,10 @@ import { memberStore } from '@/stores/member';
 interface GalleryHeaderProps {
   galleryId: number;
   galleryNick: string;
+  chatRoomId: number;
 }
 
-const GalleryHeader = ({ galleryId, galleryNick }: GalleryHeaderProps) => {
+const GalleryHeader = ({ galleryId, galleryNick, chatRoomId }: GalleryHeaderProps) => {
   const { open, close } = useStore(alertStore);
   const openChat = chatStore((state) => state.open);
   const navigate = useCustomNavigate();
@@ -56,7 +57,7 @@ const GalleryHeader = ({ galleryId, galleryNick }: GalleryHeaderProps) => {
         },
       });
     } else if (name === 'chat') {
-      openChat(galleryId);
+      openChat(chatRoomId);
     } else if (name === 'out') {
       open({
         title: '전시관 나가기',

@@ -1,17 +1,11 @@
 import styled from '@emotion/styled';
-import { HTMLAttributes } from 'react';
-import { IconValues } from '.';
+import { ComponentProps } from 'react';
 import { css } from '@emotion/react';
-import { Colors } from '@/styles/colorPalette';
+import Icon from '.';
 
-interface IconContainerProps extends HTMLAttributes<HTMLDivElement> {
-  $rotate?: boolean;
-  size?: number;
-  color?: Colors;
-  $active?: boolean;
-  value: IconValues;
-  swing?: number;
-}
+type IconProps = ComponentProps<typeof Icon>;
+
+type IconContainerProps = Omit<IconProps, 'value' | 'strokeColor' | 'fillColor'>;
 
 export const Container = styled.div<IconContainerProps>`
   width: ${({ size }) => (size ? `${size}px` : 'fit-content')};
@@ -33,13 +27,12 @@ export const Container = styled.div<IconContainerProps>`
     $active
       ? css`
           &:hover {
-            transform: scale(1.1);
+            transform: scale(1.05);
             cursor: pointer;
           }
           &:active {
-            transform: scale(0.9);
+            transform: scale(0.95);
           }
         `
       : null};
-  
 `;

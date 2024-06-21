@@ -1,9 +1,11 @@
 import { getChatMessage } from '@/apis/chat';
-import { useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 
 export const useGetMessages = (chatRoomId: number) =>
-  useQuery({
-    queryKey: ['message', chatRoomId],
-    queryFn: () => getChatMessage(chatRoomId),
+  useInfiniteQuery({
+    queryKey: ['messages', chatRoomId],
+    queryFn: ({ pageParam = 0 }) => getChatMessage(chatRoomId, pageParam, 20),
+    initialPageParam: 0,
+    getNextPageParam: ({ pageInfo }) => pageInfo.pageIndex + 1,
     enabled: !!chatRoomId,
   });

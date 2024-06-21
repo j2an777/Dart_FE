@@ -15,6 +15,10 @@ export default css`
     box-sizing: border-box;
   }
 
+  img {
+    pointer-events: none;
+  }
+
   html,
   body,
   span,
@@ -40,7 +44,6 @@ export default css`
   del,
   dfn,
   em,
-  img,
   ins,
   kbd,
   q,
