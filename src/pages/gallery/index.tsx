@@ -34,7 +34,7 @@ const GalleryPage = () => {
   
   return (
     <S.Container expand={expand}>
-      <GalleryHeader galleryId={galleryId} galleryNick={galleryData.nickname}/>
+      <GalleryHeader galleryId={galleryId} galleryNick={galleryData.nickname} chatRoomId={galleryData.chatRoomId}/>
       <SelectTemplate template={galleryData.template} galleryData={galleryData} />
     </S.Container>
   );
