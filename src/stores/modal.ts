@@ -96,3 +96,16 @@ export const checkModalStore = create<CheckModalState>((set) => ({
       checkModalValue: defaultValue,
     })),
 }));
+
+// 쿠폰 모달
+interface CouponState {
+  couponValue: { open: boolean };
+  open: () => void;
+  close: () => void;
+}
+
+export const couponStore = create<CouponState>((set) => ({
+  couponValue: { open: false },
+  open: () => set({ couponValue: { open: true } }),
+  close: () => set({ couponValue: { open: false } }),
+}));

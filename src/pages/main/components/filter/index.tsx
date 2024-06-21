@@ -12,6 +12,7 @@ import * as S from './styles';
 
 const Filter = () => {
   const { filterValue, onChange, onNestingChange } = filterStore();
+
   return (
     <S.Container>
       <S.TitleBox>

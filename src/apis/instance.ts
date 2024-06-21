@@ -18,27 +18,28 @@ instance.interceptors.request.use(async (config) => {
   return config;
 });
 
-instance.interceptors.response.use(
-  (response) => response,
-  async (error) => {
-    const originalRequest = error.config;
+// instance.interceptors.response.use(
+//   (response) => {
+//     return response;
+//   },
+//   async (error) => {
+//     const originalRequest = error.config;
+//     if (error.response.status === 401 && !originalRequest._retry) {
+//       originalRequest._retry = true;
+//       try {
+//         const setMember = memberStore().setMember;
+//         const response = await getNewToken();
+//         const { accessToken } = response.data;
+//         setMember(accessToken);
+//         originalRequest.headers['Authorization'] = `Bearer ${accessToken}`;
+//         return instance(originalRequest);
+//       } catch (refreshError) {
+//         return Promise.reject(refreshError);
+//       }
+//     }
 
-    if (error.response.status === 401 && !originalRequest._retry) {
-      originalRequest._retry = true;
-      try {
-        const setMember = memberStore().setMember;
-        const response = await getNewToken();
-        const { accessToken } = response.data;
-        setMember(accessToken);
-        originalRequest.headers['Authorization'] = `Bearer ${accessToken}`;
-        return instance(originalRequest);
-      } catch (refreshError) {
-        return Promise.reject(refreshError);
-      }
-    }
-
-    return Promise.reject(error);
-  },
-);
+//     return Promise.reject(error);
+//   },
+// );
 
 export default instance;

@@ -8,10 +8,18 @@ const useGetGalleries = (pageIndex: number) => {
   return useSuspenseQuery({
     queryKey: ['galleries', [pageIndex, ...Object.values(filterValue)]],
     queryFn: () => getGalleries({ page: pageIndex, size, ...filterValue }),
-    select: (data) => ({
-      pages: data.pages,
-      pageParams: data.pageInfo,
-    }),
+    select: (data) => {
+      if (pageIndex === data.pageInfo.pageIndex) {
+        return {
+          pages: data.pages,
+          pageParams: { ...data.pageInfo, pageIndex: 0 },
+        };
+      }
+      return {
+        pages: data.pages,
+        pageParams: data.pageInfo,
+      };
+    },
   });
 };
 

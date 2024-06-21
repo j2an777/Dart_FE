@@ -2,21 +2,21 @@ import { useForm } from 'react-hook-form';
 import { Text, UserCircle } from '@/components';
 import { EditFormData } from '@/types/member';
 import { alertStore } from '@/stores/modal';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { getMemberInfo, postCheckNickname, putMemberEditInfo } from '@/apis/member';
+import { useQuery } from '@tanstack/react-query';
+import { getMemberInfo, postCheckNickname } from '@/apis/member';
 import { memberStore } from '@/stores/member';
 import BasicProfile from '@/assets/images/defaultUser.png';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 import * as S from './styles';
+import usePutMember from '../../hooks/usePutMember';
 
 const EditMemberForm = () => {
   const open = alertStore((state) => state.open);
-  const queryClient = useQueryClient();
+  const { mutate } = usePutMember();
   const {
     auth: { nickname },
-    setMember,
   } = memberStore();
   const [nicknameError, setNicknameError] = useState('');
   const [profileImageSrc, setProfileImageSrc] = useState<string | undefined>(
@@ -30,16 +30,6 @@ const EditMemberForm = () => {
   } = useQuery({
     queryKey: ['edit'],
     queryFn: () => getMemberInfo(nickname),
-  });
-
-  const mutation = useMutation({
-    mutationKey: ['edit'],
-    mutationFn: async (formData: FormData) => putMemberEditInfo(formData),
-    onSettled: () => {
-      queryClient.invalidateQueries({
-        queryKey: ['edit'],
-      });
-    },
   });
 
   const birthday =
@@ -78,18 +68,14 @@ const EditMemberForm = () => {
     }
 
     try {
-      await mutation.mutateAsync(formData).then(() => {
-        if (data.nickname) {
-          setMember(data.nickname);
-        }
-        open({
-          title: '수정 완료',
-          description: '수정이 완료되었습니다.',
-          buttonLabel: '확인',
-          onClickButton: () => {
-            reset();
-          },
-        });
+      mutate(formData);
+      open({
+        title: '수정 완료',
+        description: '수정이 완료되었습니다.',
+        buttonLabel: '확인',
+        onClickButton: () => {
+          reset();
+        },
       });
     } catch (err) {
       console.error(err);
