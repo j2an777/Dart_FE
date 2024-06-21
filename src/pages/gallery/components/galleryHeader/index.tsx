@@ -13,17 +13,15 @@ import { memberStore } from '@/stores/member';
 interface GalleryHeaderProps {
   galleryId: number;
   galleryNick: string;
+  chatRoomId: number;
 }
 
-const GalleryHeader = ({ galleryId, galleryNick }: GalleryHeaderProps) => {
+const GalleryHeader = ({ galleryId, galleryNick, chatRoomId }: GalleryHeaderProps) => {
   const { open, close } = useStore(alertStore);
   const openChat = chatStore((state) => state.open);
   const navigate = useCustomNavigate();
   const queryClient = useQueryClient();
-  const {
-    auth: { nickname },
-    accessToken,
-  } = memberStore();
+  const { auth: { nickname }, accessToken } = memberStore();
 
   const mutation = useMutation({
     mutationKey: ['review'],
@@ -59,13 +57,14 @@ const GalleryHeader = ({ galleryId, galleryNick }: GalleryHeaderProps) => {
         },
       });
     } else if (name === 'chat') {
-      openChat(galleryId);
+      openChat(chatRoomId);
     } else if (name === 'out') {
       open({
         title: '전시관 나가기',
         description: '전시관에서 나가시겠습니까?',
         buttonLabel: '확인',
         onClickButton: () => {
+          queryClient.removeQueries({queryKey: ['galleryData']});
           navigate('/');
         },
       });
@@ -75,6 +74,7 @@ const GalleryHeader = ({ galleryId, galleryNick }: GalleryHeaderProps) => {
         description: '전시관에서 나가시겠습니까?',
         buttonLabel: '확인',
         onClickButton: () => {
+          queryClient.removeQueries({queryKey: ['galleryData']});
           navigate('/intro');
         },
       });
@@ -86,14 +86,14 @@ const GalleryHeader = ({ galleryId, galleryNick }: GalleryHeaderProps) => {
       <S.MenuBlock>
         <S.Logo src={GalleryLogo} onClick={() => onHandleToggle('toMain')} />
         <S.MenuBox>
-          {accessToken || nickname === galleryNick ? (
+          {(accessToken || nickname === galleryNick) ? 
             <Icon
               value="review"
               size={30}
               onClick={() => onHandleToggle('review')}
               strokeColor="white"
             />
-          ) : null}
+           : null}
           <Icon value="chat" size={30} onClick={() => onHandleToggle('chat')} />
           <Icon value="out" size={30} onClick={() => onHandleToggle('out')} />
         </S.MenuBox>

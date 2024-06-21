@@ -1,47 +1,54 @@
-import { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
 import { GalleryDataProps } from '@/types/gallery';
 import * as S from './styles';
+import Card from './card';
+import { useScroll } from 'framer-motion';
+import { useEffect, useRef } from 'react';
+import Lenis from '@studio-freight/lenis';
+import useImagesLoaded from '@/pages/gallery/hooks/useImagesLoaded';
+import { CircleLoader } from '@/components';
 
 const GalleryScroll = ({ galleryData }: GalleryDataProps) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const items = containerRef.current?.querySelectorAll('.item') ?? [];
-    items.forEach((item) => {
-      const img = item.querySelector('.item-img');
-      gsap.set(img, { scale: 0 });
+    const container = useRef(null);
+    const { scrollYProgress } = useScroll({
+        target: container,
+        offset: ['start start', 'end end']
     });
 
-    const setScale = () => {
-      items.forEach((item) => {
-        const img = item.querySelector('.item-img') as HTMLElement;
-        const rect = item.getBoundingClientRect();
-        const viewportHeight = window.innerHeight;
-        const scrollRatio = Math.min(Math.max((rect.top + rect.height / 2) / viewportHeight, 0), 1);
-        gsap.to(img, { scale: scrollRatio });
-      });
-    };
+    useEffect(() => {
+        const lenis = new Lenis();
 
-    setScale();
-    window.addEventListener('scroll', setScale);
-    return () => {
-      window.removeEventListener('scroll', setScale);
-    };
-  }, [galleryData.images]);
+        const raf = (time: number) => {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        };
 
-  return (
-    <S.Container ref={containerRef}>
-      {galleryData.images.map((gallery, index) => (
-        <S.GalleryBox key={index} className="item">
-          <h1>{gallery.imageTitle}</h1>
-          <S.ImageBox className="item-img">
-            <img src={gallery.image} alt={gallery.imageTitle} />
-          </S.ImageBox>
-        </S.GalleryBox>
-      ))}
-    </S.Container>
-  );
-};
+        requestAnimationFrame(raf);
+    }, []);
+
+    const imageSources = galleryData ? galleryData.images.map(img => img.image) : [];
+    const isLoaded = useImagesLoaded(imageSources);
+
+    if (!isLoaded) {
+        return <CircleLoader />;
+    }
+
+    return (
+        <S.Container ref={container}>
+            {galleryData.images.map((gallery, index) => {
+                const targetScale = 1 - ((galleryData.images.length - index) * 0.05);
+                return (
+                    <Card 
+                        key={index} 
+                        i={index} 
+                        gallery={gallery} 
+                        progress={scrollYProgress} 
+                        range={[index * 0.05, 1]} 
+                        targetScale={targetScale}
+                    />
+                );
+            })}
+        </S.Container>
+    );
+}
 
 export default GalleryScroll;

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Icon from '@/components/icon';
 import Message from './Message';
 import { ChatMessageResponse } from '@/types/chat';
@@ -11,42 +11,18 @@ const ChatMenu = ({ chatRoomId }: { chatRoomId: number }) => {
   const [messages, setMessages] = useState<ChatMessageResponse[]>([]);
   const [newMessage, setNewMessage] = useState<string>('');
   const { accessToken } = memberStore.getState();
-
-  // 메세지 받는 callback 함수
-  const callback = useCallback((message: ChatMessageResponse) => {
-    const messageData = JSON.parse(message.content);
-    setMessages((prevMessages) => [...prevMessages, messageData]);
-  }, []);
-
   const { connect, disconnect, sendMessage } = useStomp(
     chatRoomId,
     accessToken as string,
-    callback,
+    (message: ChatMessageResponse) => {
+      const messageData = JSON.parse(message.content);
+      setMessages((prevMessages) => [...prevMessages, messageData]);
+    },
   );
 
-  // 스크롤 아래로 이동
-  const ref = useRef<HTMLDivElement>(null);
-  const scrollToBottom = () => {
-    if (ref.current) {
-      ref.current.scrollTop = ref.current.scrollHeight;
-    }
-  };
-
-  // 과거 채팅 불러오기, WebSocket 연결
-  const { data } = useGetMessages(chatRoomId);
-  useEffect(() => {
-    if (data) {
-      setMessages(data);
-    }
-    scrollToBottom();
-
-    connect();
-
-    // 언마운트시 연결 종료
-    return () => {
-      disconnect();
-    };
-  }, [data]);
+  const { data, fetchNextPage, hasNextPage } = useGetMessages(chatRoomId);
+  const observerRef = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   // 새로운 채팅 보내기
   const postMessage = () => {
@@ -55,30 +31,69 @@ const ChatMenu = ({ chatRoomId }: { chatRoomId: number }) => {
     setNewMessage('');
   };
 
-  // 메세지 추가될 때
+  // 웹소켓 연결 및 과거 채팅 불러오기
   useEffect(() => {
-    scrollToBottom();
+    connect();
+
+    if (data) {
+      const allMessages = data.pages.flatMap((page) => page.pages);
+      setMessages(allMessages);
+    }
+
+    return () => disconnect();
+  }, [data]);
+
+  // IntersectionObserver
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && hasNextPage) {
+          fetchNextPage();
+        }
+      },
+      { root: scrollRef.current, rootMargin: '10px', threshold: 0.5 },
+    );
+    if (observerRef.current) observer.observe(observerRef.current);
+  }, [hasNextPage, fetchNextPage]);
+
+  // 스크롤 아래로 이동
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
   }, [messages]);
 
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewMessage(e.target.value);
   };
+  const onEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      postMessage();
+    }
+  };
 
   return (
     <S.Container>
-      <S.ContentBox ref={ref}>
-        {messages.map((msg, index) => (
-          <Message
-            key={index}
-            name={'msg.nickname'}
-            profileImage={'default'}
-            content={msg.content}
-          />
-          // 작가 메세지 구분 추후 추가
-        ))}
+      <S.ContentBox ref={scrollRef}>
+        <div ref={observerRef}>
+          {messages.map((msg, index) => (
+            <Message
+              key={index}
+              name={'msg.nickname'}
+              profileImage={'default'}
+              content={msg.content}
+            />
+            // 작가 메세지 구분 추후 추가
+          ))}
+        </div>
       </S.ContentBox>
       <S.InputBox>
-        <S.Input placeholder="채팅 입력" value={newMessage} onChange={onInputChange} />
+        <S.Input
+          placeholder="채팅 입력"
+          value={newMessage}
+          onChange={onInputChange}
+          onKeyDown={onEnter}
+        />
         <Icon value="send" onClick={postMessage} />
       </S.InputBox>
     </S.Container>

@@ -6,6 +6,7 @@ export const Container = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 80px 0 0 0;
 `;
 
 interface MainBlockProps {
@@ -23,9 +24,10 @@ export const MainBlock = styled.div<MainBlockProps>`
 
     .galleryTitle {
         position : absolute;
-        top : 50%;
+        top : 70%;
         left: 50%;
         transform: translate(-50%, -50%);
+        -webkit-box-reflect: below 0px linear-gradient(transparent, transparent, #0004);
     }
 `;
 
@@ -46,6 +48,7 @@ export const ImageBox = styled.div<ImageBoxProps>`
     transform-style: preserve-3d;
     transform: rotateY(${props => `calc(${props.i} * ${props.dataDegree}deg)`}) translateZ(${props => `${props.transZ}px`});
     -webkit-box-reflect: below 0px linear-gradient(transparent, transparent, #0004);
+    pointer-events: ${props => (props.isFront ? 'auto' : 'none')};
 
     img {
         position: absolute;
@@ -102,17 +105,23 @@ export const ContentBox = styled.div<{size: number}>`
     p {
         word-break: break-word;
     }
+
+    .description {
+        white-space: normal;
+        word-break: break-word;
+        text-align: center;
+    }
 `;
 
 export const BtnBlock = styled.div`
     width : 100%;
     position: absolute;
-    bottom: 30px;
+    bottom: 50px;
     left : 0;
     display: flex;
     justify-content : space-between;
     gap: 20px;
-    padding : 0 500px;
+    padding : 0 300px;
     transform: translateY(-50%);
 `;
 

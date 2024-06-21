@@ -1,7 +1,7 @@
 import { GalleryItem } from '..';
 import { useStore } from 'zustand';
 import { NoneData } from '@/components';
-import { useEffect, useLayoutEffect } from 'react';
+import { useEffect } from 'react';
 import { pageStore } from '@/stores/page';
 import { useGetGalleries } from '../../hooks';
 import GalleryListFallback from '../fallback/GalleryListFallback';

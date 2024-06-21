@@ -30,7 +30,7 @@ const ChatModal = ({ open, galleryId }: Props) => {
   const renderContent = () => {
     switch (menuOption) {
       case '실시간 접속자':
-        return <ViewerMenu />;
+        return <ViewerMenu chatRoomId={galleryId} />;
       case '실시간 채팅':
         return <ChatMenu chatRoomId={galleryId} />;
       default:

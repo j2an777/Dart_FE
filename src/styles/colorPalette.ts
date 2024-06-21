@@ -15,6 +15,9 @@ export const colorPalette = css`
     --white: #ffffff;
     --green: #70a076;
     --red50: #fd5d5d;
+    --purple: #a331e9;
+    --pink: #f931cd;
+    --cyan: #39e99f;
   }
 `;
 
@@ -32,6 +35,9 @@ export const colors = {
   white: 'var(--white)',
   green: 'var(--green)',
   red50: 'var(--red50)',
+  purple: 'var(--purple)',
+  pink: 'var(--pink)',
+  cyan: 'var(--cyan)',
 };
 
 export type Colors = keyof typeof colors;

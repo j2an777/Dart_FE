@@ -28,6 +28,7 @@ export type PutFormData = {
 
 export type EditFormData = Partial<Pick<Member, 'nickname' | 'introduce'>> & {
   profileImage?: File;
+  birthday?: string;
 };
 
 export interface ExtendedSignupForm extends SignupFormData {

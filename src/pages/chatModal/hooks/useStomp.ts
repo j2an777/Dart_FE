@@ -9,6 +9,9 @@ export const useStomp = (
   callback: (msg: ChatMessageResponse) => void,
 ) => {
   const [client, setClient] = useState<Client | null>(null);
+  const stompHeaders = {
+    Authorization: `Bearer ${accessToken}`,
+  };
 
   const connect = () => {
     const socket = new SockJS(import.meta.env.VITE_SOCKET_URL);
@@ -20,7 +23,7 @@ export const useStomp = (
       },
       reconnectDelay: 5000,
       debug: (str) => {
-        console.log(str);
+        console.log('연결', str);
       },
       onConnect: () => {
         console.log('Websocket 연결');
@@ -60,9 +63,7 @@ export const useStomp = (
           }
         }
       },
-      {
-        Authorization: `Bearer ${accessToken}`,
-      },
+      stompHeaders,
     );
     console.log('socket 구독');
   };
@@ -75,7 +76,11 @@ export const useStomp = (
 
   const sendMessage = (destination: string, content: ChatMessageRequest) => {
     if (client && client.connected) {
-      client.publish({ destination, body: JSON.stringify(content) });
+      client.publish({
+        destination,
+        headers: stompHeaders,
+        body: JSON.stringify(content),
+      });
       console.log('메세지 전송');
     } else {
       console.error('WebSocket 연결 애러');

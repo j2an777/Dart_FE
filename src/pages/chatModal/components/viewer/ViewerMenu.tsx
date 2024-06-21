@@ -1,12 +1,15 @@
 import Member from './Member';
+import { useGetMembers } from '../../hooks/useGetMembers';
 import * as S from './styles';
 
-const ViewerMenu = () => {
+const ViewerMenu = ({ chatRoomId }: { chatRoomId: number }) => {
+  const { data: members } = useGetMembers(chatRoomId);
   return (
     <S.Container>
-      {Array.from({ length: 20 }).map((_, index) => (
-        <Member key={index} name={`user ${index}`} profileImage={'defaultImage'} />
-      ))}
+      {members &&
+        members.map((member: string, index: number) => (
+          <Member key={index} name={member} profileImage={'profileImage'} />
+        ))}
     </S.Container>
   );
 };

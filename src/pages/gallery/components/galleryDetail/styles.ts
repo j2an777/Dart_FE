@@ -24,7 +24,7 @@ export const Container = styled.div<{ frameBg?: string }>`
   justify-content: center;
   align-items: center;
   border-radius: 10px;
-  z-index: 10;
+  z-index: 20;
   overflow: hidden;
 
   &::before {
@@ -36,10 +36,20 @@ export const Container = styled.div<{ frameBg?: string }>`
     height: 100%;
     background-image: url(${props => props.frameBg});
     background-size: cover;
+    background-repeat: no-repeat;
     background-position: center;
-    filter: blur(20px);
-    z-index: -1;
+    filter : blur(8px);
   }
+`;
+
+export const Overlay = styled.div`
+  position : absolute;
+  top : 0;
+  left : 0;
+  right : 0;
+  bottom : 0;
+  background-color: rgba(255, 255, 255, 0.44);
+  z-index: 21;
 `;
 
 export const Frame = styled(motion.div)`
@@ -48,14 +58,15 @@ export const Frame = styled(motion.div)`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 16px;
-  z-index : 12;
+  padding: 24px;
+  z-index : 21;
 
   img {
     width: 100%;
-    height: 100%;
+    height: auto;
     object-fit: contain;
-    border-radius: 0;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    border-radius: 20px;
   }
 `;
 
@@ -68,7 +79,7 @@ export const DetailContent = styled.div`
   padding: 20px;
   box-sizing: border-box;
   gap: 20px;
-  z-index : 12;
+  z-index : 22;
 
   p {
     width: 100%;

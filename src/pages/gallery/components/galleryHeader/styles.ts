@@ -4,12 +4,16 @@ import styled from "@emotion/styled";
 
 
 export const HeaderContainer = styled.div`
+    position : fixed;
+    top : 50px;
     width : 100%;
     height : 100px;
     display : flex;
     flex-direction : column;
     justify-content : center;
     gap : 10px;
+    padding : 0 50px;
+    z-index: 11;
 `;
 
 export const MenuBlock = styled.div`
