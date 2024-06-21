@@ -1,5 +1,6 @@
-import { getNewToken, putMemberEditInfo } from '@/apis/member';
+import { putMemberEditInfo } from '@/apis/member';
 import { memberStore } from '@/stores/member';
+import { EditFormData, LoginResponse } from '@/types/member';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 const usePutMember = () => {
@@ -7,13 +8,9 @@ const usePutMember = () => {
   const setMember = memberStore((state) => state.setMember);
   return useMutation({
     mutationKey: ['edit'],
-    mutationFn: async (formData: FormData) => putMemberEditInfo(formData),
-    onSuccess: async () => {
-      const response = await getNewToken();
-      const { accessToken } = response.data;
-      setMember(accessToken);
-    },
-    onSettled: () => {
+    mutationFn: async (formData: EditFormData) => putMemberEditInfo(formData),
+    onSuccess: (data: LoginResponse) => {
+      setMember(data);
       queryClient.invalidateQueries({
         queryKey: ['edit'],
       });

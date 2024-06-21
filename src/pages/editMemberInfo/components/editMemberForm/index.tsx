@@ -1,16 +1,16 @@
-import { useForm } from 'react-hook-form';
-import { Text, UserCircle } from '@/components';
-import { EditFormData } from '@/types/member';
-import { alertStore } from '@/stores/modal';
-import { useQuery } from '@tanstack/react-query';
-import { getMemberInfo, postCheckNickname } from '@/apis/member';
-import { memberStore } from '@/stores/member';
-import BasicProfile from '@/assets/images/defaultUser.png';
-import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useForm } from 'react-hook-form';
+import { alertStore } from '@/stores/modal';
+import { useState, useEffect } from 'react';
+import { EditFormData } from '@/types/member';
+import { memberStore } from '@/stores/member';
+import { Text, UserCircle } from '@/components';
+import { useQuery } from '@tanstack/react-query';
+import usePutMember from '../../hooks/usePutMember';
+import BasicProfile from '@/assets/images/defaultUser.png';
+import { getMemberInfo, postCheckNickname } from '@/apis/member';
 
 import * as S from './styles';
-import usePutMember from '../../hooks/usePutMember';
 
 const EditMemberForm = () => {
   const open = alertStore((state) => state.open);
@@ -47,26 +47,7 @@ const EditMemberForm = () => {
     mode: 'onChange',
   });
 
-  const onSubmit = async (data: EditFormData) => {
-    const formData = new FormData();
-    const jsonData = {
-      nickname: data.nickname || '',
-      introduce: data.introduce || '',
-    };
-
-    const json = JSON.stringify(jsonData);
-    const blob = new Blob([json], { type: 'application/json' });
-    formData.append('memberUpdateDto', blob);
-
-    if (data.profileImage) {
-      formData.append('profileImage', data.profileImage);
-    }
-
-    // 콘솔 로그로 FormData 객체 확인
-    for (const pair of formData.entries()) {
-      console.log(pair[0], pair[1]);
-    }
-
+  const onSubmit = async (formData: EditFormData) => {
     try {
       mutate(formData);
       open({
@@ -117,8 +98,12 @@ const EditMemberForm = () => {
     const file = e.target.files?.[0];
     if (file) {
       const reader = new FileReader();
-      reader.onload = () => {
-        setProfileImageSrc(reader.result as string);
+      reader.onload = (event) => {
+        if (reader.readyState === 2 && event.target) {
+          const imageUrl = event.target.result;
+          setProfileImageSrc(imageUrl as string);
+        }
+
         setValue('profileImage', file);
       };
       reader.readAsDataURL(file);
@@ -134,76 +119,74 @@ const EditMemberForm = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <S.Container>
-        <S.ProfileBlock>
-          <S.ProfileLeft>
-            <UserCircle profileImage={profileImageSrc} size={150} />
-            <S.ProfilePlus htmlFor="avatar-upload">
-              +
-              <S.ProfilePlusBtn
-                {...register('profileImage')}
-                type="file"
-                id="avatar-upload"
-                accept="image/*"
-                onChange={handleImageChange}
-              />
-            </S.ProfilePlus>
-          </S.ProfileLeft>
-          <S.ProfileRight>
-            <Text typography="t5" bold="regular">
-              아이디
-            </Text>
-            <Text typography="t5" bold="medium">
-              {editData?.email}
-            </Text>
-            <Text typography="t5" bold="regular">
-              나이
-            </Text>
-            <Text typography="t5" bold="medium">
-              {birthday}
-            </Text>
-          </S.ProfileRight>
-        </S.ProfileBlock>
-        <S.EditBlock>
-          <S.NicknameBox>
-            <Text typography="t5" bold="regular">
-              닉네임
-            </Text>
-            <S.Input
-              {...register('nickname')}
-              type="text"
-              placeholder="닉네임 입력"
-              defaultValue={editData?.nickname}
+    <S.Container onSubmit={handleSubmit(onSubmit)}>
+      <S.ProfileBlock>
+        <S.ProfileLeft>
+          <UserCircle profileImage={profileImageSrc} size={150} />
+          <S.ProfilePlus htmlFor="avatar-upload">
+            +
+            <S.ProfilePlusBtn
+              {...register('profileImage')}
+              type="file"
+              id="avatar-upload"
+              accept="image/*"
+              onChange={handleImageChange}
             />
-            <S.CheckBtn type="button" onClick={onHandleCheck}>
-              중복 확인
-            </S.CheckBtn>
-            {nicknameError && (
-              <S.Error nicknameError={nicknameError}>{nicknameError}</S.Error>
-            )}
-          </S.NicknameBox>
+          </S.ProfilePlus>
+        </S.ProfileLeft>
+        <S.ProfileRight>
+          <Text typography="t5" bold="regular">
+            아이디
+          </Text>
+          <Text typography="t5" bold="medium">
+            {editData?.email}
+          </Text>
+          <Text typography="t5" bold="regular">
+            나이
+          </Text>
+          <Text typography="t5" bold="medium">
+            {birthday}
+          </Text>
+        </S.ProfileRight>
+      </S.ProfileBlock>
+      <S.EditBlock>
+        <S.NicknameBox>
+          <Text typography="t5" bold="regular">
+            닉네임
+          </Text>
+          <S.Input
+            {...register('nickname')}
+            type="text"
+            placeholder="닉네임 입력"
+            defaultValue={editData?.nickname}
+          />
+          <S.CheckBtn type="button" onClick={onHandleCheck}>
+            중복 확인
+          </S.CheckBtn>
+          {nicknameError && (
+            <S.Error nicknameError={nicknameError}>{nicknameError}</S.Error>
+          )}
+        </S.NicknameBox>
 
-          <S.IntroduceBox>
-            <Text typography="t5" bold="regular">
-              자기소개
-            </Text>
-            <S.Textarea
-              {...register('introduce')}
-              placeholder="자기소개 입력"
-              defaultValue={editData?.introduce}
-            />
-          </S.IntroduceBox>
+        <S.IntroduceBox>
+          <Text typography="t5" bold="regular">
+            자기소개
+          </Text>
+          <S.Textarea
+            {...register('introduce')}
+            placeholder="자기소개 입력"
+            defaultValue={editData?.introduce}
+          />
+        </S.IntroduceBox>
 
-          <S.ButtonContainer>
-            <S.CancelBtn type="button" onClick={onHandleReset}>
-              취소
-            </S.CancelBtn>
-            <S.StoreBtn type="submit">변경사항 저장</S.StoreBtn>
-          </S.ButtonContainer>
-        </S.EditBlock>
-      </S.Container>
-    </form>
+        <S.ButtonContainer>
+          <S.CancelBtn type="button" onClick={onHandleReset}>
+            취소
+          </S.CancelBtn>
+          <S.StoreBtn type="submit">변경사항 저장</S.StoreBtn>
+        </S.ButtonContainer>
+      </S.EditBlock>
+    </S.Container>
   );
 };
 

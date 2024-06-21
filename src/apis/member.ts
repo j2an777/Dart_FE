@@ -1,8 +1,9 @@
 import {
+  EditFormData,
   EmailVerify,
   LoginFormData,
+  LoginResponse,
   Member,
-  PutFormData,
   SignupFormData,
 } from '@/types/member';
 import instance from './instance';
@@ -30,40 +31,39 @@ export const postCheckNickname = async (formData: { nickname: string }) => {
 
 export const postLogin = async (formData: LoginFormData) => {
   const response = await instance.post(`/login`, formData);
-  return response?.data as { accessToken: string };
+  return response?.data as LoginResponse;
 };
 
 export const getMemberInfo = async (nickname?: string) => {
-  const response = await instance.get(`/members?nickname=${nickname}`);
+  const response = await instance.get(`/members`, {
+    params: {
+      nickname,
+    },
+  });
   return response?.data as Member;
 };
 
-export const putMemberEditInfo = async (formData: PutFormData) => {
-  // FormData의 내용을 출력
-  for (const [key, value] of formData.entries()) {
-    if (key === 'profileImage' && value instanceof File) {
-      console.log(`Key: ${key}, Filename: ${value.name}, Filetype: ${value.type}`);
-    } else if (key === 'memberUpdateDto' && value instanceof Blob) {
-      // Blob을 JSON 문자열로 변환하여 출력
-      value.text().then((text) => {
-        console.log(`Key: ${key}, Value: ${text}`);
-      });
-    } else {
-      console.log(`Key: ${key}, Value: ${value}`);
-    }
-  }
+export const putMemberEditInfo = async (formData: EditFormData) => {
+  const { introduce, profileImage, nickname } = formData;
+  const data = new FormData();
+  const member = {
+    nickname,
+    introduce,
+  };
 
-  try {
-    const response = await instance.put(`/members`, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
-    return response?.data;
-  } catch (error) {
-    console.log('Error: ', error);
-    throw error;
-  }
+  if (profileImage) data.append('profileImage', profileImage);
+
+  data.append(
+    'memberUpdateDto',
+    new Blob([JSON.stringify(member)], { type: 'application/json' }),
+  );
+
+  const response = await instance.post(`/members`, data, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+  return response.data;
 };
 
 export const getMypage = async (nickname: string, page: number, size: number) => {
