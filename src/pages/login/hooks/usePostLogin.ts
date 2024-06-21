@@ -13,8 +13,8 @@ const usePostLogin = () => {
   const navigate = useCustomNavigate();
   return useMutation({
     mutationFn: (formData: LoginFormData) => postLogin(formData),
-    onSuccess: ({ accessToken }) => {
-      setMember(accessToken);
+    onSuccess: (data) => {
+      setMember(data);
       navigate(-1);
     },
     onError: (error: AxiosError<AxoisErrorResponse>) => {

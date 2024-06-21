@@ -16,7 +16,7 @@ const PriorityCoupon = () => {
           <Timer
             type="coupon"
             time={getRemainingTime({
-              endDate: new Date('2024-06-20T15:00:00Z'),
+              endDate: new Date('2024-06-23T15:00:00Z'),
             })}
           />
         </S.TimerBlock>

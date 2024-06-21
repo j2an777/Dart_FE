@@ -7,12 +7,17 @@ import {
   sortButtonInfo,
 } from '@/consts/filter';
 import { filterStore } from '@/stores/filter';
+import { pageStore } from '@/stores/page';
 
 import * as S from './styles';
+import { useEffect } from 'react';
 
 const Filter = () => {
-  const { filterValue, onChange, onNestingChange } = filterStore();
-
+  const { filterValue, costArray, onChange, onNestingChange } = filterStore();
+  const resetPageInfo = pageStore((state) => state.resetPageInfo);
+  useEffect(() => {
+    resetPageInfo();
+  }, [filterValue, costArray]);
   return (
     <S.Container>
       <S.TitleBox>

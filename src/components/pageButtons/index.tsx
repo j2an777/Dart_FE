@@ -21,7 +21,6 @@ const PageButtons = ({
     prevPage,
     resetPageInfo,
   } = pageStore();
-
   useEffect(() => {
     return () => {
       resetPageInfo();
