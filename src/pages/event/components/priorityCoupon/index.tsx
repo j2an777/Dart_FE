@@ -1,5 +1,7 @@
 import { Icon, Text } from '@/components';
 import * as S from './styles';
+import { Timer } from '@/pages/signup/components';
+import getRemainingTime from '@/utils/getRemainingTime';
 
 const PriorityCoupon = () => {
   return (
@@ -11,9 +13,12 @@ const PriorityCoupon = () => {
         <Text typography="t6">모든 전시 20% 할인 쿠폰</Text>
         <S.TimerBlock>
           <Icon value="watch" size={15} color="red" />
-          <Text typography="t7" color="red" bold="bold">
-            23시간 : 05분 : 42초
-          </Text>
+          <Timer
+            type="coupon"
+            time={getRemainingTime({
+              endDate: new Date('2024-06-20T15:00:00Z'),
+            })}
+          />
         </S.TimerBlock>
         <S.IssueButton size="smMd" bold="bold">
           발급 받기{' '}

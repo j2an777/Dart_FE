@@ -1,15 +1,24 @@
 import { Text } from '@/components';
-import { PriorityCoupon, PriorityList } from '..';
+import { CouponList, PriorityList } from '..';
 
 import * as S from './styles';
 
 const CouponIssue = () => {
   return (
     <S.Container>
-      <Text typography="t4" bold="bold">
-        실시간 이벤트
-      </Text>
-      <PriorityList />
+      <S.PriorityBox>
+        <Text typography="t4" bold="bold">
+          실시간 이벤트
+        </Text>
+        <PriorityList />
+        <S.Line />
+      </S.PriorityBox>
+      <S.CouponBox>
+        <Text typography="t4" bold="bold">
+          발급 가능한 쿠폰
+        </Text>
+        <CouponList />
+      </S.CouponBox>
     </S.Container>
   );
 };

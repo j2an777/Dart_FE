@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { CouponIssue } from './components';
+import { CouponIssue, CouponList } from './components';
 
 import * as S from './styles';
 
@@ -30,7 +30,7 @@ const EventPage = () => {
           </S.InfoButton>
         ))}
       </S.InfoBox>
-      <CouponIssue />
+      {info === 'issue' ? <CouponIssue /> : <CouponList />}
     </S.Container>
   );
 };

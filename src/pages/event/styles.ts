@@ -9,7 +9,7 @@ export const Container = styled.div`
   width: 100vw;
   height: calc(100vh - 80px);
   padding: 60px 80px;
-  gap: 75px;
+  gap: 50px;
 `;
 
 export const InfoBox = styled.div`

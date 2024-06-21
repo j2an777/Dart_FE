@@ -4,7 +4,7 @@ import { colors } from '@/styles/colorPalette';
 import { LayoutMap } from '@/styles/layout';
 
 export const Container = styled.div`
-  position: absolute;
+  position: fixed;
   left: 95%;
   top: 80%;
   z-index: 3;
@@ -26,6 +26,8 @@ export const ExclamationIcon = styled(Icon)`
 `;
 
 export const ModalContainer = styled.div`
+  display: flex;
+  flex-direction: column;
   position: absolute;
   width: 300px;
   height: 500px;
@@ -40,8 +42,6 @@ export const Outline = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  width: 100%;
-  height: 100%;
   border-radius: 10px;
   border: 1px solid ${colors.black};
 `;
@@ -57,6 +57,7 @@ export const NotificationBox = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+  height: 100%;
   padding: 20px 10px;
   gap: 30px;
   border-top: 1px solid ${colors.black};
@@ -65,10 +66,8 @@ export const NotificationBox = styled.div`
 export const Notifications = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
   gap: 20px;
-  overflow: scroll;
-  overflow-x: hidden;
+  overflow: hidden;
 `;
 
 export const NotificationItem = styled.div`
