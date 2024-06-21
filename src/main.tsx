@@ -8,6 +8,7 @@ import {
   AlertPortal,
   ChatPortal,
   GalleryInfoPortal,
+  GalleryDetailPortal,
   NotificationPortal,
 } from './components';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -35,6 +36,7 @@ enableMocking().then(() =>
           <GalleryInfoPortal />
           <ChatPortal />
           <AlertPortal />
+          <GalleryDetailPortal />
           <NotificationPortal />
           <App />
         </BrowserRouter>

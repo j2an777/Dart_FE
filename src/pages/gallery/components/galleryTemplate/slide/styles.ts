@@ -1,8 +1,9 @@
 import styled from "@emotion/styled";
 
 export const Container = styled.div`
-  margin: 0;
+  margin: 80px 0 0 0;
   padding: 0;
+  width : 100%;
 
   .gallerySwiper {
     width: 100%;
@@ -15,18 +16,18 @@ export const Container = styled.div`
 
   .swiperSlide {
     position: relative;
-    width: 500px;
-    height: 500px;
+    width: 400px;
+    height: 400px;
     transition: opacity 0.5s;
 
     &:not(.swiper-slide-active) {
       filter: blur(5px);
+      pointer-events: none;
     }
 
     img {
       width: 100%;
       object-fit: contain;
-      -webkit-box-reflect: below 1px linear-gradient(transparent, transparent, #0006);
     }
   }
 `;
@@ -60,7 +61,6 @@ export const ContentBox = styled.div<{ isFront: boolean }>`
       props.isFront &&
       `
       opacity: 1;
-      transform: scale(1.1);
 
       * {
         transform: translateY(0px);
@@ -70,6 +70,12 @@ export const ContentBox = styled.div<{ isFront: boolean }>`
 
   p {
     word-break: break-word;
+  }
+
+  .description {
+    white-space: normal;
+    word-break: break-word;
+    text-align: center;
   }
 `;
 
@@ -82,7 +88,7 @@ export const BtnBlock = styled.div`
     justify-content : space-between;
     gap: 20px;
     padding : 0 300px;
-    z-index : 11;
+    z-index : 9;
 `;
 
 export const Btn = styled.button`

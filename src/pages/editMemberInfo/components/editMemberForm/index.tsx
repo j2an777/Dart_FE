@@ -3,7 +3,7 @@ import { Text, UserCircle } from '@/components';
 import { EditFormData } from '@/types/member';
 import { alertStore } from '@/stores/modal';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { getMemberInfo, postCheckNickname, putMemberEditInfo } from '@/apis/member';
+import { getMemberInfo, postCheckNickname, putMemberEditInfo, getNewToken } from '@/apis/member';
 import { memberStore } from '@/stores/member';
 import BasicProfile from '@/assets/images/defaultUser.png';
 import { useState, useEffect } from 'react';
@@ -72,16 +72,11 @@ const EditMemberForm = () => {
       formData.append('profileImage', data.profileImage);
     }
 
-    // 콘솔 로그로 FormData 객체 확인
-    for (const pair of formData.entries()) {
-      console.log(pair[0], pair[1]);
-    }
-
     try {
-      await mutation.mutateAsync(formData).then(() => {
-        if (data.nickname) {
-          setMember(data.nickname);
-        }
+      await mutation.mutateAsync(formData).then(async () => {
+        const newToken = await getNewToken();
+        setMember(newToken);
+
         open({
           title: '수정 완료',
           description: '수정이 완료되었습니다.',

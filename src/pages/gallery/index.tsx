@@ -5,43 +5,37 @@ import { useParams } from 'react-router-dom';
 import { getGallery } from '@/apis/gallery';
 import { useQuery } from '@tanstack/react-query';
 import SelectTemplate from './hooks/selectTemplate';
-import { useEffect, useState } from 'react';
+import useCustomNavigate from '@/hooks/useCustomNavigate';
 
 const GalleryPage = () => {
   const { galleryId: galleryIdStr } = useParams<{ galleryId?: string }>();
   const galleryId = galleryIdStr ? parseInt(galleryIdStr, 10) : NaN;
-  const template = 'one';
-  const [loading, setLoading] = useState(true);
+  const navigate = useCustomNavigate();
 
-  const { data: galleryData, error } = useQuery({
+  const { data: galleryData, error, isLoading } = useQuery({
     queryKey: ['galleryData'],
     queryFn: () => getGallery(galleryId),
   });
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 3000); // 3초 동안 로고 로더 표시
-
-    return () => clearTimeout(timer);
-  }, []);
 
   if (error) {
     return <div>Error loading gallery data</div>;
   }
 
-  if (loading) {
+  if(isLoading) {
     return <LogoLoader />;
   }
 
+  if (galleryData.hasTicket === false) {
+    navigate('/');
+    return null;
+  }
+
+  const expand = galleryData && galleryData.template === "four" ? galleryData.images.length : 0;
+  
   return (
-    <S.Container>
-      <GalleryHeader
-        galleryId={galleryId}
-        galleryNick={galleryData.nickname}
-        chatRoomId={galleryData.chatRoomId}
-      />
-      <SelectTemplate template={template} galleryData={galleryData} />
+    <S.Container expand={expand}>
+      <GalleryHeader galleryId={galleryId} galleryNick={galleryData.nickname}/>
+      <SelectTemplate template={galleryData.template} galleryData={galleryData} />
     </S.Container>
   );
 };

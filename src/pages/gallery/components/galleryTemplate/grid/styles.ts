@@ -4,6 +4,7 @@ export const Container = styled.div`
     width : 100vw;
     height : 100vh;
     overflow : auto;
+    margin: 80px 0 0 0;
 
     scrollbar-width: none;  // Firefox
     -ms-overflow-style: none;  // IE and Edge
@@ -89,8 +90,14 @@ export const ContentBox = styled.div`
       }
     }
 
-    p {
+    .p {
       word-break: break-word;
+    }
+
+    .description {
+      white-space: normal;
+      word-break: break-word;
+      text-align: center;
     }
 `;
 
@@ -107,10 +114,4 @@ export const BtnBlock = styled.div`
 
 export const Btn = styled.button`
     cursor: pointer;
-`;
-
-export const Title = styled.div`
-    position : absolute;
-    top : 180px;
-    left : 50px;
 `;

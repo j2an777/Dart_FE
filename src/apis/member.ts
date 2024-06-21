@@ -1,10 +1,4 @@
-import {
-  EmailVerify,
-  LoginFormData,
-  Member,
-  PutFormData,
-  SignupFormData,
-} from '@/types/member';
+import { EmailVerify, LoginFormData, Member, SignupFormData } from '@/types/member';
 import instance from './instance';
 import { GalleriesData } from '@/types/gallery';
 
@@ -38,21 +32,8 @@ export const getMemberInfo = async (nickname?: string) => {
   return response?.data as Member;
 };
 
-export const putMemberEditInfo = async (formData: PutFormData) => {
-  // FormData의 내용을 출력
-  for (const [key, value] of formData.entries()) {
-    if (key === 'profileImage' && value instanceof File) {
-      console.log(`Key: ${key}, Filename: ${value.name}, Filetype: ${value.type}`);
-    } else if (key === 'memberUpdateDto' && value instanceof Blob) {
-      // Blob을 JSON 문자열로 변환하여 출력
-      value.text().then((text) => {
-        console.log(`Key: ${key}, Value: ${text}`);
-      });
-    } else {
-      console.log(`Key: ${key}, Value: ${value}`);
-    }
-  }
-
+export const putMemberEditInfo = async (formData: FormData) => {
+  
   try {
     const response = await instance.put(`/members`, formData, {
       headers: {

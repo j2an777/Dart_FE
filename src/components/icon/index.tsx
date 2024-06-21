@@ -35,6 +35,10 @@ export type IconValues =
   | 'ticket'
   | 'step_one'
   | 'step_two'
+  | 'leftArrow'
+  | 'rightArrow'
+  | 'upArrow'
+  | 'downArrow';
   | 'step_three'
   | 'left'
   | 'alarm'
@@ -55,21 +59,22 @@ interface IconProps {
   color?: Colors;
   strokeColor?: Colors;
   fillColor?: Colors;
-  swing?: number;
 }
 
-const Icon = forwardRef<HTMLDivElement, IconProps>(
-  (
-    { value, $active = true, color = 'black', strokeColor, fillColor, swing, ...props },
-    ref,
-  ) => {
-    return (
-      <S.Container ref={ref} $active={$active} {...props} swing={swing}>
-        {renderIcon(value, color, strokeColor, fillColor)}
-      </S.Container>
-    );
-  },
-);
+const Icon = ({
+  value,
+  $active = true,
+  color = 'black',
+  strokeColor,
+  fillColor,
+  ...props
+}: IconProps) => {
+  return (
+    <S.Container value={value} $active={$active} {...props}>
+      {renderIcon(value, color, strokeColor, fillColor)}
+    </S.Container>
+  );
+};
 
 const renderIcon = (
   value: IconValues,
@@ -483,7 +488,7 @@ const renderIcon = (
           />
         </svg>
       );
-    case 'left':
+    case 'leftArrow':
       return (
         <svg
           width="200"
@@ -760,6 +765,38 @@ const renderIcon = (
           <path d="M812.492 178.47H868.242V178.06H812.492V178.47Z" fill="black" />
           <path d="M812.492 132.88H868.242V132.56H812.492V132.88Z" fill="black" />
           <path d="M352.492 1.70996V294.04" stroke="black" strokeMiterlimit="10" />
+        </svg>
+      );
+    case 'downArrow':
+      return (
+        <svg width="300" height="200" viewBox="0 0 300 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g clip-path="url(#clip0_709_17)">
+            <path d="M280 66.6667L150 160L20 66.6667" stroke="white" strokeWidth="13.3333" strokeLinecap="square"/>
+          </g>
+          <defs>
+          <clipPath id="clip0_709_17">
+          <rect width="200" height="300" fill="white" transform="matrix(0 -1 1 0 0 200)"/>
+          </clipPath>
+          </defs>
+        </svg>
+      );
+    case 'upArrow':
+      return (
+        <svg width="300" height="200" viewBox="0 0 300 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g clip-path="url(#clip0_709_17)">
+        <path d="M280 133.333L150 40L20 133.333" stroke="white" strokeWidth="13.3333" strokeLinecap="square"/>
+        </g>
+        <defs>
+        <clipPath id="clip0_709_17">
+        <rect width="200" height="300" fill="white" transform="matrix(0 1 1 0 0 0)"/>
+        </clipPath>
+        </defs>
+        </svg>
+      );
+    case 'rightArrow':
+      return (
+        <svg width="200" height="300" viewBox="0 0 200 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M66.6667 20L160 150L66.6667 280" stroke="white" strokeWidth="13.3333" strokeLinecap="square"/>
         </svg>
       );
   }

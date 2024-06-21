@@ -1,19 +1,20 @@
 import * as S from './styles';
 import { useEffect, useState } from 'react';
-import GalleryDetail from '../../galleryDetail';
-import { Icon, Text } from '@/components';
+import { CircleLoader, GalleryDetailPortal, Icon, Text } from '@/components'; // LogoLoader 추가
 import { GalleryDataProps, GalleryImages } from '@/types/gallery';
+import { galleryDetailStore } from '@/stores/modal';
+import useImagesLoaded from '@/pages/gallery/hooks/useImagesLoaded';
 
 const GalleryRotate = ({ galleryData }: GalleryDataProps) => {
   const [state, setState] = useState({
     degrees: 0,
     frontIndex: 0,
-    popUp: false,
-    selectedData: null as GalleryImages | null,
     transZ: 400,
     size: 250,
     dataDegree: 0,
   });
+
+  const { open } = galleryDetailStore();
 
   useEffect(() => {
     if (galleryData) {
@@ -38,6 +39,9 @@ const GalleryRotate = ({ galleryData }: GalleryDataProps) => {
     }
   }, [galleryData]);
 
+  const imageSources = galleryData ? galleryData.images.map(img => img.image) : [];
+  const isLoaded = useImagesLoaded(imageSources);
+ 
   useEffect(() => {
     const handleContextMenu = (e: MouseEvent) => {
       e.preventDefault();
@@ -72,13 +76,9 @@ const GalleryRotate = ({ galleryData }: GalleryDataProps) => {
     });
   };
 
-  const onHandlePopup = (imageData: GalleryImages | null) => {
-    setState((prevState) => ({
-      ...prevState,
-      selectedData: imageData,
-      popUp: imageData !== null,
-    }));
-  };
+  if (!isLoaded) {
+    return <CircleLoader />;
+  }
 
   return (
     <S.Container>
@@ -90,16 +90,11 @@ const GalleryRotate = ({ galleryData }: GalleryDataProps) => {
             isFront={index === state.frontIndex}
             dataDegree={state.dataDegree}
             transZ={state.transZ}
-            onClick={() => onHandlePopup(gallery)}
-          >
+            onClick={() => open(gallery)}>
             <img src={gallery.image} alt={gallery.imageTitle} />
             <S.ContentBox size={state.size}>
-              <Text typography="t5" bold="semibold" color="white">
-                Gallery {index + 1}
-              </Text>
-              <Text typography="t7" bold="thin" color="white">
-                {gallery.imageTitle}
-              </Text>
+              <Text typography='t6' bold='thin' color='white'>Gallery {index+1}</Text>
+              <Text typography='t5' bold='semibold' color='white' className='description'>{gallery.imageTitle}</Text>
             </S.ContentBox>
           </S.ImageBox>
         ))}
@@ -109,20 +104,11 @@ const GalleryRotate = ({ galleryData }: GalleryDataProps) => {
       </S.MainBlock>
       {galleryData.images.length > 1 && (
         <S.BtnBlock>
-          <S.Btn className="previous" onClick={() => onHandleChange('previous')}>
-            <Icon value="left" size={50} color="white" />
-          </S.Btn>
-          <S.Btn className="next" onClick={() => onHandleChange('next')}>
-            <Icon value="left" size={50} $rotate={true} color="white" />
-          </S.Btn>
+          <S.Btn className='previous' onClick={() => onHandleChange('previous')}><Icon value='leftArrow' size={50} color='white'/></S.Btn>
+          <S.Btn className='next' onClick={() => onHandleChange('next')}><Icon value='rightArrow' size={50} color='white'/></S.Btn>
         </S.BtnBlock>
       )}
-      {state.popUp && (
-        <GalleryDetail
-          imageData={state.selectedData}
-          onClose={() => onHandlePopup(null)}
-        />
-      )}
+      <GalleryDetailPortal />
     </S.Container>
   );
 };

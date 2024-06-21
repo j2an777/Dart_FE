@@ -13,7 +13,6 @@ export const Container = styled.div<IconContainerProps>`
   svg {
     width: 100%;
     height: 100%;
-    transform: rotate(${({ swing }) => (swing ? `${swing}deg` : `0deg`)});
   }
   ${({ $rotate }) =>
     $rotate

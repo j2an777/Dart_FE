@@ -20,6 +20,7 @@ export { default as ChatPortal } from './ChatPortal';
 export { default as AlertPortal } from './AlertPortal';
 export { default as GalleryInfoPortal } from './GalleryInfoPortal';
 export { default as SignupCheckPortal } from './SignupCheckPortal';
+export { default as GalleryDetailPortal } from './GalleryDetailPortal';
 export { default as NotificationPortal } from './NotificationPortal';
 export { default as Skeleton } from './Skeleton';
 export { default as withSuspenseNErrorBoundary } from '../hooks/withSuspenseNErrorBoundary';
