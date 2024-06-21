@@ -2,7 +2,7 @@ import instance from './instance';
 
 // 채팅 메시지 전체 조회
 export const getChatMessage = async (chatRoomId: number) => {
-  const response = await instance.get(`/${chatRoomId}/chatmessages`);
+  const response = await instance.get(`/${chatRoomId}/chat-messages`);
   return response?.data;
 };
 

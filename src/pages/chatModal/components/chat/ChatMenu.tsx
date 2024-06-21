@@ -1,16 +1,28 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import Icon from '@/components/icon';
 import Message from './Message';
-import { ChatMessageRequest, ChatMessageResponse } from '@/types/chat';
+import { ChatMessageResponse } from '@/types/chat';
 import { useGetMessages } from '../../hooks/useGetMessages';
 import { memberStore } from '@/stores/member';
 import * as S from './styles';
-import useWebSocket from '../../hooks/useWebSocket';
+import useStomp from '../../hooks/useStomp';
 
 const ChatMenu = ({ chatRoomId }: { chatRoomId: number }) => {
-  const { nickname } = memberStore((state) => state.auth);
   const [messages, setMessages] = useState<ChatMessageResponse[]>([]);
   const [newMessage, setNewMessage] = useState<string>('');
+  const { accessToken } = memberStore.getState();
+
+  // 메세지 받는 callback 함수
+  const callback = useCallback((message: ChatMessageResponse) => {
+    const messageData = JSON.parse(message.content);
+    setMessages((prevMessages) => [...prevMessages, messageData]);
+  }, []);
+
+  const { connect, disconnect, sendMessage } = useStomp(
+    chatRoomId,
+    accessToken as string,
+    callback,
+  );
 
   // 스크롤 아래로 이동
   const ref = useRef<HTMLDivElement>(null);
@@ -20,44 +32,27 @@ const ChatMenu = ({ chatRoomId }: { chatRoomId: number }) => {
     }
   };
 
-  // 과거 채팅
-  // const { data } = useGetMessages(chatRoomId);
-  // useEffect(() => {
-  //   if (data) {
-  //     setMessages(data);
-  //   }
-  //   scrollToBottom();
-  // }, [data]);
+  // 과거 채팅 불러오기, WebSocket 연결
+  const { data } = useGetMessages(chatRoomId);
+  useEffect(() => {
+    if (data) {
+      setMessages(data);
+    }
+    scrollToBottom();
 
-  // 새로운 메시지 수신 처리
-  const handleIncomingMessage = useCallback((msg: ChatMessageResponse) => {
-    setMessages((prevMessages) => [...prevMessages, msg]);
-  }, []);
+    connect();
 
-  // WebSocket 연결
-  const stompClient = useWebSocket(chatRoomId, handleIncomingMessage);
+    // 언마운트시 연결 종료
+    return () => {
+      disconnect();
+    };
+  }, [data]);
 
   // 새로운 채팅 보내기
-  const sendMessage = () => {
-    if (stompClient && newMessage) {
-      const chatMessage: ChatMessageRequest = {
-        content: newMessage,
-      };
-      stompClient.publish({
-        destination: `/pub/ws/${chatRoomId}/chat-messages`,
-        body: JSON.stringify(chatMessage),
-      });
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        {
-          sender: nickname,
-          content: newMessage,
-          createAt: new Date(),
-        },
-      ]);
-
-      setNewMessage('');
-    }
+  const postMessage = () => {
+    const messageBody = { content: newMessage };
+    sendMessage(`/pub/ws/${chatRoomId}/chat-messages`, messageBody);
+    setNewMessage('');
   };
 
   // 메세지 추가될 때
@@ -65,7 +60,7 @@ const ChatMenu = ({ chatRoomId }: { chatRoomId: number }) => {
     scrollToBottom();
   }, [messages]);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewMessage(e.target.value);
   };
 
@@ -79,15 +74,12 @@ const ChatMenu = ({ chatRoomId }: { chatRoomId: number }) => {
             profileImage={'default'}
             content={msg.content}
           />
+          // 작가 메세지 구분 추후 추가
         ))}
       </S.ContentBox>
       <S.InputBox>
-        <S.Input
-          placeholder="채팅 입력"
-          value={newMessage}
-          onChange={handleInputChange}
-        />
-        <Icon value="send" onClick={sendMessage} />
+        <S.Input placeholder="채팅 입력" value={newMessage} onChange={onInputChange} />
+        <Icon value="send" onClick={postMessage} />
       </S.InputBox>
     </S.Container>
   );
