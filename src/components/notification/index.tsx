@@ -50,6 +50,38 @@ const NotificationModal = () => {
                 1분 전
               </Text>
             </S.NotificationItem>
+            <S.NotificationItem>
+              <Text typography="t7" bold="regular">
+                선착순 쿠폰을 뿌립니다 가져가라!
+              </Text>
+              <Text typography="t8" bold="thin" color="gray500">
+                1분 전
+              </Text>
+            </S.NotificationItem>
+            <S.NotificationItem>
+              <Text typography="t7" bold="regular">
+                선착순 쿠폰을 뿌립니다 가져가라!
+              </Text>
+              <Text typography="t8" bold="thin" color="gray500">
+                1분 전
+              </Text>
+            </S.NotificationItem>
+            <S.NotificationItem>
+              <Text typography="t7" bold="regular">
+                선착순 쿠폰을 뿌립니다 가져가라!
+              </Text>
+              <Text typography="t8" bold="thin" color="gray500">
+                1분 전
+              </Text>
+            </S.NotificationItem>
+            <S.NotificationItem>
+              <Text typography="t7" bold="regular">
+                선착순 쿠폰을 뿌립니다 가져가라!
+              </Text>
+              <Text typography="t8" bold="thin" color="gray500">
+                1분 전
+              </Text>
+            </S.NotificationItem>
           </S.Notifications>
         </S.NotificationBox>
       </S.Outline>

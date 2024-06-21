@@ -4,7 +4,7 @@ import { RegisterOptions } from 'react-hook-form';
 interface LoginFormField {
   label: string;
   value: keyof LoginFormData;
-  registerOptions: RegisterOptions;
+  registerOptions: RegisterOptions<LoginFormData>;
 }
 
 export const loginFormData: LoginFormField[] = [

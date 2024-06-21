@@ -1,4 +1,4 @@
-import { MouseEvent, forwardRef } from 'react';
+import { MouseEvent } from 'react';
 import { Colors, colors } from '@/styles/colorPalette';
 
 import * as S from './styles';
@@ -38,7 +38,7 @@ export type IconValues =
   | 'leftArrow'
   | 'rightArrow'
   | 'upArrow'
-  | 'downArrow';
+  | 'downArrow'
   | 'step_three'
   | 'left'
   | 'alarm'
@@ -48,7 +48,8 @@ export type IconValues =
   | 'template1'
   | 'template2'
   | 'template3'
-  | 'template4';
+  | 'template4'
+  | 'watch';
 
 interface IconProps {
   value: IconValues;
@@ -70,7 +71,7 @@ const Icon = ({
   ...props
 }: IconProps) => {
   return (
-    <S.Container value={value} $active={$active} {...props}>
+    <S.Container $active={$active} {...props}>
       {renderIcon(value, color, strokeColor, fillColor)}
     </S.Container>
   );
@@ -231,11 +232,11 @@ const renderIcon = (
             fillRule="evenodd"
             clipRule="evenodd"
             d="M14.2047 4.31599L28.6907 18.828C28.8211 18.9526 28.9246 19.1026 28.9948 19.2687C29.0649 19.4349 29.1003 19.6136 29.0987 19.794C29.0993 20.1662 28.9526 20.5235 28.6907 20.788C23.4507 25.9 18.4007 30.834 13.5407 35.59C13.2907 35.824 12.2907 36.406 11.5187 35.542C10.7467 34.676 11.2147 33.922 11.5187 33.61L25.6547 19.794L12.1607 6.27599C11.6687 5.59799 11.7087 4.97199 12.2807 4.39799C12.8527 3.82399 13.4947 3.79599 14.2047 4.31599Z"
-            fill="white"
+            fill={colors[color]}
           />
           <path
             d="M27.1098 21.5C27.9383 21.5 28.6098 20.8284 28.6098 20C28.6098 19.1716 27.9383 18.5 27.1098 18.5V21.5ZM2.08984 21.5H27.1098V18.5H2.08984V21.5Z"
-            fill="white"
+            fill={colors[color]}
           />
         </svg>
       );
@@ -435,16 +436,12 @@ const renderIcon = (
     case 'select':
       return (
         <svg width="14" height="7" viewBox="0 0 14 7" fill="none">
-          <g clipPath="url(#clip0_664_184)">
-            <path
-              d="M0 0H1.99511L6.9658 5.66699L6.81759 5.61914H7.15961L6.9886 5.66699L12.0163 0H14.0114L7.64984 7H6.33876L0 0Z"
-              fill="black"
-            />
-          </g>
+          <path
+            d="M0 0H1.99511L6.9658 5.66699L6.81759 5.61914H7.15961L6.9886 5.66699L12.0163 0H14.0114L7.64984 7H6.33876L0 0Z"
+            fill="black"
+          />
           <defs>
-            <clipPath id="clip0_664_184">
-              <rect width="14" height="7" fill="white" />
-            </clipPath>
+            <rect width="14" height="7" fill="white" />
           </defs>
         </svg>
       );
@@ -769,34 +766,89 @@ const renderIcon = (
       );
     case 'downArrow':
       return (
-        <svg width="300" height="200" viewBox="0 0 300 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg
+          width="300"
+          height="200"
+          viewBox="0 0 300 200"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
           <g clip-path="url(#clip0_709_17)">
-            <path d="M280 66.6667L150 160L20 66.6667" stroke="white" strokeWidth="13.3333" strokeLinecap="square"/>
+            <path
+              d="M280 66.6667L150 160L20 66.6667"
+              stroke="white"
+              strokeWidth="13.3333"
+              strokeLinecap="square"
+            />
           </g>
           <defs>
-          <clipPath id="clip0_709_17">
-          <rect width="200" height="300" fill="white" transform="matrix(0 -1 1 0 0 200)"/>
-          </clipPath>
+            <clipPath id="clip0_709_17">
+              <rect
+                width="200"
+                height="300"
+                fill="white"
+                transform="matrix(0 -1 1 0 0 200)"
+              />
+            </clipPath>
           </defs>
         </svg>
       );
     case 'upArrow':
       return (
-        <svg width="300" height="200" viewBox="0 0 300 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <g clip-path="url(#clip0_709_17)">
-        <path d="M280 133.333L150 40L20 133.333" stroke="white" strokeWidth="13.3333" strokeLinecap="square"/>
-        </g>
-        <defs>
-        <clipPath id="clip0_709_17">
-        <rect width="200" height="300" fill="white" transform="matrix(0 1 1 0 0 0)"/>
-        </clipPath>
-        </defs>
+        <svg
+          width="300"
+          height="200"
+          viewBox="0 0 300 200"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g clip-path="url(#clip0_709_17)">
+            <path
+              d="M280 133.333L150 40L20 133.333"
+              stroke="white"
+              strokeWidth="13.3333"
+              strokeLinecap="square"
+            />
+          </g>
+          <defs>
+            <clipPath id="clip0_709_17">
+              <rect
+                width="200"
+                height="300"
+                fill="white"
+                transform="matrix(0 1 1 0 0 0)"
+              />
+            </clipPath>
+          </defs>
         </svg>
       );
     case 'rightArrow':
       return (
-        <svg width="200" height="300" viewBox="0 0 200 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M66.6667 20L160 150L66.6667 280" stroke="white" strokeWidth="13.3333" strokeLinecap="square"/>
+        <svg
+          width="200"
+          height="300"
+          viewBox="0 0 200 300"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M66.6667 20L160 150L66.6667 280"
+            stroke="white"
+            strokeWidth="13.3333"
+            strokeLinecap="square"
+          />
+        </svg>
+      );
+    case 'watch':
+      return (
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path
+            d="M10 20C4.47656 20 0 15.5234 0 10C0 4.47656 4.47656 0 10 0C15.5234 0 20 4.47656 20 10C20 15.5234 15.5234 20 10 20ZM9.0625 10C9.0625 10.3125 9.21875 10.6055 9.48047 10.7461L13.2305 13.2461C13.6602 13.5664 14.2422 13.4492 14.4961 13.0195C14.8164 12.5898 14.6992 12.0078 14.2695 11.7188L10.9375 9.5V4.6875C10.9375 4.16797 10.5195 3.75 9.96484 3.75C9.48047 3.75 9.02734 4.16797 9.02734 4.6875L9.0625 10Z"
+            fill={colors[color]}
+          />
+          <defs>
+            <rect width="20" height="20" fill="white" />
+          </defs>
         </svg>
       );
   }

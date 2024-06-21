@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { NicknameNProfile, Text } from '@/components';
 import useGetReviewInfo from '../../hooks/useGetReviewInfo';
 import withSuspense from '@/hooks/withSuspense';
+import ReviewInfoFallback from '../fallback/ReviewInfoFallback';
 
 import * as S from './styles';
 
@@ -36,7 +37,7 @@ const ReviewGalleryInfo = () => {
 };
 
 const SuspenseWithReviewGalleryInfo = withSuspense(ReviewGalleryInfo, {
-  suspenseFallback: <>loading</>,
+  suspenseFallback: <ReviewInfoFallback />,
 });
 
 export default SuspenseWithReviewGalleryInfo;

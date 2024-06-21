@@ -12,7 +12,11 @@ const GalleryPage = () => {
   const galleryId = galleryIdStr ? parseInt(galleryIdStr, 10) : NaN;
   const navigate = useCustomNavigate();
 
-  const { data: galleryData, error, isLoading } = useQuery({
+  const {
+    data: galleryData,
+    error,
+    isLoading,
+  } = useQuery({
     queryKey: ['galleryData'],
     queryFn: () => getGallery(galleryId),
   });
@@ -21,20 +25,24 @@ const GalleryPage = () => {
     return <div>Error loading gallery data</div>;
   }
 
-  if(isLoading) {
+  if (isLoading) {
     return <LogoLoader />;
   }
 
   if (galleryData.hasTicket === false) {
     navigate('/');
-    return null;
   }
 
-  const expand = galleryData && galleryData.template === "four" ? galleryData.images.length : 0;
-  
+  const expand =
+    galleryData && galleryData.template === 'four' ? galleryData.images.length : 0;
+
   return (
     <S.Container expand={expand}>
-      <GalleryHeader galleryId={galleryId} galleryNick={galleryData.nickname}/>
+      <GalleryHeader
+        chatRoomId={galleryData.chatRoomId}
+        galleryId={galleryId}
+        galleryNick={galleryData.nickname}
+      />
       <SelectTemplate template={galleryData.template} galleryData={galleryData} />
     </S.Container>
   );

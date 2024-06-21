@@ -5,7 +5,7 @@ interface FormField {
   label: string;
   title?: string;
   value: keyof ExtendedSignupForm;
-  registerOptions?: RegisterOptions;
+  registerOptions?: RegisterOptions<ExtendedSignupForm>;
   checkOption?: CheckOption;
   type?: 'input' | 'textarea';
 }

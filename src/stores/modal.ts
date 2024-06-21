@@ -98,6 +98,19 @@ export const checkModalStore = create<CheckModalState>((set) => ({
     })),
 }));
 
+// 쿠폰 모달
+interface CouponState {
+  couponValue: { open: boolean };
+  open: () => void;
+  close: () => void;
+}
+
+export const couponStore = create<CouponState>((set) => ({
+  couponValue: { open: false },
+  open: () => set({ couponValue: { open: true } }),
+  close: () => set({ couponValue: { open: false } }),
+}));
+
 interface GalleryDetailState {
   galleryDetailValue: {
     open: boolean;
@@ -116,11 +129,11 @@ const defaultGalleryDetailValue = {
 export const galleryDetailStore = create<GalleryDetailState>((set) => ({
   galleryDetailValue: defaultGalleryDetailValue,
   open: (gallery: GalleryImages) =>
-      set(() => ({
-          galleryDetailValue: { open: true, gallery },
-      })),
+    set(() => ({
+      galleryDetailValue: { open: true, gallery },
+    })),
   close: () =>
-      set(() => ({
-          galleryDetailValue: defaultGalleryDetailValue,
-      })),
+    set(() => ({
+      galleryDetailValue: defaultGalleryDetailValue,
+    })),
 }));

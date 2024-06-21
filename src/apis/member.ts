@@ -1,4 +1,11 @@
-import { EmailVerify, LoginFormData, Member, SignupFormData } from '@/types/member';
+import {
+  EditFormData,
+  EmailVerify,
+  LoginFormData,
+  LoginResponse,
+  Member,
+  SignupFormData,
+} from '@/types/member';
 import instance from './instance';
 import { GalleriesData } from '@/types/gallery';
 
@@ -24,27 +31,39 @@ export const postCheckNickname = async (formData: { nickname: string }) => {
 
 export const postLogin = async (formData: LoginFormData) => {
   const response = await instance.post(`/login`, formData);
-  return response?.data as { accessToken: string };
+  return response?.data as LoginResponse;
 };
 
 export const getMemberInfo = async (nickname?: string) => {
-  const response = await instance.get(`/members?nickname=${nickname}`);
+  const response = await instance.get(`/members`, {
+    params: {
+      nickname,
+    },
+  });
   return response?.data as Member;
 };
 
-export const putMemberEditInfo = async (formData: FormData) => {
-  
-  try {
-    const response = await instance.put(`/members`, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
-    return response?.data;
-  } catch (error) {
-    console.log('Error: ', error);
-    throw error;
-  }
+export const putMemberEditInfo = async (formData: EditFormData) => {
+  const { introduce, profileImage, nickname } = formData;
+  const data = new FormData();
+  const member = {
+    nickname,
+    introduce,
+  };
+
+  if (profileImage) data.append('profileImage', profileImage);
+
+  data.append(
+    'memberUpdateDto',
+    new Blob([JSON.stringify(member)], { type: 'application/json' }),
+  );
+
+  const response = await instance.post(`/members`, data, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+  return response.data;
 };
 
 export const getMypage = async (nickname: string, page: number, size: number) => {

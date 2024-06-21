@@ -4,8 +4,7 @@ import styled from '@emotion/styled';
 export const GalleryListContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  flex: 1;
-  min-width: 700px;
+  min-width: 820px;
   grid-column-gap: 20px;
   grid-row-gap: 30px;
   place-items: flex-end;

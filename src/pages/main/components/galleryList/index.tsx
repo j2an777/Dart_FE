@@ -1,7 +1,7 @@
 import { GalleryItem } from '..';
 import { useStore } from 'zustand';
 import { NoneData } from '@/components';
-import { useLayoutEffect } from 'react';
+import { useEffect } from 'react';
 import { pageStore } from '@/stores/page';
 import { useGetGalleries } from '../../hooks';
 import GalleryListFallback from '../fallback/GalleryListFallback';
@@ -10,14 +10,11 @@ import withSuspenseNErrorBoundary from '@/hooks/withSuspenseNErrorBoundary';
 import * as S from './styles';
 
 const GalleryList = () => {
-  const {
-    pageInfo: { pageIndex },
-    setPageInfo,
-  } = useStore(pageStore);
+  const { setPageInfo } = useStore(pageStore);
   const {
     data: { pageParams, pages },
-  } = useGetGalleries(pageIndex);
-  useLayoutEffect(() => {
+  } = useGetGalleries();
+  useEffect(() => {
     setPageInfo(pageParams);
   }, [pageParams, setPageInfo]);
 

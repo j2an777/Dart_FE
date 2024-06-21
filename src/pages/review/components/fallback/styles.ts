@@ -2,7 +2,7 @@ import { colors } from '@/styles/colorPalette';
 import { LayoutMap } from '@/styles/layout';
 import styled from '@emotion/styled';
 
-export const Container = styled.div`
+export const ReviewInfoFallbackContainer = styled.div`
   ${LayoutMap.displayFlex}
   max-width: 760px;
   flex: 1;
