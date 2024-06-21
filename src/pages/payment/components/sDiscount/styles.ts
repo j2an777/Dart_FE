@@ -1,12 +1,14 @@
 import { Text } from '@/components';
 import { buttonTypeMap } from '@/styles/button';
 import { colors } from '@/styles/colorPalette';
+import { typographyMap } from '@/styles/typography';
 import styled from '@emotion/styled';
 
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+  gap: 10px;
 `;
 
 export const Box = styled.div`
@@ -21,13 +23,16 @@ export const Title = styled(Text)`
 `;
 
 export const CouponBlock = styled.div`
+  display: flex;
+  align-items: center;
   padding: 20px;
-  width: 400px;
+  width: 570px;
   color: ${colors.gray500};
-  background-color: ${colors.gray200};
+  background-color: ${colors.gray100};
+  ${typographyMap.t6}
 `;
 
 export const Button = styled.button`
   ${buttonTypeMap.rectangleBlack}
-  padding: 20px;
+  padding: 20px 40px;
 `;

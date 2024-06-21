@@ -36,7 +36,8 @@ export const Block = styled.div`
 export const Total = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 40px 20px;
+  align-items: center;
+  padding: 34px 20px;
 `;
 
 export const Button = styled.button`

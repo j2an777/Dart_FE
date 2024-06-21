@@ -1,5 +1,5 @@
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-import { StepZero, StepOne, StepTwo } from './components';
+import { StepZero, StepOne, StepTwo, StepThree } from './components';
 import { Icon } from '@/components';
 import { PostGalleries } from '@/types/post';
 import { postGalleries } from '@/apis/gallery';
@@ -40,7 +40,7 @@ const PostPage = () => {
       const galleryId = response?.galleryId;
       if (galleryId) {
         // 이용료 있을 때만 결제 진행
-        if (data.gallery.fee !== 0) {
+        if (data.gallery.generatedCost !== 0) {
           navigate(`/payment/${galleryId}/paidGallery`);
         } else {
           navigate(`/payment/success/${galleryId}/create`);
@@ -62,6 +62,7 @@ const PostPage = () => {
             <StepZero />
             <StepOne />
             <StepTwo />
+            <StepThree />
             <S.Block>
               <S.Submit type="submit">등록</S.Submit>
             </S.Block>
