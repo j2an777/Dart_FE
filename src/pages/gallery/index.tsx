@@ -10,7 +10,7 @@ const GalleryPage = () => {
 
   const { galleryId: galleryIdStr } = useParams<{ galleryId?: string }>();
   const galleryId = galleryIdStr ? parseInt(galleryIdStr, 10) : NaN;
-  const template = "four";
+  const template = "one";
 
   const { data: galleryData, error, isLoading } = useQuery({
     queryKey: ['galleryData'],

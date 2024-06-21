@@ -1,4 +1,4 @@
-import { EmailVerify, LoginFormData, Member, PutFormData, SignupFormData } from '@/types/member';
+import { EmailVerify, LoginFormData, Member, SignupFormData } from '@/types/member';
 import instance from './instance';
 import { GalleriesData } from '@/types/gallery';
 
@@ -32,7 +32,7 @@ export const getMemberInfo = async (nickname?: string) => {
   return response?.data as Member;
 };
 
-export const putMemberEditInfo = async (formData: PutFormData) => {
+export const putMemberEditInfo = async (formData: FormData) => {
   // FormData의 내용을 출력
   for (const [key, value] of formData.entries()) {
     if (key === 'profileImage' && value instanceof File) {

@@ -59,7 +59,7 @@ const EditMemberForm = () => {
     
     const json = JSON.stringify(jsonData);
     const blob = new Blob([json], { type: 'application/json' });
-    formData.append('memberUpdateDto', blob, 'memberUpdateDto'); 
+    formData.append('memberUpdateDto', blob); 
 
     if (data.profileImage) {
       formData.append('profileImage', data.profileImage);
