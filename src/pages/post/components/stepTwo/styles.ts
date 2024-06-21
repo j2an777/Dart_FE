@@ -48,6 +48,7 @@ export const Block = styled.div`
   }
 
   article {
+    position: relative;
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -64,6 +65,12 @@ export const Buttons = styled.div`
     ${buttonSizeMap.xs}
     ${buttonTypeMap.reverseRectangleGray}
   }
+`;
+
+export const Counter = styled.div`
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
 `;
 
 export const ListBox = styled.div`

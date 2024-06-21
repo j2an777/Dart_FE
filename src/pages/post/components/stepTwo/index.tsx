@@ -6,6 +6,7 @@ import DropZone from '@/components/dropZone';
 import { alertStore } from '@/stores/modal';
 import { InputBox, TextBox } from '../inputs/styles';
 import * as S from './styles';
+import { TextCounter } from '@/components';
 
 interface Item {
   image: File;
@@ -97,20 +98,29 @@ const StepTwo = () => {
         <S.BorderLine />
         <S.Block>
           <section>
-            <DropZone onFileUpload={onFileDrop} clearFiles={clearFiles} />
+            <DropZone
+              info="파일 하나당 최대 10MB 이하 업로드 가능"
+              onFileUpload={onFileDrop}
+              clearFiles={clearFiles}
+            />
           </section>
           <article>
             <InputBox
               placeholder="작품 제목을 입력해주세요."
               value={imageTitle}
+              maxLength={250}
               onChange={(e) => setTitle(e.target.value)}
             />
             <TextBox
               placeholder="작품 설명을 입력해주세요."
               height={150}
               value={description}
+              maxLength={250}
               onChange={(e) => setDescription(e.target.value)}
             />
+            <S.Counter>
+              <TextCounter textLength={description.length ?? 0} maxLength={250} />
+            </S.Counter>
           </article>
         </S.Block>
         <S.Buttons>
