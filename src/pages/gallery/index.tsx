@@ -5,12 +5,13 @@ import { useParams } from 'react-router-dom';
 import { getGallery } from '@/apis/gallery';
 import { useQuery } from '@tanstack/react-query';
 import SelectTemplate from './hooks/selectTemplate';
+import useCustomNavigate from '@/hooks/useCustomNavigate';
 
 const GalleryPage = () => {
 
   const { galleryId: galleryIdStr } = useParams<{ galleryId?: string }>();
   const galleryId = galleryIdStr ? parseInt(galleryIdStr, 10) : NaN;
-  const template = "one";
+  const navigate = useCustomNavigate();
 
   const { data: galleryData, error, isLoading } = useQuery({
     queryKey: ['galleryData'],
@@ -22,15 +23,20 @@ const GalleryPage = () => {
   }
 
   if(isLoading) {
-    return <LogoLoader/>;
+    return <LogoLoader />;
   }
 
-  const expand = galleryData && template === "four" ? galleryData.images.length : 0;
+  if (galleryData.hasTicket === false) {
+    navigate('/');
+    return null;
+  }
+
+  const expand = galleryData && galleryData.template === "four" ? galleryData.images.length : 0;
   
   return (
     <S.Container expand={expand}>
       <GalleryHeader galleryId={galleryId} galleryNick={galleryData.nickname}/>
-      <SelectTemplate template={template} galleryData={galleryData} />
+      <SelectTemplate template={galleryData.template} galleryData={galleryData} />
     </S.Container>
   )
 }
