@@ -1,15 +1,13 @@
-import { RefObject } from 'react';
 import useOutsideClick from '@/hooks/useOutsideClick';
 import { Icon, Text } from '..';
 
 import * as S from './styles';
 
 const Notification = () => {
-  const { isExpand, onToggle, ref } = useOutsideClick();
+  const { isExpand, onToggle } = useOutsideClick();
   return (
     <S.Container>
       <S.AlarmIcon
-        ref={ref as RefObject<HTMLDivElement>}
         value="alarm"
         size={45}
         $active
