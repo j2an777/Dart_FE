@@ -13,8 +13,6 @@ const GalleryItem = ({ title, startDate, endDate, thumbnail, galleryId }: Galler
   const parsedEndDate = endDate ? new Date(endDate as Date) : null;
   const hasEnded = parsedEndDate ? parsedEndDate < today : false;
 
-  const newTitle = TruncateSentece(title, 15);
-
   return (
     <S.Container onClick={() => open(galleryId, hasEnded)}>
       <S.Thumbnail src={thumbnail} alt="thumbnail-image" />
@@ -22,7 +20,7 @@ const GalleryItem = ({ title, startDate, endDate, thumbnail, galleryId }: Galler
         {parseDate(startDate)} ~ {endDate && parseDate(endDate as Date)}
       </Text>
       <Text typography="t6" bold="regular">
-        {newTitle}
+        {TruncateSentece(title, 15)}
       </Text>
       {hasEnded && <S.Overlay />}
     </S.Container>
