@@ -8,6 +8,9 @@ export type GalleryData = {
   title: string;
   hasComment: boolean;
   nickname: string;
+  hasTicket: boolean;
+  chatRoomId: number;
+  template: string;
   images: GalleryImages[];
 };
 
