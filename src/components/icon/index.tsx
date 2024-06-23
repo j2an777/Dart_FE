@@ -776,7 +776,7 @@ const renderIcon = (
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <g clip-path="url(#clip0_709_17)">
+          <g clipPath="url(#clip0_709_17)">
             <path
               d="M280 66.6667L150 160L20 66.6667"
               stroke="white"
@@ -805,7 +805,7 @@ const renderIcon = (
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <g clip-path="url(#clip0_709_17)">
+          <g clipPath="url(#clip0_709_17)">
             <path
               d="M280 133.333L150 40L20 133.333"
               stroke="white"
@@ -873,7 +873,7 @@ const renderIcon = (
       return (
         <svg width="300" height="300" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
           <rect width="300" height="300" rx="150" fill="#00C13A"/>
-          <g clip-path="url(#clip0_802_21)">
+          <g clipPath="url(#clip0_802_21)">
           <path d="M176.706 155.281L121.1 75H75V225H123.287V144.725L178.9 225H225V75H176.706V155.281Z" fill="white"/>
           </g>
           <defs>
