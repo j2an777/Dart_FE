@@ -22,6 +22,7 @@
     "@tanstack/react-query-devtools": "^5.45.1",
     "@types/sockjs-client": "^1.5.4",
     "axios": "^1.7.2",
+    "browser-image-compression": "^2.0.2",
     "framer-motion": "^11.2.10",
     "gsap": "^3.12.5",
     "react": "^18.3.1",
