@@ -31,6 +31,16 @@ const GalleryHeader = ({ galleryId, galleryNick, chatRoomId }: GalleryHeaderProp
         queryKey: ['review'],
       });
     },
+    onSuccess: () => {
+      open({
+        title: '후기 등록 완료',
+        description: '작성이 완료되었습니다!',
+        buttonLabel: '확인',
+        onClickButton: () => {
+          close();
+        },
+      })
+    }
   });
 
   const handleReviewSubmit = (data: PostReview & { score: number }) => {
