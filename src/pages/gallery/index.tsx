@@ -6,6 +6,7 @@ import { getGallery } from '@/apis/gallery';
 import { useQuery } from '@tanstack/react-query';
 import SelectTemplate from './hooks/selectTemplate';
 import useCustomNavigate from '@/hooks/useCustomNavigate';
+import { useEffect } from 'react';
 
 const GalleryPage = () => {
   const { galleryId: galleryIdStr } = useParams<{ galleryId?: string }>();
@@ -20,8 +21,15 @@ const GalleryPage = () => {
     queryKey: ['galleryData'],
     queryFn: () => getGallery(galleryId),
   });
+  console.log(galleryData);
 
-  if (error) {
+  useEffect(() => {
+    if (galleryData?.hasTicket === false) {
+      navigate('/');
+    }
+  }, []);
+
+  if (error || !galleryData) {
     return <div>Error loading gallery data</div>;
   }
 
@@ -29,12 +37,7 @@ const GalleryPage = () => {
     return <LogoLoader />;
   }
 
-  if (galleryData.hasTicket === false) {
-    navigate('/');
-  }
-
-  const expand =
-    galleryData && galleryData.template === 'four' ? galleryData.images.length : 0;
+  const expand = galleryData && galleryData.template === 'four' ? galleryData.images.length : 0;
 
   return (
     <S.Container expand={expand}>
@@ -42,6 +45,8 @@ const GalleryPage = () => {
         chatRoomId={galleryData.chatRoomId}
         galleryId={galleryId}
         galleryNick={galleryData.nickname}
+        title={galleryData.title}
+        thumbnail={galleryData.images[0].image}
       />
       <SelectTemplate template={galleryData.template} galleryData={galleryData} />
     </S.Container>
