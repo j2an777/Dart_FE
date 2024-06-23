@@ -20,7 +20,7 @@ const PostPage = () => {
       description: (
         <div>
           <S.ModalText typography="t5" bold="regular">
-            전시를 생성한 이후에는 수정 및 삭제가 불가능합니다.
+            전시를 생성한 이후에는 수정이 불가능합니다.
           </S.ModalText>
           <S.ModalText typography="t5" bold="regular">
             전시 생성을 완료 하시겠습니까?

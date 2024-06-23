@@ -51,3 +51,11 @@ export const getGalleryInfo = async (galleryId: number) => {
   const response = await instance.get(`/galleries/info?gallery-id=${galleryId}`);
   return response?.data;
 };
+
+// 전시 삭제
+export const deleteGallery = async (galleryId: number) => {
+  const response = await instance.delete(`/galleries`, {
+    data: { galleryId },
+  });
+  return response?.data;
+};
