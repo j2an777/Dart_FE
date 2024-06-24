@@ -3,6 +3,12 @@ import { Navbar } from '@/components';
 import { routes } from './routes';
 import ProtectedRoute from './routes/ProtectedRoute';
 
+declare global {
+  interface Window {
+    Kakao: any;
+  }
+}
+
 function App() {
   return (
     <Routes>

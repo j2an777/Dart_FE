@@ -62,7 +62,22 @@ export const MoreItem = styled(Text)<{ isLast: boolean }>`
 
 export const NavItem = styled(Text)`
   cursor: pointer;
-  :hover {
-    border-bottom: 2px solid ${colors.gray100};
+  position: relative;
+  transition: all 0.3s ease;
+
+  &:hover::after {
+    width: 100%;
+    left: 0;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -2px;
+    left: 50%;
+    background-color: black;
+    transition: width 0.3s ease, left 0.3s ease;
   }
 `;

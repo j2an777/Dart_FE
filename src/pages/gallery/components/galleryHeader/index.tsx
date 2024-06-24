@@ -9,19 +9,23 @@ import { postReview } from '@/apis/review';
 import useCustomNavigate from '@/hooks/useCustomNavigate';
 import { useStore } from 'zustand';
 import { memberStore } from '@/stores/member';
+import ShareModal from '../shareModal';
 
 interface GalleryHeaderProps {
   galleryId: number;
   galleryNick: string;
   chatRoomId: number;
+  title: string;
+  thumbnail: string;
 }
 
-const GalleryHeader = ({ galleryId, galleryNick, chatRoomId }: GalleryHeaderProps) => {
+const GalleryHeader = ({ galleryId, galleryNick, chatRoomId, title, thumbnail }: GalleryHeaderProps) => {
   const { open, close } = useStore(alertStore);
   const openChat = chatStore((state) => state.open);
   const navigate = useCustomNavigate();
   const queryClient = useQueryClient();
   const { auth: { nickname }, accessToken } = memberStore();
+  const location = window.location.href;
 
   const mutation = useMutation({
     mutationKey: ['review'],
@@ -31,6 +35,16 @@ const GalleryHeader = ({ galleryId, galleryNick, chatRoomId }: GalleryHeaderProp
         queryKey: ['review'],
       });
     },
+    onSuccess: () => {
+      open({
+        title: '후기 등록 완료',
+        description: '작성이 완료되었습니다!',
+        buttonLabel: '확인',
+        onClickButton: () => {
+          close();
+        },
+      })
+    }
   });
 
   const handleReviewSubmit = (data: PostReview & { score: number }) => {
@@ -68,6 +82,17 @@ const GalleryHeader = ({ galleryId, galleryNick, chatRoomId }: GalleryHeaderProp
           navigate('/');
         },
       });
+    } else if (name === 'share') {
+      open({
+        title: '전시 공유하기',
+        description: (
+          <ShareModal location={location} title={title} thumbnail={thumbnail}/>
+        ),
+        buttonLabel: '닫기',
+        onClickButton: () => {
+          close();
+        },
+      })
     } else {
       open({
         title: '전시관 나가기',
@@ -94,6 +119,7 @@ const GalleryHeader = ({ galleryId, galleryNick, chatRoomId }: GalleryHeaderProp
               strokeColor="white"
             />
            : null}
+          <Icon value="share" size={30} onClick={() => onHandleToggle('share')} />
           <Icon value="chat" size={30} onClick={() => onHandleToggle('chat')} />
           <Icon value="out" size={30} onClick={() => onHandleToggle('out')} />
         </S.MenuBox>

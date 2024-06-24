@@ -1,5 +1,5 @@
 import instance from './instance';
-import { FilterType, GalleriesData } from '@/types/gallery';
+import { FilterType, GalleriesData, GalleryData } from '@/types/gallery';
 import { PostGalleries } from '@/types/post';
 
 export const postGalleries = async (formData: PostGalleries) => {
@@ -43,7 +43,7 @@ export const getGalleries = async (params: GetGalleriesParams) => {
 // 전시 페이지 get
 export const getGallery = async (galleryId: number) => {
   const response = await instance.get(`/galleries/${galleryId}`);
-  return response?.data;
+  return response?.data as GalleryData;
 };
 
 // 전시 설명 모달

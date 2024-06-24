@@ -14,9 +14,10 @@ interface GalleryInfoProps {
   galleryId: number | null;
   open: boolean;
   close: () => void;
+  hasEnded: boolean;
 }
 
-const GalleryInfo = ({ galleryId, open: isOpen, close }: GalleryInfoProps) => {
+const GalleryInfo = ({ galleryId, open: isOpen, close, hasEnded }: GalleryInfoProps) => {
   const openModal = alertStore((state) => state.open);
   const navigate = useCustomNavigate();
 
@@ -96,6 +97,10 @@ const GalleryInfo = ({ galleryId, open: isOpen, close }: GalleryInfoProps) => {
     return `${year}-${month}-${day}`;
   };
 
+  const onHandleRequest = () => {
+    // 재전시 요청 api 구문 작성 
+  };
+
   if (!isOpen) return;
 
   return (
@@ -134,13 +139,23 @@ const GalleryInfo = ({ galleryId, open: isOpen, close }: GalleryInfoProps) => {
             </S.HashTags>
           </S.DescriptionBlock>
           <S.ButtonBlock>
-            <div className="price">₩ {data.fee}</div>
-            <div
-              className="topay"
-              onClick={() => onHandlePay(data.hasTicket, data.fee, data.isOpen)}
-            >
-              입장하기
-            </div>
+            {hasEnded ? (
+              <div
+                className='topay' 
+                onClick={() => onHandleRequest()}>
+                  재전시 요청
+              </div>
+            ) : (
+              <>
+              <div className="price">₩ {data.fee}</div>
+                <div
+                  className="topay"
+                  onClick={() => onHandlePay(data.hasTicket, data.fee, data.isOpen)}
+                >
+                  입장하기
+              </div>
+              </>
+            )}
           </S.ButtonBlock>
         </S.InfoBox>
         <S.ReviewBox>

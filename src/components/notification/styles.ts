@@ -65,9 +65,15 @@ export const NotificationBox = styled.div`
 
 export const Notifications = styled.div`
   display: flex;
+  width : 100%;
+  max-height : 330px;
   flex-direction: column;
   gap: 20px;
-  overflow: hidden;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    display : none;
+  }
 `;
 
 export const NotificationItem = styled.div`
