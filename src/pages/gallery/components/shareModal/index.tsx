@@ -44,7 +44,7 @@ const ShareModal = ({ location, title, thumbnail }: ShareModalProps) => {
   const onHandleSocial = (platform: string, title?: string, thumbnail?: string, location?: string) => {
     if (platform === 'kakao') {
       if (title && location && thumbnail) {
-        shareKakao();
+        shareKakao(title, thumbnail, location);
       }
     } else if (platform === 'naver') {
       window.open("https://share.naver.com/web/shareView?url=" + location + "&title=" + title);
