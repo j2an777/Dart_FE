@@ -1,18 +1,21 @@
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { StepZero, StepOne, StepTwo, StepThree } from './components';
-import { Icon } from '@/components';
+import { Dimmed, Icon } from '@/components';
 import { PostGalleries } from '@/types/post';
 import { postGalleries } from '@/apis/gallery';
 import { alertStore } from '@/stores/modal';
 import useCustomNavigate from '@/hooks/useCustomNavigate';
+import { CircularProgressbar } from 'react-circular-progressbar';
 
 import * as S from './styles';
+import { useState } from 'react';
 
 const PostPage = () => {
   const methods = useForm<PostGalleries>();
   const { handleSubmit } = methods;
   const navigate = useCustomNavigate();
   const open = alertStore((state) => state.open);
+  const [progress, setProgress] = useState(0);
 
   const onSubmit: SubmitHandler<PostGalleries> = async (data) => {
     open({
@@ -33,21 +36,31 @@ const PostPage = () => {
   };
 
   const modalConfirm = async (data: PostGalleries) => {
-    console.log(data);
-    // 전시 생성 후, 결제로 이동
-    if (data) {
-      const response = await postGalleries(data);
-      const galleryId = response?.galleryId;
-      if (galleryId) {
-        // 이용료 있을 때만 결제 진행
-        if (data.gallery.generatedCost !== 0) {
-          navigate(`/payment/${galleryId}/paidGallery`);
-        } else {
-          navigate(`/payment/success/${galleryId}/create`);
+    const response = await postGalleries(data);
+    const galleryId = response?.galleryId;
+    if (galleryId) {
+
+      // SSE를 통해 진행 상황 받기
+      const eventSource = new EventSource(`/galleries/progress/${galleryId}`);
+
+      eventSource.onmessage = (event) => {
+        const data = JSON.parse(event.data);
+        setProgress(data.progress);
+
+        if (data.progress === 100) {
+          eventSource.close();
+          if (data.gallery.generatedCost !== 0) {
+            navigate(`/payment/${galleryId}/paidGallery`);
+          } else {
+            navigate(`/payment/success/${galleryId}/create`);
+          }
         }
+      };
+
+      eventSource.onerror = () => {
+        setProgress(0);
+        eventSource.close();
       }
-    } else {
-      console.log('no data');
     }
   };
 
@@ -69,6 +82,12 @@ const PostPage = () => {
           </form>
         </FormProvider>
       </S.Box>
+      {progress !== 0 && (
+        <S.ProgressBar>
+          <Dimmed />
+          <CircularProgressbar value={progress} text={`${progress}%`} />
+        </S.ProgressBar>
+      )}
     </S.Container>
   );
 };
