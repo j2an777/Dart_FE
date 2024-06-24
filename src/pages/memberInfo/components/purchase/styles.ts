@@ -1,4 +1,5 @@
 import { colors } from '@/styles/colorPalette';
+import { Text } from '@/components';
 import styled from '@emotion/styled';
 
 export const Container = styled.div`
@@ -41,4 +42,11 @@ export const ListBlock = styled.div`
   p {
     color: ${colors.gray500};
   }
+`;
+
+export const Loading = styled(Text)`
+  position: absolute;
+  top: 50%;
+  left: 60%;
+  transform: translate(-50%, -50%);
 `;

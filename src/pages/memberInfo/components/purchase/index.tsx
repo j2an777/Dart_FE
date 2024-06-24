@@ -5,8 +5,7 @@ import { useStore } from 'zustand';
 import useGetPayment from '../../hooks/useGetPayment';
 import { PaidInfo } from '@/types/payment';
 import * as S from './styles';
-import { PageButtons } from '@/components';
-import withSuspense from '@/hooks/withSuspense';
+import { PageButtons, withSuspenseNErrorBoundary } from '@/components';
 
 const Purchase = () => {
   const { pageInfo, setPageInfo } = useStore(pageStore);
@@ -23,8 +22,6 @@ const Purchase = () => {
 
   return (
     <S.Container>
-      {isLoading && <p>Loading...</p>}
-      {error && <p>결제 정보를 불러오지 못 했습니다.</p>}
       {!error &&
         !isLoading &&
         data.pages.map((data: PaidInfo) => (
@@ -44,6 +41,12 @@ const Purchase = () => {
   );
 };
 
-const PurchaseWithSuspense = withSuspense(Purchase, { suspenseFallback: <>loading</> });
+const PurchaseWithSuspense = withSuspenseNErrorBoundary(Purchase, {
+  suspenseFallback: (
+    <S.Loading typography="t4" color="gray400">
+      loading...
+    </S.Loading>
+  ),
+});
 
 export default PurchaseWithSuspense;
