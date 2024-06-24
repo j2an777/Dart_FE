@@ -60,7 +60,7 @@ const ShareModal = ({ location, title, thumbnail, content }: ShareModalProps) =>
           value={location}
           id='share-url'/>
         <S.CopyBtn onClick={onHandleCopy}>URL 복사</S.CopyBtn>
-        <Icon value='check' size={20} color={copy ? 'black' : 'gray400'}/>
+        <Icon value='check' size={20} color={copy ? 'black' : 'gray400'} $active={false} />
       </S.UrlBox>
       <S.SocialBox>
         <EmailShareButton url={location}>
