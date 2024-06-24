@@ -29,9 +29,10 @@ interface ShareModalProps {
   location: string;
   title: string;
   thumbnail: string;
+  content: string;
 }
 
-const ShareModal = ({ location, title, thumbnail }: ShareModalProps) => {
+const ShareModal = ({ location, title, thumbnail, content }: ShareModalProps) => {
   const [copy, setCopy] = useState(false);
 
   const onHandleCopy = () => {
@@ -41,10 +42,10 @@ const ShareModal = ({ location, title, thumbnail }: ShareModalProps) => {
     setCopy(true);
   };
 
-  const onHandleSocial = (platform: string, title?: string, thumbnail?: string, location?: string) => {
+  const onHandleSocial = (platform: string, title?: string, thumbnail?: string, location?: string, content?: string) => {
     if (platform === 'kakao') {
-      if (title && location && thumbnail) {
-        shareKakao(title, thumbnail, location);
+      if (title && location && thumbnail && content) {
+        shareKakao(title, thumbnail, location, content);
       }
     } else if (platform === 'naver') {
       window.open("https://share.naver.com/web/shareView?url=" + location + "&title=" + title);
@@ -66,7 +67,7 @@ const ShareModal = ({ location, title, thumbnail }: ShareModalProps) => {
           <EmailIcon size={48} round={true} borderRadius={24}></EmailIcon>
         </EmailShareButton>
         <S.SocialBtn 
-          onClick={() => onHandleSocial('kakao', title, thumbnail, location)}
+          onClick={() => onHandleSocial('kakao', title, thumbnail, location, content)}
           id="kakao-sharing-btn">
             <Icon value='kakaoShare' size={50} $active={false}/>
         </S.SocialBtn>

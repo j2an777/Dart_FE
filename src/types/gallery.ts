@@ -11,6 +11,8 @@ export type GalleryData = {
   hasTicket: boolean;
   chatRoomId: number;
   template: string;
+  content: string;
+  thumbnail: string;
   images: GalleryImages[];
 };
 

@@ -46,7 +46,8 @@ const GalleryPage = () => {
         galleryId={galleryId}
         galleryNick={galleryData.nickname}
         title={galleryData.title}
-        thumbnail={galleryData.images[0].image}
+        thumbnail={galleryData.thumbnail}
+        content={galleryData.content}
       />
       <SelectTemplate template={galleryData.template} galleryData={galleryData} />
     </S.Container>

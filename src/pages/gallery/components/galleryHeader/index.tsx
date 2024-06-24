@@ -17,9 +17,10 @@ interface GalleryHeaderProps {
   chatRoomId: number;
   title: string;
   thumbnail: string;
+  content: string;
 }
 
-const GalleryHeader = ({ galleryId, galleryNick, chatRoomId, title, thumbnail }: GalleryHeaderProps) => {
+const GalleryHeader = ({ galleryId, galleryNick, chatRoomId, title, thumbnail, content}: GalleryHeaderProps) => {
   const { open, close } = useStore(alertStore);
   const openChat = chatStore((state) => state.open);
   const navigate = useCustomNavigate();
@@ -86,7 +87,7 @@ const GalleryHeader = ({ galleryId, galleryNick, chatRoomId, title, thumbnail }:
       open({
         title: '전시 공유하기',
         description: (
-          <ShareModal location={location} title={title} thumbnail={thumbnail}/>
+          <ShareModal location={location} title={title} thumbnail={thumbnail} content={content}/>
         ),
         buttonLabel: '닫기',
         onClickButton: () => {
