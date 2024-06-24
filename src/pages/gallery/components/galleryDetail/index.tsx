@@ -45,7 +45,7 @@ const GalleryDetail = ({ imageData }: GalleryDetailProps) => {
                         ease: 'easeInOut',
                         duration: 0.5,
                     }}>
-                    <img src={imageData?.image} />
+                    <img src={imageData?.image} alt={imageData?.imageTitle}/>
                 </S.Frame>
                 <S.DetailContent>
                     <Icon 

@@ -110,7 +110,7 @@ const GalleryHeader = ({ galleryId, galleryNick, chatRoomId, title, thumbnail, c
   return (
     <S.HeaderContainer>
       <S.MenuBlock>
-        <S.Logo src={GalleryLogo} onClick={() => onHandleToggle('toMain')} />
+        <S.Logo src={GalleryLogo} onClick={() => onHandleToggle('toMain')} alt='인트로 가는 로고'/>
         <S.MenuBox>
           {(accessToken || nickname === galleryNick) ? 
             <Icon
