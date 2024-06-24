@@ -21,13 +21,12 @@ const GalleryPage = () => {
     queryKey: ['galleryData'],
     queryFn: () => getGallery(galleryId),
   });
-  console.log(galleryData);
 
   useEffect(() => {
     if (galleryData?.hasTicket === false) {
       navigate('/');
     }
-  }, []);
+  }, [galleryData, navigate]);
 
   if (error || !galleryData) {
     return <div>Error loading gallery data</div>;
