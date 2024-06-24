@@ -47,6 +47,7 @@ const PostPage = () => {
         const data = JSON.parse(event.data);
         setProgress(data.progress);
 
+        // 100이 되면 종료
         if (data.progress === 100) {
           eventSource.close();
           if (data.gallery.generatedCost !== 0) {

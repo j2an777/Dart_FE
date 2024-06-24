@@ -41,7 +41,7 @@ export const ModalText = styled(Text)`
 `;
 
 export const ProgressBar = styled.div`
-  position : absolute;
+  position : fixed;
   top : 50%;
   left : 50%;
   transform: translate(-50%, -50%);
@@ -49,4 +49,5 @@ export const ProgressBar = styled.div`
   height : 100px;
   ${LayoutMap.displayFlex};
   justify-content : center;
+  z-index: 200;
 `;
