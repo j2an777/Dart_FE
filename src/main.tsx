@@ -8,7 +8,6 @@ import {
   AlertPortal,
   ChatPortal,
   GalleryInfoPortal,
-  GalleryDetailPortal,
   NotificationPortal,
 } from './components';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -24,7 +23,6 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <GalleryInfoPortal />
         <ChatPortal />
         <AlertPortal />
-        <GalleryDetailPortal />
         <NotificationPortal />
         <App />
       </BrowserRouter>
