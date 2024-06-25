@@ -1,6 +1,6 @@
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { StepZero, StepOne, StepTwo, StepThree } from './components';
-import { Dimmed, Icon } from '@/components';
+import { Icon } from '@/components';
 import { PostGalleries } from '@/types/post';
 import { postGalleries } from '@/apis/gallery';
 import { alertStore } from '@/stores/modal';
@@ -40,7 +40,7 @@ const PostPage = () => {
     const galleryId = response?.galleryId;
     if (galleryId) {
 
-      // SSE를 통해 진행 상황 받기
+      // SSE를 통해 진행 상황 받기 (이미지를 s3 버킷에 저장하는 시간)
       const eventSource = new EventSource(`/galleries/progress/${galleryId}`);
 
       eventSource.onmessage = (event) => {
@@ -85,7 +85,6 @@ const PostPage = () => {
       </S.Box>
       {progress !== 0 && (
         <S.ProgressBar>
-          <Dimmed />
           <CircularProgressbar value={progress} text={`${progress}%`} />
         </S.ProgressBar>
       )}
