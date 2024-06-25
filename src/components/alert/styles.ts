@@ -15,6 +15,10 @@ export const Container = styled.div`
   max-height: 600px;
   overflow-y: auto;
   overflow-x: hidden;
+
+  .dsBox {
+    margin: 20px 0 30px 0;
+  }
 `;
 
 export const HeaderBox = styled.div`
