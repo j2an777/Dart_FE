@@ -144,6 +144,7 @@ const StepZero = () => {
             locale={'en'}
             formatDay={(_locale, date) => date.toLocaleString('en', { day: 'numeric' })}
             tileClassName={tileClassName}
+            minDate={new Date()}
           />
         </S.Date>
         <S.Block>
