@@ -18,7 +18,7 @@ const SignupAgree = () => {
         약관동의
       </S.Title>
       <S.AgreeBox>
-        {agreeInfo.map(({ value, ...props }) => {
+        {agreeInfo.map(({ value, description, ...props }) => {
           if (value === 'total')
             return (
               <CheckAgree
@@ -36,6 +36,7 @@ const SignupAgree = () => {
                 value={value}
                 onClick={setAgreements}
                 checked={agreements[value]}
+                description={description}
                 {...props}
               />
             );

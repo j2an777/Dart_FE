@@ -10,6 +10,7 @@ interface CheckAgreeProps {
   checked?: boolean;
   onClick?: (value: string) => void;
   value: string;
+  description?: string;
 }
 
 const CheckAgree = ({
@@ -19,6 +20,7 @@ const CheckAgree = ({
   checked = false,
   onClick = () => {},
   value,
+  description
 }: CheckAgreeProps) => {
   const open = alertStore((state) => state.open);
   return (
@@ -40,7 +42,7 @@ const CheckAgree = ({
             open({
               title,
               buttonLabel: '내용 접기',
-              description: '안녕',
+              description: description,
               onClickButton: () => {},
             })
           }
