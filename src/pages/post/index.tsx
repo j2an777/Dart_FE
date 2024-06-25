@@ -5,7 +5,7 @@ import { PostGalleries } from '@/types/post';
 import { postGalleries } from '@/apis/gallery';
 import { alertStore } from '@/stores/modal';
 import useCustomNavigate from '@/hooks/useCustomNavigate';
-
+import { useHandleErrors } from './hooks/useHandleErrors';
 import * as S from './styles';
 
 const PostPage = () => {
@@ -13,8 +13,17 @@ const PostPage = () => {
   const { handleSubmit } = methods;
   const navigate = useCustomNavigate();
   const open = alertStore((state) => state.open);
+  const { handleErrors } = useHandleErrors();
 
   const onSubmit: SubmitHandler<PostGalleries> = async (data) => {
+    if (data.images == undefined || data.images.length < 3) {
+      open({
+        title: '작품 등록 오류',
+        description: '최소 3개의 작품을 등록해주세요.',
+        buttonLabel: '확인',
+      });
+    }
+
     open({
       title: '전시 등록',
       description: (
@@ -33,11 +42,10 @@ const PostPage = () => {
   };
 
   const modalConfirm = async (data: PostGalleries) => {
-    console.log(data);
-    // 전시 생성 후, 결제로 이동
-    if (data) {
+    try {
       const response = await postGalleries(data);
       const galleryId = response?.galleryId;
+
       if (galleryId) {
         // 이용료 있을 때만 결제 진행
         if (data.gallery.generatedCost !== 0) {
@@ -46,8 +54,8 @@ const PostPage = () => {
           navigate(`/payment/success/${galleryId}/create`);
         }
       }
-    } else {
-      console.log('no data');
+    } catch (error) {
+      handleErrors(error, data);
     }
   };
 
