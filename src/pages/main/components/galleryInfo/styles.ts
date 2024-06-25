@@ -24,7 +24,7 @@ export const MainLogo = styled.img`
   height: fit-content;
 `;
 
-export const InfoBox = styled.div<{thumbnail: string}>`
+export const InfoBox = styled.div<{ thumbnail: string }>`
   position: relative;
   width: 100%;
   height: 80vh;
@@ -33,7 +33,7 @@ export const InfoBox = styled.div<{thumbnail: string}>`
   gap: 50px;
   padding: 100px;
   box-sizing: border-box;
-  background-image: url(${props => props.thumbnail});
+  background-image: url(${(props) => props.thumbnail});
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -41,13 +41,13 @@ export const InfoBox = styled.div<{thumbnail: string}>`
 `;
 
 export const Overlay = styled.div`
-  position : absolute;
-  top : 0;
-  left : 0;
-  bottom : 0;
-  right : 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index : -1;
+  z-index: -1;
 `;
 
 export const DescriptionBlock = styled.div`
@@ -75,6 +75,7 @@ export const User = styled.div`
   ${LayoutMap.displayFlex};
   justify-content: flex-start;
   gap: 5px;
+  cursor: pointer;
 `;
 
 export const Circle = styled.div`

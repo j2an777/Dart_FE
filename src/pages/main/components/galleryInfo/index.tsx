@@ -9,6 +9,7 @@ import Logo from '@/assets/images/mainLogo.png';
 import useCustomNavigate from '@/hooks/useCustomNavigate';
 
 import * as S from './styles';
+import parseDate from '@/utils/parseDate';
 
 interface GalleryInfoProps {
   galleryId: number | null;
@@ -89,16 +90,8 @@ const GalleryInfo = ({ galleryId, open: isOpen, close, hasEnded }: GalleryInfoPr
     return <div>Error loading gallery data</div>;
   }
 
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
-  };
-
   const onHandleRequest = () => {
-    // 재전시 요청 api 구문 작성 
+    // 재전시 요청 api 구문 작성
   };
 
   if (!isOpen) return;
@@ -115,7 +108,12 @@ const GalleryInfo = ({ galleryId, open: isOpen, close, hasEnded }: GalleryInfoPr
               <Text typography="t5" color="white" bold="medium">
                 {data.title}
               </Text>
-              <S.User>
+              <S.User
+                onClick={() => {
+                  close();
+                  navigate(`/member/${data.nickname}`);
+                }}
+              >
                 <S.Circle />
                 <Text typography="t7" bold="regular" color="white">
                   {data.nickname}
@@ -125,10 +123,8 @@ const GalleryInfo = ({ galleryId, open: isOpen, close, hasEnded }: GalleryInfoPr
             <p id="descript">{data.content}</p>
             <Icon value="galaxy" size={20} />
             <Text typography="t7" bold="regular" color="white">
-              {formatDate(data.startDate)} <span>~</span>{' '}
-              {formatDate(data.endDate) === '1970-01-01'
-                ? null
-                : formatDate(data.endDate)}
+              {parseDate(data.startDate)} <span>~</span>{' '}
+              {parseDate(data.endDate) === '1970.01.01' ? null : parseDate(data.endDate)}
             </Text>
             <S.HashTags>
               {data.hashtags.map((tag: string, index: number) => (
@@ -140,20 +136,18 @@ const GalleryInfo = ({ galleryId, open: isOpen, close, hasEnded }: GalleryInfoPr
           </S.DescriptionBlock>
           <S.ButtonBlock>
             {hasEnded ? (
-              <div
-                className='topay' 
-                onClick={() => onHandleRequest()}>
-                  재전시 요청
+              <div className="topay" onClick={() => onHandleRequest()}>
+                재전시 요청
               </div>
             ) : (
               <>
-              <div className="price">₩ {data.fee}</div>
+                <div className="price">₩ {data.fee}</div>
                 <div
                   className="topay"
                   onClick={() => onHandlePay(data.hasTicket, data.fee, data.isOpen)}
                 >
                   입장하기
-              </div>
+                </div>
               </>
             )}
           </S.ButtonBlock>

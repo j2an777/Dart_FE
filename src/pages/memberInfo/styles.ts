@@ -1,3 +1,4 @@
+import { Icon } from '@/components';
 import styled from '@emotion/styled';
 
 export const Container = styled.div`
@@ -23,6 +24,12 @@ export const TopBlock = styled.div`
   width: 100%;
   height: 40px;
   border-bottom: 2px solid black;
+`;
+
+export const Back = styled(Icon)`
+  position: absolute;
+  top: 10px;
+  right: 20px;
 `;
 
 export const Block = styled.div`
