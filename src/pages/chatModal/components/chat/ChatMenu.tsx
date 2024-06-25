@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import Icon from '@/components/icon';
 import Message from './Message';
-import { ChatMessageResponse } from '@/types/chat';
-import { useGetMessages } from '../../hooks/useGetMessages';
+import { ChatMessageRequest, ChatMessageResponse } from '@/types/chat';
+import useGetMessages from '../../hooks/useGetMessages';
 import { memberStore } from '@/stores/member';
 import * as S from './styles';
 import useStomp from '../../hooks/useStomp';
@@ -15,19 +15,19 @@ const ChatMenu = ({ chatRoomId }: { chatRoomId: number }) => {
     chatRoomId,
     accessToken as string,
     (message: ChatMessageResponse) => {
-      const messageData = JSON.parse(message.content);
-      setMessages((prevMessages) => [...prevMessages, messageData]);
+      setMessages((prevMessages) => [...prevMessages, message]);
     },
   );
 
-  const { data, fetchNextPage, hasNextPage } = useGetMessages(chatRoomId);
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    useGetMessages(chatRoomId);
   const observerRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   // 새로운 채팅 보내기
   const postMessage = () => {
-    const messageBody = { content: newMessage };
-    sendMessage(`/pub/ws/${chatRoomId}/chat-messages`, messageBody);
+    const message: ChatMessageRequest = { content: newMessage };
+    sendMessage(`/pub/ws/${chatRoomId}/chat-messages`, message);
     setNewMessage('');
   };
 
@@ -35,12 +35,16 @@ const ChatMenu = ({ chatRoomId }: { chatRoomId: number }) => {
   useEffect(() => {
     connect();
 
+    return () => {
+      disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
     if (data) {
       const allMessages = data.pages.flatMap((page) => page.pages);
       setMessages(allMessages);
     }
-
-    return () => disconnect();
   }, [data]);
 
   // IntersectionObserver
@@ -51,10 +55,13 @@ const ChatMenu = ({ chatRoomId }: { chatRoomId: number }) => {
           fetchNextPage();
         }
       },
-      { root: scrollRef.current, rootMargin: '10px', threshold: 0.5 },
+      { root: null, rootMargin: '10px', threshold: 0.1 },
     );
     if (observerRef.current) observer.observe(observerRef.current);
-  }, [hasNextPage, fetchNextPage]);
+    return () => {
+      if (observerRef.current) observer.unobserve(observerRef.current);
+    };
+  }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
 
   // 스크롤 아래로 이동
   useEffect(() => {
@@ -67,25 +74,32 @@ const ChatMenu = ({ chatRoomId }: { chatRoomId: number }) => {
     setNewMessage(e.target.value);
   };
   const onEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    // keyDown 이벤트 오류(한글 2번 입력됨) 해결
+    if (e.nativeEvent.isComposing) {
+      return;
+    }
     if (e.key === 'Enter') {
+      e.preventDefault();
       postMessage();
     }
   };
 
   return (
     <S.Container>
-      <S.ContentBox ref={scrollRef}>
-        <div ref={observerRef}>
-          {messages.map((msg, index) => (
-            <Message
-              key={index}
-              name={'msg.nickname'}
-              profileImage={'default'}
-              content={msg.content}
-            />
-            // 작가 메세지 구분 추후 추가
-          ))}
-        </div>
+      <S.ContentBox>
+        <S.ScrollableContainer ref={scrollRef}>
+          <div ref={observerRef}>
+            {messages.map((msg, index) => (
+              <Message
+                key={index}
+                sender={msg.sender}
+                profileImageUrl={msg.profileImageUrl}
+                content={msg.content}
+                isAuthor={msg.isAuthor}
+              />
+            ))}
+          </div>
+        </S.ScrollableContainer>
       </S.ContentBox>
       <S.InputBox>
         <S.Input
