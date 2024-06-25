@@ -11,6 +11,7 @@ import BasicProfile from '@/assets/images/defaultUser.png';
 import { getMemberInfo, postCheckNickname } from '@/apis/member';
 
 import * as S from './styles';
+import LogoLoader from '@/components/logoLoader';
 
 const EditMemberForm = () => {
   const open = alertStore((state) => state.open);
@@ -111,7 +112,7 @@ const EditMemberForm = () => {
   };
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <LogoLoader />;
   }
 
   if (error) {

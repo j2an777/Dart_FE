@@ -11,7 +11,7 @@ const ErrorFallback = ({ onReset }: ErrorFallbackProps) => {
   return (
     <S.Container>
       <S.TextBox>
-        <img src={error} />
+        <img src={error} alt='오류 이미지'/>
         <S.Description typography="t4" color="gray400">
           정보를 불러오는데 실패했습니다.
         </S.Description>
