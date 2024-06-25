@@ -35,7 +35,7 @@ export const CheckBtn = styled.button`
   }
 `;
 
-export const Checked = styled.button`
+export const Checked = styled.div`
   width: 19px;
   height: 19px;
   border-radius: 50%;
