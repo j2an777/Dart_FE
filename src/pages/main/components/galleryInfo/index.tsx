@@ -91,7 +91,13 @@ const GalleryInfo = ({ galleryId, open: isOpen, close, hasEnded }: GalleryInfoPr
   }
 
   const onHandleRequest = () => {
-    // 재전시 요청 api 구문 작성
+    // 재전시 요청 api 완성시 구문 작성
+    openModal({
+      title: '재전시 요청',
+      description: '서비스 준비 중입니다.',
+      buttonLabel: '확인',
+      onClickButton: () => close(),
+    })
   };
 
   if (!isOpen) return;

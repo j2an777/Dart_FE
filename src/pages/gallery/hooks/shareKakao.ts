@@ -1,5 +1,5 @@
 
-export const shareKakao = (title: string, thumbnail: string, location: string) => {
+export const shareKakao = (title: string, thumbnail: string, location: string, content: string) => {
     
     if (window.Kakao) {
         const kakao = window.Kakao;
@@ -12,7 +12,7 @@ export const shareKakao = (title: string, thumbnail: string, location: string) =
           objectType: 'feed',
           content: {
             title: title,
-            description: '안녕하세요',
+            description: content,
             imageUrl:
               thumbnail,
             link: {
@@ -22,7 +22,7 @@ export const shareKakao = (title: string, thumbnail: string, location: string) =
           },
           itemContent: {
             profileText: "D'art",
-            profileImageUrl: '@/assets/images/logoCol.png',
+            profileImageUrl: 'https://discord.com/channels/@me/1239746053692194827/1254603126489485385',
           },
           buttons: [
             {

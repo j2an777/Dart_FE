@@ -4,13 +4,15 @@ import { alertStore } from '@/stores/modal';
 import { useState, useEffect } from 'react';
 import { EditFormData } from '@/types/member';
 import { memberStore } from '@/stores/member';
-import { Text, UserCircle } from '@/components';
+import { CircleLoader, Text, UserCircle } from '@/components';
 import { useQuery } from '@tanstack/react-query';
 import usePutMember from '../../hooks/usePutMember';
 import BasicProfile from '@/assets/images/defaultUser.png';
 import { getMemberInfo, postCheckNickname } from '@/apis/member';
 
 import * as S from './styles';
+import ErrorData from '../errorData';
+import { calculateAge } from '@/utils/calcuateAge';
 
 const EditMemberForm = () => {
   const open = alertStore((state) => state.open);
@@ -19,27 +21,29 @@ const EditMemberForm = () => {
     auth: { nickname },
   } = memberStore();
   const [nicknameError, setNicknameError] = useState('');
-  const [profileImageSrc, setProfileImageSrc] = useState<string | undefined>(
-    BasicProfile,
-  );
+  const [profileImageSrc, setProfileImageSrc] = useState<string | undefined>(BasicProfile);
+  const [age, setAge] = useState<string>('정보 없음');
 
   const {
     data: editData,
     error,
     isLoading,
+    refetch
   } = useQuery({
     queryKey: ['edit'],
     queryFn: () => getMemberInfo(nickname),
   });
 
-  const birthday =
-    editData?.birthday.toString() === '1997-01-07'
-      ? '정보 없음'
-      : editData?.birthday.toString();
-
   useEffect(() => {
     if (editData?.profileImage) {
       setProfileImageSrc(editData.profileImage);
+    }
+    if (editData?.birthday) {
+      const birthdayString = editData.birthday.toString();
+      const newAge = birthdayString === '1997-01-07' ? '정보 없음' : calculateAge(birthdayString).toString();
+      setAge(newAge);
+    } else {
+      setAge('정보 없음');
     }
   }, [editData]);
 
@@ -111,11 +115,11 @@ const EditMemberForm = () => {
   };
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <CircleLoader />;
   }
 
   if (error) {
-    return <div>Error loading gallery data</div>;
+    return <ErrorData retry={refetch} />;
   }
 
   return (
@@ -145,7 +149,7 @@ const EditMemberForm = () => {
             나이
           </Text>
           <Text typography="t5" bold="medium">
-            {birthday}
+            {age} 세
           </Text>
         </S.ProfileRight>
       </S.ProfileBlock>

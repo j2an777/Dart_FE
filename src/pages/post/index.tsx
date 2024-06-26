@@ -5,14 +5,18 @@ import { PostGalleries } from '@/types/post';
 import { postGalleries } from '@/apis/gallery';
 import { alertStore } from '@/stores/modal';
 import useCustomNavigate from '@/hooks/useCustomNavigate';
+import { CircularProgressbar } from 'react-circular-progressbar';
+
 import { useHandleErrors } from './hooks/useHandleErrors';
 import * as S from './styles';
+import { useState } from 'react';
 
 const PostPage = () => {
   const methods = useForm<PostGalleries>();
   const { handleSubmit } = methods;
   const navigate = useCustomNavigate();
   const open = alertStore((state) => state.open);
+  const [progress, setProgress] = useState(0);
   const { handleErrors } = useHandleErrors();
 
   const onSubmit: SubmitHandler<PostGalleries> = async (data) => {
@@ -42,17 +46,31 @@ const PostPage = () => {
   };
 
   const modalConfirm = async (data: PostGalleries) => {
-    try {
-      const response = await postGalleries(data);
-      const galleryId = response?.galleryId;
+    const response = await postGalleries(data);
+    const galleryId = response?.galleryId;
+    if (galleryId) {
 
-      if (galleryId) {
-        // 이용료 있을 때만 결제 진행
-        if (data.gallery.generatedCost !== 0) {
-          navigate(`/payment/${galleryId}/paidGallery`);
-        } else {
-          navigate(`/payment/success/${galleryId}/create`);
+      // SSE를 통해 진행 상황 받기 (이미지를 s3 버킷에 저장하는 시간)
+      const eventSource = new EventSource(`/galleries/progress/${galleryId}`);
+
+      eventSource.onmessage = (event) => {
+        const data = JSON.parse(event.data);
+        setProgress(data.progress);
+
+        // 100이 되면 종료
+        if (data.progress === 100) {
+          eventSource.close();
+          if (data.gallery.generatedCost !== 0) {
+            navigate(`/payment/${galleryId}/paidGallery`);
+          } else {
+            navigate(`/payment/success/${galleryId}/create`);
+          }
         }
+      };
+
+      eventSource.onerror = () => {
+        setProgress(0);
+        eventSource.close();
       }
     } catch (error) {
       handleErrors(error, data);
@@ -77,6 +95,11 @@ const PostPage = () => {
           </form>
         </FormProvider>
       </S.Box>
+      {progress !== 0 && (
+        <S.ProgressBar>
+          <CircularProgressbar value={progress} text={`${progress}%`} />
+        </S.ProgressBar>
+      )}
     </S.Container>
   );
 };
