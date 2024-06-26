@@ -73,7 +73,7 @@ const StepTwo = () => {
     } else {
       open({
         title: '작품 등록',
-        description: '작품은 최대 20개까지만 등록 가능합니다.',
+        description: '작품은 최대 20개까지 등록 가능합니다.',
         buttonLabel: '확인',
         onClickButton: () => {},
       });
@@ -93,7 +93,7 @@ const StepTwo = () => {
       <S.Step value="step_two" $active={false} />
       <S.Box>
         <Text typography="t5" bold="regular">
-          작품 리스트(최대 20개)
+          작품 리스트 (작품은 3개 이상 20개 이하로 등록해 주세요)
         </Text>
         <S.BorderLine />
         <S.Block>

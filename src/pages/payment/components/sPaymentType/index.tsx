@@ -3,9 +3,9 @@ import * as S from './styles';
 import { useState } from 'react';
 
 const PaymentTypeBox = () => {
-  const [selectedBtn, setSelectedBtn] = useState<boolean>(false);
+  const [selectedBtn, setSelectedBtn] = useState<boolean>(true);
   const onBtnClick = () => {
-    setSelectedBtn((prevSelected) => !prevSelected); // Toggle the selectedBtn state
+    setSelectedBtn((prevSelected) => !prevSelected);
   };
 
   return (

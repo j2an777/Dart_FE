@@ -11,9 +11,16 @@ export const ContentBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: start;
+  padding: 0;
+  flex: 1;
+  overflow-y: auto;
+`;
+
+export const ScrollableContainer = styled.div`
+  display: flex;
+  flex-direction: column;
   gap: 20px;
   padding: 20px;
-  flex: 1;
   overflow-y: auto;
 
   /* 스크롤 스타일 */
@@ -54,14 +61,22 @@ export const Input = styled.input`
   border: 1px solid ${colors.black};
 `;
 
-export const ChatBox = styled.div`
+export const ChatBox = styled.div<{ isAuthor: boolean }>`
   display: flex;
   flex-direction: column;
+  align-items: ${({ isAuthor }) => (isAuthor ? 'flex-end' : 'flex-start')};
   gap: 5px;
+  margin-top: 20px;
+`;
 
-  section {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+export const SenderBlock = styled.div<{ isAuthor: boolean }>`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-direction: ${({ isAuthor }) => (isAuthor ? 'row-reverse' : 'row')};
+  cursor: pointer;
+
+  p {
+    color: ${({ isAuthor }) => (isAuthor ? colors.red : colors.black)};
   }
 `;

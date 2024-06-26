@@ -7,6 +7,7 @@ import { alertStore } from '@/stores/modal';
 import useCustomNavigate from '@/hooks/useCustomNavigate';
 import { CircularProgressbar } from 'react-circular-progressbar';
 
+import { useHandleErrors } from './hooks/useHandleErrors';
 import * as S from './styles';
 import { useState } from 'react';
 
@@ -16,8 +17,17 @@ const PostPage = () => {
   const navigate = useCustomNavigate();
   const open = alertStore((state) => state.open);
   const [progress, setProgress] = useState(0);
+  const { handleErrors } = useHandleErrors();
 
   const onSubmit: SubmitHandler<PostGalleries> = async (data) => {
+    if (data.images == undefined || data.images.length < 3) {
+      open({
+        title: '작품 등록 오류',
+        description: '최소 3개의 작품을 등록해주세요.',
+        buttonLabel: '확인',
+      });
+    }
+
     open({
       title: '전시 등록',
       description: (
@@ -62,6 +72,8 @@ const PostPage = () => {
         setProgress(0);
         eventSource.close();
       }
+    } catch (error) {
+      handleErrors(error, data);
     }
   };
 
