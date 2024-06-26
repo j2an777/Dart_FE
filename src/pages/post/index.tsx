@@ -41,7 +41,7 @@ const PostPage = () => {
     if (galleryId) {
 
       // SSE를 통해 진행 상황 받기 (이미지를 s3 버킷에 저장하는 시간)
-      const eventSource = new EventSource(`/galleries/progress/${galleryId}`);
+      const eventSource = new EventSource(`/api/galleries/progress/${galleryId}`);
 
       eventSource.onmessage = (event) => {
         const data = JSON.parse(event.data);
