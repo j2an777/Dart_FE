@@ -5,7 +5,7 @@ import { useStore } from 'zustand';
 import useGetPayment from '../../hooks/useGetPayment';
 import { PaidInfo } from '@/types/payment';
 import * as S from './styles';
-import { PageButtons, withSuspenseNErrorBoundary } from '@/components';
+import { NoneData, PageButtons, withSuspenseNErrorBoundary } from '@/components';
 
 const Purchase = () => {
   const { pageInfo, setPageInfo } = useStore(pageStore);
@@ -22,8 +22,7 @@ const Purchase = () => {
 
   return (
     <S.Container>
-      {!error &&
-        !isLoading &&
+      {!error && !isLoading && data.pages.length > 0 ? (
         data.pages.map((data: PaidInfo) => (
           <PaidList
             key={data.paymentId}
@@ -33,7 +32,10 @@ const Purchase = () => {
             order={data.order}
             galleryName={data.galleryName}
           />
-        ))}
+        ))
+      ) : (
+        <NoneData content="구매 내역이 없습니다." />
+      )}
       <footer>
         <PageButtons />
       </footer>

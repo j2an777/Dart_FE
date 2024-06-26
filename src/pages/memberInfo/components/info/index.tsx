@@ -3,11 +3,15 @@ import { NoneData, UserCircle } from '@/components';
 import { Text } from '@/components';
 import { getMemberInfo } from '@/apis/member';
 import { memberStore } from '@/stores/member';
-
+import { useParams } from 'react-router-dom';
 import * as S from './style';
 
 const Info = () => {
-  const { nickname } = memberStore((state) => state.auth);
+  // 타인 정보 조회
+  const { memberId } = useParams<{ memberId: string }>();
+  // 본인 정보 조회
+  const authNickname = memberStore((state) => state.auth.nickname);
+  const nickname = memberId ?? authNickname;
 
   // 회원정보 불러오기
   const { data, error, isLoading } = useQuery({

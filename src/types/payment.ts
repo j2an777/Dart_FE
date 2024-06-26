@@ -20,3 +20,10 @@ export interface OrderInfo {
   profileImage: string;
   cost: number;
 }
+
+export interface PaymentRequest {
+  galleryId: number;
+  order: 'ticket' | 'paidGallery';
+  couponId: number;
+  isPriority: boolean;
+}

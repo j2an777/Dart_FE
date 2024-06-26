@@ -11,7 +11,7 @@ export const Container = styled.div`
   right: 20px;
   top: 50%;
   transform: translateY(-50%);
-  z-index: var(--dimmed-zindex);
+  z-index: 12;
   display: inline-block;
   height: 96vh;
   width: 400px;

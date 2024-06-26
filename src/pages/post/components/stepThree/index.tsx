@@ -24,6 +24,7 @@ const templates = [
 const StepTree = () => {
   const { setValue } = useFormContext();
   const [selectedTemplate, setSelectedTemplate] = useState<TemplateType>(template1);
+  setValue('gallery.template', 'one');
 
   const onTemplateClick = (
     template: TemplateType,
