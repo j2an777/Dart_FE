@@ -1,16 +1,20 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import Icon from '@/components/icon';
 import Message from './Message';
 import { ChatMessageRequest, ChatMessageResponse } from '@/types/chat';
 import useGetMessages from '../../hooks/useGetMessages';
 import { memberStore } from '@/stores/member';
-import * as S from './styles';
 import useStomp from '../../hooks/useStomp';
+import * as S from './styles';
+import { useChatScroll } from '../../hooks/useChatScroll';
+import { useGetMembers } from '../../hooks/useGetMembers';
 
 const ChatMenu = ({ chatRoomId }: { chatRoomId: number }) => {
   const [messages, setMessages] = useState<ChatMessageResponse[]>([]);
   const [newMessage, setNewMessage] = useState<string>('');
   const { accessToken } = memberStore.getState();
+
+  // 웹소켓 연결
   const { connect, disconnect, sendMessage } = useStomp(
     chatRoomId,
     accessToken as string,
@@ -18,20 +22,6 @@ const ChatMenu = ({ chatRoomId }: { chatRoomId: number }) => {
       setMessages((prevMessages) => [...prevMessages, message]);
     },
   );
-
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useGetMessages(chatRoomId);
-  const observerRef = useRef<HTMLDivElement>(null);
-  const scrollRef = useRef<HTMLDivElement>(null);
-
-  // 새로운 채팅 보내기
-  const postMessage = () => {
-    const message: ChatMessageRequest = { content: newMessage };
-    sendMessage(`/pub/ws/${chatRoomId}/chat-messages`, message);
-    setNewMessage('');
-  };
-
-  // 웹소켓 연결 및 과거 채팅 불러오기
   useEffect(() => {
     connect();
 
@@ -40,41 +30,33 @@ const ChatMenu = ({ chatRoomId }: { chatRoomId: number }) => {
     };
   }, []);
 
+  // 접속자 확인
+  const { data: viewer } = useGetMembers(chatRoomId);
+  console.log(viewer);
+
+  // 채팅 데이터 불러옴
+  const { data, fetchNextPage, hasNextPage, refetch } = useGetMessages(chatRoomId);
   useEffect(() => {
-    if (data) {
+    if (data && data.pages) {
       const allMessages = data.pages.flatMap((page) => page.pages);
       setMessages(allMessages);
     }
   }, [data]);
 
-  // IntersectionObserver
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting && hasNextPage) {
-          fetchNextPage();
-        }
-      },
-      { root: null, rootMargin: '10px', threshold: 0.1 },
-    );
-    if (observerRef.current) observer.observe(observerRef.current);
-    return () => {
-      if (observerRef.current) observer.unobserve(observerRef.current);
-    };
-  }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
-
-  // 스크롤 아래로 이동
-  useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-    }
-  }, [messages]);
+  // 새로운 채팅 보내기
+  const postMessage = () => {
+    if (!newMessage.trim()) return;
+    const message: ChatMessageRequest = { content: newMessage };
+    sendMessage(`/pub/ws/${chatRoomId}/chat-messages`, message);
+    setNewMessage('');
+    refetch();
+  };
 
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewMessage(e.target.value);
   };
+
   const onEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    // keyDown 이벤트 오류(한글 2번 입력됨) 해결
     if (e.nativeEvent.isComposing) {
       return;
     }
@@ -87,18 +69,16 @@ const ChatMenu = ({ chatRoomId }: { chatRoomId: number }) => {
   return (
     <S.Container>
       <S.ContentBox>
-        <S.ScrollableContainer ref={scrollRef}>
-          <div ref={observerRef}>
-            {messages.map((msg, index) => (
-              <Message
-                key={index}
-                sender={msg.sender}
-                profileImageUrl={msg.profileImageUrl}
-                content={msg.content}
-                isAuthor={msg.isAuthor}
-              />
-            ))}
-          </div>
+        <S.ScrollableContainer>
+          {messages.map((msg, index) => (
+            <Message
+              key={index}
+              sender={msg.sender}
+              profileImageUrl={msg.profileImageUrl}
+              content={msg.content}
+              isAuthor={msg.isAuthor}
+            />
+          ))}
         </S.ScrollableContainer>
       </S.ContentBox>
       <S.InputBox>
