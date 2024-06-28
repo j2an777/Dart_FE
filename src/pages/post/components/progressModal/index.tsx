@@ -1,7 +1,11 @@
 import { Dimmed } from '@/components';
 import * as S from './styles';
 
-const ProgressModal = (progress: number) => {
+interface ProgressProps {
+    progress: number;
+}
+
+const ProgressModal = ({ progress }: ProgressProps) => {
   return (
     <Dimmed>
         <S.Container>
