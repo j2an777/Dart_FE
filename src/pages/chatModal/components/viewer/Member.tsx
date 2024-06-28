@@ -4,12 +4,12 @@ import * as S from './styles';
 
 interface Props {
   name: string;
-  profileImage: string;
+  profileImageUrl: string;
 }
-const Member = ({ name, profileImage }: Props) => {
+const Member = ({ name, profileImageUrl }: Props) => {
   return (
     <S.Box>
-      <UserCircle size={40} profileImage={profileImage} />
+      <UserCircle size={40} profileImage={profileImageUrl} />
       <Text typography="t6" color="gray600">
         {name}
       </Text>

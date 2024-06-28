@@ -5,9 +5,9 @@ import { ChatMessageRequest, ChatMessageResponse } from '@/types/chat';
 import useGetMessages from '../../hooks/useGetMessages';
 import { memberStore } from '@/stores/member';
 import useStomp from '../../hooks/useStomp';
-import * as S from './styles';
 import { useChatScroll } from '../../hooks/useChatScroll';
-import { useGetMembers } from '../../hooks/useGetMembers';
+// import { useGetMembers } from '../../hooks/useGetMembers';
+import * as S from './styles';
 
 const ChatMenu = ({ chatRoomId }: { chatRoomId: number }) => {
   const [messages, setMessages] = useState<ChatMessageResponse[]>([]);
@@ -22,6 +22,7 @@ const ChatMenu = ({ chatRoomId }: { chatRoomId: number }) => {
       setMessages((prevMessages) => [...prevMessages, message]);
     },
   );
+
   useEffect(() => {
     connect();
 
@@ -31,17 +32,26 @@ const ChatMenu = ({ chatRoomId }: { chatRoomId: number }) => {
   }, []);
 
   // 접속자 확인
-  const { data: viewer } = useGetMembers(chatRoomId);
-  console.log(viewer);
+  // const { data: viewer } = useGetMembers(chatRoomId);
+  // console.log(viewer);
 
   // 채팅 데이터 불러옴
   const { data, fetchNextPage, hasNextPage, refetch } = useGetMessages(chatRoomId);
   useEffect(() => {
     if (data && data.pages) {
-      const allMessages = data.pages.flatMap((page) => page.pages);
+      const allMessages = data.pages
+        .map((page) => [...page.pages].reverse())
+        .flatMap((page) => page)
+        .reverse();
       setMessages(allMessages);
     }
   }, [data]);
+
+  const { scrollRef, observerRef, scrollToBottom } = useChatScroll(
+    messages,
+    fetchNextPage,
+    hasNextPage,
+  );
 
   // 새로운 채팅 보내기
   const postMessage = () => {
@@ -50,6 +60,7 @@ const ChatMenu = ({ chatRoomId }: { chatRoomId: number }) => {
     sendMessage(`/pub/ws/${chatRoomId}/chat-messages`, message);
     setNewMessage('');
     refetch();
+    scrollToBottom();
   };
 
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -68,8 +79,9 @@ const ChatMenu = ({ chatRoomId }: { chatRoomId: number }) => {
 
   return (
     <S.Container>
-      <S.ContentBox>
-        <S.ScrollableContainer>
+      <S.ScrollableContainer ref={scrollRef}>
+        <S.ContentBox>
+          <div ref={observerRef} />
           {messages.map((msg, index) => (
             <Message
               key={index}
@@ -79,8 +91,9 @@ const ChatMenu = ({ chatRoomId }: { chatRoomId: number }) => {
               isAuthor={msg.isAuthor}
             />
           ))}
-        </S.ScrollableContainer>
-      </S.ContentBox>
+        </S.ContentBox>
+      </S.ScrollableContainer>
+
       <S.InputBox>
         <S.Input
           placeholder="채팅 입력"
