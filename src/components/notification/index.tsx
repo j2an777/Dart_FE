@@ -1,13 +1,12 @@
 import { Text } from '..';
 import useOutsideClick from '@/hooks/useOutsideClick';
-import useNotification from '@/hooks/useNotification';
+// import useNotification from '@/hooks/useNotification';
 
 import * as S from './styles';
 
 const Notification = () => {
-  const data = useNotification();
+  // const data = useNotification();
   const { isExpand, onToggle, ref } = useOutsideClick();
-  console.log(data);
   return (
     <S.Container ref={ref as React.RefObject<HTMLDivElement>} isExpand={isExpand}>
       <Text typography="t6">알림</Text>
