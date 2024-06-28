@@ -25,10 +25,9 @@ instance.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
     if (error.response.status === 401 && !originalRequest._retry) {
-      console.log('리프레시입니다');
       originalRequest._retry = true;
       try {
-        const setMember = memberStore().setMember;
+        const { setMember } = memberStore.getState();
         const response = await getNewToken();
         const { accessToken } = response.data;
         setMember(accessToken);
