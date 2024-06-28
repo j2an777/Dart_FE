@@ -21,5 +21,8 @@ export interface ChatMessageResponse {
 }
 
 export interface ChatMembers {
-  members: string[];
+  nickname: string;
+  sessionId: string;
+  destination: string;
+  profileImageUrl: string;
 }
