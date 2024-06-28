@@ -38,13 +38,7 @@ const EditMemberForm = () => {
     if (editData?.profileImage) {
       setProfileImageSrc(editData.profileImage);
     }
-    if (editData?.birthday) {
-      const birthdayString = editData.birthday.toString();
-      const newAge = birthdayString === '1997-01-07' ? '정보 없음' : calculateAge(birthdayString).toString();
-      setAge(newAge);
-    } else {
-      setAge('정보 없음');
-    }
+    setAge(calculateAge(editData?.birthday));
   }, [editData]);
 
   const { register, handleSubmit, reset, getValues, setValue } = useForm<EditFormData>({
@@ -149,7 +143,7 @@ const EditMemberForm = () => {
             나이
           </Text>
           <Text typography="t5" bold="medium">
-            {age} 세
+            (만) {age}세
           </Text>
         </S.ProfileRight>
       </S.ProfileBlock>
