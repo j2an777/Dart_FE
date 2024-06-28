@@ -1,7 +1,6 @@
 import { Text } from '@/components';
 import { buttonTypeMap } from '@/styles/button';
 import { colors } from '@/styles/colorPalette';
-import { typographyMap } from '@/styles/typography';
 import styled from '@emotion/styled';
 
 export const Container = styled.div`
