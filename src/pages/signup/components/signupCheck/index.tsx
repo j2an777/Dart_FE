@@ -2,7 +2,7 @@ import { Timer } from '..';
 import { useEffect, useState } from 'react';
 import { Button, CircleLoader, InputField } from '@/components';
 import usePostEmailVerify from '../../hooks/usePostEmailVerify';
-import { RegisterOptions, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import usePostCheckEmailOrNickname, {
   SignupCheckData,
 } from '../../hooks/usePostCheckEmailOrNickname';
@@ -12,18 +12,11 @@ import * as S from './styles';
 export interface SignupCheckProps {
   label: string;
   value: 'email' | 'nickname';
-  registerOptions: RegisterOptions;
   buttonLabel: string;
   successMessage: string;
 }
 
-const SignupCheck = ({
-  label,
-  value,
-  registerOptions,
-  buttonLabel,
-  successMessage,
-}: SignupCheckProps) => {
+const SignupCheck = ({ label, value, buttonLabel, successMessage }: SignupCheckProps) => {
   const {
     register,
     formState: { errors },
@@ -41,7 +34,13 @@ const SignupCheck = ({
     <S.Container>
       <S.InputBox>
         <InputField
-          register={register(value, registerOptions)}
+          register={register(value, {
+            required: '이메일을 입력해주세요',
+            pattern: {
+              value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+              message: '이메일 형식을 지켜주세요',
+            },
+          })}
           error={errors[value]}
           label={label}
           value={value}

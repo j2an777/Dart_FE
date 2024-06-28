@@ -44,7 +44,7 @@ export const TemplatePreview = styled.div`
   gap: 10px;
 
   //width: 800px;
-  z-index: 1;
+  z-index: var(--lower-zindex);
 `;
 
 export const Image = styled.img`

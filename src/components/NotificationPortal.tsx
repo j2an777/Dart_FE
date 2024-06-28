@@ -8,7 +8,7 @@ const NotificationPortal = () => {
   return (
     <>
       {$portal_root
-        ? createPortal(<div>{isLogin && <Notification />}</div>, $portal_root)
+        ? createPortal(<>{isLogin && <Notification />}</>, $portal_root)
         : null}
     </>
   );

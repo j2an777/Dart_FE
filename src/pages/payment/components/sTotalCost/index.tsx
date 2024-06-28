@@ -1,14 +1,16 @@
 import { Text } from '@/components';
 import useGetPaymentOrder from '../../hooks/useGetPaymentOrder';
 import * as S from './styles';
+import { useFormContext } from 'react-hook-form';
 
 const TotalCostBox = () => {
   const { data } = useGetPaymentOrder();
+  const { getValues } = useFormContext();
 
   // 원가
   const originalCost = data?.cost || 0;
   // 할인 퍼센트
-  const sale = 10;
+  const sale = getValues('couponType') ?? 0;
   // 할인 금액 계산
   const discountAmount = Math.floor(originalCost * (sale / 100));
   // 최종 결제 금액 계산

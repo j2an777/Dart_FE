@@ -25,4 +25,3 @@ export { default as NotificationPortal } from './NotificationPortal';
 export { default as Skeleton } from './Skeleton';
 export { default as withSuspenseNErrorBoundary } from '../hooks/withSuspenseNErrorBoundary';
 export { default as TextCounter } from './TextCounter';
-export { default as CouponIcon } from './couponIcon';

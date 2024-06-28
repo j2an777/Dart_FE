@@ -23,7 +23,7 @@ export const PostArrow = styled(Icon)`
 `;
 
 export const BackgroundImage = styled.img`
-  z-index: 1;
+  z-index: var(--lower-zindex);
   width: fit-content;
   height: fit-content;
   pointer-events: none;

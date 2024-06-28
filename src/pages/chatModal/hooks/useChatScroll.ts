@@ -6,6 +6,7 @@ export const useChatScroll = (
   fetchNextPage: () => void,
   hasNextPage: boolean,
 ) => {
+  console.log(messages);
   const scrollRef = useRef<HTMLDivElement>(null);
   const observerRef = useRef<HTMLDivElement>(null);
   const previousScrollHeightRef = useRef<number>(0);
