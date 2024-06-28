@@ -67,6 +67,7 @@ const ChatModal = ({ open, galleryId }: Props) => {
               ) : (
                 <S.Menu onClick={() => handleSelect('실시간 채팅')}>실시간 채팅</S.Menu>
               ))}
+            <S.Content>{renderContent()}</S.Content>
           </>
         ) : (
           // 비로그인 시 비활성화
@@ -77,8 +78,6 @@ const ChatModal = ({ open, galleryId }: Props) => {
             <S.LoginButton onClick={handleLoginClick}> 로그인</S.LoginButton>
           </S.BlurBox>
         )}
-
-        <S.Content>{renderContent()}</S.Content>
       </S.Outline>
     </S.Container>
   );

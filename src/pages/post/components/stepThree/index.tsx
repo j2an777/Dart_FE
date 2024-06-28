@@ -72,7 +72,9 @@ const StepTree = () => {
               <Icon value={template.iconValue} $active={false} />
             </S.Block>
             <S.CheckBtn
-              onClick={(e) => onTemplateClick(template.value, e)}
+              onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
+                onTemplateClick(template.value, e)
+              }
               className={selectedTemplate === template.value ? 'selected' : ''}
             >
               {selectedTemplate === template.value && <S.Checked />}

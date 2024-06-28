@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { StepZero, StepOne, StepTwo, StepThree } from './components';
 import { Icon } from '@/components';
@@ -11,6 +12,9 @@ import { memberStore } from '@/stores/member';
 import * as S from './styles';
 import usePostGalleries, { PostGalleriesResponse } from './hooks/usePostGalleries';
 import ProgressPortal from '@/components/ProgressPortal';
+import { CircularProgressbar } from 'react-circular-progressbar';
+import { useHandleErrors } from './hooks/useHandleErrors';
+import * as S from './styles';
 
 const PostPage = () => {
   const methods = useForm<PostGalleries>();

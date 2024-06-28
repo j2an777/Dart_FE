@@ -7,21 +7,15 @@ export const Container = styled.div`
   height: calc(100% - 65px);
 `;
 
-export const ContentBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  padding: 0;
-  flex: 1;
-  overflow-y: auto;
-`;
-
 export const ScrollableContainer = styled.div`
   display: flex;
-  flex-direction: column;
-  gap: 20px;
+  flex-direction: column-reverse;
+  justify-content: end;
   padding: 20px;
-  overflow-y: auto;
+  flex: 1;
+  height: 100%;
+  overflow-y: scroll;
+  gap: 40px;
 
   /* 스크롤 스타일 */
   ::-webkit-scrollbar {
@@ -42,6 +36,12 @@ export const ScrollableContainer = styled.div`
   ::-webkit-scrollbar-thumb:hover {
     background: rgba(85, 85, 85, 0.5);
   }
+`;
+
+export const ContentBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 `;
 
 export const InputBox = styled.div`
@@ -67,6 +67,14 @@ export const ChatBox = styled.div<{ isAuthor: boolean }>`
   align-items: ${({ isAuthor }) => (isAuthor ? 'flex-end' : 'flex-start')};
   gap: 5px;
   margin-top: 20px;
+
+  > p {
+    margin-left: 20px;
+    padding: 10px;
+    background: ${colors.white};
+    border-radius: ${({ isAuthor }) =>
+      isAuthor ? '10px 0px 10px 10px' : '0px 10px 10px 10px'};
+  }
 `;
 
 export const SenderBlock = styled.div<{ isAuthor: boolean }>`
@@ -74,6 +82,7 @@ export const SenderBlock = styled.div<{ isAuthor: boolean }>`
   align-items: center;
   gap: 10px;
   flex-direction: ${({ isAuthor }) => (isAuthor ? 'row-reverse' : 'row')};
+
   cursor: pointer;
 
   p {
