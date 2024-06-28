@@ -19,9 +19,14 @@ const PostPage = () => {
   const navigate = useCustomNavigate();
   const open = alertStore((state) => state.open);
   const { accessToken } = memberStore.getState();
-  const { mutate } = usePostGalleries();
   const { open: openProgress, close: closeProgress } = progressStore();
   const [eventSource, setEventSource] = useState<EventSourcePolyfill | null>(null);
+
+  const onProgress = (progress: number) => {
+    openProgress(progress);
+  };
+
+  const { mutate } = usePostGalleries(onProgress);
 
   const onSubmit: SubmitHandler<PostGalleries> = async (data) => {
     if (data.images == undefined || data.images.length < 3) {
@@ -51,7 +56,7 @@ const PostPage = () => {
 
   const startSSE = () => {
     const newEventSource = new EventSourcePolyfill(
-      'http://116.46.227.27:9999/api/galleries/progress',
+      'https://dartgallery.site/api/galleries/progress',
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -67,7 +72,7 @@ const PostPage = () => {
     newEventSource.addEventListener('SSE', (event) => {
       const data = (event as MyCustomEvent).data;
       const progressData = parseInt(data, 10);
-      openProgress(progressData);
+      openProgress(50 + progressData / 2); // SSE는 50~100%까지 진행
 
       // 100이 되면 종료
       if (progressData === 100) {
@@ -85,6 +90,7 @@ const PostPage = () => {
   };
 
   const modalConfirm = async (data: PostGalleries) => {
+    console.log(data);
     openProgress(0);
     startSSE(); // SSE 연결을 먼저 시작
 
