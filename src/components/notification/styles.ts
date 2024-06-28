@@ -1,91 +1,42 @@
-import styled from '@emotion/styled';
-import { Icon } from '..';
 import { colors } from '@/styles/colorPalette';
-import { LayoutMap } from '@/styles/layout';
+import styled from '@emotion/styled';
+import NotificationImage from '@/assets/images/notification.png';
+import { Icon } from '..';
+import { css } from '@emotion/react';
 
-export const Container = styled.div`
+export const Container = styled.div<{ isExpand: boolean }>`
+  display: flex;
+  flex-direction: column;
   position: fixed;
-  left: 95%;
-  top: 80%;
-  z-index: 3;
-`;
-
-export const AlarmIcon = styled(Icon)`
-  border-radius: 100%;
-  padding: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  z-index: 4;
-  background-color: ${colors.white};
-`;
-
-export const ExclamationIcon = styled(Icon)`
-  position: absolute;
-  top: 0;
   right: 0;
-  transform: translate(-40%, -40%);
-`;
-
-export const ModalContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  width: 300px;
-  height: 500px;
-  transform: translate(-105%, -100%);
-  background-color: ${colors.white};
-  border-radius: 10px;
-  border: 1px solid ${colors.black};
-  padding: 7px;
-`;
-
-export const Outline = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  border-radius: 10px;
-  border: 1px solid ${colors.black};
-`;
-
-export const TitleBox = styled.div`
-  ${LayoutMap.displayFlex}
+  top: 90px;
+  width: 250px;
+  height: 80px;
+  z-index: var(--notification-zindex);
+  border: 3px solid ${colors.gray100};
+  border-right: none;
+  background-image: url(${NotificationImage});
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 10px;
   justify-content: space-between;
-  padding: 10px 12px;
-  width: 100%;
-`;
-
-export const NotificationBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-  padding: 20px 10px;
-  gap: 30px;
-  border-top: 1px solid ${colors.black};
-`;
-
-export const Notifications = styled.div`
-  display: flex;
-  width : 100%;
-  max-height : 330px;
-  flex-direction: column;
-  gap: 20px;
-  overflow-y: scroll;
-
-  &::-webkit-scrollbar {
-    display : none;
+  transition: transform 1s ease;
+  > p:nth-of-type(2) {
+    align-self: flex-end;
   }
+
+  ${({ isExpand }) =>
+    isExpand
+      ? css`
+          transform: translateX(0);
+        `
+      : css`
+          transform: translateX(100%);
+        `}
 `;
 
-export const NotificationItem = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  gap: 10px;
-  padding-bottom: 15px;
-  border-bottom: 1px solid ${colors.black100};
-  cursor: pointer;
-  :hover {
-    text-decoration: underline;
-    font-weight: 700;
-  }
+export const CancelIcon = styled(Icon)`
+  position: absolute;
+  right: 10px;
 `;

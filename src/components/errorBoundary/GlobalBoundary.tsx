@@ -1,10 +1,10 @@
 import { PropsWithChildren, useEffect } from 'react';
 
 const GlobalErrorBoundary = ({ children }: PropsWithChildren) => {
-  const captureReject = (e) => {
+  const captureReject = (e: any) => {
     e.preventDefault();
     if (e.reason instanceof Error) {
-      console.log(e.reason);
+      console.log(e.reason, 'in errorbuondary');
     }
   };
 

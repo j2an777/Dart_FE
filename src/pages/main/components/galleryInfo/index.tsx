@@ -76,9 +76,7 @@ const GalleryInfo = ({ galleryId, open: isOpen, close, hasEnded }: GalleryInfoPr
       navigate(`/gallery/${galleryId}`);
       close();
     } else {
-      showModal('티켓 구매하기', '티켓을 구매하시겠습니까?', () => {
-        navigate(`/payment/${galleryId}/ticket`);
-      });
+      navigate(`/payment/${galleryId}/ticket`, { hasAuth: true });
     }
   };
 
@@ -97,7 +95,7 @@ const GalleryInfo = ({ galleryId, open: isOpen, close, hasEnded }: GalleryInfoPr
       description: '서비스 준비 중입니다.',
       buttonLabel: '확인',
       onClickButton: () => close(),
-    })
+    });
   };
 
   if (!isOpen) return;

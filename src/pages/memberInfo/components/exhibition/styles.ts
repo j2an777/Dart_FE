@@ -32,7 +32,7 @@ export const Block = styled.div`
 `;
 
 export const Button = styled.button`
-  z-index: 1;
+  z-index: var(--lower-zindex);
   ${buttonSizeMap.xs}
   ${buttonTypeMap.reverseRectangleGray}
 `;

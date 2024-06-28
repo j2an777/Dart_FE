@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { StepZero, StepOne, StepTwo, StepThree } from './components';
 import { Icon } from '@/components';
@@ -8,13 +7,11 @@ import useCustomNavigate from '@/hooks/useCustomNavigate';
 import { EventSourcePolyfill } from 'event-source-polyfill';
 import { useEffect, useState } from 'react';
 import { memberStore } from '@/stores/member';
-
-import * as S from './styles';
 import usePostGalleries, { PostGalleriesResponse } from './hooks/usePostGalleries';
 import ProgressPortal from '@/components/ProgressPortal';
-import { CircularProgressbar } from 'react-circular-progressbar';
-import { useHandleErrors } from './hooks/useHandleErrors';
+
 import * as S from './styles';
+import { MyCustomEvent } from '@/types/gallery';
 
 const PostPage = () => {
   const methods = useForm<PostGalleries>();
@@ -27,6 +24,14 @@ const PostPage = () => {
   const [eventSource, setEventSource] = useState<EventSourcePolyfill | null>(null);
 
   const onSubmit: SubmitHandler<PostGalleries> = async (data) => {
+    if (data.images == undefined || data.images.length < 3) {
+      open({
+        title: '작품 등록 오류',
+        description: '최소 3개의 작품을 등록해주세요.',
+        buttonLabel: '확인',
+      });
+    }
+
     open({
       title: '전시 등록',
       description: (
@@ -45,19 +50,23 @@ const PostPage = () => {
   };
 
   const startSSE = () => {
-    const newEventSource = new EventSourcePolyfill('http://116.46.227.27:9999/api/galleries/progress', {
-      headers: {
-        'Authorization': `Bearer ${accessToken}`,
-        'Content-Type': 'text/event-stream',
-        'Connection': 'Keep-Alive',
-        'Accept': 'text/event-stream'
+    const newEventSource = new EventSourcePolyfill(
+      'http://116.46.227.27:9999/api/galleries/progress',
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'text/event-stream',
+          Connection: 'Keep-Alive',
+          Accept: 'text/event-stream',
+        },
+        withCredentials: true,
+        heartbeatTimeout: 86400000,
       },
-      withCredentials: true,
-      heartbeatTimeout: 86400000,
-    });
+    );
 
     newEventSource.addEventListener('SSE', (event) => {
-      const progressData = parseInt(event.data, 10);
+      const data = (event as MyCustomEvent).data;
+      const progressData = parseInt(data, 10);
       openProgress(progressData);
 
       // 100이 되면 종료
@@ -92,12 +101,12 @@ const PostPage = () => {
             navigate(`/payment/success/${galleryId}/create`);
           }
         } else {
-          console.error("Gallery ID could not be retrieved.");
+          console.error('Gallery ID could not be retrieved.');
           closeProgress();
         }
       },
       onError: () => {
-        console.error("An error occurred while creating the gallery.");
+        console.error('An error occurred while creating the gallery.');
         closeProgress();
       },
     });
@@ -106,7 +115,7 @@ const PostPage = () => {
   useEffect(() => {
     return () => {
       if (eventSource) {
-        eventSource.close();  // 컴포넌트 언마운트 시 이벤트 소스 닫기
+        eventSource.close(); // 컴포넌트 언마운트 시 이벤트 소스 닫기
       }
     };
   }, [eventSource]);

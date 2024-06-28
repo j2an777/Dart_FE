@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
-import Icon from '../icon';
-import Text from '../Text';
+import Icon from '@/components/icon';
+import Text from '@/components/Text';
 
 export const Container = styled.div`
   position: relative;

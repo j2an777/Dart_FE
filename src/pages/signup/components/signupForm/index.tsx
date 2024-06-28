@@ -1,7 +1,7 @@
 import { SignupFormLayout, SignupTextarea } from '..';
 import { Button, InputField } from '@/components';
 import { ExtendedSignupForm } from '@/types/member';
-import { RegisterOptions, useFormContext } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 import { essentiolFormData, optionalFormData } from '@/consts/signup';
 import { checkModalStore } from '@/stores/modal';
 import { Navigate } from 'react-router-dom';
@@ -50,12 +50,7 @@ const SignupForm = () => {
                       open({
                         title: props.title,
                         content: (
-                          <SignupCheck
-                            label={label}
-                            value={value}
-                            registerOptions={registerOptions as RegisterOptions}
-                            {...checkOption}
-                          />
+                          <SignupCheck label={label} value={value} {...checkOption} />
                         ),
                       })
                     }

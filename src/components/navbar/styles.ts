@@ -14,6 +14,7 @@ export const Container = styled.div`
 
 export const MaxWidthWrapper = styled.div`
   max-width: 1440px;
+  min-width: 800px;
   width: 100%;
   padding: 0px 80px;
   ${LayoutMap.displayFlex}
@@ -78,6 +79,8 @@ export const NavItem = styled(Text)`
     bottom: -2px;
     left: 50%;
     background-color: black;
-    transition: width 0.3s ease, left 0.3s ease;
+    transition:
+      width 0.3s ease,
+      left 0.3s ease;
   }
 `;

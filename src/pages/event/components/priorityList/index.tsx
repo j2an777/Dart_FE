@@ -1,14 +1,14 @@
+import { useRef } from 'react';
+import { PriorityCoupon } from '..';
+import { Pagination, Navigation } from 'swiper/modules';
 import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
+import { PriorityCoupon as PriorityListProps } from '@/types/coupon';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
 import * as S from './styles';
 
-import { Pagination, Navigation } from 'swiper/modules';
-import { PriorityCoupon } from '..';
-import { useRef } from 'react';
-
-const PriorityList = () => {
+const PriorityList = ({ array }: { array: PriorityListProps[] }) => {
   const sliderRef = useRef<SwiperRef>(null);
   const onNext = () => {
     if (sliderRef.current) sliderRef.current.swiper.slideNext();
@@ -22,24 +22,21 @@ const PriorityList = () => {
         ref={sliderRef}
         spaceBetween={30}
         pagination={{ clickable: true }}
-        loop={true}
+        loop={array.length > 1}
+        slidesPerView={1}
         navigation={{ nextEl: '.nextButton', prevEl: '.prevButton' }}
         modules={[Pagination, Navigation]}
         className="mySwiper"
       >
-        <SwiperSlide>
-          <PriorityCoupon />
-        </SwiperSlide>
-        <SwiperSlide>
-          <PriorityCoupon />
-        </SwiperSlide>
-        <SwiperSlide>
-          <PriorityCoupon />
-        </SwiperSlide>
+        {array.map((coupon, index) => (
+          <SwiperSlide key={index}>
+            <PriorityCoupon {...coupon} />
+          </SwiperSlide>
+        ))}
       </Swiper>
-      <S.DirectionButton value="left" size={50} $active={false} onClick={onPrev} />
+      <S.DirectionButton value="leftArrow" size={50} $active={false} onClick={onPrev} />
       <S.DirectionButton
-        value="left"
+        value="leftArrow"
         $rotate={true}
         size={50}
         $active={false}

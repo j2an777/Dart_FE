@@ -22,17 +22,17 @@ export const Title = styled(Text)`
   border-bottom: 2px solid ${colors.black};
 `;
 
-export const CouponBlock = styled.div`
+export const CouponBlock = styled.div<{ hasTitle: boolean }>`
   display: flex;
   align-items: center;
   padding: 20px;
-  width: 570px;
-  color: ${colors.gray500};
-  background-color: ${colors.gray100};
-  ${typographyMap.t6}
+  width: 500px;
+  color: ${(props) => (props.hasTitle ? colors.black : colors.gray500)};
+  background-color: ${(props) => (props.hasTitle ? colors.white : colors.gray100)};
+  border: ${(props) => (props.hasTitle ? '2px solid black' : 'none')};
 `;
 
 export const Button = styled.button`
   ${buttonTypeMap.rectangleBlack}
-  padding: 20px 40px;
+  padding: 20px 30px;
 `;
