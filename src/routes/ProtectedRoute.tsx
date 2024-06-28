@@ -7,7 +7,7 @@ function ProtectedRoute({ children, path }: PropsWithChildren<{ path: string }>)
   if (path === '/login' || path === '/signup') {
     return isLogin ? <Navigate to={'/'} /> : (children as JSX.Element);
   }
-  return isLogin ? (children as JSX.Element) : <Navigate to={'/login'} />;
+  return isLogin ? (children as JSX.Element) : <Navigate to={'/login'} replace={true} />;
 }
 
 export default ProtectedRoute;
