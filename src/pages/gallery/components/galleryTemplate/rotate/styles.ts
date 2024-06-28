@@ -23,6 +23,7 @@ export const MainBlock = styled.div<MainBlockProps>`
     transform: perspective(1000px) rotateY(${props => `${props.degrees}deg`});
 
     .galleryTitle {
+        min-width : 300px;
         position : absolute;
         top : 70%;
         left: 50%;
