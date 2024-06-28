@@ -51,22 +51,6 @@ const EditMemberForm = () => {
     mode: 'onChange',
   });
 
-  const onSubmit = async (formData: EditFormData) => {
-    try {
-      mutate(formData);
-      open({
-        title: '수정 완료',
-        description: '수정이 완료되었습니다.',
-        buttonLabel: '확인',
-        onClickButton: () => {
-          reset();
-        },
-      });
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
   const onHandleReset = () => {
     open({
       title: '내용 초기화',
@@ -123,7 +107,7 @@ const EditMemberForm = () => {
   }
 
   return (
-    <S.Container onSubmit={handleSubmit(onSubmit)}>
+    <S.Container onSubmit={handleSubmit((formData: EditFormData) => mutate(formData))}>
       <S.ProfileBlock>
         <S.ProfileLeft>
           <UserCircle profileImage={profileImageSrc} size={150} />
