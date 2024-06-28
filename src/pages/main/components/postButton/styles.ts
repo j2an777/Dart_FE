@@ -5,6 +5,12 @@ export const Container = styled.div`
   position: relative;
   width: fit-content;
   height: fit-content;
+  transition: all 0.3s ease;
+  cursor: pointer;
+
+  :active {
+    transform: scale(0.9);
+  }
 `;
 
 export const PostArrow = styled(Icon)`
@@ -14,17 +20,13 @@ export const PostArrow = styled(Icon)`
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-
-  &:hover {
-    cursor: pointer;
-  }
 `;
 
 export const BackgroundImage = styled.img`
-  z-index: 1;
+  z-index: var(--lower-zindex);
   width: fit-content;
   height: fit-content;
-  cursor: pointer;
+  pointer-events: none;
   @keyframes rotateInfinite {
     from {
       transform: rotate(0deg);

@@ -1,4 +1,4 @@
-import { PageInfo } from './gallery';
+import { GalleryDesc, PageInfo } from './gallery';
 
 export interface ReviewsData {
   pages: Review[];
@@ -13,3 +13,14 @@ export interface Review {
   nickname: string;
   profileImage: string | null;
 }
+
+export type ReviewInfo = Pick<
+  GalleryDesc,
+  | 'nickname'
+  | 'thumbnail'
+  | 'reviewAverage'
+  | 'endDate'
+  | 'startDate'
+  | 'profileImage'
+  | 'title'
+>;

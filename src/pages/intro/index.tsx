@@ -1,13 +1,21 @@
 import Footer from "@/components/footer";
 import * as S from './styles';
-import Banner from "./components/banner";
-import Introduce from "./components/introduce";
+import { Suspense, lazy } from "react";
+import LogoLoader from "@/components/logoLoader";
 
 const IntroPage = () => {
+
+  const SBanner = lazy(() => import('./components/banner'));
+  const SIntroduce = lazy(() => import('./components/introduce'));
+
   return (
     <S.Container>
-      <Banner />
-      <Introduce />
+      <Suspense fallback={ <LogoLoader /> }>
+        <SBanner />
+      </Suspense>
+      <Suspense fallback={ <LogoLoader /> }>
+        <SIntroduce />
+      </Suspense>
       <Footer />
     </S.Container>
   );

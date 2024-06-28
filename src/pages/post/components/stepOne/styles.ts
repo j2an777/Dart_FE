@@ -1,6 +1,6 @@
+import { Icon } from '@/components';
 import { colors } from '@/styles/colorPalette';
 import styled from '@emotion/styled';
-import { Text } from '@/components';
 
 export const Container = styled.div`
   position: relative;
@@ -10,16 +10,20 @@ export const Container = styled.div`
 `;
 
 export const Block = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 20px;
 `;
 
-export const Step = styled(Text)`
+export const Step = styled(Icon)`
   position: absolute;
-  top: -40px;
-  right: -50px;
-  font-size: 350px;
-  font-weight: 500;
-  letter-spacing: 10px;
+  top: 40px;
+  right: 2px;
+`;
+
+export const Box = styled.div`
+  position: absolute;
+  top: 90%;
+  right: 40px;
 `;

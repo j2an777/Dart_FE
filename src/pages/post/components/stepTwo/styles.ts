@@ -1,6 +1,6 @@
 import { colors } from '@/styles/colorPalette';
 import styled from '@emotion/styled';
-import { Text } from '@/components';
+import { Icon } from '@/components';
 import { buttonSizeMap, buttonTypeMap } from '@/styles/button';
 
 export const Container = styled.div`
@@ -14,13 +14,10 @@ export const Container = styled.div`
   height: 100%;
 `;
 
-export const Step = styled(Text)`
+export const Step = styled(Icon)`
   position: absolute;
-  top: -30px;
-  left: -15px;
-  font-size: 350px;
-  font-weight: 500;
-  letter-spacing: 5px;
+  top: 53px;
+  left: 2px;
 `;
 
 export const Box = styled.div`
@@ -51,6 +48,7 @@ export const Block = styled.div`
   }
 
   article {
+    position: relative;
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -67,6 +65,12 @@ export const Buttons = styled.div`
     ${buttonSizeMap.xs}
     ${buttonTypeMap.reverseRectangleGray}
   }
+`;
+
+export const Counter = styled.div`
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
 `;
 
 export const ListBox = styled.div`

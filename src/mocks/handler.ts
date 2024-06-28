@@ -61,7 +61,7 @@ const galleries1 = {
 };
 
 export const handlers = [
-  http.put('/api/members', async ({ request }) => {
+  http.put('/members', async ({ request }) => {
     const data = await request.formData();
     // formData 보내기 확인. 나중에 삭제 요망
     console.log('Received data: ');
@@ -82,23 +82,23 @@ export const handlers = [
     );
   }),
   // 전시 전체 조회
-  http.get('/api/galleries', () => {
+  http.get('/galleries', () => {
     return HttpResponse.json(galleries1, { status: 200 });
   }),
 
-  http.get('/api/galleries/1', () => {
+  http.get('/galleries/1', () => {
     return HttpResponse.json(GalleryData, { status: 200 });
   }),
 
   // 리뷰 작성
-  http.post('/api/reviews', async ({ request }) => {
+  http.post('/reviews', async ({ request }) => {
     const data = await request.json();
     return HttpResponse.json(data, { status: 200 });
   }),
-  http.get('/api/mypage', () => {
+  http.get('/mypage', () => {
     return HttpResponse.json(TicketData, { status: 200 });
   }),
-  http.get('/api/payment', () => {
+  http.get('/payment', () => {
     return HttpResponse.json(PaymentData, { status: 200 });
   }),
 ];

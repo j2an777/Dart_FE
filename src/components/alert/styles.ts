@@ -12,6 +12,13 @@ export const Container = styled.div`
   background-color: ${colors.white};
   border-radius: 10px;
   min-height: 300px;
+  max-height: 600px;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  .dsBox {
+    margin: 20px 0 30px 0;
+  }
 `;
 
 export const HeaderBox = styled.div`

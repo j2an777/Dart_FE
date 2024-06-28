@@ -23,6 +23,9 @@ export const typographyMap = {
     font-size: 16px;
   `,
   t7: css`
+    font-size: 14px;
+  `,
+  t8: css`
     font-size: 12px;
   `,
 };

@@ -1,7 +1,6 @@
-import { Button, Text, UserCircle } from '..';
+import { Button, Icon, Text, UserCircle } from '..';
 import { navbarInfo, userBoxInfo } from '@/consts/navbar';
-import mainlogo from '@/assets/images/mainLogo.png';
-import { Link, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import { memberStore } from '@/stores/member';
 import useOutsideClick from '@/hooks/useOutsideClick';
 import useCustomNavigate from '@/hooks/useCustomNavigate';
@@ -10,26 +9,19 @@ import * as S from './styles';
 
 const Navbar = () => {
   const navigate = useCustomNavigate();
-  const {
-    logout,
-    accessToken,
-    auth: { nickname, profileImage },
-  } = memberStore();
+  const { accessToken } = memberStore();
   return (
     <>
       <S.Container>
         <S.MaxWidthWrapper>
-          <S.MainLogo alt="main-logo" src={mainlogo} />
+          <a href="/">
+            <Icon value="mainLogo" $active={false} />
+          </a>
           <S.ButtonBox>
             {navbarInfo.map(({ path, value }, index) => {
               if (value === '로그인') {
                 return accessToken ? (
-                  <UserBox
-                    key={index}
-                    logout={logout}
-                    nickname={nickname}
-                    profileImage={profileImage}
-                  />
+                  <UserBox key={index} />
                 ) : (
                   <Button
                     buttonType="rectangleBlack"
@@ -41,13 +33,26 @@ const Navbar = () => {
                     {value}
                   </Button>
                 );
+              } else if (value === 'coupon') {
+                return (
+                  <Icon
+                    key={index}
+                    value="coupon"
+                    color="gray400"
+                    size={40}
+                    onClick={() => navigate(path)}
+                  />
+                );
               }
               return (
-                <Link key={index} to={path}>
-                  <Text typography="t7" bold="regular">
-                    {value}
-                  </Text>
-                </Link>
+                <S.NavItem
+                  key={index}
+                  typography="t7"
+                  bold="regular"
+                  onClick={() => navigate(path)}
+                >
+                  {value.toUpperCase()}
+                </S.NavItem>
               );
             })}
           </S.ButtonBox>
@@ -60,14 +65,12 @@ const Navbar = () => {
 
 export default Navbar;
 
-interface UserBoxProps {
-  logout: () => void;
-  nickname: string;
-  profileImage: string;
-}
-
-const UserBox = ({ logout, nickname, profileImage }: UserBoxProps) => {
+const UserBox = () => {
   const navigate = useCustomNavigate();
+  const {
+    logout,
+    auth: { nickname, profileImage },
+  } = memberStore();
   const { isExpand, onToggle, ref } = useOutsideClick();
   return (
     <S.UserBoxContainer ref={ref as React.RefObject<HTMLDivElement>} onClick={onToggle}>

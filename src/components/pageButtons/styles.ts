@@ -16,7 +16,7 @@ export const Container = styled.div<Pick<PageButtonsProps, 'orientation'>>`
 export const Line = styled(Text)<Pick<PageButtonsProps, 'orientation'>>`
   ${LayoutMap.absoluteCenter}
   border: 1px solid ${colors.black};
-  z-index: 1;
+  z-index: var(--lower-zindex);
   ${({ orientation }) =>
     orientation === 'horizontal' ? 'width: 100%;' : 'height: 100%;'}
 `;
@@ -26,7 +26,7 @@ export const ButtonBox = styled.div<Pick<PageButtonsProps, 'orientation'>>`
   justify-content: center;
   background-color: ${colors.white};
   gap: 10px;
-  z-index: 2;
+  z-index: var(--middle-zindex);
 
   ${({ orientation }) =>
     orientation === 'horizontal'

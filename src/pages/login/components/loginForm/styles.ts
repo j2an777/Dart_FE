@@ -1,4 +1,3 @@
-import { Icon } from '@/components';
 import styled from '@emotion/styled';
 
 export const Container = styled.form`
@@ -15,7 +14,7 @@ export const ButtonBox = styled.div`
   width: 100%;
 `;
 
-export const SubmitIcon = styled(Icon)`
+export const SubmitButton = styled.button`
   position: absolute;
   right: 0;
 `;

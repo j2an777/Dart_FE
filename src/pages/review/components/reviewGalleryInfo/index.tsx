@@ -1,34 +1,42 @@
-import TestImage from '@/assets/images/rectangle.png';
-import { NicknameNProfile, Text } from '@/components';
-import parseDate from '@/utils/parseDate';
 import { ReviewRate } from '..';
+import parseDate from '@/utils/parseDate';
+import { useParams } from 'react-router-dom';
+import { NicknameNProfile, Text, withSuspenseNErrorBoundary } from '@/components';
+import useGetReviewInfo from '../../hooks/useGetReviewInfo';
+import ReviewInfoFallback from '../fallback/ReviewInfoFallback';
 
 import * as S from './styles';
 
-const startDate = new Date('2024-05-23T12:00:00Z');
-const endDate = new Date('2024-05-31T12:00:00Z');
-
 const ReviewGalleryInfo = () => {
+  const { galleryId } = useParams();
+  const {
+    data: { endDate, nickname, profileImage, reviewAverage, startDate, thumbnail, title },
+  } = useGetReviewInfo(galleryId as string);
   return (
     <S.Container>
-      <img src={TestImage} alt="gallery-thumbnail" width={250} height={250} />
+      <img src={thumbnail} alt="gallery-thumbnail" width={250} height={250} />
       <S.GalleryInfoBox>
         <S.InfoBlock>
-          <Text typography="t5">전시 제목</Text>
+          <Text typography="t5">{title}</Text>
           <NicknameNProfile
             typography="t6"
             bold="regular"
             ellipsis={150}
-            nickname="ARTIST LEE"
+            nickname={nickname}
+            profileImage={profileImage}
           />
           <Text color="gray400" typography="t6" bold="regular">
             {parseDate(startDate)} ~ {parseDate(endDate as Date)}
           </Text>
         </S.InfoBlock>
-        <ReviewRate rate={3.3} title="총 평점" />
+        <ReviewRate rate={reviewAverage} title="총 평점" />
       </S.GalleryInfoBox>
     </S.Container>
   );
 };
 
-export default ReviewGalleryInfo;
+const SuspenseWithReviewGalleryInfo = withSuspenseNErrorBoundary(ReviewGalleryInfo, {
+  suspenseFallback: <ReviewInfoFallback />,
+});
+
+export default SuspenseWithReviewGalleryInfo;

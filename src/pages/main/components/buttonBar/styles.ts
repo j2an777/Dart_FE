@@ -39,7 +39,7 @@ export const Button = styled.div<{ selected?: boolean }>`
   flex: 1;
   height: 30px;
   cursor: pointer;
-  z-index: 2;
+  z-index: var(--middle-zindex);
   animation: 0.5s forwards;
 `;
 export const SelectedButton = styled.div<{ width: number; position: number }>`
@@ -50,7 +50,7 @@ export const SelectedButton = styled.div<{ width: number; position: number }>`
   font-size: 12px;
   width: ${({ width }) => `calc((100% - 4px)/${width})`};
   height: 30px;
-  z-index: 1;
+  z-index: var(--lower-zindex);
   transform: ${({ position }) => `translateX(${100 * position}%)`};
   transition: all 0.3s ease-in-out;
 `;

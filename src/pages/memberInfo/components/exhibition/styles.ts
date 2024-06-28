@@ -1,6 +1,8 @@
 import styled from '@emotion/styled';
 import Text from '@/components/Text';
 import { colors } from '@/styles/colorPalette';
+import { Icon } from '@/components';
+import { buttonSizeMap, buttonTypeMap } from '@/styles/button';
 
 export const Container = styled.div`
   position: relative;
@@ -8,7 +10,7 @@ export const Container = styled.div`
   flex-direction: column;
   justify-content: start;
   align-items: center;
-  gap: 50px;
+  gap: 40px;
   height: 100%;
 
   footer {
@@ -17,23 +19,41 @@ export const Container = styled.div`
   }
 `;
 
+export const Box = styled.div`
+  position: relative;
+`;
+
+export const Block = styled.div`
+  position: absolute;
+  bottom: 35px;
+  left: 150px;
+  display: flex;
+  gap: 20px;
+`;
+
+export const Button = styled.button`
+  z-index: var(--lower-zindex);
+  ${buttonSizeMap.xs}
+  ${buttonTypeMap.reverseRectangleGray}
+`;
+
 export const TicketContainer = styled.div`
   position: relative;
 `;
 
-export const TicketSVG = styled.svg`
+export const TicketIcon = styled(Icon)`
   width: 900px;
   height: 290px;
 `;
 
-export const Thumbnail = styled.div<{ profileImage: string }>`
+export const Thumbnail = styled.div<{ imageUrl: string }>`
   position: absolute;
   top: 15px;
   left: 375px;
   width: 368px;
   height: 259px;
   border: 1px solid ${colors.black};
-  background-image: url(${(props) => props.profileImage});
+  background-image: url(${(props) => props.imageUrl});
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -43,6 +63,10 @@ export const Title = styled(Text)`
   position: absolute;
   top: 35px;
   left: 35px;
+  width: 300px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 export const Date = styled(Text)`
@@ -65,4 +89,9 @@ export const Fee = styled(Text)`
   position: absolute;
   top: 225px;
   left: 35px;
+`;
+
+export const ModalText = styled(Text)`
+  display: flex;
+  justify-content: center;
 `;

@@ -1,11 +1,9 @@
 import { useForm } from 'react-hook-form';
-import { InputField } from '@/components';
+import { Icon, InputField } from '@/components';
+import useLogin from '../../hooks/usePostLogin';
 import { LoginFormData } from '@/types/member';
 import LoginLinkButton from '../loginLinkButton';
 import { loginButtons, loginFormData } from '@/consts/login';
-import { postLogin } from '@/apis/member';
-import { memberStore } from '@/stores/member';
-import useCustomNavigate from '@/hooks/useCustomNavigate';
 
 import * as S from './styles';
 
@@ -15,18 +13,11 @@ const LoginForm = () => {
     formState: { errors },
     handleSubmit,
   } = useForm<LoginFormData>();
-  const setMember = memberStore((state) => state.setMember);
-  const navigate = useCustomNavigate();
-  const onSubmit = async (data: LoginFormData) => {
-    await postLogin(data)
-      .then(({ accessToken }) => {
-        setMember(accessToken);
-      })
-      .then(() => navigate(-1));
-  };
+  const { mutate: Login, isPending } = useLogin();
+  const onSubmit = (data: LoginFormData) => Login(data);
 
   return (
-    <S.Container>
+    <S.Container onSubmit={handleSubmit(onSubmit)}>
       <div>
         {loginFormData.map(({ label, registerOptions, value }) => (
           <InputField
@@ -42,7 +33,9 @@ const LoginForm = () => {
         {loginButtons.map((props, index) => (
           <LoginLinkButton key={index} {...props} />
         ))}
-        <S.SubmitIcon value="arrow" onClick={handleSubmit(onSubmit)} />
+        <S.SubmitButton type="submit">
+          <Icon value="arrow" color="white" $active={!isPending} />
+        </S.SubmitButton>
       </S.ButtonBox>
     </S.Container>
   );

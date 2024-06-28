@@ -1,7 +1,8 @@
 import { Button, Icon, Text } from '@/components';
 import { alertStore } from '@/stores/modal';
-
 import * as S from './styles';
+import ReactMarkdown from 'react-markdown';
+import rehypeRaw from 'rehype-raw';
 
 interface CheckAgreeProps {
   title: string;
@@ -10,6 +11,7 @@ interface CheckAgreeProps {
   checked?: boolean;
   onClick?: (value: string) => void;
   value: string;
+  description?: string;
 }
 
 const CheckAgree = ({
@@ -19,6 +21,7 @@ const CheckAgree = ({
   checked = false,
   onClick = () => {},
   value,
+  description,
 }: CheckAgreeProps) => {
   const open = alertStore((state) => state.open);
   return (
@@ -40,7 +43,9 @@ const CheckAgree = ({
             open({
               title,
               buttonLabel: '내용 접기',
-              description: '안녕',
+              description: (
+                <ReactMarkdown rehypePlugins={[rehypeRaw]}>{description}</ReactMarkdown>
+              ),
               onClickButton: () => {},
             })
           }

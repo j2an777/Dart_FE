@@ -2,7 +2,7 @@ import { getMypage } from '@/apis/member';
 import { useQuery } from '@tanstack/react-query';
 
 const useGetMypage = (nickname: string, page: number, size: number = 2) => {
-  return useQuery({
+  const query = useQuery({
     queryKey: ['exhibitions', [nickname, page, size]],
     queryFn: () => getMypage(nickname, page, size),
     select: (data) => ({
@@ -10,6 +10,11 @@ const useGetMypage = (nickname: string, page: number, size: number = 2) => {
       pageParams: data.pageInfo,
     }),
   });
+
+  return {
+    ...query,
+    refetch: query.refetch,
+  };
 };
 
 export default useGetMypage;

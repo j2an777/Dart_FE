@@ -135,54 +135,11 @@ export const StyledCalendar = styled(Calendar)`
     background: ${colors.gray600};
     color: ${colors.white};
   }
-`;
 
-// 가격 슬라이더
-interface RangeProps {
-  value: number;
-  min: number;
-  max: number;
-}
-
-export const Range = styled.input<RangeProps>`
-  -webkit-appearance: none;
-  appearance: none;
-  margin: 0 20px;
-  width: 500px;
-  height: 20px;
-  background: ${colors.gray100};
-
-  /* 핸들 스타일 */
-  &::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 20px;
-    height: 20px;
-    background: ${colors.black};
-    cursor: pointer;
-    border: solid 1px ${colors.gray100};
-    border-radius: 0;
+  // 비활성화된 타일 스타일
+  .react-calendar__navigation button:disabled,
+  .react-calendar__tile:disabled {
+    background: ${colors.gray50};
+    color: ${colors.gray400};
   }
-
-  &::-moz-range-thumb {
-    width: 20px;
-    height: 20px;
-    background: ${colors.black};
-    cursor: pointer;
-    border-radius: 0;
-  }
-
-  &::-ms-thumb {
-    width: 20px;
-    height: 20px;
-    background: ${colors.black};
-    cursor: pointer;
-    border-radius: 0;
-  }
-
-  /* 슬라이더 진행 부분 */
-  background: ${(props) => {
-    const percentage = ((props.value - props.min) / (props.max - props.min)) * 100;
-    return `linear-gradient(to right, ${colors.black} ${percentage}%, ${colors.gray100} ${percentage}%)`;
-  }};
 `;

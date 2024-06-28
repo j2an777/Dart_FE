@@ -10,6 +10,7 @@ export const Container = styled.div`
   position: relative;
   margin-top: 40px;
   flex: 1;
+  color: ${colors.white};
 `;
 
 export const Label = styled.label<{ isFocused: boolean }>`
@@ -26,48 +27,29 @@ export const Label = styled.label<{ isFocused: boolean }>`
   transition: all 0.5s;
 `;
 
-export const Input = styled.input<{ inputType?: 'default' | 'alert'; disabled: boolean }>`
+export const Input = styled.input<{ disabled: boolean }>`
   font-size: 24px;
   margin-top: 10px;
   padding: 0 10px 10px;
+  color: ${colors.white};
+  border-bottom: 1px solid ${colors.white};
   ${({ disabled }) =>
     disabled
       ? css`
           background-color: ${colors.gray500};
         `
       : null};
-  ${({ inputType = 'default' }) =>
-    inputType === 'default'
-      ? css`
-          color: ${colors.white};
-          border-bottom: 1px solid ${colors.white};
 
-          // autocomplete css 속성
-          :-webkit-autofill,
-          :-webkit-autofill:hover,
-          :-webkit-autofill:focus,
-          :-webkit-autofill:active {
-            -webkit-text-fill-color: ${colors.white};
-            -webkit-box-shadow: 0 0 0px 1000px inherit inset;
-            box-shadow: 0 0 0px 1000px inherit inset;
-            transition: background-color 5000s ease-in-out 0s;
-          }
-        `
-      : css`
-          color: ${colors.black};
-          border-bottom: 1px solid ${colors.black};
-
-          // autocomplete css 속성
-          :-webkit-autofill,
-          :-webkit-autofill:hover,
-          :-webkit-autofill:focus,
-          :-webkit-autofill:active {
-            -webkit-text-fill-color: ${colors.black};
-            -webkit-box-shadow: 0 0 0px 1000px inherit inset;
-            box-shadow: 0 0 0px 1000px inherit inset;
-            transition: background-color 5000s ease-in-out 0s;
-          }
-        `}
+  // autocomplete css 속성
+  :-webkit-autofill,
+  :-webkit-autofill:hover,
+  :-webkit-autofill:focus,
+  :-webkit-autofill:active {
+    -webkit-text-fill-color: ${colors.white};
+    -webkit-box-shadow: 0 0 0px 1000px inherit inset;
+    box-shadow: 0 0 0px 1000px inherit inset;
+    transition: background-color 5000s ease-in-out 0s;
+  }
 `;
 
 export const ErrorMessage = styled(Text)`

@@ -1,5 +1,4 @@
-import { Member } from '@/types/member';
-import decodedToken from '@/utils/decodedToken';
+import { LoginResponse, Member } from '@/types/member';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
@@ -7,7 +6,7 @@ type AuthData = Pick<Member, 'nickname' | 'email' | 'profileImage'>;
 interface memberState {
   auth: AuthData;
   accessToken?: string | null;
-  setMember: (accessToken: string) => void;
+  setMember: (data: LoginResponse) => void;
   logout: () => void;
 }
 
@@ -22,11 +21,11 @@ export const memberStore = create<memberState>()(
     (set) => ({
       auth: initalState,
       accessToken: null,
-      setMember: (accessToken) => {
-        const data = decodedToken(accessToken);
+      setMember: (data) => {
+        const { accessToken, ...authData } = data;
         set((prev) => ({
           ...prev,
-          auth: data,
+          auth: authData,
           accessToken: accessToken,
         }));
       },

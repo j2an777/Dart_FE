@@ -18,11 +18,17 @@ export interface EmailVerify extends Pick<Member, 'email'> {
   code: string;
 }
 
-export type EditFormData = Partial<
-  Pick<Member, 'nickname' | 'introduce'>
-> & {
+export type PutFormData = {
+  memberUpdateDto: {
+    nickname: string;
+    introduce: string;
+  };
   profileImage?: File;
-  isCheckedNickname: boolean;
+};
+
+export type EditFormData = Partial<Pick<Member, 'nickname' | 'introduce'>> & {
+  profileImage?: File;
+  birthday?: string;
 };
 
 export interface ExtendedSignupForm extends SignupFormData {
@@ -30,3 +36,8 @@ export interface ExtendedSignupForm extends SignupFormData {
 }
 
 export type LoginFormData = Pick<SignupFormData, 'email' | 'password'>;
+
+export interface LoginResponse
+  extends Pick<Member, 'email' | 'nickname' | 'profileImage'> {
+  accessToken: string;
+}

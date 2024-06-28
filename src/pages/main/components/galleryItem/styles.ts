@@ -3,6 +3,7 @@ import { LayoutMap } from '@/styles/layout';
 import styled from '@emotion/styled';
 
 export const Container = styled.div`
+  position: relative;
   ${LayoutMap.displayFlex}
   flex-direction: column;
   align-items: flex-start;
@@ -10,17 +11,29 @@ export const Container = styled.div`
   width: fit-content;
   height: fit-content;
   cursor: pointer;
-  // 여기 밑에 부분은 바꿔도 됨
-  padding: 5px;
+  padding: 10px;
   border-radius: 8px;
-  transition: box-shadow 0.5s ease;
-  :hover {
-    box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  &:hover {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
   }
 `;
 
 export const Thumbnail = styled.img`
   border: 5px solid ${colors.black};
-  width: 220px;
-  height: 220px;
+  width: 240px;
+  height: 240px;
+  transition: filter 0.5s ease;
+  :hover {
+    filter: grayscale(100%);
+  }
+`;
+
+export const Overlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
 `;

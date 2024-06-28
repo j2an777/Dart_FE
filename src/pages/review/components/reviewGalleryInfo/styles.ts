@@ -17,6 +17,7 @@ export const InfoBlock = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
+  width: 200px;
 `;
 
 export const GalleryInfoBox = styled.div`

@@ -18,6 +18,7 @@ interface State {
   allChecked: boolean;
   setAgreements: (value: string) => void;
   toggleAll: () => void;
+  resetAgreements: () => void;
 }
 
 export const agreeStore = create<State>((set, get) => ({
@@ -33,6 +34,12 @@ export const agreeStore = create<State>((set, get) => ({
       allChecked: Object.values(newAgreements).every(Boolean),
     });
   },
+  resetAgreements: () =>
+    set((prev) => ({
+      ...prev,
+      allChecked: false,
+      agreements: defaultValue,
+    })),
   toggleAll: () => {
     const currentState = get();
     const newAllChecked = !currentState.allChecked;
@@ -44,7 +51,6 @@ export const agreeStore = create<State>((set, get) => ({
       }),
       prevAgreements,
     );
-
     set({
       agreements: newAgreements,
       allChecked: newAllChecked,

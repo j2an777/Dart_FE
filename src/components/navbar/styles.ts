@@ -14,6 +14,7 @@ export const Container = styled.div`
 
 export const MaxWidthWrapper = styled.div`
   max-width: 1440px;
+  min-width: 800px;
   width: 100%;
   padding: 0px 80px;
   ${LayoutMap.displayFlex}
@@ -28,7 +29,7 @@ export const MainLogo = styled.img`
 
 export const ButtonBox = styled.div`
   ${LayoutMap.displayFlex}
-  gap: 60px;
+  gap: 40px;
 `;
 
 export const UserBoxContainer = styled.div`
@@ -57,5 +58,29 @@ export const MoreItem = styled(Text)<{ isLast: boolean }>`
   border-bottom: 1px solid ${colors.gray100};
   :hover {
     background-color: ${colors.gray100};
+  }
+`;
+
+export const NavItem = styled(Text)`
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+
+  &:hover::after {
+    width: 100%;
+    left: 0;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -2px;
+    left: 50%;
+    background-color: black;
+    transition:
+      width 0.3s ease,
+      left 0.3s ease;
   }
 `;

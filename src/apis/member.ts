@@ -1,48 +1,73 @@
-import { EmailVerify, LoginFormData, Member, SignupFormData } from '@/types/member';
+import {
+  EditFormData,
+  EmailVerify,
+  LoginFormData,
+  LoginResponse,
+  Member,
+  SignupFormData,
+} from '@/types/member';
 import instance from './instance';
 import { GalleriesData } from '@/types/gallery';
 
 export const postSignup = async (formData: SignupFormData) => {
-  const response = await instance.post('/api/signup', formData);
+  const response = await instance.post('/signup', formData);
   return response?.data;
 };
 
 export const postEmailCode = async (formData: { email: string }) => {
-  const response = await instance.post(`/api/email/send`, formData);
+  const response = await instance.post(`/email/send`, formData);
   return response?.data;
 };
 
 export const postEmailVerify = async (formData: EmailVerify) => {
-  const response = await instance.post(`/api/email/verify`, formData);
+  const response = await instance.post(`/email/verify`, formData);
   return response?.data;
 };
 
 export const postCheckNickname = async (formData: { nickname: string }) => {
-  const response = await instance.post(`/api/nickname/check`, formData);
+  const response = await instance.post(`/nickname/check`, formData);
   return response?.data;
 };
 
 export const postLogin = async (formData: LoginFormData) => {
-  const response = await instance.post(`/api/login`, formData);
-  return response?.data;
+  const response = await instance.post(`/login`, formData);
+  return response?.data as LoginResponse;
 };
 
 export const getMemberInfo = async (nickname?: string) => {
-  const response = await instance.get(`/api/members?nickname=${nickname}`);
+  const response = await instance.get(`/members`, {
+    params: {
+      nickname,
+    },
+  });
   return response?.data as Member;
 };
 
-export const putMemberEditInfo = async (formData: FormData) => {
-  const response = await instance.put(`/api/members`, formData, {
+export const putMemberEditInfo = async (formData: EditFormData) => {
+  const { introduce, profileImage, nickname } = formData;
+  const data = new FormData();
+  const member = {
+    nickname,
+    introduce,
+  };
+
+  if (profileImage) data.append('profileImage', profileImage);
+
+  data.append(
+    'memberUpdateDto',
+    new Blob([JSON.stringify(member)], { type: 'application/json' }),
+  );
+
+  const response = await instance.post(`/members`, data, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },
   });
-  return response?.data;
+  return response.data;
 };
 
 export const getMypage = async (nickname: string, page: number, size: number) => {
-  const response = await instance.get('/api/mypage', {
+  const response = await instance.get('/mypage', {
     params: {
       nickname,
       page,
@@ -53,6 +78,6 @@ export const getMypage = async (nickname: string, page: number, size: number) =>
 };
 
 export const getNewToken = async () => {
-  const response = await instance.get('/api/reissue');
+  const response = await instance.get('/reissue');
   return response?.data;
 };

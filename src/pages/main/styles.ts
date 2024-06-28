@@ -7,9 +7,9 @@ export const Container = styled.div`
   display: flex;
   align-items: flex-start;
   padding: 80px;
-  gap: 40px; // 수정예정
+  gap: 60px; // 수정예정
   max-width: 1440px;
-  height: calc(100vh - 80px);
+  height: 900px;
   margin: auto;
   justify-content: space-between;
   > div:last-child {

@@ -1,25 +1,24 @@
 import Dimmed from '@/components/Dimmed';
 import Icon, { IconValues } from '@/components/icon';
 import Text from '@/components/Text';
-import { Link } from 'react-router-dom';
 import { Colors } from '@/styles/colorPalette';
-
 import { alertStore } from '@/stores/modal';
 import { useQuery } from '@tanstack/react-query';
 import { getGalleryInfo } from '@/apis/gallery';
-import { postPayment } from '@/apis/payment';
 import Logo from '@/assets/images/mainLogo.png';
 import useCustomNavigate from '@/hooks/useCustomNavigate';
 
 import * as S from './styles';
+import parseDate from '@/utils/parseDate';
 
 interface GalleryInfoProps {
   galleryId: number | null;
   open: boolean;
   close: () => void;
+  hasEnded: boolean;
 }
 
-const GalleryInfo = ({ galleryId, open: isOpen, close }: GalleryInfoProps) => {
+const GalleryInfo = ({ galleryId, open: isOpen, close, hasEnded }: GalleryInfoProps) => {
   const openModal = alertStore((state) => state.open);
   const navigate = useCustomNavigate();
 
@@ -54,21 +53,30 @@ const GalleryInfo = ({ galleryId, open: isOpen, close }: GalleryInfoProps) => {
     return icons;
   };
 
-  const onHandlePay = (ticket: boolean, fee: number) => {
+  const onHandlePay = (ticket: boolean, fee: number, isOpen: boolean) => {
+    const showModal = (title: string, description: string, onClickButton: () => void) => {
+      openModal({
+        title,
+        description,
+        buttonLabel: '확인',
+        onClickButton,
+      });
+    };
+
+    if (!isOpen) {
+      showModal(
+        '일장 불가',
+        '전시가 예정 및 종료 상태로 입장이 불가능합니다.',
+        async () => close(),
+      );
+      return;
+    }
+
     if (ticket || fee === 0) {
       navigate(`/gallery/${galleryId}`);
       close();
     } else {
-      openModal({
-        title: '티켓 구매하기',
-        description: '티켓을 구매하시겠습니까?',
-        buttonLabel: '확인',
-        // 결제 페이지 api 함수 호출 구문
-        onClickButton: async () => {
-          const payment = await postPayment(galleryId, 'ticket');
-          window.location.href = payment.next_redirect_pc_url;
-        },
-      });
+      navigate(`/payment/${galleryId}/ticket`, { hasAuth: true });
     }
   };
 
@@ -80,43 +88,72 @@ const GalleryInfo = ({ galleryId, open: isOpen, close }: GalleryInfoProps) => {
     return <div>Error loading gallery data</div>;
   }
 
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
+  const onHandleRequest = () => {
+    // 재전시 요청 api 완성시 구문 작성
+    openModal({
+      title: '재전시 요청',
+      description: '서비스 준비 중입니다.',
+      buttonLabel: '확인',
+      onClickButton: () => close(),
+    });
   };
+
   if (!isOpen) return;
+
   return (
     <Dimmed>
       <S.Container>
-        <S.InfoBox>
-          <S.CancelIcon value="cancel" size={20} onClick={close} />
+        <S.InfoBox thumbnail={data.thumbnail}>
+          <S.Overlay />
+          <S.CancelIcon value="cancel" size={20} onClick={close} color="white" />
           <S.MainLogo alt="main-logo" src={Logo} />
           <S.DescriptionBlock>
             <S.Top>
               <Text typography="t5" color="white" bold="medium">
                 {data.title}
               </Text>
-              <S.User>
+              <S.User
+                onClick={() => {
+                  close();
+                  navigate(`/member/${data.nickname}`);
+                }}
+              >
                 <S.Circle />
-                <Text typography="t7" bold="regular">
+                <Text typography="t7" bold="regular" color="white">
                   {data.nickname}
                 </Text>
               </S.User>
             </S.Top>
             <p id="descript">{data.content}</p>
             <Icon value="galaxy" size={20} />
-            <Text typography="t6" bold="regular" color="white">
-              {formatDate(data.startDate)} <span>~</span> {formatDate(data.endDate)}
+            <Text typography="t7" bold="regular" color="white">
+              {parseDate(data.startDate)} <span>~</span>{' '}
+              {parseDate(data.endDate) === '1970.01.01' ? null : parseDate(data.endDate)}
             </Text>
+            <S.HashTags>
+              {data.hashtags.map((tag: string, index: number) => (
+                <Text key={index} typography="t7" bold="regular" color="gray300">
+                  {`#${tag}`}
+                </Text>
+              ))}
+            </S.HashTags>
           </S.DescriptionBlock>
           <S.ButtonBlock>
-            <div className="price">₩ {data.fee}</div>
-            <div className="topay" onClick={() => onHandlePay(data.hasTicket, data.fee)}>
-              입장하기
-            </div>
+            {hasEnded ? (
+              <div className="topay" onClick={() => onHandleRequest()}>
+                재전시 요청
+              </div>
+            ) : (
+              <>
+                <div className="price">₩ {data.fee}</div>
+                <div
+                  className="topay"
+                  onClick={() => onHandlePay(data.hasTicket, data.fee, data.isOpen)}
+                >
+                  입장하기
+                </div>
+              </>
+            )}
           </S.ButtonBlock>
         </S.InfoBox>
         <S.ReviewBox>
@@ -135,11 +172,17 @@ const GalleryInfo = ({ galleryId, open: isOpen, close }: GalleryInfoProps) => {
               </S.Score>
               {renderIcons(data.reviewAverage)}
             </S.ScoreWrap>
-            <Link to="/review">
-              <Text typography="t7" color="gray300" bold="thin">
-                상세 리뷰 보기 &gt;
-              </Text>
-            </Link>
+            <Text
+              typography="t7"
+              color="gray300"
+              bold="thin"
+              onClick={() => {
+                navigate(`/review/${galleryId}`);
+                close();
+              }}
+            >
+              상세 리뷰 보기 &gt;
+            </Text>
           </S.ScoreBlock>
         </S.ReviewBox>
       </S.Container>

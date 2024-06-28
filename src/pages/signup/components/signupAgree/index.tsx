@@ -4,16 +4,21 @@ import { agreeInfo } from '@/consts/agree';
 
 import * as S from './styles';
 import { agreeStore } from '@/stores/agree';
+import { useEffect } from 'react';
 
 const SignupAgree = () => {
-  const { agreements, allChecked, setAgreements, toggleAll } = agreeStore();
+  const { agreements, allChecked, setAgreements, toggleAll, resetAgreements } =
+    agreeStore();
+  useEffect(() => {
+    return resetAgreements;
+  }, [resetAgreements]);
   return (
     <S.Container>
       <S.Title typography="t1" color="white" bold="regular">
         약관동의
       </S.Title>
       <S.AgreeBox>
-        {agreeInfo.map(({ value, ...props }) => {
+        {agreeInfo.map(({ value, description, ...props }) => {
           if (value === 'total')
             return (
               <CheckAgree
@@ -31,6 +36,7 @@ const SignupAgree = () => {
                 value={value}
                 onClick={setAgreements}
                 checked={agreements[value]}
+                description={description}
                 {...props}
               />
             );

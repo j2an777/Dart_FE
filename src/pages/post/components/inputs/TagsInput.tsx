@@ -1,18 +1,22 @@
-import { useState, KeyboardEvent, ChangeEvent } from 'react';
+import { useState, useEffect, KeyboardEvent, ChangeEvent } from 'react';
+import { useFormContext } from 'react-hook-form';
 import { StyledTagsInput } from './styles';
 
 interface TagsProps {
-  value: string[];
-  onChange: (tags: string[]) => void;
+  name: string;
 }
 
-const TagsInput = ({ value, onChange }: TagsProps) => {
-  const [tags, setTags] = useState<string[]>(value || []);
+const TagsInput = ({ name }: TagsProps) => {
+  const { setValue, getValues } = useFormContext();
+  const [tags, setTags] = useState<string[]>(getValues(name) || []);
+
+  useEffect(() => {
+    setValue(name, tags);
+  }, [tags, setValue, name]);
 
   const removeTags = (indexToRemove: number) => {
     const newTags = tags.filter((_, index) => index !== indexToRemove);
     setTags(newTags);
-    onChange(newTags);
   };
 
   const addTags = (event: KeyboardEvent<HTMLInputElement>) => {
@@ -36,7 +40,6 @@ const TagsInput = ({ value, onChange }: TagsProps) => {
       event.preventDefault();
       const newTags = [...tags, inputVal];
       setTags(newTags);
-      onChange(newTags);
       (event.target as HTMLInputElement).value = '';
     } else if (event.key === 'Enter' && tags.includes(inputVal)) {
       event.preventDefault();

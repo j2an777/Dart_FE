@@ -12,3 +12,18 @@ export interface Payment {
   pages: PaidInfo[];
   pageInfo: PageInfo;
 }
+
+export interface OrderInfo {
+  title: string;
+  thumbnail: string;
+  nickname: string;
+  profileImage: string;
+  cost: number;
+}
+
+export interface PaymentRequest {
+  galleryId: number;
+  order: 'ticket' | 'paidGallery';
+  couponId: number;
+  isPriority: boolean;
+}

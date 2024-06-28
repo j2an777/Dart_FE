@@ -1,6 +1,6 @@
 import { Button } from '@/components';
 import { SearchInfoType } from '@/consts/filter';
-import { FilterType } from '@/types/gallery';
+import { CategoryValues } from '@/types/gallery';
 import useDebounce from '@/hooks/useDebounce';
 import useGetSearchDatas from '../../hooks/useGetSearchDatas';
 import { filterStore } from '@/stores/filter';
@@ -13,19 +13,13 @@ import { useEffect, useRef, useState } from 'react';
 
 interface KeywordFilterProps {
   buttons: SearchInfoType[];
-  selected: string;
-  onChange: (newValue: Partial<FilterType>) => void;
 }
 
-const KeywordFilter = ({
-  buttons,
-  onChange: setCategory,
-  selected,
-}: KeywordFilterProps) => {
+const KeywordFilter = ({ buttons }: KeywordFilterProps) => {
   const { isExpand, ref, setIsExpand } = useOutsideClick();
   const [inputFocus, setInputFocus] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement>(null);
-  const [form, onChange, setForm] = useInput({ keyword: '' });
+  const [form, onChange, setForm] = useInput({ keyword: '', category: 'title' });
   const {
     filterValue: { category },
     onChange: setFilterValue,
@@ -36,30 +30,43 @@ const KeywordFilter = ({
     if (debouncedKeyword && inputFocus) {
       setIsExpand(true);
     }
-
     return () => setIsExpand(false);
   }, [debouncedKeyword, inputFocus, setFilterValue, setIsExpand]);
-
   return (
     <S.Container>
-      <S.SearchInupt
-        ref={inputRef}
-        type="text"
-        placeholder="Search..."
-        name="keyword"
-        value={form.keyword}
-        onChange={onChange}
-        onFocus={() => setInputFocus(true)}
-        onBlur={() => setInputFocus(false)}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter') {
-            setFilterValue({ keyword: form.keyword });
+      <S.SeacchInputBox>
+        <S.SearchInupt
+          ref={inputRef}
+          type="text"
+          placeholder="Search..."
+          name="keyword"
+          value={form.keyword}
+          onChange={onChange}
+          onFocus={() => setInputFocus(true)}
+          onBlur={() => setInputFocus(false)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              setFilterValue({
+                keyword: form.keyword,
+                category: form.category as CategoryValues,
+              });
+            }
+          }}
+        />
+        <S.SearchIcon
+          value="search"
+          onClick={() =>
+            setFilterValue({
+              keyword: form.keyword,
+              category: form.category as CategoryValues,
+            })
           }
-        }}
-      />
-      <S.SeacchButtonBlock>
+        />
+      </S.SeacchInputBox>
+
+      <S.SeacchButtons>
         {buttons.map(({ label, value }) => {
-          const buttonType = selected === value ? 'RoundBlack' : 'reverseRoundBlack';
+          const buttonType = form.category === value ? 'RoundBlack' : 'reverseRoundBlack';
           return (
             <Button
               key={value}
@@ -67,25 +74,33 @@ const KeywordFilter = ({
               buttonType={buttonType}
               size="sm"
               children={label}
-              onClick={() => setCategory({ category: value })}
+              onClick={() => setForm((prev) => ({ ...prev, category: value }))}
             />
           );
         })}
-      </S.SeacchButtonBlock>
+      </S.SeacchButtons>
       {isExpand && (
         <S.SearchContent ref={ref as React.RefObject<HTMLUListElement>}>
-          {data?.results.map((keyword, index) => (
-            <S.SearchItem
-              key={index}
-              onMouseDown={() => {
-                setForm({ keyword });
-                setFilterValue({ keyword });
-                setIsExpand(false);
-              }}
-            >
-              {keyword}
-            </S.SearchItem>
-          ))}
+          {data?.results.length === 0 ? (
+            <S.NoneSearchData typography="t6" color="gray400">
+              결과 없음
+            </S.NoneSearchData>
+          ) : (
+            data?.results.map((keyword, index) => {
+              return (
+                <S.SearchItem
+                  key={index}
+                  onMouseDown={() => {
+                    setForm((prev) => ({ ...prev, keyword }));
+                    setFilterValue({ keyword });
+                    setIsExpand(false);
+                  }}
+                >
+                  {keyword}
+                </S.SearchItem>
+              );
+            })
+          )}
         </S.SearchContent>
       )}
     </S.Container>

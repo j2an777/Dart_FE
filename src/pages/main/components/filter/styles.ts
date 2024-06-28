@@ -4,11 +4,18 @@ import styled from '@emotion/styled';
 
 export const Container = styled.div`
   ${LayoutMap.displayFlex}
+  gap: 30px;
   flex-direction: column;
-  min-width: 320px;
   padding: 35px 20px 0 20px;
   border-top: 1px solid ${colors.gray600};
-  gap: 30px;
+  min-width: 320px;
+  height: 100%;
+  position: relative;
+
+  > :last-of-type {
+    position: absolute;
+    bottom: 0;
+  }
 `;
 
 export const TitleBox = styled.div`

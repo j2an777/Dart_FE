@@ -6,10 +6,19 @@ export type GalleryImages = {
 
 export type GalleryData = {
   title: string;
-  thumbnail: string;
   hasComment: boolean;
+  nickname: string;
+  hasTicket: boolean;
+  chatRoomId: number;
+  template: string;
+  content: string;
+  thumbnail: string;
   images: GalleryImages[];
 };
+
+export interface GalleryDataProps {
+  galleryData: GalleryData;
+}
 
 export interface Gallery {
   galleryId: number;
@@ -51,3 +60,7 @@ export type CategoryValues = FilterType['category'];
 export type DispalyValues = FilterType['display'];
 export type SortValues = FilterType['sort'];
 export type CostValues = FilterType['cost'];
+
+export interface MyCustomEvent extends Event {
+  data: string; // 'data'를 문자열로 명시
+}

@@ -6,6 +6,7 @@ import DropZone from '@/components/dropZone';
 import { alertStore } from '@/stores/modal';
 import { InputBox, TextBox } from '../inputs/styles';
 import * as S from './styles';
+import { TextCounter } from '@/components';
 
 interface Item {
   image: File;
@@ -72,7 +73,7 @@ const StepTwo = () => {
     } else {
       open({
         title: '작품 등록',
-        description: '작품은 최대 20개까지만 등록 가능합니다.',
+        description: '작품은 최대 20개까지 등록 가능합니다.',
         buttonLabel: '확인',
         onClickButton: () => {},
       });
@@ -89,28 +90,41 @@ const StepTwo = () => {
 
   return (
     <S.Container>
-      <S.Step>02</S.Step>
+      <S.Step value="step_two" $active={false} />
       <S.Box>
         <Text typography="t5" bold="regular">
-          작품 리스트(최대 20개)
+          작품 리스트 (작품은 3개 이상 20개 이하로 등록해 주세요)
         </Text>
         <S.BorderLine />
         <S.Block>
           <section>
-            <DropZone onFileUpload={onFileDrop} clearFiles={clearFiles} />
+            <DropZone
+              info="파일 하나당 최대 10MB 이하 업로드 가능"
+              onFileUpload={onFileDrop}
+              clearFiles={clearFiles}
+            />
           </section>
           <article>
             <InputBox
               placeholder="작품 제목을 입력해주세요."
               value={imageTitle}
-              onChange={(e) => setTitle(e.target.value)}
+              maxLength={250}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setTitle(e.target.value)
+              }
             />
             <TextBox
               placeholder="작품 설명을 입력해주세요."
               height={150}
               value={description}
-              onChange={(e) => setDescription(e.target.value)}
+              maxLength={250}
+              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+                setDescription(e.target.value)
+              }
             />
+            <S.Counter>
+              <TextCounter textLength={description.length ?? 0} maxLength={250} />
+            </S.Counter>
           </article>
         </S.Block>
         <S.Buttons>

@@ -41,15 +41,17 @@ const StepZero = () => {
       setFeeDetails({ ...feeDetails, totalPay: pay });
       setDateRange({ ...dateRange, endDate });
       // 이용료와 기간 formData 업데이트
-      setValue('gallery.startDate', formatDateInKST(dateRange.startDate));
+      setValue('gallery.startDate', formatDateInKST(dateRange.startDate, true));
       setValue('gallery.endDate', formatDateInKST(endDate));
+      setValue('gallery.generatedCost', pay);
     } else {
       // 무료 전시
-      setValue('gallery.startDate', formatDateInKST(dateRange.startDate));
+      setValue('gallery.generatedCost', 0);
+      setValue('gallery.startDate', formatDateInKST(dateRange.startDate, true));
       setFeeDetails({ ...feeDetails, totalPay: 0 });
       setDateRange({ ...dateRange, endDate: null });
     }
-  }, [activeBtn, feeDetails.period, feeDetails.fee]);
+  }, [activeBtn, feeDetails.period, feeDetails.fee, dateRange.startDate]);
 
   const onFileDrop = (file: File) => {
     setValue('thumbnail', file);
@@ -104,7 +106,10 @@ const StepZero = () => {
   return (
     <S.Container>
       <S.Box>
-        <DropZone info="권장 이미지 크기: 700*700" onFileUpload={onFileDrop} />
+        <DropZone
+          info="권장 이미지 크기: 700X700 / 10MB 이하"
+          onFileUpload={onFileDrop}
+        />
       </S.Box>
       <S.Box>
         <S.Block>
@@ -139,6 +144,7 @@ const StepZero = () => {
             locale={'en'}
             formatDay={(_locale, date) => date.toLocaleString('en', { day: 'numeric' })}
             tileClassName={tileClassName}
+            minDate={new Date()}
           />
         </S.Date>
         <S.Block>

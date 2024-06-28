@@ -1,20 +1,37 @@
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-import { StepZero, StepOne, StepTwo } from './components';
+import { StepZero, StepOne, StepTwo, StepThree } from './components';
 import { Icon } from '@/components';
 import { PostGalleries } from '@/types/post';
-import { postGalleries } from '@/apis/gallery';
-import { alertStore } from '@/stores/modal';
+import { alertStore, progressStore } from '@/stores/modal';
 import useCustomNavigate from '@/hooks/useCustomNavigate';
+import { EventSourcePolyfill } from 'event-source-polyfill';
+import { useEffect, useState } from 'react';
+import { memberStore } from '@/stores/member';
+import usePostGalleries, { PostGalleriesResponse } from './hooks/usePostGalleries';
+import ProgressPortal from '@/components/ProgressPortal';
 
 import * as S from './styles';
+import { MyCustomEvent } from '@/types/gallery';
 
 const PostPage = () => {
   const methods = useForm<PostGalleries>();
   const { handleSubmit } = methods;
   const navigate = useCustomNavigate();
   const open = alertStore((state) => state.open);
+  const { accessToken } = memberStore.getState();
+  const { mutate } = usePostGalleries();
+  const { open: openProgress, close: closeProgress } = progressStore();
+  const [eventSource, setEventSource] = useState<EventSourcePolyfill | null>(null);
 
   const onSubmit: SubmitHandler<PostGalleries> = async (data) => {
+    if (data.images == undefined || data.images.length < 3) {
+      open({
+        title: '작품 등록 오류',
+        description: '최소 3개의 작품을 등록해주세요.',
+        buttonLabel: '확인',
+      });
+    }
+
     open({
       title: '전시 등록',
       description: (
@@ -32,24 +49,76 @@ const PostPage = () => {
     });
   };
 
-  const modalConfirm = async (data: PostGalleries) => {
-    console.log(data);
-    // 전시 생성 후, 결제로 이동
-    if (data) {
-      const response = await postGalleries(data);
-      const galleryId = response?.galleryId;
-      if (galleryId) {
-        // 이용료 있을 때만 결제 진행
-        if (data.gallery.fee !== 0) {
-          navigate(`/post/${galleryId}/pay`);
-        } else {
-          navigate(`/post/${galleryId}/free`);
-        }
+  const startSSE = () => {
+    const newEventSource = new EventSourcePolyfill(
+      'http://116.46.227.27:9999/api/galleries/progress',
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'text/event-stream',
+          Connection: 'Keep-Alive',
+          Accept: 'text/event-stream',
+        },
+        withCredentials: true,
+        heartbeatTimeout: 86400000,
+      },
+    );
+
+    newEventSource.addEventListener('SSE', (event) => {
+      const data = (event as MyCustomEvent).data;
+      const progressData = parseInt(data, 10);
+      openProgress(progressData);
+
+      // 100이 되면 종료
+      if (progressData === 100) {
+        newEventSource.close();
+        closeProgress();
       }
-    } else {
-      console.log('no data');
-    }
+    });
+
+    newEventSource.onerror = () => {
+      closeProgress();
+      newEventSource.close();
+    };
+
+    setEventSource(newEventSource);
   };
+
+  const modalConfirm = async (data: PostGalleries) => {
+    openProgress(0);
+    startSSE(); // SSE 연결을 먼저 시작
+
+    // POST 요청 보내기
+    mutate(data, {
+      onSuccess: (idData: PostGalleriesResponse) => {
+        const { galleryId } = idData;
+
+        if (galleryId) {
+          // galleryId가 있으면 해당 조건에 맞게 navigate
+          if (data.gallery.generatedCost !== 0) {
+            navigate(`/payment/${galleryId}/paidGallery`);
+          } else {
+            navigate(`/payment/success/${galleryId}/create`);
+          }
+        } else {
+          console.error('Gallery ID could not be retrieved.');
+          closeProgress();
+        }
+      },
+      onError: () => {
+        console.error('An error occurred while creating the gallery.');
+        closeProgress();
+      },
+    });
+  };
+
+  useEffect(() => {
+    return () => {
+      if (eventSource) {
+        eventSource.close(); // 컴포넌트 언마운트 시 이벤트 소스 닫기
+      }
+    };
+  }, [eventSource]);
 
   return (
     <S.Container>
@@ -62,12 +131,14 @@ const PostPage = () => {
             <StepZero />
             <StepOne />
             <StepTwo />
+            <StepThree />
             <S.Block>
               <S.Submit type="submit">등록</S.Submit>
             </S.Block>
           </form>
         </FormProvider>
       </S.Box>
+      <ProgressPortal />
     </S.Container>
   );
 };

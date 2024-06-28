@@ -6,13 +6,21 @@ export default css`
   ${fontStyles}
   ${colorPalette}
   :root {
+    --lower-zindex: 1;
+    --middle-zindex: 2;
+    --high-zindex: 3;
     --detailList-zindex: 8;
     --select-zindex: 9;
     --dimmed-zindex: 10;
     --modal-zindex: 11;
+    --notification-zindex: 12;
   }
   div {
     box-sizing: border-box;
+  }
+
+  img {
+    pointer-events: none;
   }
 
   html,
@@ -40,7 +48,6 @@ export default css`
   del,
   dfn,
   em,
-  img,
   ins,
   kbd,
   q,

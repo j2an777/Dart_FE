@@ -5,10 +5,14 @@ interface FormField {
   label: string;
   title?: string;
   value: keyof ExtendedSignupForm;
-  registerOptions?: RegisterOptions;
-  buttonLabel?: string;
-  successMessage?: string;
+  registerOptions?: RegisterOptions<ExtendedSignupForm>;
+  checkOption?: CheckOption;
   type?: 'input' | 'textarea';
+}
+
+interface CheckOption {
+  buttonLabel: string;
+  successMessage: string;
 }
 
 export const essentiolFormData: FormField[] = [
@@ -16,8 +20,10 @@ export const essentiolFormData: FormField[] = [
     label: '이메일',
     value: 'email',
     title: '이메일 검증',
-    buttonLabel: '인증번호 받기',
-    successMessage: '인증 번호 발송 완료',
+    checkOption: {
+      buttonLabel: '인증번호 받기',
+      successMessage: '인증 번호 발송 완료',
+    },
     registerOptions: {
       required: '이메일을 입력해주세요',
       pattern: {
@@ -30,8 +36,10 @@ export const essentiolFormData: FormField[] = [
     label: '닉네임',
     value: 'nickname',
     title: '닉네임 중복 검사',
-    buttonLabel: '중복확인',
-    successMessage: '유효한 닉네임입니다.',
+    checkOption: {
+      buttonLabel: '중복확인',
+      successMessage: '유효한 닉네임입니다.',
+    },
     registerOptions: {
       required: '닉네임을 입력해주세요',
       pattern: {
@@ -86,8 +94,6 @@ export const defaultValues = {
   passwordConfirm: '',
   birthday: '',
   introduce: '',
-  isCheckedNickname: true,
-  isCheckedEmail: true,
 };
 
 export const signupFormType = ['필수', '선택'];

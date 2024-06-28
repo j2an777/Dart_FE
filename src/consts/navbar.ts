@@ -1,15 +1,19 @@
 export const navbarInfo = [
   {
+    path: '/event',
+    value: 'coupon',
+  },
+  {
     path: '/intro',
-    value: 'ABOUT',
+    value: 'about',
   },
   {
     path: '/',
-    value: 'EXHIBITIONS',
+    value: 'exhibitions',
   },
   {
     path: '/contact',
-    value: 'CONTACT',
+    value: 'contact',
   },
   {
     path: '/login',

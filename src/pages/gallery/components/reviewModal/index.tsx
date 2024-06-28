@@ -2,7 +2,6 @@ import { Icon } from '@/components';
 import { useForm } from 'react-hook-form';
 import { PostReview } from '@/types/post';
 import useCustomNavigate from '@/hooks/useCustomNavigate';
-
 import * as S from './styles';
 
 type ReviewModalProps = {

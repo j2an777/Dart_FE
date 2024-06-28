@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { getNewToken } from './member';
 import { memberStore } from '@/stores/member';
+import { getNewToken } from './member';
 
 const instance = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
@@ -24,10 +24,11 @@ instance.interceptors.response.use(
   },
   async (error) => {
     const originalRequest = error.config;
-    const setMember = memberStore((state) => state.setMember);
     if (error.response.status === 401 && !originalRequest._retry) {
+      console.log('리프레시입니다');
       originalRequest._retry = true;
       try {
+        const setMember = memberStore().setMember;
         const response = await getNewToken();
         const { accessToken } = response.data;
         setMember(accessToken);
@@ -37,6 +38,7 @@ instance.interceptors.response.use(
         return Promise.reject(refreshError);
       }
     }
+
     return Promise.reject(error);
   },
 );
