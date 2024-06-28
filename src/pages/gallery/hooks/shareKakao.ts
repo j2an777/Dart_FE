@@ -5,7 +5,7 @@ export const shareKakao = (title: string, thumbnail: string, location: string, c
         const kakao = window.Kakao;
 
         if (!kakao.isInitialized()) {
-            kakao.init('2de91a34726841d2d47e292877371dbd');
+            kakao.init(import.meta.env.VITE_KAKAO_JS_KEY);
         }
 
         kakao.Share.sendDefault({
