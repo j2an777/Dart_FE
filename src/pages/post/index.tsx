@@ -49,7 +49,6 @@ const PostPage = () => {
     const response = await postGalleries(data);
     const galleryId = response?.galleryId;
     if (galleryId) {
-
       // SSE를 통해 진행 상황 받기 (이미지를 s3 버킷에 저장하는 시간)
       const eventSource = new EventSource(`/galleries/progress/${galleryId}`);
 
@@ -71,9 +70,7 @@ const PostPage = () => {
       eventSource.onerror = () => {
         setProgress(0);
         eventSource.close();
-      }
-    } catch (error) {
-      handleErrors(error, data);
+      };
     }
   };
 

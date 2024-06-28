@@ -9,7 +9,7 @@ export const Container = styled.div`
   align-items: end;
   justify-content: end;
   > p {
-    z-index: 1;
+    z-index: var(--lower-zindex);
     margin: 0;
   }
 `;

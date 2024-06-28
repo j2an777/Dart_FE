@@ -3,7 +3,7 @@ import { LayoutMap } from '@/styles/layout';
 import styled from '@emotion/styled';
 
 export const Container = styled.div`
-  position : relative;
+  position: relative;
   ${LayoutMap.displayFlex}
   flex-direction: column;
   align-items: flex-start;
@@ -13,8 +13,7 @@ export const Container = styled.div`
   cursor: pointer;
   padding: 10px;
   border-radius: 8px;
-  transition : all 0.3s ease;
-
+  transition: all 0.3s ease;
   &:hover {
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
   }

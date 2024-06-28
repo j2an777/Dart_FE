@@ -5,7 +5,7 @@ import { createPortal } from 'react-dom';
 const CouponPortal = () => {
   const {
     close,
-    couponValue: { open },
+    value: { open },
   } = couponStore();
   const $portal_root = document.getElementById('content-portal');
   return (

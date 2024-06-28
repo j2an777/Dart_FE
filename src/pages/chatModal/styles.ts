@@ -63,7 +63,7 @@ export const Menu = styled.div`
   border-bottom: 1px solid ${colors.black};
   border-radius: 0px 0px 10px 10px;
   background: #f3f3f3;
-  z-index: 1;
+  z-index: var(--lower-zindex);
   cursor: pointer;
   &:hover {
     background: ${colors.gray200};

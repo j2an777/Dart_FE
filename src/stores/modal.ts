@@ -50,7 +50,7 @@ export interface GalleryInfoState {
 const galleryInfoDefaultValue: GalleryInfoProps = {
   galleryId: null,
   open: false,
-  hasEnded: false
+  hasEnded: false,
 };
 
 export const galleryInfoStore = create<GalleryInfoState>((set) => ({
@@ -100,16 +100,16 @@ export const checkModalStore = create<CheckModalState>((set) => ({
 }));
 
 // 쿠폰 모달
-interface CouponState {
-  couponValue: { open: boolean };
+interface BaseState {
+  value: { open: boolean };
   open: () => void;
   close: () => void;
 }
 
-export const couponStore = create<CouponState>((set) => ({
-  couponValue: { open: false },
-  open: () => set({ couponValue: { open: true } }),
-  close: () => set({ couponValue: { open: false } }),
+export const couponStore = create<BaseState>((set) => ({
+  value: { open: false },
+  open: () => set({ value: { open: true } }),
+  close: () => set({ value: { open: false } }),
 }));
 
 interface GalleryDetailState {
@@ -137,4 +137,14 @@ export const galleryDetailStore = create<GalleryDetailState>((set) => ({
     set(() => ({
       galleryDetailValue: defaultGalleryDetailValue,
     })),
+}));
+
+const loginModalDefalutValue = {
+  open: false,
+};
+
+export const LoginModalStore = create<BaseState>((set) => ({
+  value: loginModalDefalutValue,
+  open: () => set({ value: { open: true } }),
+  close: () => set({ value: { open: false } }),
 }));
