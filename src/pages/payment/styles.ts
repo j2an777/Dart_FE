@@ -2,7 +2,7 @@ import { LayoutMap } from '@/styles/layout';
 import { typographyMap } from '@/styles/typography';
 import styled from '@emotion/styled';
 
-export const Container = styled.div`
+export const Container = styled.form`
   display: flex;
   justify-content: center;
   align-items: start;

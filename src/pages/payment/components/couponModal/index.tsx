@@ -2,16 +2,22 @@ import { Dimmed, Icon, Text } from '@/components';
 import { CouponList } from '@/pages/event/components';
 import useGetMyCoupons from '@/pages/event/hooks/useGetMyCoupons';
 import { useFormContext } from 'react-hook-form';
-import { PaymentRequest } from '@/types/payment';
+import { MyCoupon } from '@/types/coupon';
+import { PaymentValue } from '../..';
 
 import * as S from './styles';
 
 const CouponModal = ({ close }: { close: () => void }) => {
   const { data } = useGetMyCoupons(true);
-  const { setValue } = useFormContext<PaymentRequest>();
-  const onClick = (couponId: number, isPriority: boolean) => {
+
+  const { setValue } = useFormContext<PaymentValue>();
+  const onClick = (form: MyCoupon) => {
+    const { couponId, couponType, isPriority, title } = form;
     setValue('couponId', couponId);
     setValue('isPriority', isPriority);
+    setValue('title', title);
+    setValue('couponType', couponType);
+    close();
   };
   return (
     <Dimmed>

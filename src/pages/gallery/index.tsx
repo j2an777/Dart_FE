@@ -7,6 +7,7 @@ import { useQuery } from '@tanstack/react-query';
 import SelectTemplate from './hooks/selectTemplate';
 import useCustomNavigate from '@/hooks/useCustomNavigate';
 import { useEffect } from 'react';
+import { ChatPortal } from '@/components';
 
 const GalleryPage = () => {
   const { galleryId: galleryIdStr } = useParams<{ galleryId?: string }>();
@@ -36,7 +37,8 @@ const GalleryPage = () => {
     return <LogoLoader />;
   }
 
-  const expand = galleryData && galleryData.template === 'four' ? galleryData.images.length : 0;
+  const expand =
+    galleryData && galleryData.template === 'four' ? galleryData.images.length : 0;
 
   return (
     <S.Container expand={expand}>
@@ -49,6 +51,7 @@ const GalleryPage = () => {
         content={galleryData.content}
       />
       <SelectTemplate template={galleryData.template} galleryData={galleryData} />
+      <ChatPortal />
     </S.Container>
   );
 };

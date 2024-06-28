@@ -5,6 +5,7 @@ import { PaymentRequest } from '@/types/payment';
 
 const usePostPayment = () => {
   const navigate = useCustomNavigate();
+
   return useMutation({
     mutationFn: (formData: PaymentRequest) => postPayment(formData),
     onSuccess: (data) => {

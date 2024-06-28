@@ -10,10 +10,10 @@ type ExendedCoupon = MyCoupon | GeneralCoupon;
 interface CouponListProps<T extends ExendedCoupon> {
   orientation?: 'horizontal' | 'vertical';
   array: T[];
-  onClick?: (couponId: number, isPriority: boolean) => void;
+  onClick?: (form: MyCoupon) => void;
 }
 
-const CouponList = <T extends ExenkdedCoupon>({
+const CouponList = <T extends ExendedCoupon>({
   orientation = 'horizontal',
   array,
   onClick = () => {},
@@ -26,13 +26,7 @@ const CouponList = <T extends ExenkdedCoupon>({
       ) : (
         array.map((coupon, index) => {
           if (isMyCoupon(coupon)) {
-            return (
-              <CouponIcon
-                key={index}
-                {...coupon}
-                onClick={() => onClick(coupon.couponId, coupon.isProirity)}
-              />
-            );
+            return <CouponIcon key={index} {...coupon} onClick={() => onClick(coupon)} />;
           }
           return (
             <CouponIcon

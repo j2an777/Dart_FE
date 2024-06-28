@@ -1,4 +1,4 @@
-import { FormProvider, useForm } from 'react-hook-form';
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { DiscountBox, OrderBox, PaymentTypeBox, TotalCostBox } from './components';
 import usePostPayment from './hooks/usePostPayment';
 import { PaymentRequest } from '@/types/payment';
@@ -6,37 +6,43 @@ import * as S from './styles';
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 
+export interface PaymentValue extends PaymentRequest {
+  title: string;
+  couponType: number;
+}
+
 const PaymentPage = () => {
-  const methods = useForm<PaymentRequest>();
-  const { handleSubmit, setValue } = methods;
+  const methods = useForm<PaymentValue>();
+  const { handleSubmit, setValue, reset, getValues } = methods;
   const { mutate: payment } = usePostPayment();
   const { galleryId, order } = useParams<{
     galleryId: string;
     order: 'ticket' | 'paidGallery';
   }>();
 
-  const onSubmit = async (formData: PaymentRequest) => {
-    payment(formData);
+  const onSubmit: SubmitHandler<PaymentValue> = async (formData) => {
+    const { title, couponType, ...restFormData } = formData;
+    payment(restFormData);
   };
+  console.log(getValues());
   useEffect(() => {
     setValue('galleryId', Number(galleryId));
     setValue('order', order as 'ticket' | 'paidGallery');
+    return () => reset();
   }, []);
   return (
-    <S.Container>
-      <FormProvider {...methods}>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <S.LeftBox>
-            <OrderBox />
-            <DiscountBox />
-            <PaymentTypeBox />
-          </S.LeftBox>
-          <S.RightBox>
-            <TotalCostBox />
-          </S.RightBox>
-        </form>
-      </FormProvider>
-    </S.Container>
+    <FormProvider {...methods}>
+      <S.Container onSubmit={handleSubmit(onSubmit)}>
+        <S.LeftBox>
+          <OrderBox />
+          <DiscountBox />
+          <PaymentTypeBox />
+        </S.LeftBox>
+        <S.RightBox>
+          <TotalCostBox />
+        </S.RightBox>
+      </S.Container>
+    </FormProvider>
   );
 };
 

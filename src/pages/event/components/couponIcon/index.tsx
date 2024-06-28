@@ -19,8 +19,6 @@ const CouponIcon = ({
   fill = 'black',
   couponType,
   hasCoupon,
-  couponId,
-  isPriority,
   icon = 'circleCheck',
   onClick = () => {},
 }: CouponIconProps) => {

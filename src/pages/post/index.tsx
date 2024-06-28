@@ -2,22 +2,26 @@ import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { StepZero, StepOne, StepTwo, StepThree } from './components';
 import { Icon } from '@/components';
 import { PostGalleries } from '@/types/post';
-import { postGalleries } from '@/apis/gallery';
-import { alertStore } from '@/stores/modal';
+import { alertStore, progressStore } from '@/stores/modal';
 import useCustomNavigate from '@/hooks/useCustomNavigate';
-import { CircularProgressbar } from 'react-circular-progressbar';
+import { EventSourcePolyfill } from 'event-source-polyfill';
+import { useEffect, useState } from 'react';
+import { memberStore } from '@/stores/member';
+import usePostGalleries, { PostGalleriesResponse } from './hooks/usePostGalleries';
+import ProgressPortal from '@/components/ProgressPortal';
 
-import { useHandleErrors } from './hooks/useHandleErrors';
 import * as S from './styles';
-import { useState } from 'react';
+import { MyCustomEvent } from '@/types/gallery';
 
 const PostPage = () => {
   const methods = useForm<PostGalleries>();
   const { handleSubmit } = methods;
   const navigate = useCustomNavigate();
   const open = alertStore((state) => state.open);
-  const [progress, setProgress] = useState(0);
-  const { handleErrors } = useHandleErrors();
+  const { accessToken } = memberStore.getState();
+  const { mutate } = usePostGalleries();
+  const { open: openProgress, close: closeProgress } = progressStore();
+  const [eventSource, setEventSource] = useState<EventSourcePolyfill | null>(null);
 
   const onSubmit: SubmitHandler<PostGalleries> = async (data) => {
     if (data.images == undefined || data.images.length < 3) {
@@ -45,34 +49,76 @@ const PostPage = () => {
     });
   };
 
+  const startSSE = () => {
+    const newEventSource = new EventSourcePolyfill(
+      'http://116.46.227.27:9999/api/galleries/progress',
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'text/event-stream',
+          Connection: 'Keep-Alive',
+          Accept: 'text/event-stream',
+        },
+        withCredentials: true,
+        heartbeatTimeout: 86400000,
+      },
+    );
+
+    newEventSource.addEventListener('SSE', (event) => {
+      const data = (event as MyCustomEvent).data;
+      const progressData = parseInt(data, 10);
+      openProgress(progressData);
+
+      // 100이 되면 종료
+      if (progressData === 100) {
+        newEventSource.close();
+        closeProgress();
+      }
+    });
+
+    newEventSource.onerror = () => {
+      closeProgress();
+      newEventSource.close();
+    };
+
+    setEventSource(newEventSource);
+  };
+
   const modalConfirm = async (data: PostGalleries) => {
-    const response = await postGalleries(data);
-    const galleryId = response?.galleryId;
-    if (galleryId) {
-      // SSE를 통해 진행 상황 받기 (이미지를 s3 버킷에 저장하는 시간)
-      const eventSource = new EventSource(`/galleries/progress/${galleryId}`);
+    openProgress(0);
+    startSSE(); // SSE 연결을 먼저 시작
 
-      eventSource.onmessage = (event) => {
-        const data = JSON.parse(event.data);
-        setProgress(data.progress);
+    // POST 요청 보내기
+    mutate(data, {
+      onSuccess: (idData: PostGalleriesResponse) => {
+        const { galleryId } = idData;
 
-        // 100이 되면 종료
-        if (data.progress === 100) {
-          eventSource.close();
+        if (galleryId) {
+          // galleryId가 있으면 해당 조건에 맞게 navigate
           if (data.gallery.generatedCost !== 0) {
             navigate(`/payment/${galleryId}/paidGallery`);
           } else {
             navigate(`/payment/success/${galleryId}/create`);
           }
+        } else {
+          console.error('Gallery ID could not be retrieved.');
+          closeProgress();
         }
-      };
-
-      eventSource.onerror = () => {
-        setProgress(0);
-        eventSource.close();
-      };
-    }
+      },
+      onError: () => {
+        console.error('An error occurred while creating the gallery.');
+        closeProgress();
+      },
+    });
   };
+
+  useEffect(() => {
+    return () => {
+      if (eventSource) {
+        eventSource.close(); // 컴포넌트 언마운트 시 이벤트 소스 닫기
+      }
+    };
+  }, [eventSource]);
 
   return (
     <S.Container>
@@ -92,11 +138,7 @@ const PostPage = () => {
           </form>
         </FormProvider>
       </S.Box>
-      {progress !== 0 && (
-        <S.ProgressBar>
-          <CircularProgressbar value={progress} text={`${progress}%`} />
-        </S.ProgressBar>
-      )}
+      <ProgressPortal />
     </S.Container>
   );
 };

@@ -7,7 +7,7 @@ import useGetPaymentOrder from '../../hooks/useGetPaymentOrder';
 const OrderBox = () => {
   const { order } = useParams<{ order: 'ticket' | 'paidGallery' }>();
   const orderType = order === 'ticket' ? '전시 입장 티켓 구매' : '전시 생성 이용료 결제';
-  const { data, isError } = useGetPaymentOrder();
+  const { data } = useGetPaymentOrder();
 
   return (
     <S.Container>
@@ -18,11 +18,6 @@ const OrderBox = () => {
         <Text typography="t5" bold="regular">
           {orderType}
         </Text>
-        {isError && (
-          <S.TicketContainer>
-            <S.TicketIcon value="ticket" $active={false} />
-          </S.TicketContainer>
-        )}
         {data && (
           <Ticket
             title={data.title}

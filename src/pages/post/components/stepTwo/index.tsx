@@ -109,14 +109,18 @@ const StepTwo = () => {
               placeholder="작품 제목을 입력해주세요."
               value={imageTitle}
               maxLength={250}
-              onChange={(e) => setTitle(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setTitle(e.target.value)
+              }
             />
             <TextBox
               placeholder="작품 설명을 입력해주세요."
               height={150}
               value={description}
               maxLength={250}
-              onChange={(e) => setDescription(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+                setDescription(e.target.value)
+              }
             />
             <S.Counter>
               <TextCounter textLength={description.length ?? 0} maxLength={250} />

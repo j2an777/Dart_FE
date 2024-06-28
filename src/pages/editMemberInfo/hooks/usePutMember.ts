@@ -13,6 +13,7 @@ const usePutMember = () => {
     mutationKey: ['edit'],
     mutationFn: async (formData: EditFormData) => putMemberEditInfo(formData),
     onSuccess: (data: LoginResponse) => {
+      console.log(data);
       // setMember(data);
       open({
         title: '수정 완료',

@@ -51,3 +51,49 @@ export const ProgressBar = styled.div`
   justify-content : center;
   z-index: 200;
 `;
+
+interface ProgressProps {
+  $progress: number;
+}
+
+export const ProgressBox = styled.div`
+  position : fixed;
+  position: relative;
+  top : 50%;
+  left : 50%;
+  transform: translate(-50%, -50%);
+  zIndex: 202;
+  ${LayoutMap.displayFlex};
+  justify-content : center;
+  flex-direction: column;
+`;
+
+export const CircularProgress = styled.div<ProgressProps>`
+    position: absolute;
+    top : 50%;
+  left : 50%;
+  transform: translate(-50%, -50%);
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    background: ${props => `conic-gradient(from 0deg, #03d100 ${props.$progress * 3.6}deg, #ededed 0deg)`};
+    display : flex;
+    justify-content : center;
+    align-items : center;
+
+    &::before {
+        content : "";
+        position : absolute;
+        height : 140px;
+        width : 140px;
+        border-radius : 50%;
+        background-color : #fff;
+    }
+`;
+
+export const ProgressValue = styled.span`
+    position : relative;
+    font-size : 32px;
+    font-weight : bold;
+    color : #03d100;
+`;

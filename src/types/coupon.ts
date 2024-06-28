@@ -24,7 +24,7 @@ export interface Coupons {
 
 export interface MyCoupon extends BaseCoupon {
   couponId: number;
-  isProirity: boolean;
+  isPriority: boolean;
 }
 
 export interface MyCoupons {
