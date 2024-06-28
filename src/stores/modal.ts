@@ -138,3 +138,29 @@ export const galleryDetailStore = create<GalleryDetailState>((set) => ({
       galleryDetailValue: defaultGalleryDetailValue,
     })),
 }));
+
+interface ProgressState {
+  progressValue: {
+    open: boolean;
+    progress: number;
+  };
+  open: (progress: number) => void;
+  close: () => void;
+}
+
+const defaultProgressValue = {
+  open: false,
+  progress: 0
+};
+
+export const progressStore = create<ProgressState>((set) => ({
+  progressValue: defaultProgressValue,
+  open: (progress: number) =>
+    set(() => ({
+      progressValue: { open: true, progress },
+    })),
+  close: () =>
+    set(() => ({
+      progressValue: defaultProgressValue,
+    })),
+}));

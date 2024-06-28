@@ -1,6 +1,6 @@
 import { Button, Icon, Text } from '@/components';
 import { alertStore } from '@/stores/modal';
-
+import ReactMarkdown from 'react-markdown';
 import * as S from './styles';
 
 interface CheckAgreeProps {
@@ -42,7 +42,7 @@ const CheckAgree = ({
             open({
               title,
               buttonLabel: '내용 접기',
-              description: description,
+              description: <ReactMarkdown>{description}</ReactMarkdown>,
               onClickButton: () => {},
             })
           }
