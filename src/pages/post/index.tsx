@@ -72,7 +72,7 @@ const PostPage = () => {
     newEventSource.addEventListener('SSE', (event) => {
       const data = (event as MyCustomEvent).data;
       const progressData = parseInt(data, 10);
-      openProgress(50 + progressData / 2); // SSE는 50~100%까지 진행
+      openProgress(50 + progressData / 2);
 
       // 100이 되면 종료
       if (progressData === 100) {

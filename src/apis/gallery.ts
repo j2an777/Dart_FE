@@ -1,3 +1,4 @@
+import { blobToFile, compressImage, isValidImageType } from '@/hooks/useCompress';
 import instance from './instance';
 import { FilterType, GalleriesData, GalleryData } from '@/types/gallery';
 import { PostGalleries } from '@/types/post';
@@ -10,10 +11,19 @@ export const postGalleries = async (formData: PostGalleries, onProgress: (progre
     data.append('thumbnail', thumbnail);
   }
 
+  // 이미지 압축해서 blob을 file형태로 변환
   if (images) {
-    images.forEach((image) => {
-      data.append('images', image);
-    });
+    for (const image of images) {
+      if (isValidImageType(image)) {
+        const compressedImage = await compressImage(image);
+        if (compressedImage) {
+          const file = blobToFile(compressedImage, image.name);
+          data.append('images', file);
+        }
+      } else {
+        console.error('Unsupported file type:', image.type);
+      }
+    }
   }
 
   data.append(
