@@ -90,7 +90,6 @@ const PostPage = () => {
   };
 
   const modalConfirm = async (data: PostGalleries) => {
-    console.log(data);
     openProgress(0);
     startSSE(); // SSE 연결을 먼저 시작
 
