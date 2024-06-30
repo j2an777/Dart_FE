@@ -165,7 +165,7 @@ const GalleryInfo = ({ galleryId, open: isOpen, close, hasEnded }: GalleryInfoPr
           {data.address && (
             <S.MapBlock onClick={onHandleMap}>
               <Icon value='mapMarker' size={20} />
-              <Text typography='t8' bold='thin' color='gray300'>서울특별시 중랑구 동일로 136나길 20-4 동산빌라 201호</Text> 
+              <Text typography='t8' bold='thin' color='gray300'>{data.address}</Text> 
             </S.MapBlock>
           )}
           {data.address && openMap && (
