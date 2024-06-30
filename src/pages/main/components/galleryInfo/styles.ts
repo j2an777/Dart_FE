@@ -20,8 +20,8 @@ export const CancelIcon = styled(Icon)`
   top: 20px;
 `;
 export const MainLogo = styled.img`
-  width: fit-content;
-  height: fit-content;
+  width: 70px;
+  height: 30px;
 `;
 
 export const InfoBox = styled.div<{ thumbnail: string }>`
@@ -30,7 +30,8 @@ export const InfoBox = styled.div<{ thumbnail: string }>`
   height: 80vh;
   display: flex;
   flex-direction: column;
-  gap: 50px;
+  justify-content: space-between;
+  gap: 25px;
   padding: 100px;
   box-sizing: border-box;
   background-image: url(${(props) => props.thumbnail});
@@ -86,6 +87,7 @@ export const Circle = styled.div`
 `;
 
 export const ButtonBlock = styled.div`
+  width : 100%;
   ${LayoutMap.displayFlex};
   justify-content: flex-start;
   gap: 10px;
@@ -122,6 +124,17 @@ export const HashTags = styled.div`
   ${LayoutMap.displayFlex};
   justify-content: flex-start;
   gap: 10px;
+`;
+
+export const MapBlock = styled.div`
+  ${LayoutMap.displayFlex};
+  gap : 10px;
+  justify-content: flex-start;
+
+  &:hover p {
+    text-decoration: underline;
+    cursor: pointer;
+  }
 `;
 
 export const ReviewBox = styled.div`

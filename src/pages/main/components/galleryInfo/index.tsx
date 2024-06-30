@@ -10,6 +10,8 @@ import useCustomNavigate from '@/hooks/useCustomNavigate';
 
 import * as S from './styles';
 import parseDate from '@/utils/parseDate';
+import KakaoMap from '../kakaoMap';
+import { useState } from 'react';
 
 interface GalleryInfoProps {
   galleryId: number | null;
@@ -21,6 +23,7 @@ interface GalleryInfoProps {
 const GalleryInfo = ({ galleryId, open: isOpen, close, hasEnded }: GalleryInfoProps) => {
   const openModal = alertStore((state) => state.open);
   const navigate = useCustomNavigate();
+  const [openMap, setOpenMap] = useState(false);
 
   const { data, error, isLoading } = useQuery({
     queryKey: ['detail'],
@@ -98,6 +101,10 @@ const GalleryInfo = ({ galleryId, open: isOpen, close, hasEnded }: GalleryInfoPr
     });
   };
 
+  const onHandleMap = () => {
+    setOpenMap(!openMap);
+  };
+
   if (!isOpen) return;
 
   return (
@@ -155,6 +162,15 @@ const GalleryInfo = ({ galleryId, open: isOpen, close, hasEnded }: GalleryInfoPr
               </>
             )}
           </S.ButtonBlock>
+          {data.address && (
+            <S.MapBlock onClick={onHandleMap}>
+              <Icon value='mapMarker' size={20} />
+              <Text typography='t8' bold='thin' color='gray300'>서울특별시 중랑구 동일로 136나길 20-4 동산빌라 201호</Text> 
+            </S.MapBlock>
+          )}
+          {data.address && openMap && (
+            <KakaoMap galleryAddress={data.address}/> 
+          )}
         </S.InfoBox>
         <S.ReviewBox>
           <Text typography="t7" color="white" bold="thin">
