@@ -7,12 +7,13 @@ import { memberStore } from '@/stores/member';
 import useCustomNavigate from '@/hooks/useCustomNavigate';
 import * as S from './styles';
 
-interface Props {
+export interface ChatProps {
   open: boolean;
-  galleryId: number;
+  chatRoomId: number;
+  galleryNick: string;
 }
 
-const ChatModal = ({ open, galleryId }: Props) => {
+const ChatModal = ({ open, chatRoomId, galleryNick }: ChatProps) => {
   const close = chatStore((state) => state.close);
   const navigate = useCustomNavigate();
   const isLogin = !!memberStore((state) => state.accessToken);
@@ -30,11 +31,11 @@ const ChatModal = ({ open, galleryId }: Props) => {
   const renderContent = () => {
     switch (menuOption) {
       case '실시간 접속자':
-        return <ViewerMenu chatRoomId={galleryId} />;
+        return <ViewerMenu chatRoomId={chatRoomId} galleryNick={galleryNick} />;
       case '실시간 채팅':
-        return <ChatMenu chatRoomId={galleryId} />;
+        return <ChatMenu chatRoomId={chatRoomId} galleryNick={galleryNick} />;
       default:
-        return <ChatMenu chatRoomId={galleryId} />;
+        return <ChatMenu chatRoomId={chatRoomId} galleryNick={galleryNick} />;
     }
   };
 
