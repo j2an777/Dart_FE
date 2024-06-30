@@ -9,7 +9,6 @@ export const Container = styled.div`
     height : 300px;
     ${LayoutMap.displayFlex};
     justify-content : space-between;
-    margin : 30px 0 0 0;
 `;
 
 export const Left = styled.div`
