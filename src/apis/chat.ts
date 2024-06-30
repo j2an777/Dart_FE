@@ -1,4 +1,4 @@
-import { ChatMessage } from '@/types/chat';
+import { ChatMembers, ChatMessage } from '@/types/chat';
 import instance from './instance';
 
 interface FetchParams {
@@ -21,5 +21,5 @@ export const getChatMessage = async ({ chatRoomId, pageParam, size }: FetchParam
 // 실시간 접속자 조회
 export const getChatMembers = async (chatRoomId: number) => {
   const response = await instance.get(`/chat-rooms/${chatRoomId}/members`);
-  return response?.data;
+  return response?.data as ChatMembers[];
 };
