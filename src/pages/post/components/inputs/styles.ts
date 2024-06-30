@@ -34,7 +34,7 @@ export const StyledTagsInput = styled.div`
       }
 
       input {
-        width: 794px;
+        width: auto;
         padding: 5px;
         margin-right: 5px;
         ${typographyMap.t6}
