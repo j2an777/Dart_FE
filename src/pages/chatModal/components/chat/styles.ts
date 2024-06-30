@@ -64,7 +64,7 @@ export const Input = styled.input`
 export const ChatBox = styled.div<{ isAuthor: boolean }>`
   display: flex;
   flex-direction: column;
-  align-items: ${({ isAuthor }) => (isAuthor ? 'flex-end' : 'flex-start')};
+  align-items: ${({ isAuthor }) => (isAuthor ? 'flex-start' : 'flex-end')};
   gap: 5px;
   margin-top: 20px;
 
@@ -73,7 +73,7 @@ export const ChatBox = styled.div<{ isAuthor: boolean }>`
     padding: 10px;
     background: ${colors.white};
     border-radius: ${({ isAuthor }) =>
-      isAuthor ? '10px 0px 10px 10px' : '0px 10px 10px 10px'};
+      isAuthor ? '0px 10px 10px 10px' : '10px 0px 10px 10px'};
   }
 `;
 
