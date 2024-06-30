@@ -28,7 +28,7 @@ const Address = () => {
     };
 
     useEffect(() => {
-        setValue('address', `${addressObj.areaAddress} ${detailAddress}`);
+        setValue('gallery.address', `${addressObj.areaAddress} ${detailAddress}`);
     }, [addressObj, detailAddress, setValue]);
 
     return (

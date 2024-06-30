@@ -7,7 +7,6 @@ import template4 from '@/assets/images/template4.png';
 import { Icon } from '@/components';
 import { IconValues } from '@/components/icon';
 import * as S from './styles';
-import Address from '../address';
 
 type TemplateType =
   | typeof template1
@@ -60,7 +59,6 @@ const StepTree = () => {
   return (
     <S.Container>
       <S.Step value="step_three" $active={false} />
-      <S.StepContent typography='t3' color='black' bold='semibold'>원하시는 템플릿을 고르세요!</S.StepContent>
       <S.TemplatePreview>
         <S.Image src={selectedTemplate} />
         <S.Content typography="t6" bold="regular" color="gray600">
@@ -84,7 +82,6 @@ const StepTree = () => {
           </S.Box>
         ))}
       </article>
-      <Address />
     </S.Container>
   );
 };

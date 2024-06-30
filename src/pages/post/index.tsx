@@ -1,5 +1,5 @@
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-import { StepZero, StepOne, StepTwo, StepThree } from './components';
+import { StepZero, StepOne, StepTwo, StepThree, Address } from './components';
 import { Icon } from '@/components';
 import { PostGalleries } from '@/types/post';
 import { alertStore, progressStore } from '@/stores/modal';
@@ -29,6 +29,7 @@ const PostPage = () => {
   const { mutate } = usePostGalleries(onProgress);
 
   const onSubmit: SubmitHandler<PostGalleries> = async (data) => {
+    console.log(data);
     if (data.images == undefined || data.images.length < 3) {
       open({
         title: '작품 등록 오류',
@@ -137,6 +138,7 @@ const PostPage = () => {
             <StepOne />
             <StepTwo />
             <StepThree />
+            <Address />
             <S.Block>
               <S.Submit type="submit">등록</S.Submit>
             </S.Block>
