@@ -3,7 +3,7 @@ import * as S from './styles';
 import Card from './card';
 import { useScroll } from 'framer-motion';
 import { useEffect, useRef } from 'react';
-import Lenis from '@studio-freight/lenis';
+import Lenis from 'lenis';
 import useImagesLoaded from '@/pages/gallery/hooks/useImagesLoaded';
 import { CircleLoader } from '@/components';
 
