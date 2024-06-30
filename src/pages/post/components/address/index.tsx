@@ -6,7 +6,6 @@ import { useDaumPostcodePopup } from "react-daum-postcode";
 import { postcodeScriptUrl } from "react-daum-postcode/lib/loadPostcode";
 import { useFormContext } from 'react-hook-form';
 
-
 const Address = () => {
     const [detailAddress, setDetailAddress] = useState("");
     const [addressObj, setAddressObj] = useState<AddressObj>({ zoneCode: '', areaAddress: '' });
@@ -37,7 +36,8 @@ const Address = () => {
                 <S.Alpha value='alpha' $active={false}/>
             </S.Left>
             <S.Right>
-                <Text typography='t1' bold='bold' color='black'>[선택] 오프라인 전시 주소 설정</Text>
+                <Text typography='t1' bold='bold' color='black'>[선택] 오프라인 전시 주소</Text>
+                <Text typography='t5' bold='regular' color='gray300'>오프라인 전시도 진행할 시 주소 작성해주세요!</Text>
                 <S.AddressBox>
                     <S.AddressBlock>
                         <S.AddressZoneCode

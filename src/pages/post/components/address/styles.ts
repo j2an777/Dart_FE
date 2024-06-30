@@ -29,7 +29,7 @@ export const Right = styled.div`
     height : 100%;
     display : flex;
     flex-direction : column;
-    gap : 20px;
+    gap : 10px;
     justify-content : center;
 `;
 
@@ -38,7 +38,7 @@ export const AddressBox = styled.div`
     flex-direction : column;
     gap : 10px;
     justify-content : center;
-    margin : 30px 0 0 0;
+    margin : 10px 0 0 0;
 `;
 
 export const AddressBlock = styled.div`
