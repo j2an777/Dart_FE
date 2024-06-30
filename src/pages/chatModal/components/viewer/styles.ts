@@ -1,3 +1,4 @@
+import { colors } from '@/styles/colorPalette';
 import styled from '@emotion/styled';
 
 export const Container = styled.div`
@@ -31,6 +32,19 @@ export const Container = styled.div`
 
 export const Box = styled.div`
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+export const Block = styled.div`
+  display: flex;
   align-items: center;
   gap: 10px;
+  cursor: pointer;
+`;
+
+export const Circle = styled.div`
+  border-radius: 50%;
+  background: ${colors.cyan};
+  width: 10px;
+  height: 10px;
 `;
