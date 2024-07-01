@@ -12,7 +12,7 @@ import ProgressPortal from '@/components/ProgressPortal';
 import { useHandleErrors } from './hooks/useHandleErrors';
 
 import * as S from './styles';
-import { MyCustomEvent } from '@/types/gallery';
+import { MyCustomEvent, SSEData } from '@/types/gallery';
 
 const PostPage = () => {
   const methods = useForm<PostGalleries>();
@@ -66,9 +66,11 @@ const PostPage = () => {
 
     newEventSource.addEventListener('SSE', (event) => {
       const data = (event as MyCustomEvent).data;
-      const progressData = parseInt(data, 10);
+      const parsedData: SSEData = JSON.parse(data);
+      const progressData = parsedData.message;
+    
       openProgress(50 + progressData / 2);
-
+    
       // 100이 되면 종료
       if (progressData === 100) {
         newEventSource.close();
