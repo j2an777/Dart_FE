@@ -29,7 +29,8 @@ const Address = () => {
     useEffect(() => {
         const fullAddress = addressObj.areaAddress ? addressObj.areaAddress : null;
         const detailAddr = detailAddress ? detailAddress : null;
-        setValue('gallery.address', `${fullAddress ? fullAddress : ''} ${detailAddr ? detailAddr : ''}`);
+        const combinedAddress = (fullAddress || detailAddr) ? `${fullAddress ? fullAddress : ''} ${detailAddr ? detailAddr : ''}` : null;
+        setValue('gallery.address', combinedAddress);
     }, [addressObj, detailAddress, setValue]);
 
     return (
