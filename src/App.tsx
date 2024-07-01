@@ -5,9 +5,8 @@ import ProtectedRoute from './routes/ProtectedRoute';
 import TanstackProvider from './routes/TanstackProvider';
 
 declare global {
-  interface Window {
-    Kakao: any;
-  }
+  interface Window { Kakao: any; }
+  interface Window { daum: any; }
 }
 
 function App() {

@@ -28,6 +28,12 @@ export const Step = styled(Icon)`
   right: 2px;
 `;
 
+export const StepContent = styled(Text)`
+  position : absolute;
+  top : 450px;
+  right : 65px;
+`;
+
 export const Content = styled(Text)`
   // position: absolute;
   // top: 400px;

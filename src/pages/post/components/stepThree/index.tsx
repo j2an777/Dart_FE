@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import template1 from '@/assets/images/template1.png';
 import template2 from '@/assets/images/template2.png';
@@ -26,16 +26,10 @@ const StepTree = () => {
   const [selectedTemplate, setSelectedTemplate] = useState<TemplateType>(template1);
   setValue('gallery.template', 'one');
 
-  const onTemplateClick = (
-    template: TemplateType,
-    event: React.MouseEvent<HTMLButtonElement>,
-  ) => {
-    event.preventDefault();
-    setSelectedTemplate(template);
-
+  useEffect(() => {
     let templateType: 'one' | 'two' | 'three' | 'four';
 
-    switch (template) {
+    switch (selectedTemplate) {
       case template1:
         templateType = 'one';
         break;
@@ -54,6 +48,14 @@ const StepTree = () => {
     }
 
     setValue('gallery.template', templateType);
+  }, [selectedTemplate, setValue]);
+
+  const onTemplateClick = (
+    template: TemplateType,
+    event: React.MouseEvent<HTMLButtonElement>,
+  ) => {
+    event.preventDefault();
+    setSelectedTemplate(template);
   };
 
   return (

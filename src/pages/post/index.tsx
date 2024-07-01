@@ -1,5 +1,5 @@
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-import { StepZero, StepOne, StepTwo, StepThree } from './components';
+import { StepZero, StepOne, StepTwo, StepThree, Address } from './components';
 import { Icon } from '@/components';
 import { PostGalleries } from '@/types/post';
 import { alertStore, progressStore } from '@/stores/modal';
@@ -19,10 +19,15 @@ const PostPage = () => {
   const navigate = useCustomNavigate();
   const open = alertStore((state) => state.open);
   const { accessToken } = memberStore.getState();
-  const { mutate } = usePostGalleries();
   const { open: openProgress, close: closeProgress } = progressStore();
   const [eventSource, setEventSource] = useState<EventSourcePolyfill | null>(null);
   const { handleErrors } = useHandleErrors();
+
+  const onProgress = (progress: number) => {
+    openProgress(progress);
+  };
+
+  const { mutate } = usePostGalleries(onProgress);
 
   const onSubmit: SubmitHandler<PostGalleries> = async (data) => {
     open({
@@ -44,7 +49,7 @@ const PostPage = () => {
 
   const startSSE = () => {
     const newEventSource = new EventSourcePolyfill(
-      'http://116.46.227.27:9999/api/galleries/progress',
+      'https://dartgallery.site/api/galleries/progress',
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -60,7 +65,7 @@ const PostPage = () => {
     newEventSource.addEventListener('SSE', (event) => {
       const data = (event as MyCustomEvent).data;
       const progressData = parseInt(data, 10);
-      openProgress(progressData);
+      openProgress(50 + progressData / 2);
 
       // 100이 되면 종료
       if (progressData === 100) {
@@ -133,6 +138,7 @@ const PostPage = () => {
             <StepOne />
             <StepTwo />
             <StepThree />
+            <Address />
             <S.Block>
               <S.Submit type="submit">등록</S.Submit>
             </S.Block>

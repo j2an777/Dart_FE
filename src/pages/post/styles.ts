@@ -33,6 +33,11 @@ export const Block = styled.div`
 export const Submit = styled.button`
   ${buttonSizeMap.smMd}
   ${buttonTypeMap.reverseRadius}
+  transition : all 0.3s ease;
+
+  &:hover {
+    ${buttonTypeMap.rectangleBlack}
+  }
 `;
 
 export const ModalText = styled(Text)`
