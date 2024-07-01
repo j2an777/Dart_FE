@@ -192,6 +192,7 @@ export const CancelBtn = styled.button`
 
   @media (max-width: 500px) {
     width : 100%;
+    order: 2;
   }
 `;
 
@@ -206,6 +207,7 @@ export const StoreBtn = styled.button`
 
   @media (max-width: 500px) {
     width : 100%;
+    order: 1;
   }
 `;
 
