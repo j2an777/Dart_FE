@@ -9,9 +9,9 @@ import { useEffect, useState } from 'react';
 import { memberStore } from '@/stores/member';
 import usePostGalleries, { PostGalleriesResponse } from './hooks/usePostGalleries';
 import ProgressPortal from '@/components/ProgressPortal';
-
-import * as S from './styles';
 import { MyCustomEvent } from '@/types/gallery';
+import { useHandleErrors } from './hooks/useHandleErrors';
+import * as S from './styles';
 
 const PostPage = () => {
   const methods = useForm<PostGalleries>();
@@ -21,6 +21,7 @@ const PostPage = () => {
   const { accessToken } = memberStore.getState();
   const { open: openProgress, close: closeProgress } = progressStore();
   const [eventSource, setEventSource] = useState<EventSourcePolyfill | null>(null);
+  const { handleErrors } = useHandleErrors();
 
   const onProgress = (progress: number) => {
     openProgress(progress);
@@ -29,15 +30,6 @@ const PostPage = () => {
   const { mutate } = usePostGalleries(onProgress);
 
   const onSubmit: SubmitHandler<PostGalleries> = async (data) => {
-    console.log(data);
-    if (data.images == undefined || data.images.length < 3) {
-      open({
-        title: '작품 등록 오류',
-        description: '최소 3개의 작품을 등록해주세요.',
-        buttonLabel: '확인',
-      });
-    }
-
     open({
       title: '전시 등록',
       description: (
@@ -99,6 +91,14 @@ const PostPage = () => {
       onSuccess: (idData: PostGalleriesResponse) => {
         const { galleryId } = idData;
 
+        if (data.images == undefined || data.images.length < 3) {
+          open({
+            title: '작품 등록 오류',
+            description: '최소 3개의 작품을 등록해주세요.',
+            buttonLabel: '확인',
+          });
+        }
+
         if (galleryId) {
           // galleryId가 있으면 해당 조건에 맞게 navigate
           if (data.gallery.generatedCost !== 0) {
@@ -111,8 +111,8 @@ const PostPage = () => {
           closeProgress();
         }
       },
-      onError: () => {
-        console.error('An error occurred while creating the gallery.');
+      onError: (error) => {
+        handleErrors(error, data);
         closeProgress();
       },
     });
@@ -129,7 +129,7 @@ const PostPage = () => {
   return (
     <S.Container>
       <S.Box>
-        <S.Quit onClick={() => navigate(-1)}>
+        <S.Quit onClick={() => navigate('/')}>
           <Icon value="cancel" />
         </S.Quit>
         <FormProvider {...methods}>

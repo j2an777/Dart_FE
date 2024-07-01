@@ -6,7 +6,6 @@ export const useChatScroll = (
   fetchNextPage: () => void,
   hasNextPage: boolean,
 ) => {
-  console.log(messages);
   const scrollRef = useRef<HTMLDivElement>(null);
   const observerRef = useRef<HTMLDivElement>(null);
   const previousScrollHeightRef = useRef<number>(0);
@@ -46,13 +45,15 @@ export const useChatScroll = (
   }, [fetchNextPage, hasNextPage]);
 
   // 스크롤 위치 유지
-  // useEffect(() => {
-  //   if (scrollRef.current && previousScrollHeightRef.current) {
-  //     scrollRef.current.scrollTop =
-  //       scrollRef.current.scrollHeight - previousScrollHeightRef.current;
-  //     previousScrollHeightRef.current = 0;
-  //   }
-  // }, [messages]);
+  useEffect(() => {
+    if (scrollRef.current && previousScrollHeightRef.current) {
+      const currentScrollHeight = scrollRef.current.scrollHeight;
+      scrollRef.current.scrollTop =
+        scrollRef.current.scrollTop +
+        (currentScrollHeight - previousScrollHeightRef.current);
+      previousScrollHeightRef.current = currentScrollHeight;
+    }
+  }, [messages, scrollToBottom]);
 
   return { scrollRef, observerRef, scrollToBottom };
 };

@@ -13,23 +13,24 @@ export interface PaymentValue extends PaymentRequest {
 
 const PaymentPage = () => {
   const methods = useForm<PaymentValue>();
-  const { handleSubmit, setValue, reset, getValues } = methods;
+  const { handleSubmit, setValue } = methods;
   const { mutate: payment } = usePostPayment();
   const { galleryId, order } = useParams<{
     galleryId: string;
     order: 'ticket' | 'paidGallery';
   }>();
 
-  const onSubmit: SubmitHandler<PaymentValue> = async (formData) => {
-    const { title, couponType, ...restFormData } = formData;
-    payment(restFormData);
-  };
-  console.log(getValues());
   useEffect(() => {
     setValue('galleryId', Number(galleryId));
     setValue('order', order as 'ticket' | 'paidGallery');
-    return () => reset();
   }, []);
+
+  const onSubmit: SubmitHandler<PaymentValue> = async (formData) => {
+    const { title, couponType, ...restFormData } = formData;
+    console.log(title, couponType);
+    payment(restFormData);
+  };
+
   return (
     <FormProvider {...methods}>
       <S.Container onSubmit={handleSubmit(onSubmit)}>

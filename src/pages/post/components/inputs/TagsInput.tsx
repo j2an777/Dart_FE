@@ -71,7 +71,7 @@ const TagsInput = ({ name }: TagsProps) => {
               type="text"
               onKeyDown={addTags}
               onInput={handleInput}
-              placeholder="태그입력"
+              placeholder="태그입력 Enter"
             />
           </li>
         )}

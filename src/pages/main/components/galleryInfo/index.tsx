@@ -7,11 +7,10 @@ import { useQuery } from '@tanstack/react-query';
 import { getGalleryInfo } from '@/apis/gallery';
 import Logo from '@/assets/images/mainLogo.png';
 import useCustomNavigate from '@/hooks/useCustomNavigate';
-
-import * as S from './styles';
 import parseDate from '@/utils/parseDate';
 import KakaoMap from '../kakaoMap';
 import { useState } from 'react';
+import * as S from './styles';
 
 interface GalleryInfoProps {
   galleryId: number | null;

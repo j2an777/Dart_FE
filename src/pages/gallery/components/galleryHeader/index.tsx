@@ -26,7 +26,10 @@ const GalleryHeader = ({ galleryId, galleryNick, chatRoomId, title, thumbnail, c
   const openChat = chatStore((state) => state.open);
   const navigate = useCustomNavigate();
   const queryClient = useQueryClient();
-  const { auth: { nickname }, accessToken } = memberStore();
+  const {
+    auth: { nickname },
+    accessToken,
+  } = memberStore();
   const location = window.location.href;
 
   const mutation = useMutation({
@@ -45,8 +48,8 @@ const GalleryHeader = ({ galleryId, galleryNick, chatRoomId, title, thumbnail, c
         onClickButton: () => {
           close();
         },
-      })
-    }
+      });
+    },
   });
 
   const handleReviewSubmit = (data: PostReview & { score: number }) => {
@@ -73,14 +76,14 @@ const GalleryHeader = ({ galleryId, galleryNick, chatRoomId, title, thumbnail, c
         },
       });
     } else if (name === 'chat') {
-      openChat(chatRoomId);
+      openChat(chatRoomId, galleryNick);
     } else if (name === 'out') {
       open({
         title: '전시관 나가기',
         description: '전시관에서 나가시겠습니까?',
         buttonLabel: '확인',
         onClickButton: () => {
-          queryClient.removeQueries({queryKey: ['galleryData']});
+          queryClient.removeQueries({ queryKey: ['galleryData'] });
           navigate('/');
         },
       });
@@ -94,14 +97,14 @@ const GalleryHeader = ({ galleryId, galleryNick, chatRoomId, title, thumbnail, c
         onClickButton: () => {
           close();
         },
-      })
+      });
     } else {
       open({
         title: '전시관 나가기',
         description: '전시관에서 나가시겠습니까?',
         buttonLabel: '확인',
         onClickButton: () => {
-          queryClient.removeQueries({queryKey: ['galleryData']});
+          queryClient.removeQueries({ queryKey: ['galleryData'] });
           navigate('/intro');
         },
       });
@@ -111,16 +114,20 @@ const GalleryHeader = ({ galleryId, galleryNick, chatRoomId, title, thumbnail, c
   return (
     <S.HeaderContainer>
       <S.MenuBlock>
-        <S.Logo src={GalleryLogo} onClick={() => onHandleToggle('toMain')} alt='인트로 가는 로고'/>
+        <S.Logo
+          src={GalleryLogo}
+          onClick={() => onHandleToggle('toMain')}
+          alt="인트로 가는 로고"
+        />
         <S.MenuBox>
-          {(accessToken || nickname === galleryNick) ? 
+          {accessToken || nickname === galleryNick ? (
             <Icon
               value="review"
               size={30}
               onClick={() => onHandleToggle('review')}
               strokeColor="white"
             />
-           : null}
+          ) : null}
           <Icon value="share" size={30} onClick={() => onHandleToggle('share')} />
           <Icon value="chat" size={30} onClick={() => onHandleToggle('chat')} />
           <Icon value="out" size={30} onClick={() => onHandleToggle('out')} />

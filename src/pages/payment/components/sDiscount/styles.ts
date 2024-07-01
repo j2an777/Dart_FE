@@ -21,7 +21,7 @@ export const Title = styled(Text)`
   border-bottom: 2px solid ${colors.black};
 `;
 
-export const CouponBlock = styled.div<{ hasTitle: boolean }>`
+export const CouponBlock = styled.div<{ hasTitle: string }>`
   display: flex;
   align-items: center;
   padding: 20px;

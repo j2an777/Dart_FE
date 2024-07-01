@@ -77,6 +77,20 @@ export const User = styled.div`
   justify-content: flex-start;
   gap: 5px;
   cursor: pointer;
+
+  p {
+    position: relative;
+
+    &:hover::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -3px;
+      width: 100%;
+      height: 1px;
+      background-color: currentColor;
+    }
+  }
 `;
 
 export const Circle = styled.div`
