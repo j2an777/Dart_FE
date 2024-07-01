@@ -6,47 +6,34 @@ import useOutsideClick from '@/hooks/useOutsideClick';
 import useCustomNavigate from '@/hooks/useCustomNavigate';
 
 import * as S from './styles';
+import { HTMLAttributes, LegacyRef } from 'react';
 
 const Navbar = () => {
   const navigate = useCustomNavigate();
-  const { accessToken } = memberStore();
+  const { ref, excludeRef, isExpand, setIsExpand } = useOutsideClick();
   return (
     <>
-      <S.Container>
-        <S.MaxWidthWrapper>
-          <a href="/">
-            <Icon value="mainLogo" $active={false} />
-          </a>
-          <S.ButtonBox>
-            {navbarInfo.map(({ path, value }, index) => {
-              if (value === '로그인') {
-                return accessToken ? (
-                  <UserBox key={index} />
-                ) : (
-                  <Button
-                    buttonType="rectangleBlack"
-                    key={index}
-                    size="xs"
-                    bold="regular"
-                    onClick={() => navigate(path)}
-                  >
-                    {value}
-                  </Button>
-                );
-              } else if (value === 'coupon') {
+      <S.NavbarBackgroundColor />
+      <S.Container isExpand={isExpand}>
+        <a href="/">
+          <Icon className="mainLogo" value="mainLogo" $active={false} />
+        </a>
+        <S.ButtonBox className="buttonBox" ref={ref as LegacyRef<HTMLUListElement>}>
+          <S.NavItemBlock className="navItemBlock">
+            {navbarInfo.map(({ path, value }) => {
+              if (value === 'coupon')
                 return (
                   <Icon
-                    key={index}
+                    key={value}
                     value="coupon"
                     color="gray400"
                     size={40}
-                    onClick={() => navigate(path)}
+                    onClick={() => navigate('/event')}
                   />
                 );
-              }
               return (
                 <S.NavItem
-                  key={index}
+                  key={value}
                   typography="t7"
                   bold="regular"
                   onClick={() => navigate(path)}
@@ -55,8 +42,18 @@ const Navbar = () => {
                 </S.NavItem>
               );
             })}
-          </S.ButtonBox>
-        </S.MaxWidthWrapper>
+          </S.NavItemBlock>
+          <LoginButtonBox className="loginButtonBox" />
+          <S.CancelIcon value="cancel" onClick={() => setIsExpand(false)} />
+        </S.ButtonBox>
+        <S.HamburgerIcon
+          ref={excludeRef as LegacyRef<HTMLDivElement>}
+          value="hamburger"
+          isExpand={isExpand}
+          onClick={() => {
+            setIsExpand(true);
+          }}
+        />
       </S.Container>
       <Outlet />
     </>
@@ -104,5 +101,26 @@ const UserBox = () => {
         </S.MoreBox>
       )}
     </S.UserBoxContainer>
+  );
+};
+
+const LoginButtonBox = (props: HTMLAttributes<HTMLDivElement>) => {
+  const navigate = useCustomNavigate();
+  const accessToken = memberStore().accessToken;
+  return (
+    <div {...props}>
+      {accessToken ? (
+        <UserBox />
+      ) : (
+        <Button
+          buttonType="rectangleBlack"
+          size="xs"
+          bold="regular"
+          onClick={() => navigate('/login')}
+        >
+          로그인
+        </Button>
+      )}
+    </div>
   );
 };

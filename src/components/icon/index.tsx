@@ -1,4 +1,4 @@
-import { MouseEvent } from 'react';
+import { HTMLAttributes, MouseEvent, forwardRef } from 'react';
 import { Colors, colors } from '@/styles/colorPalette';
 
 import * as S from './styles';
@@ -52,9 +52,10 @@ export type IconValues =
   | 'share'
   | 'kakaoShare'
   | 'naver'
-  | 'couponBackground';
+  | 'couponBackground'
+  | 'hamburger';
 
-interface IconProps {
+interface IconProps extends HTMLAttributes<HTMLDivElement> {
   value: IconValues;
   $rotate?: boolean;
   $active?: boolean;
@@ -65,20 +66,15 @@ interface IconProps {
   fillColor?: Colors;
 }
 
-const Icon = ({
-  value,
-  $active = true,
-  color = 'black',
-  strokeColor,
-  fillColor,
-  ...props
-}: IconProps) => {
-  return (
-    <S.Container $active={$active} {...props}>
-      {renderIcon(value, color, strokeColor, fillColor)}
-    </S.Container>
-  );
-};
+const Icon = forwardRef<HTMLDivElement, IconProps>(
+  ({ value, $active = true, color = 'black', strokeColor, fillColor, ...props }, ref) => {
+    return (
+      <S.Container ref={ref} $active={$active} {...props}>
+        {renderIcon(value, color, strokeColor, fillColor)}
+      </S.Container>
+    );
+  },
+);
 
 const renderIcon = (
   value: IconValues,
@@ -937,6 +933,14 @@ const renderIcon = (
               />
             </filter>
           </defs>
+        </svg>
+      );
+    case 'hamburger':
+      return (
+        <svg width="24" height="19" viewBox="0 0 24 19" fill="none">
+          <rect width="24" height="3" rx="1.5" fill="black" />
+          <rect y="8" width="24" height="3" rx="1.5" fill="black" />
+          <rect y="16" width="24" height="3" rx="1.5" fill="black" />
         </svg>
       );
   }
