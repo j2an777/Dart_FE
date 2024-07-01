@@ -6,10 +6,10 @@ import useGetMessages from '../../hooks/useGetMessages';
 import { memberStore } from '@/stores/member';
 import useStomp from '../../hooks/useStomp';
 import { useChatScroll } from '../../hooks/useChatScroll';
-// import { useGetMembers } from '../../hooks/useGetMembers';
+import { ChatProps } from '../..';
 import * as S from './styles';
 
-const ChatMenu = ({ chatRoomId }: { chatRoomId: number }) => {
+const ChatMenu = ({ chatRoomId, galleryNick }: Omit<ChatProps, 'open'>) => {
   const [messages, setMessages] = useState<ChatMessageResponse[]>([]);
   const [newMessage, setNewMessage] = useState<string>('');
   const { accessToken } = memberStore.getState();
@@ -17,6 +17,7 @@ const ChatMenu = ({ chatRoomId }: { chatRoomId: number }) => {
   // 웹소켓 연결
   const { connect, disconnect, sendMessage } = useStomp(
     chatRoomId,
+    galleryNick,
     accessToken as string,
     (message: ChatMessageResponse) => {
       setMessages((prevMessages) => [...prevMessages, message]);
@@ -31,12 +32,9 @@ const ChatMenu = ({ chatRoomId }: { chatRoomId: number }) => {
     };
   }, []);
 
-  // 접속자 확인
-  // const { data: viewer } = useGetMembers(chatRoomId);
-  // console.log(viewer);
-
   // 채팅 데이터 불러옴
-  const { data, fetchNextPage, hasNextPage, refetch } = useGetMessages(chatRoomId);
+  const { data, fetchNextPage, hasNextPage } = useGetMessages(chatRoomId);
+
   useEffect(() => {
     if (data && data.pages) {
       const allMessages = data.pages
@@ -57,9 +55,9 @@ const ChatMenu = ({ chatRoomId }: { chatRoomId: number }) => {
   const postMessage = () => {
     if (!newMessage.trim()) return;
     const message: ChatMessageRequest = { content: newMessage };
+
     sendMessage(`/pub/ws/${chatRoomId}/chat-messages`, message);
     setNewMessage('');
-    refetch();
     scrollToBottom();
   };
 

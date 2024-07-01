@@ -10,7 +10,7 @@ const Message = ({
   profileImageUrl,
   content,
   isAuthor,
-}: Omit<ChatMessageResponse, 'createAt'>) => {
+}: Omit<ChatMessageResponse, 'createdAt'>) => {
   // const navigate = useCustomNavigate();
   // const close = chatStore((state) => state.close);
 

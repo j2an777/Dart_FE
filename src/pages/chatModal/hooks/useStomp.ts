@@ -1,19 +1,21 @@
 import { useState } from 'react';
 import SockJS from 'sockjs-client';
-import { Client, IMessage } from '@stomp/stompjs';
+import { Client, Message } from '@stomp/stompjs';
 import { ChatMessageRequest, ChatMessageResponse } from '@/types/chat';
-import useGetMessages from './useGetMessages';
+import { memberStore } from '@/stores/member';
 
 export const useStomp = (
   chatRoomId: number,
+  galleryNick: string,
   accessToken: string,
-  callback: (msg: ChatMessageResponse) => void = () => {},
+  callback: (message: ChatMessageResponse) => void = () => {},
 ) => {
   const [client, setClient] = useState<Client | null>(null);
   const stompHeaders = {
     Authorization: `Bearer ${accessToken}`,
   };
-  const { refetch } = useGetMessages(chatRoomId);
+  const nickname = memberStore((state) => state.auth.nickname);
+  const profileImage = memberStore((state) => state.auth.profileImage);
 
   const connect = () => {
     const socket = new SockJS(import.meta.env.VITE_SOCKET_URL);
@@ -25,9 +27,9 @@ export const useStomp = (
       heartbeatIncoming: 4000,
       heartbeatOutgoing: 4000,
       onConnect: () => {
-        console.log('Websocket 연결');
-        subscribe();
         setClient(client);
+        client?.subscribe(`/sub/ws/${chatRoomId}`, onMessageReceived, stompHeaders);
+        console.log('websocket 연결 및 구독');
       },
     });
 
@@ -48,26 +50,6 @@ export const useStomp = (
     client.activate();
   };
 
-  // 구독
-  const subscribe = () => {
-    client?.subscribe(
-      `/sub/ws/${chatRoomId}`,
-      (message: IMessage) => {
-        if (message.body) {
-          try {
-            const messageData: ChatMessageResponse = JSON.parse(message.body);
-            callback(messageData);
-          } catch (error) {
-            console.error('Error parsing message body:', error);
-            console.error('Received message:', message.body);
-          }
-        }
-      },
-      stompHeaders,
-    );
-    console.log('socket 구독');
-  };
-
   const disconnect = () => {
     client?.deactivate();
     setClient(null);
@@ -82,14 +64,26 @@ export const useStomp = (
           headers: stompHeaders,
           body: JSON.stringify(content),
         });
-        console.log('메세지 전송');
-        refetch();
       } catch (error) {
         console.error('메세지 전송 오류:', error);
       }
     } else {
       console.error('WebSocket 연결 에러');
     }
+  };
+  const isAuthor = galleryNick == nickname ? true : false;
+
+  const onMessageReceived = (message: Message) => {
+    console.log(message);
+    const newChat = {
+      content: message.body,
+      isAuthor: isAuthor,
+      createdAt: new Date(),
+      sender: nickname,
+      profileImageUrl: profileImage,
+    };
+
+    callback(newChat);
   };
 
   return { connect, disconnect, sendMessage };

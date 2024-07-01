@@ -15,7 +15,7 @@ export interface ChatMessageRequest {
 export interface ChatMessageResponse {
   sender: string;
   content: string;
-  createAt: Date;
+  createdAt: Date;
   isAuthor: boolean;
   profileImageUrl: string;
 }
