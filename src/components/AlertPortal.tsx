@@ -3,13 +3,13 @@ import { createPortal } from 'react-dom';
 import Alert from './alert';
 
 const AlertPortal = () => {
-  const alertValue = alertStore((state) => state.alertValue);
+  const { alertValue, close } = alertStore();
   const $portal_root = document.getElementById('alert-portal');
   return (
     <>
       {$portal_root
         ? createPortal(
-            <div>{alertValue.open && <Alert {...alertValue} />}</div>,
+            <div>{alertValue.open && <Alert close={close} {...alertValue} />}</div>,
             $portal_root,
           )
         : null}
