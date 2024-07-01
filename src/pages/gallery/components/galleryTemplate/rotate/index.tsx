@@ -98,9 +98,6 @@ const GalleryRotate = ({ galleryData }: GalleryDataProps) => {
             </S.ContentBox>
           </S.ImageBox>
         ))}
-        <Text typography="t1" bold="bold" color="white" className="galleryTitle">
-          {galleryData.title}
-        </Text>
       </S.MainBlock>
       {galleryData.images.length > 1 && (
         <S.BtnBlock>
