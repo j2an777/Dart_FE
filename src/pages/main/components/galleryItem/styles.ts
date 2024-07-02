@@ -23,6 +23,7 @@ export const Thumbnail = styled.img`
   border: 5px solid ${colors.black};
   width: 240px;
   height: 240px;
+  object-fit : cover;
   transition: filter 0.5s ease;
   :hover {
     filter: grayscale(100%);
