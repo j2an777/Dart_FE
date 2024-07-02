@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import Icon from '@/components/icon';
 import Message from './Message';
-import { ChatMessageRequest, ChatMessageResponse } from '@/types/chat';
+import { ChatMessageProps } from '@/types/chat';
 import useGetMessages from '../../hooks/useGetMessages';
 import { memberStore } from '@/stores/member';
 import useStomp from '../../hooks/useStomp';
@@ -10,16 +10,15 @@ import { ChatProps } from '../..';
 import * as S from './styles';
 
 const ChatMenu = ({ chatRoomId, galleryNick }: Omit<ChatProps, 'open'>) => {
-  const [messages, setMessages] = useState<ChatMessageResponse[]>([]);
+  const [messages, setMessages] = useState<ChatMessageProps[]>([]);
   const [newMessage, setNewMessage] = useState<string>('');
   const { accessToken } = memberStore.getState();
 
   // 웹소켓 연결
   const { connect, disconnect, sendMessage } = useStomp(
     chatRoomId,
-    galleryNick,
     accessToken as string,
-    (message: ChatMessageResponse) => {
+    (message: ChatMessageProps) => {
       setMessages((prevMessages) => [...prevMessages, message]);
     },
   );
@@ -50,11 +49,19 @@ const ChatMenu = ({ chatRoomId, galleryNick }: Omit<ChatProps, 'open'>) => {
     fetchNextPage,
     hasNextPage,
   );
-
+  const nickname = memberStore((state) => state.auth.nickname);
+  const profileImage = memberStore((state) => state.auth.profileImage);
+  const isAuthor = galleryNick == nickname ? true : false;
   // 새로운 채팅 보내기
   const postMessage = () => {
     if (!newMessage.trim()) return;
-    const message: ChatMessageRequest = { content: newMessage };
+    const message: ChatMessageProps = {
+      content: newMessage,
+      sender: nickname,
+      createdAt: new Date(),
+      isAuthor: isAuthor,
+      profileImageUrl: profileImage,
+    };
 
     sendMessage(`/pub/ws/${chatRoomId}/chat-messages`, message);
     setNewMessage('');
