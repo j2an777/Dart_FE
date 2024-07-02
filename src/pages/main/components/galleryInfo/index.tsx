@@ -8,20 +8,20 @@ import { getGalleryInfo } from '@/apis/gallery';
 import Logo from '@/assets/images/mainLogo.png';
 import useCustomNavigate from '@/hooks/useCustomNavigate';
 import parseDate from '@/utils/parseDate';
-import KakaoMap from '../kakaoMap';
 import { useState } from 'react';
 import * as S from './styles';
+import KakaoMap from '../kakaoMap';
 
 interface GalleryInfoProps {
   galleryId: number | null;
   open: boolean;
-  close: () => void;
   hasEnded: boolean;
+  close: () => void;
 }
 
-const GalleryInfo = ({ galleryId, open: isOpen, close, hasEnded }: GalleryInfoProps) => {
+const GalleryInfo = ({ galleryId, open: isOpen, hasEnded, close }: GalleryInfoProps) => {
   const openModal = alertStore((state) => state.open);
-  const navigate = useCustomNavigate();
+  const customNavigate = useCustomNavigate();
   const [openMap, setOpenMap] = useState(false);
 
   const { data, error, isLoading } = useQuery({
@@ -67,7 +67,7 @@ const GalleryInfo = ({ galleryId, open: isOpen, close, hasEnded }: GalleryInfoPr
 
     if (!isOpen) {
       showModal(
-        '일장 불가',
+        '입장 불가',
         '전시가 예정 및 종료 상태로 입장이 불가능합니다.',
         async () => close(),
       );
@@ -75,10 +75,9 @@ const GalleryInfo = ({ galleryId, open: isOpen, close, hasEnded }: GalleryInfoPr
     }
 
     if (ticket || fee === 0) {
-      navigate(`/gallery/${galleryId}`);
-      close();
+      customNavigate(`/gallery/${galleryId}`);
     } else {
-      navigate(`/payment/${galleryId}/ticket`, { hasAuth: true });
+      customNavigate(`/payment/${galleryId}/ticket`, { hasAuth: true });
     }
   };
 
@@ -104,14 +103,14 @@ const GalleryInfo = ({ galleryId, open: isOpen, close, hasEnded }: GalleryInfoPr
     setOpenMap(!openMap);
   };
 
-  if (!isOpen) return;
+  if (!isOpen) return null;
 
   return (
     <Dimmed>
       <S.Container>
         <S.InfoBox thumbnail={data.thumbnail}>
           <S.Overlay />
-          <S.CancelIcon value="cancel" size={20} onClick={close} color="white" />
+          <S.CancelIcon value="cancel" size={20} onClick={() => close()} color="white" />
           <S.MainLogo alt="main-logo" src={Logo} />
           <S.DescriptionBlock>
             <S.Top>
@@ -121,7 +120,7 @@ const GalleryInfo = ({ galleryId, open: isOpen, close, hasEnded }: GalleryInfoPr
               <S.User
                 onClick={() => {
                   close();
-                  navigate(`/member/${data.nickname}`);
+                  customNavigate(`/member/${data.nickname}`);
                 }}
               >
                 <S.Circle />
@@ -192,7 +191,7 @@ const GalleryInfo = ({ galleryId, open: isOpen, close, hasEnded }: GalleryInfoPr
               color="gray300"
               bold="thin"
               onClick={() => {
-                navigate(`/review/${galleryId}`);
+                customNavigate(`/review/${galleryId}`);
                 close();
               }}
             >

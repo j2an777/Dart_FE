@@ -1,5 +1,5 @@
-import { Route, Routes } from 'react-router-dom';
-import { GlobalBoundary, Navbar } from '@/components';
+import { Route, Routes, useLocation } from 'react-router-dom';
+import { GalleryInfoPortal, GlobalBoundary, Navbar } from '@/components';
 import { routes } from './routes';
 import ProtectedRoute from './routes/ProtectedRoute';
 import TanstackProvider from './routes/TanstackProvider';
@@ -10,10 +10,13 @@ declare global {
 }
 
 function App() {
+  const location = useLocation();
+  const state = location.state as { backgroundLocation?: Location };
+
   return (
     <TanstackProvider>
       <GlobalBoundary>
-        <Routes>
+        <Routes location={state?.backgroundLocation || location}>
           {routes.map(({ Element, path, withNav, withAuth }) => {
             const elemet = withAuth ? (
               <ProtectedRoute path={path}>
@@ -32,6 +35,12 @@ function App() {
             return <Route key={path} path={path} element={elemet} />;
           })}
         </Routes>
+
+        {state?.backgroundLocation && (
+          <Routes>
+            <Route path="/info/:galleryId" element={<GalleryInfoPortal />} />
+          </Routes>
+        )}
       </GlobalBoundary>
     </TanstackProvider>
   );
