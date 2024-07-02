@@ -67,5 +67,5 @@ export interface MyCustomEvent extends Event {
 
 export interface SSEData {
   message: number;
-  notificationType: string | null;
+  type: string | null;
 }
