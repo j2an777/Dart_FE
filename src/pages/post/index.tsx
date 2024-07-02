@@ -64,7 +64,7 @@ const PostPage = () => {
       },
     );
 
-    newEventSource.addEventListener('SSE', (event) => {
+    newEventSource.addEventListener('notification', (event) => {
       const data = (event as MyCustomEvent).data;
       const parsedData: SSEData = JSON.parse(data);
       const progressData = parsedData.message;
