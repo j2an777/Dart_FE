@@ -1,7 +1,6 @@
 import Dimmed from '@/components/Dimmed';
-import Icon, { IconValues } from '@/components/icon';
+import Icon from '@/components/icon';
 import Text from '@/components/Text';
-import { Colors } from '@/styles/colorPalette';
 import { alertStore } from '@/stores/modal';
 import { useQuery } from '@tanstack/react-query';
 import { getGalleryInfo } from '@/apis/gallery';
@@ -11,6 +10,7 @@ import parseDate from '@/utils/parseDate';
 import { useState } from 'react';
 import * as S from './styles';
 import KakaoMap from '../kakaoMap';
+import { starRate } from '../../hooks/starRate';
 
 interface GalleryInfoProps {
   galleryId: number | null;
@@ -28,32 +28,6 @@ const GalleryInfo = ({ galleryId, open: isOpen, hasEnded, close }: GalleryInfoPr
     queryKey: ['detail'],
     queryFn: () => getGalleryInfo(galleryId as number),
   });
-
-  const renderIcons = (reviewAverage: number) => {
-    const icons = [];
-    for (let i = 0; i < 5; i++) {
-      let fillColor: Colors = 'black';
-      let value: IconValues = 'review';
-
-      if (i < Math.floor(reviewAverage)) {
-        fillColor = 'white';
-      } else if (i === Math.floor(reviewAverage) && reviewAverage % 1 !== 0) {
-        value = 'halfreview';
-      }
-
-      icons.push(
-        <Icon
-          key={i}
-          value={value}
-          strokeColor="white"
-          fillColor={fillColor}
-          size={30}
-          $active={false}
-        />,
-      );
-    }
-    return icons;
-  };
 
   const onHandlePay = (ticket: boolean, fee: number, isOpen: boolean) => {
     const showModal = (title: string, description: string, onClickButton: () => void) => {
@@ -184,7 +158,7 @@ const GalleryInfo = ({ galleryId, open: isOpen, hasEnded, close }: GalleryInfoPr
                   / 5
                 </Text>
               </S.Score>
-              {renderIcons(data.reviewAverage)}
+              {starRate(data.reviewAverage)}
             </S.ScoreWrap>
             <Text
               typography="t7"
@@ -192,7 +166,6 @@ const GalleryInfo = ({ galleryId, open: isOpen, hasEnded, close }: GalleryInfoPr
               bold="thin"
               onClick={() => {
                 customNavigate(`/review/${galleryId}`);
-                close();
               }}
             >
               상세 리뷰 보기 &gt;
