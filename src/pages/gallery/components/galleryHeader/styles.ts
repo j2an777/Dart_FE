@@ -14,6 +14,10 @@ export const HeaderContainer = styled.div`
     gap : 10px;
     padding : 0 50px;
     z-index: 11;
+
+    @media (max-width: 500px) {
+        padding : 0 20px;
+    }
 `;
 
 export const MenuBlock = styled.div`
