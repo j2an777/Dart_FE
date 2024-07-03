@@ -5,6 +5,19 @@ import modalBottom from '@/assets/images/modalbottom.png';
 import { fadeUp } from '@/pages/gallery/components/galleryDetail/styles';
 import { Icon } from '@/components';
 
+export const Wrapper = styled.div<{ infoBg: string }>`
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-image: url(${props => props.infoBg });
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: var(--dimmed-zindex);
+`;
+
 export const Container = styled.div`
   ${LayoutMap.absoluteCenter}
   display: flex;

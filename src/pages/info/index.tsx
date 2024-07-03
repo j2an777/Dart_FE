@@ -1,5 +1,5 @@
 import { getGalleryInfo } from "@/apis/gallery";
-import { CircleLoader, Dimmed, Icon, Text } from "@/components";
+import { CircleLoader, Icon, Text } from "@/components";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom"
 import * as S from './styles';
@@ -10,6 +10,7 @@ import { alertStore } from "@/stores/modal";
 import { useState } from "react";
 import KakaoMap from "@/pages/main/components/kakaoMap";
 import { starRate } from "@/pages/main/hooks/starRate";
+import Bg from '@/assets/images/display.png';
 
 const InfoPage = () => {
     const { galleryId } = useParams<{ galleryId: string }>();
@@ -72,7 +73,7 @@ const InfoPage = () => {
     if (isLoading) return <CircleLoader />;
 
     return (
-        <Dimmed>
+        <S.Wrapper infoBg={Bg}>
             <S.Container>
             <S.InfoBox thumbnail={data.thumbnail}>
               <S.Overlay />
@@ -164,7 +165,7 @@ const InfoPage = () => {
               </S.ScoreBlock>
             </S.ReviewBox>
         </S.Container>
-        </Dimmed>
+        </S.Wrapper>
     )
 }
 
