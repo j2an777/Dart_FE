@@ -16,6 +16,10 @@ export const Container = styled.div`
         flex-direction : column;
         gap : 15px;
     }
+
+    @media (max-width: 500px) {
+        width : 90vw;
+    }
 `;
 
 export const ScoreBox = styled.div`
@@ -59,6 +63,11 @@ export const TextReview = styled.textarea<{ width: number; height: number; }>`
 
     &:focus {
         border-color: ${colors.black};
+    }
+
+    @media (max-width: 500px) {
+        width : 86vw;
+        height : 300px;
     }
 `;
 

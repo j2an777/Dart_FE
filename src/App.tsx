@@ -19,7 +19,7 @@ function App() {
       <GlobalBoundary>
         <Routes location={state?.backgroundLocation || location}>
           {routes.map(({ Element, path, withNav, withAuth }) => {
-            const elemet = withAuth ? (
+            const element = withAuth ? (
               <ProtectedRoute path={path}>
                 <Element />
               </ProtectedRoute>
@@ -29,19 +29,17 @@ function App() {
             if (withNav) {
               return (
                 <Route key={path} path="/" element={<Navbar />}>
-                  <Route path={path} element={elemet} />
+                  <Route path={path} element={element} />
                 </Route>
               );
             }
-            return <Route key={path} path={path} element={elemet} />;
+            return <Route key={path} path={path} element={element} />;
           })}
         </Routes>
 
-        {state?.backgroundLocation && (
-          <Routes>
-            <Route path="/info/:galleryId" element={<GalleryInfoPortal />} />
-          </Routes>
-        )}
+        <Routes>
+          <Route path="/info/:galleryId" element={<GalleryInfoPortal />} />
+        </Routes>
       </GlobalBoundary>
     </TanstackProvider>
   );

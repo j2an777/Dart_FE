@@ -30,7 +30,8 @@ const GalleryHeader = ({ galleryId, galleryNick, chatRoomId, title, thumbnail, c
     auth: { nickname },
     accessToken,
   } = memberStore();
-  const location = `https://dartgallery.site/info/${galleryId}`;
+
+  const location = `https://www.dartgallery.site/info/${galleryId}`;
 
   const mutation = useMutation({
     mutationKey: ['review'],

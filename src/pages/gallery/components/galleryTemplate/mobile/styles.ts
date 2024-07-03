@@ -65,7 +65,7 @@ export const BtnBlock = styled.div`
     display: flex;
     justify-content : space-between;
     gap: 20px;
-    padding : 0 40px;
+    padding : 0 20px;
     z-index : 9;
 `;
 
