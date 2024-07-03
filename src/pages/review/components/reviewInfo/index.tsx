@@ -16,6 +16,7 @@ const ReviewInfo = () => {
       <S.Line />
     </S.Container>
   );
+  k;
 };
 
 export default ReviewInfo;

@@ -14,7 +14,7 @@ const ReviewGalleryInfo = () => {
   } = useGetReviewInfo(galleryId as string);
   return (
     <S.Container>
-      <img src={thumbnail} alt="gallery-thumbnail" width={250} height={250} />
+      <S.Thumbnail src={thumbnail} alt="gallery-thumbnail" />
       <S.GalleryInfoBox>
         <S.InfoBlock>
           <Text typography="t5">{title}</Text>
