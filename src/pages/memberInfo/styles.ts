@@ -1,5 +1,17 @@
 import { Icon } from '@/components';
+import { LayoutMap } from '@/styles/layout';
 import styled from '@emotion/styled';
+
+export const Breakpoints = {
+  mobile: 500,
+  tablet: 1024,
+};
+
+export const Layout = styled.div`
+  container: member-info / inline-size;
+  display: flex;
+  justify-content: center;
+`;
 
 export const Container = styled.div`
   display: flex;
@@ -7,12 +19,12 @@ export const Container = styled.div`
   align-items: center;
   width: 100%;
   height: 100%;
-  margin-bottom: 40px;
+  max-width: 1440px;
+  ${LayoutMap.pageLayout}
 `;
 
 export const Box = styled.div`
   position: relative;
-  max-width: 1280px;
   width: 100%;
   height: 100%;
   outline: 2px solid black;

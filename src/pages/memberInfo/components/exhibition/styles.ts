@@ -21,6 +21,7 @@ export const Container = styled.div`
 
 export const Box = styled.div`
   position: relative;
+  padding: 0 20px;
 `;
 
 export const Block = styled.div`
@@ -42,7 +43,8 @@ export const TicketContainer = styled.div`
 `;
 
 export const TicketIcon = styled(Icon)`
-  width: 900px;
+  max-width: 900px;
+  width: 100%;
   height: 290px;
 `;
 
