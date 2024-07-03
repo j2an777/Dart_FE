@@ -10,7 +10,7 @@ interface AlertModalState {
   open: (form: Omit<AlertModalProps, 'open'>) => void;
   close: () => void;
 }
-type AlertModalProps = ComponentProps<typeof Alert>;
+type AlertModalProps = Omit<ComponentProps<typeof Alert>, 'close'>;
 
 const defaultValue = {
   open: false,
