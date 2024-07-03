@@ -102,14 +102,8 @@ export const User = styled.div`
   p {
     position: relative;
 
-    &:hover::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: -3px;
-      width: 100%;
-      height: 1px;
-      background-color: currentColor;
+    &:hover {
+      text-decoration: underline;
     }
   }
 `;
@@ -187,9 +181,20 @@ export const ReviewBox = styled.div`
   background-size: 100%;
   background-repeat: no-repeat;
   background-position: center;
+
+  @media (max-width: 1024px) {
+    padding : 10px 20px;
+  }
+
+  .reviewText {
+    @media (max-width: 1024px) {
+      display: none;
+    }
+  }
 `;
 
 export const ScoreBlock = styled.div`
+  position : relative;
   ${LayoutMap.displayFlex};
   justify-content: space-between;
 
@@ -200,15 +205,59 @@ export const ScoreBlock = styled.div`
       }
     }
   }
+
+  .originalText {
+    @media (max-width: 1024px) {
+      display : none;
+    }
+  }
+
+  @media (max-width : 1024px) {
+    justify-content: center;
+  }
 `;
 
 export const ScoreWrap = styled.div`
   ${LayoutMap.displayFlex};
   justify-content: flex-start;
   gap: 10px;
+
+  .reactText {
+    display : none;
+
+    &:hover {
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    @media (max-width : 1024px) {
+      display : block;
+      position : absolute;
+      top : -20px;
+      left : 50%;
+      transform : translateX(-50%);
+    }
+
+    @media (max-width : 500px) {
+      position : none;
+    }
+  }
 `;
 
 export const Score = styled.div`
   ${LayoutMap.displayFlex};
   margin-right: 30px;
+
+  @media (max-width: 1024px) {
+    margin-right : 10px;
+  }
+`;
+
+export const StarBox = styled.div`
+  ${LayoutMap.displayFlex};
+  gap : 5px;
+
+  @media (max-width : 500px) {
+    display : none;
+  }
 `;
