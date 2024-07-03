@@ -40,7 +40,7 @@ const PriorityCoupon = ({
           {isFinished ? '마감된 쿠폰' : '발급 받기'}
         </S.IssueButton>
         <Text typography="t6" color="gray400">
-          {stock}개 남음
+          선착순 {stock}명
         </Text>
       </S.DescBox>
     </S.Container>
