@@ -10,7 +10,7 @@ const GalleryInfoPortal = () => {
 
   const handleClose = () => {
     close();
-    navigate(-1);
+    navigate('/');
   };
 
   return (
