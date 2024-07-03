@@ -87,6 +87,14 @@ const PostPage = () => {
   };
 
   const modalConfirm = async (data: PostGalleries) => {
+    if (data.images == undefined || data.images.length < 3) {
+      open({
+        title: '작품 등록 오류',
+        description: '최소 3개의 작품을 등록해주세요.',
+        buttonLabel: '확인',
+      });
+    }
+
     openProgress(0);
     startSSE(); // SSE 연결을 먼저 시작
 
@@ -94,14 +102,6 @@ const PostPage = () => {
     mutate(data, {
       onSuccess: (idData: PostGalleriesResponse) => {
         const { galleryId } = idData;
-
-        if (data.images == undefined || data.images.length < 3) {
-          open({
-            title: '작품 등록 오류',
-            description: '최소 3개의 작품을 등록해주세요.',
-            buttonLabel: '확인',
-          });
-        }
 
         if (galleryId) {
           // galleryId가 있으면 해당 조건에 맞게 navigate
