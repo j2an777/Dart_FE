@@ -12,3 +12,4 @@ export { default as MemberInfoPage } from './memberInfo';
 export { default as PaymentPage } from './payment';
 export { default as SuccessPage } from './payment/success';
 export { default as FailPage } from './payment/fail';
+export { default as InfoPage } from './info';

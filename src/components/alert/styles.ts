@@ -22,10 +22,6 @@ export const Container = styled.div`
     margin: 20px 0 30px 0;
   }
 
-  @media (max-width : 500px) {
-    width : 90vw;
-  }
-
   ${mediaQueries.mobile(`
     position: absolute;
     

@@ -28,6 +28,9 @@ export const typographyMap = {
   t8: css`
     font-size: 12px;
   `,
+  t9: css`
+    font-size: 10px;
+  `,
 };
 
 export const bolderMap = {

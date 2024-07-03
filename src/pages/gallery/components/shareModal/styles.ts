@@ -9,6 +9,11 @@ export const Container = styled.div`
     flex-direction: column;
     gap : 30px;
     padding : 20px;
+
+    @media (max-width : 500px) {
+        width : 90vw;
+        height : 300px;
+    }
 `;
 
 export const UrlBox = styled.div`
@@ -20,6 +25,10 @@ export const UrlBox = styled.div`
     gap : 20px;
     padding : 10px;
     border-radius : 10px;
+
+    @media (max-width : 500px) {
+        width : 90vw;
+    }
 `;
 
 export const UrlText = styled.input`
@@ -47,6 +56,12 @@ export const CopyBtn = styled.button`
 
     &:hover {
         ${buttonTypeMap.rectangleGray};
+    }
+
+    @media (max-width : 500px) {
+        width : 50px;
+        height : 30px;
+        ${typographyMap.t9};
     }
 `;
 

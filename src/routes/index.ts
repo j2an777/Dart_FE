@@ -13,6 +13,7 @@ import {
   SuccessPage,
   FailPage,
   EventPage,
+  InfoPage,
 } from '@/pages';
 
 interface RouteInfo {
@@ -40,6 +41,7 @@ export const routes: RouteInfo[] = [
     withNav: true,
     withAuth: true,
   },
+  { path: '/info/:galleryId', Element: InfoPage },
   { path: '/payment/success/:galleryId/:order', Element: SuccessPage, withAuth: true },
   { path: '/payment/fail', Element: FailPage, withAuth: true },
   { path: '*', Element: ErrorPage },
