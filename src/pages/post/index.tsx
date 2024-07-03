@@ -1,5 +1,5 @@
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-import { StepZero, StepOne, StepTwo, StepThree } from './components';
+import { StepZero, StepOne, StepTwo, StepThree, StepAlpha } from './components';
 import { Icon } from '@/components';
 import { PostGalleries } from '@/types/post';
 import { alertStore, progressStore } from '@/stores/modal';
@@ -9,9 +9,10 @@ import { useEffect, useState } from 'react';
 import { memberStore } from '@/stores/member';
 import usePostGalleries, { PostGalleriesResponse } from './hooks/usePostGalleries';
 import ProgressPortal from '@/components/ProgressPortal';
+import { useHandleErrors } from './hooks/useHandleErrors';
 
 import * as S from './styles';
-import { MyCustomEvent } from '@/types/gallery';
+import { MyCustomEvent, SSEData } from '@/types/gallery';
 
 const PostPage = () => {
   const methods = useForm<PostGalleries>();
@@ -19,19 +20,18 @@ const PostPage = () => {
   const navigate = useCustomNavigate();
   const open = alertStore((state) => state.open);
   const { accessToken } = memberStore.getState();
-  const { mutate } = usePostGalleries();
   const { open: openProgress, close: closeProgress } = progressStore();
   const [eventSource, setEventSource] = useState<EventSourcePolyfill | null>(null);
 
-  const onSubmit: SubmitHandler<PostGalleries> = async (data) => {
-    if (data.images == undefined || data.images.length < 3) {
-      open({
-        title: '작품 등록 오류',
-        description: '최소 3개의 작품을 등록해주세요.',
-        buttonLabel: '확인',
-      });
-    }
+  const { handleErrors } = useHandleErrors();
 
+  const onProgress = (progress: number) => {
+    openProgress(progress);
+  };
+
+  const { mutate } = usePostGalleries(onProgress);
+
+  const onSubmit: SubmitHandler<PostGalleries> = async (data) => {
     open({
       title: '전시 등록',
       description: (
@@ -51,7 +51,7 @@ const PostPage = () => {
 
   const startSSE = () => {
     const newEventSource = new EventSourcePolyfill(
-      'http://116.46.227.27:9999/api/galleries/progress',
+      'https://dartgallery.site/api/galleries/progress',
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -64,10 +64,12 @@ const PostPage = () => {
       },
     );
 
-    newEventSource.addEventListener('SSE', (event) => {
+    newEventSource.addEventListener('notification', (event) => {
       const data = (event as MyCustomEvent).data;
-      const progressData = parseInt(data, 10);
-      openProgress(progressData);
+      const parsedData: SSEData = JSON.parse(data);
+      const progressData = parsedData.message;
+
+      openProgress(50 + progressData / 2);
 
       // 100이 되면 종료
       if (progressData === 100) {
@@ -93,6 +95,14 @@ const PostPage = () => {
       onSuccess: (idData: PostGalleriesResponse) => {
         const { galleryId } = idData;
 
+        if (data.images == undefined || data.images.length < 3) {
+          open({
+            title: '작품 등록 오류',
+            description: '최소 3개의 작품을 등록해주세요.',
+            buttonLabel: '확인',
+          });
+        }
+
         if (galleryId) {
           // galleryId가 있으면 해당 조건에 맞게 navigate
           if (data.gallery.generatedCost !== 0) {
@@ -105,8 +115,8 @@ const PostPage = () => {
           closeProgress();
         }
       },
-      onError: () => {
-        console.error('An error occurred while creating the gallery.');
+      onError: (error) => {
+        handleErrors(error, data);
         closeProgress();
       },
     });
@@ -121,25 +131,28 @@ const PostPage = () => {
   }, [eventSource]);
 
   return (
-    <S.Container>
-      <S.Box>
-        <S.Quit onClick={() => navigate(-1)}>
-          <Icon value="cancel" />
-        </S.Quit>
-        <FormProvider {...methods}>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <StepZero />
-            <StepOne />
-            <StepTwo />
-            <StepThree />
-            <S.Block>
-              <S.Submit type="submit">등록</S.Submit>
-            </S.Block>
-          </form>
-        </FormProvider>
-      </S.Box>
-      <ProgressPortal />
-    </S.Container>
+    <S.Layout>
+      <S.Container>
+        <S.Box>
+          <S.Quit onClick={() => navigate('/')}>
+            <Icon value="cancel" />
+          </S.Quit>
+          <FormProvider {...methods}>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <StepZero />
+              <StepOne />
+              <StepTwo />
+              <StepThree />
+              <StepAlpha />
+              <S.Block>
+                <S.Submit type="submit">등록</S.Submit>
+              </S.Block>
+            </form>
+          </FormProvider>
+        </S.Box>
+        <ProgressPortal />
+      </S.Container>
+    </S.Layout>
   );
 };
 

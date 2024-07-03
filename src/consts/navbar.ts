@@ -15,10 +15,6 @@ export const navbarInfo = [
     path: '/contact',
     value: 'contact',
   },
-  {
-    path: '/login',
-    value: '로그인',
-  },
 ];
 
 export const userBoxInfo = [

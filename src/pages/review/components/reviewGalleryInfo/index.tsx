@@ -26,7 +26,7 @@ const ReviewGalleryInfo = () => {
             profileImage={profileImage}
           />
           <Text color="gray400" typography="t6" bold="regular">
-            {parseDate(startDate)} ~ {parseDate(endDate as Date)}
+            {parseDate(startDate)} ~ {endDate && parseDate(endDate as Date)}
           </Text>
         </S.InfoBlock>
         <ReviewRate rate={reviewAverage} title="총 평점" />

@@ -6,7 +6,7 @@ import * as S from './styles';
 
 const ReviewItem = ({
   content,
-  createdAt,
+  createAt,
   nickname,
   profileImage,
   score,
@@ -26,7 +26,7 @@ const ReviewItem = ({
         {content}
       </S.ContentText>
       <Text color="gray400" typography="t6" bold="regular">
-        {parseDate(createdAt)}
+        {parseDate(new Date(createAt))}
       </Text>
     </S.Container>
   );

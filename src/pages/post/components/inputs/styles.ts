@@ -5,8 +5,8 @@ import styled from '@emotion/styled';
 export const StyledTagsInput = styled.div`
   border: 2px solid ${colors.black};
   padding: 10px 20px;
-  width: 794px;
-  height: 62.5px;
+  max-width: 783px;
+  min-height: 62.5px;
   ${typographyMap.t6}
 
   ul {
@@ -34,7 +34,7 @@ export const StyledTagsInput = styled.div`
       }
 
       input {
-        width: auto;
+        width: 300px;
         padding: 5px;
         margin-right: 5px;
         ${typographyMap.t6}

@@ -7,4 +7,5 @@ export const Container = styled.div`
     ${LayoutMap.displayFlex};
     justify-content : center;
     flex-direction : column;
+    overflow:hidden;
 `;

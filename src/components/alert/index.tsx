@@ -1,5 +1,6 @@
-import { alertStore } from '@/stores/modal';
+import { useEffect } from 'react';
 import { Button, Dimmed, Icon, Text } from '..';
+import useDisabledScroll from '@/hooks/useDisabledScroll';
 
 import * as S from './styles';
 
@@ -9,6 +10,7 @@ interface AlertProps {
   description?: React.ReactNode;
   buttonLabel?: string;
   onClickButton?: () => void;
+  close: () => void;
 }
 
 const Alert = ({
@@ -17,8 +19,14 @@ const Alert = ({
   description,
   buttonLabel = '확인',
   onClickButton,
+  close,
 }: AlertProps) => {
-  const close = alertStore((state) => state.close);
+  const { lockScroll, openScroll } = useDisabledScroll();
+
+  useEffect(() => {
+    lockScroll();
+    return () => openScroll();
+  }, []);
 
   if (!open) return;
 
@@ -30,7 +38,7 @@ const Alert = ({
           <Icon value="cancel" size={15} onClick={close} />
         </S.HeaderBox>
         {typeof description === 'string' ? (
-          <Text typography="t5" bold="regular" className='dsBox'>
+          <Text typography="t5" bold="regular" className="dsBox">
             {description}
           </Text>
         ) : (

@@ -1,3 +1,4 @@
+import { mediaQueries } from '@/styles/breakpoints';
 import { colors } from '@/styles/colorPalette';
 import { LayoutMap } from '@/styles/layout';
 import styled from '@emotion/styled';
@@ -8,7 +9,8 @@ export const Container = styled.div`
   justify-content: space-between;
   ${LayoutMap.absoluteCenter}
   padding: 35px;
-  width: 600px;
+  max-width: 600px;
+  min-width: 500px;
   background-color: ${colors.white};
   border-radius: 10px;
   min-height: 300px;
@@ -19,6 +21,11 @@ export const Container = styled.div`
   .dsBox {
     margin: 20px 0 30px 0;
   }
+
+  ${mediaQueries.mobile(`
+    position: absolute;
+    
+  `)}
 `;
 
 export const HeaderBox = styled.div`

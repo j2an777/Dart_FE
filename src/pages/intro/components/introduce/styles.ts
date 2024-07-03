@@ -32,6 +32,22 @@ export const IntroduceBox = styled.div`
             ${bolderMap.thin};
         }
     }
+
+    .subtitle {
+        @media (max-width: 1024px) {
+            width : 350px;
+            ${typographyMap.t3}
+        }
+    }
+
+    @media (max-width: 1024px) {
+        padding : 0 150px;
+    }
+
+    @media (max-width: 500px) {
+        width : 100%;
+        padding : 0 40px;
+    }
 `;
 
 export const IntroduceBlock = styled.div`
@@ -44,6 +60,20 @@ export const IntroduceBlock = styled.div`
             color : white;
             ${typographyMap.t4};
             ${bolderMap.regular};
+        }
+    }
+
+    @media (max-width : 1024px) {
+        p {
+            width : 300px;
+            ${typographyMap.t5};
+        }
+        .demoTitle {
+            ${typographyMap.t3}
+        
+            span {
+                ${typographyMap.t5};
+            }
         }
     }
 `;
@@ -59,6 +89,11 @@ export const DemoBox = styled.div`
         width : 600px;
         height : 450px;
         object-fit : cover;
+
+        @media (max-width : 600px) {
+            width : 90vw;
+            height : auto;
+        }
     }
 `;
 
@@ -84,6 +119,19 @@ export const DemoBlock = styled.div`
             ${bolderMap.thin};
         }
     }
+
+    @media (max-width: 1024px) {
+        width : 100%;
+
+        p { 
+            margin : 0;
+            text-align: center;
+        }
+    }
+
+    @media (max-width : 600px) {
+        top : 480px;
+    }
 `;
 
 export const AddBox = styled.div`
@@ -99,6 +147,20 @@ export const AddBox = styled.div`
         width : 600px;
         height : 450px;
         object-fit : cover;
+
+        @media (max-width : 600px) {
+            width : 90vw;
+            height : auto;
+        }
+    }
+
+    @media (max-width : 1024px) {
+        padding : 0;
+        flex-direction : column;
+    }
+
+    @media (max-width : 600px) {
+        margin-top : 100px;
     }
 `;
 
@@ -113,9 +175,32 @@ export const AddBlock = styled.div`
     padding : 0 30px;
     box-sizing : border-box;
 
+    .rightText {
+        text-align : right;
+        margin-left : 50px;
+
+        @media (max-width : 1024px) {
+            text-align : center;
+            margin : 0;
+        }
+    }
+
+    p {
+        width : 350px;
+    }
+
     span {
         margin-left : 10px;
         ${bolderMap.regular};
         ${typographyMap.t4};
+    }
+
+    @media (max-width: 1024px) {
+        p {
+            text-align : center;
+            width : auto;
+        }
+            
+        border : none;
     }
 `;

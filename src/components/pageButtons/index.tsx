@@ -2,11 +2,11 @@ import { Icon, Text } from '@/components';
 import { pageStore } from '@/stores/page';
 import getVisiblePage from '@/utils/getPage';
 import { Typograph } from '@/styles/typography';
-import { useEffect } from 'react';
+import { HTMLAttributes, useEffect } from 'react';
 
 import * as S from './styles';
 
-export interface PageButtonsProps {
+export interface PageButtonsProps extends HTMLAttributes<HTMLDivElement> {
   orientation?: 'horizontal' | 'vertical';
   numberSize?: Typograph;
 }

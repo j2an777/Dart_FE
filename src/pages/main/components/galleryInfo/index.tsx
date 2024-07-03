@@ -1,57 +1,33 @@
 import Dimmed from '@/components/Dimmed';
-import Icon, { IconValues } from '@/components/icon';
+import Icon from '@/components/icon';
 import Text from '@/components/Text';
-import { Colors } from '@/styles/colorPalette';
 import { alertStore } from '@/stores/modal';
 import { useQuery } from '@tanstack/react-query';
 import { getGalleryInfo } from '@/apis/gallery';
 import Logo from '@/assets/images/mainLogo.png';
 import useCustomNavigate from '@/hooks/useCustomNavigate';
-
-import * as S from './styles';
 import parseDate from '@/utils/parseDate';
+import { useState } from 'react';
+import * as S from './styles';
+import KakaoMap from '../kakaoMap';
+import { starRate } from '../../hooks/starRate';
 
 interface GalleryInfoProps {
   galleryId: number | null;
   open: boolean;
-  close: () => void;
   hasEnded: boolean;
+  close: () => void;
 }
 
-const GalleryInfo = ({ galleryId, open: isOpen, close, hasEnded }: GalleryInfoProps) => {
+const GalleryInfo = ({ galleryId, open: isOpen, hasEnded, close }: GalleryInfoProps) => {
   const openModal = alertStore((state) => state.open);
-  const navigate = useCustomNavigate();
+  const customNavigate = useCustomNavigate();
+  const [openMap, setOpenMap] = useState(false);
 
   const { data, error, isLoading } = useQuery({
     queryKey: ['detail'],
     queryFn: () => getGalleryInfo(galleryId as number),
   });
-
-  const renderIcons = (reviewAverage: number) => {
-    const icons = [];
-    for (let i = 0; i < 5; i++) {
-      let fillColor: Colors = 'black';
-      let value: IconValues = 'review';
-
-      if (i < Math.floor(reviewAverage)) {
-        fillColor = 'white';
-      } else if (i === Math.floor(reviewAverage) && reviewAverage % 1 !== 0) {
-        value = 'halfreview';
-      }
-
-      icons.push(
-        <Icon
-          key={i}
-          value={value}
-          strokeColor="white"
-          fillColor={fillColor}
-          size={30}
-          $active={false}
-        />,
-      );
-    }
-    return icons;
-  };
 
   const onHandlePay = (ticket: boolean, fee: number, isOpen: boolean) => {
     const showModal = (title: string, description: string, onClickButton: () => void) => {
@@ -65,7 +41,7 @@ const GalleryInfo = ({ galleryId, open: isOpen, close, hasEnded }: GalleryInfoPr
 
     if (!isOpen) {
       showModal(
-        '일장 불가',
+        '입장 불가',
         '전시가 예정 및 종료 상태로 입장이 불가능합니다.',
         async () => close(),
       );
@@ -73,10 +49,9 @@ const GalleryInfo = ({ galleryId, open: isOpen, close, hasEnded }: GalleryInfoPr
     }
 
     if (ticket || fee === 0) {
-      navigate(`/gallery/${galleryId}`);
-      close();
+      customNavigate(`/gallery/${galleryId}`);
     } else {
-      navigate(`/payment/${galleryId}/ticket`, { hasAuth: true });
+      customNavigate(`/payment/${galleryId}/ticket`, { hasAuth: true });
     }
   };
 
@@ -98,14 +73,18 @@ const GalleryInfo = ({ galleryId, open: isOpen, close, hasEnded }: GalleryInfoPr
     });
   };
 
-  if (!isOpen) return;
+  const onHandleMap = () => {
+    setOpenMap(!openMap);
+  };
+
+  if (!isOpen) return null;
 
   return (
     <Dimmed>
       <S.Container>
         <S.InfoBox thumbnail={data.thumbnail}>
           <S.Overlay />
-          <S.CancelIcon value="cancel" size={20} onClick={close} color="white" />
+          <S.CancelIcon value="cancel" size={20} onClick={() => close()} color="white" />
           <S.MainLogo alt="main-logo" src={Logo} />
           <S.DescriptionBlock>
             <S.Top>
@@ -115,7 +94,7 @@ const GalleryInfo = ({ galleryId, open: isOpen, close, hasEnded }: GalleryInfoPr
               <S.User
                 onClick={() => {
                   close();
-                  navigate(`/member/${data.nickname}`);
+                  customNavigate(`/member/${data.nickname}`);
                 }}
               >
                 <S.Circle />
@@ -155,6 +134,15 @@ const GalleryInfo = ({ galleryId, open: isOpen, close, hasEnded }: GalleryInfoPr
               </>
             )}
           </S.ButtonBlock>
+          {data.address && (
+            <S.MapBlock onClick={onHandleMap}>
+              <Icon value='mapMarker' size={20} />
+              <Text typography='t8' bold='thin' color='gray300'>{data.address}</Text> 
+            </S.MapBlock>
+          )}
+          {data.address && openMap && (
+            <KakaoMap galleryAddress={data.address}/> 
+          )}
         </S.InfoBox>
         <S.ReviewBox>
           <Text typography="t7" color="white" bold="thin">
@@ -170,15 +158,14 @@ const GalleryInfo = ({ galleryId, open: isOpen, close, hasEnded }: GalleryInfoPr
                   / 5
                 </Text>
               </S.Score>
-              {renderIcons(data.reviewAverage)}
+              {starRate(data.reviewAverage)}
             </S.ScoreWrap>
             <Text
               typography="t7"
               color="gray300"
               bold="thin"
               onClick={() => {
-                navigate(`/review/${galleryId}`);
-                close();
+                customNavigate(`/review/${galleryId}`);
               }}
             >
               상세 리뷰 보기 &gt;

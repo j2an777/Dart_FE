@@ -4,16 +4,33 @@ import { LayoutMap } from '@/styles/layout';
 import styled from '@emotion/styled';
 import Text from '@/components/Text';
 
+export const Breakpoints = {
+  tablet: 1390,
+  column: 870,
+  mobile: 500,
+};
+
+export const Layout = styled.div`
+  container: post / inline-size;
+  display: flex;
+  justify-content: center;
+`;
+
 export const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: start;
   margin-bottom: 50px;
+  width: 100%;
+  max-width: 1440px;
+  ${LayoutMap.pageLayout}
 `;
 
 export const Box = styled.div`
+  border: 2px solid black;
   max-width: 1440px;
-  outline: 2px solid black;
+  min-width: 370px;
+  width: 100%;
 `;
 
 export const Quit = styled.div`
@@ -33,6 +50,11 @@ export const Block = styled.div`
 export const Submit = styled.button`
   ${buttonSizeMap.smMd}
   ${buttonTypeMap.reverseRadius}
+  transition : all 0.3s ease;
+
+  &:hover {
+    ${buttonTypeMap.rectangleBlack}
+  }
 `;
 
 export const ModalText = styled(Text)`
@@ -41,14 +63,14 @@ export const ModalText = styled(Text)`
 `;
 
 export const ProgressBar = styled.div`
-  position : fixed;
-  top : 50%;
-  left : 50%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
   transform: translate(-50%, -50%);
-  width : 100px;
-  height : 100px;
+  width: 100px;
+  height: 100px;
   ${LayoutMap.displayFlex};
-  justify-content : center;
+  justify-content: center;
   z-index: 200;
 `;
 
@@ -57,43 +79,44 @@ interface ProgressProps {
 }
 
 export const ProgressBox = styled.div`
-  position : fixed;
+  position: fixed;
   position: relative;
-  top : 50%;
-  left : 50%;
+  top: 50%;
+  left: 50%;
   transform: translate(-50%, -50%);
-  zIndex: 202;
+  z-index: 202;
   ${LayoutMap.displayFlex};
-  justify-content : center;
+  justify-content: center;
   flex-direction: column;
 `;
 
 export const CircularProgress = styled.div<ProgressProps>`
-    position: absolute;
-    top : 50%;
-  left : 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
   transform: translate(-50%, -50%);
-    height: 200px;
-    width: 200px;
-    border-radius: 50%;
-    background: ${props => `conic-gradient(from 0deg, #03d100 ${props.$progress * 3.6}deg, #ededed 0deg)`};
-    display : flex;
-    justify-content : center;
-    align-items : center;
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  background: ${(props) =>
+    `conic-gradient(from 0deg, #03d100 ${props.$progress * 3.6}deg, #ededed 0deg)`};
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    &::before {
-        content : "";
-        position : absolute;
-        height : 140px;
-        width : 140px;
-        border-radius : 50%;
-        background-color : #fff;
-    }
+  &::before {
+    content: '';
+    position: absolute;
+    height: 140px;
+    width: 140px;
+    border-radius: 50%;
+    background-color: #fff;
+  }
 `;
 
 export const ProgressValue = styled.span`
-    position : relative;
-    font-size : 32px;
-    font-weight : bold;
-    color : #03d100;
+  position: relative;
+  font-size: 32px;
+  font-weight: bold;
+  color: #03d100;
 `;

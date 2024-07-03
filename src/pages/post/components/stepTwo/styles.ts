@@ -2,6 +2,9 @@ import { colors } from '@/styles/colorPalette';
 import styled from '@emotion/styled';
 import { Icon } from '@/components';
 import { buttonSizeMap, buttonTypeMap } from '@/styles/button';
+import { containerQuery } from '@/styles/breakpoints';
+import { Breakpoints } from '../../styles';
+import { LayoutMap } from '@/styles/layout';
 
 export const Container = styled.div`
   position: relative;
@@ -12,23 +15,39 @@ export const Container = styled.div`
   padding: 40px 80px;
   width: 100%;
   height: 100%;
+  ${LayoutMap.pageLayout}
 `;
 
 export const Step = styled(Icon)`
   position: absolute;
-  top: 53px;
+  top: 135px;
   left: 2px;
+
+  ${containerQuery({
+    containerName: 'post',
+    styles: `
+      display: none;
+    `,
+    breakpoints: Breakpoints.tablet,
+  })}
 `;
 
 export const Box = styled.div`
   display: flex;
   flex-direction: column;
-  margin-left: 350px;
-  margin-bottom: 20px;
+  margin: 50px 0 30px 350px;
   gap: 10px;
   p {
     padding: 0 10px;
   }
+
+  ${containerQuery({
+    containerName: 'post',
+    styles: `
+      margin-left: 0px;
+    `,
+    breakpoints: Breakpoints.tablet,
+  })}
 `;
 
 export const BorderLine = styled.div`
@@ -40,11 +59,27 @@ export const Block = styled.div`
   align-items: center;
   gap: 10px;
 
+  ${containerQuery({
+    containerName: 'post',
+    styles: `
+      flex-direction: column;
+    `,
+    breakpoints: Breakpoints.mobile,
+  })}
+
   section {
     width: 320px;
     height: 220px;
     padding: 10px;
     border: 1px solid ${colors.gray400};
+
+    ${containerQuery({
+      containerName: 'post',
+      styles: `
+        width: 100%;
+      `,
+      breakpoints: Breakpoints.mobile,
+    })}
   }
 
   article {
@@ -53,9 +88,25 @@ export const Block = styled.div`
     display: flex;
     flex-direction: column;
     gap: 10px;
+
+    ${containerQuery({
+      containerName: 'post',
+      styles: `
+        width: 100%;
+      `,
+      breakpoints: Breakpoints.mobile,
+    })}
   }
 `;
 
+export const InfoBlock = styled.div`
+  display: flex;
+  align-items: center;
+  div {
+    display: inline-box;
+    margin-top: 3px;
+  }
+`;
 export const Buttons = styled.div`
   display: flex;
   justify-content: flex-end;

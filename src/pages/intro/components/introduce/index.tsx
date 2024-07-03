@@ -23,7 +23,7 @@ const Introduce = () => {
                     <br/>
                     GALLERY
                 </Text>
-                <Text typography='t2' color='white' bold='semibold'>"예술의 공유, 전시의 즐거움"</Text>
+                <Text typography='t2' color='white' bold='semibold' className='subtitle'>"예술의 공유, 전시의 즐거움"</Text>
                 <S.IntroduceBlock>
                     <Text typography='t2' className='demoTitle' bold='medium'>전시 <span>&nbsp;모두가 즐기는 전시</span></Text>
                     <Text typography='t4' bold='thin' color='gray100'>
@@ -77,7 +77,8 @@ const Introduce = () => {
                         ease: 'easeInOut',
                         duration: 1,
                         x: { duration: 1}
-                }}>
+                    }}
+                >
                 <Text typography='t2' bold='semibold'>
                     관람
                     <span>시간 장소에 제약없는 관람</span>
@@ -102,12 +103,13 @@ const Introduce = () => {
                         ease: 'easeInOut',
                         duration: 1,
                         x: { duration: 1}
-                }}>
-                <Text typography='t2' bold='semibold' style={{ textAlign: 'right' }}>
+                    }}
+                >
+                <Text typography='t2' bold='semibold' className='rightText'>
                     소통
                     <span>작가, 관객과 소통하며 즐기는 시간</span>
                 </Text>
-                <Text typography='t4' bold='thin' style={{ textAlign: 'right' }}>
+                <Text typography='t4' bold='thin' className='rightText'>
                     전시를 보며 실시간 채팅을
                     <br/>
                     할 수 있습니다. 자유롭게
@@ -125,7 +127,7 @@ const Introduce = () => {
                     duration: 1,
                     x: { duration: 1}
             }}>
-                <img src={InItem3} alt='소개 이미지3' />
+                <img src={InItem3} alt='소개 이미지3' className='rightImg'/>
             </motion.div>
         </S.AddBox>
     </S.Container>

@@ -7,7 +7,7 @@ export interface ReviewsData {
 
 export interface Review {
   reviewId: number;
-  createdAt: Date;
+  createAt: Date;
   content: string;
   score: number;
   nickname: string;

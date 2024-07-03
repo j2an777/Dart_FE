@@ -1,16 +1,16 @@
 import { useState, useEffect } from 'react';
 import Icon from '@/components/icon';
 import Message from './Message';
-import { ChatMessageRequest, ChatMessageResponse } from '@/types/chat';
+import { ChatMessageProps } from '@/types/chat';
 import useGetMessages from '../../hooks/useGetMessages';
 import { memberStore } from '@/stores/member';
 import useStomp from '../../hooks/useStomp';
 import { useChatScroll } from '../../hooks/useChatScroll';
-// import { useGetMembers } from '../../hooks/useGetMembers';
+import { ChatProps } from '../..';
 import * as S from './styles';
 
-const ChatMenu = ({ chatRoomId }: { chatRoomId: number }) => {
-  const [messages, setMessages] = useState<ChatMessageResponse[]>([]);
+const ChatMenu = ({ chatRoomId, galleryNick }: Omit<ChatProps, 'open'>) => {
+  const [messages, setMessages] = useState<ChatMessageProps[]>([]);
   const [newMessage, setNewMessage] = useState<string>('');
   const { accessToken } = memberStore.getState();
 
@@ -18,7 +18,7 @@ const ChatMenu = ({ chatRoomId }: { chatRoomId: number }) => {
   const { connect, disconnect, sendMessage } = useStomp(
     chatRoomId,
     accessToken as string,
-    (message: ChatMessageResponse) => {
+    (message: ChatMessageProps) => {
       setMessages((prevMessages) => [...prevMessages, message]);
     },
   );
@@ -31,12 +31,9 @@ const ChatMenu = ({ chatRoomId }: { chatRoomId: number }) => {
     };
   }, []);
 
-  // 접속자 확인
-  // const { data: viewer } = useGetMembers(chatRoomId);
-  // console.log(viewer);
-
   // 채팅 데이터 불러옴
-  const { data, fetchNextPage, hasNextPage, refetch } = useGetMessages(chatRoomId);
+  const { data, fetchNextPage, hasNextPage } = useGetMessages(chatRoomId);
+
   useEffect(() => {
     if (data && data.pages) {
       const allMessages = data.pages
@@ -52,14 +49,22 @@ const ChatMenu = ({ chatRoomId }: { chatRoomId: number }) => {
     fetchNextPage,
     hasNextPage,
   );
-
+  const nickname = memberStore((state) => state.auth.nickname);
+  const profileImage = memberStore((state) => state.auth.profileImage);
+  const isAuthor = galleryNick == nickname ? true : false;
   // 새로운 채팅 보내기
   const postMessage = () => {
     if (!newMessage.trim()) return;
-    const message: ChatMessageRequest = { content: newMessage };
+    const message: ChatMessageProps = {
+      content: newMessage,
+      sender: nickname,
+      createdAt: new Date(),
+      isAuthor: isAuthor,
+      profileImageUrl: profileImage,
+    };
+
     sendMessage(`/pub/ws/${chatRoomId}/chat-messages`, message);
     setNewMessage('');
-    refetch();
     scrollToBottom();
   };
 

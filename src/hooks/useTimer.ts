@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 
 const useTimer = ({ time = 300 }: { time?: number }) => {
   const [count, setCount] = useState<number>(time);
+
   useEffect(() => {
     const timer = setInterval(() => {
       setCount((prev) => prev - 1);
@@ -25,6 +26,7 @@ const useTimer = ({ time = 300 }: { time?: number }) => {
     if (hours >= 10) return String(hours);
     return `0${hours}`;
   };
+  if (time < 0) return { hours: 0, minutes: 0, seconds: 0 };
   return { hours: getHours(), minutes: getMinutes(), seconds: getSeconds() };
 };
 

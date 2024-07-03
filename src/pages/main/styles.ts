@@ -1,38 +1,28 @@
-import { Text } from '@/components';
-import { colors } from '@/styles/colorPalette';
+import { LayoutMap } from '@/styles/layout';
 import styled from '@emotion/styled';
 
 export const Container = styled.div`
-  position: relative;
+  ${LayoutMap.pageLayout}
+  padding-top: 80px;
+  padding-bottom: 40px;
   display: flex;
-  align-items: flex-start;
-  padding: 80px;
-  gap: 60px; // 수정예정
+  flex-direction: column;
   max-width: 1440px;
-  height: 900px;
+  height: fit-content;
   margin: auto;
-  justify-content: space-between;
-  > div:last-child {
-    align-self: center;
-  }
+  container: main-page / inline-size;
 `;
 
-export const Line = styled.div`
-  position: absolute;
+export const ContentBox = styled.div`
   display: flex;
-  bottom: 80px;
-  right: 80px;
-  width: 320px;
-  border-bottom: 1px solid ${colors.black};
-  justify-content: flex-end;
-
-  > p {
-  }
+  position: relative;
+  align-items: flex-start;
+  width: 100%;
+  justify-content: space-between;
 `;
 
-export const BottomText = styled(Text)`
-  position: absolute;
-  transform: translateY(-10px);
-  background-color: white;
-  padding-left: 30px;
-`;
+export const MainPageQuerySize = {
+  mainPage: 1180,
+  itemList: 860,
+  gridList: 450,
+};

@@ -40,6 +40,10 @@ export const Container = styled.div<{ frameBg?: string }>`
     background-position: center;
     filter : blur(8px);
   }
+
+  @media (max-width : 1024px) {
+    height : 70vh;
+  }
 `;
 
 export const Overlay = styled.div`
@@ -68,6 +72,10 @@ export const Frame = styled(motion.div)`
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
     border-radius: 20px;
   }
+
+  @media (max-width : 1024px) {
+      display : none;
+  }
 `;
 
 export const DetailContent = styled.div`
@@ -87,6 +95,10 @@ export const DetailContent = styled.div`
     word-break: break-word;
     white-space: normal;
     overflow: visible;
+  }
+
+  @media (max-width: 1024px) {
+    width : 100%;
   }
 `;
 
