@@ -1,12 +1,12 @@
-import { Button, Icon, Text, UserCircle } from '..';
-import { navbarInfo, userBoxInfo } from '@/consts/navbar';
 import { Outlet } from 'react-router-dom';
 import { memberStore } from '@/stores/member';
+import { HTMLAttributes, LegacyRef } from 'react';
+import { Button, Icon, Text, UserCircle } from '..';
 import useOutsideClick from '@/hooks/useOutsideClick';
+import { navbarInfo, userBoxInfo } from '@/consts/navbar';
 import useCustomNavigate from '@/hooks/useCustomNavigate';
 
 import * as S from './styles';
-import { HTMLAttributes, LegacyRef } from 'react';
 
 const Navbar = () => {
   const navigate = useCustomNavigate();

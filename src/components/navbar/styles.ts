@@ -4,6 +4,36 @@ import styled from '@emotion/styled';
 import Text from '../Text';
 import { Icon } from '..';
 
+export const Container = styled.div<{ isExpand: boolean }>`
+  ${LayoutMap.displayFlex}
+  ${LayoutMap.pageLayout}
+  height: 80px;
+  max-width: 1440px;
+  justify-content: space-between;
+  margin: auto;
+
+  @media (max-width: 500px) {
+    .mainLogo {
+      display: ${({ isExpand }) => (isExpand ? 'none' : 'block')};
+    }
+    .buttonBox {
+      visibility: ${({ isExpand }) => (isExpand ? 'visible' : 'hidden')};
+      transform: ${({ isExpand }) => (isExpand ? 'translateX(0)' : 'translateX(120%)')};
+      z-index: var(--high-zindex);
+      position: absolute;
+      background-color: ${colors.gray50};
+      justify-content: space-between;
+    }
+    .navItemBlock {
+      position: absolute;
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+      transform: translateY(60px);
+    }
+  }
+`;
+
 export const NavbarBackgroundColor = styled.div`
   position: absolute;
   width: 100%;
@@ -20,7 +50,7 @@ export const MainLogo = styled.img`
 
 export const ButtonBox = styled.ul`
   ${LayoutMap.displayFlex}
-  transition: all 1s ease;
+  transition: all 0.5s ease;
   gap: 20px;
   justify-content: flex-end;
   width: calc(100% - 40px);
@@ -98,35 +128,5 @@ export const CancelIcon = styled(Icon)`
 
   @media (max-width: 500px) {
     display: block;
-  }
-`;
-
-export const Container = styled.div<{ isExpand: boolean }>`
-  ${LayoutMap.displayFlex}
-  ${LayoutMap.pageLayout}
-  height: 80px;
-  max-width: 1440px;
-  justify-content: space-between;
-  margin: auto;
-
-  @media (max-width: 500px) {
-    .mainLogo {
-      display: ${({ isExpand }) => (isExpand ? 'none' : 'block')};
-    }
-    .buttonBox {
-      visibility: ${({ isExpand }) => (isExpand ? 'visible' : 'hidden')};
-      transform: ${({ isExpand }) => (isExpand ? 'translateX(0)' : 'translateX(120%)')};
-      z-index: var(--high-zindex);
-      position: absolute;
-      background-color: ${colors.gray50};
-      justify-content: space-between;
-    }
-    .navItemBlock {
-      position: absolute;
-      width: 100%;
-      display: flex;
-      justify-content: flex-end;
-      transform: translateY(60px);
-    }
   }
 `;
