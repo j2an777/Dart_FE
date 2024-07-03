@@ -20,4 +20,8 @@ export const Container = styled.div<{ expand: number }>`
     background-position : center;
     background-repeat : no-repeat;
     background-attachment: fixed;
+
+    @media (max-width: 500px) {
+        height: 100vh;
+    }
 `;

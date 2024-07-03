@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as S from './styles';
 import { Icon } from '@/components';
 import { 
@@ -25,6 +25,12 @@ import {
 } from 'react-share';
 import shareKakao from '../../hooks/shareKakao';
 
+declare global {
+  interface Window {
+    Kakao: any;
+  }
+}
+
 interface ShareModalProps {
   location: string;
   title: string;
@@ -35,6 +41,23 @@ interface ShareModalProps {
 
 const ShareModal = ({ location, title, thumbnail, content, nickname }: ShareModalProps) => {
   const [copy, setCopy] = useState(false);
+
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = import.meta.env.VITE_KAKAO_SDK_URL;
+    script.integrity = import.meta.env.VITE_INTEGRITY_VALUE;
+    script.crossOrigin = 'anonymous';
+    script.onload = () => {
+      if (window.Kakao && !window.Kakao.isInitialized()) {
+        window.Kakao.init(import.meta.env.VITE_KAKAO_JS_KEY);
+      }
+    };
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
 
   const onHandleCopy = () => {
     const input = document.querySelector('#share-url') as HTMLInputElement;

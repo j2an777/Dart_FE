@@ -37,8 +37,7 @@ const GalleryPage = () => {
     return <LogoLoader />;
   }
 
-  const expand =
-    galleryData && galleryData.template === 'four' ? galleryData.images.length : 0;
+  const expand = galleryData && galleryData.template === 'four' ? galleryData.images.length : 0;
 
   return (
     <S.Container expand={expand}>

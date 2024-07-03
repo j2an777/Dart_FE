@@ -24,7 +24,7 @@ const SelectTemplate = ({ template, galleryData }: SelectTemplateProps) => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
   
-  if (template !== "four" && isMobile) {
+  if (isMobile) {
     return <Mobile galleryData={galleryData} />;
   }
   
