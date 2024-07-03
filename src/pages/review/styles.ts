@@ -14,4 +14,6 @@ export const ReivewPageQuerySize = {
   galleryInfo: 960,
   galleryInfoTablet: 770,
   galleryInfoMobile: 550,
+  reivewItem: 865,
+  reivewItemTablet: 410,
 };
