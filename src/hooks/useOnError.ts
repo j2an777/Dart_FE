@@ -10,7 +10,7 @@ const useOnError = ({
   navigate,
 }: {
   error: Error | CustomAxiosError;
-  open: (form: Omit<AlertModalProps, 'open'>) => void;
+  open: (form: Omit<AlertModalProps, 'open' | 'close'>) => void;
   navigate: (path: string) => void;
 }) => {
   if (error instanceof AxiosError) {

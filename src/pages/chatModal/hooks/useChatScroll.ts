@@ -1,8 +1,8 @@
-import { ChatMessageResponse } from '@/types/chat';
+import { ChatMessageProps } from '@/types/chat';
 import { useCallback, useEffect, useRef } from 'react';
 
 export const useChatScroll = (
-  messages: ChatMessageResponse[],
+  messages: ChatMessageProps[],
   fetchNextPage: () => void,
   hasNextPage: boolean,
 ) => {

@@ -1,8 +1,6 @@
-import { containerQuery, mediaQueries } from '@/styles/breakpoints';
+import { mediaQueries } from '@/styles/breakpoints';
 import { LayoutMap } from '@/styles/layout';
 import styled from '@emotion/styled';
-import { MainPageQuerySize } from '../../styles';
-import Skeleton from '@/components/Skeleton';
 
 export const GalleryListContainer = styled.div`
   display: grid;
