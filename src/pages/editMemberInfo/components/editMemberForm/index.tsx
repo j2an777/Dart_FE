@@ -4,7 +4,7 @@ import { alertStore } from '@/stores/modal';
 import { useState, useEffect } from 'react';
 import { EditFormData } from '@/types/member';
 import { memberStore } from '@/stores/member';
-import { CircleLoader, Text, UserCircle } from '@/components';
+import { CircleLoader, UserCircle } from '@/components';
 import { useQuery } from '@tanstack/react-query';
 import usePutMember from '../../hooks/usePutMember';
 import BasicProfile from '@/assets/images/defaultUser.png';
@@ -117,25 +117,25 @@ const EditMemberForm = () => {
           </S.ProfilePlus>
         </S.ProfileLeft>
         <S.ProfileRight>
-          <Text typography="t5" bold="regular">
+          <S.ProfileCategory type='category'>
             아이디
-          </Text>
-          <Text typography="t5" bold="medium">
+          </S.ProfileCategory>
+          <S.ProfileCategory type='result'>
             {editData?.email}
-          </Text>
-          <Text typography="t5" bold="regular">
+          </S.ProfileCategory>
+          <S.ProfileCategory type='category'>
             나이
-          </Text>
-          <Text typography="t5" bold="medium">
+          </S.ProfileCategory>
+          <S.ProfileCategory type='result'>
             (만) {age}세
-          </Text>
+          </S.ProfileCategory>
         </S.ProfileRight>
       </S.ProfileBlock>
       <S.EditBlock>
         <S.NicknameBox>
-          <Text typography="t5" bold="regular">
+          <S.NickNameText typography="t5" bold="regular">
             닉네임
-          </Text>
+          </S.NickNameText>
           <S.Input
             {...register('nickname')}
             type="text"
@@ -151,9 +151,9 @@ const EditMemberForm = () => {
         </S.NicknameBox>
 
         <S.IntroduceBox>
-          <Text typography="t5" bold="regular">
+          <S.IntroduceText typography="t5" bold="regular">
             자기소개
-          </Text>
+          </S.IntroduceText>
           <S.Textarea
             {...register('introduce')}
             placeholder="자기소개 입력"

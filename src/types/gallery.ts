@@ -64,3 +64,8 @@ export type CostValues = FilterType['cost'];
 export interface MyCustomEvent extends Event {
   data: string; // 'data'를 문자열로 명시
 }
+
+export interface SSEData {
+  message: number;
+  type: string | null;
+}

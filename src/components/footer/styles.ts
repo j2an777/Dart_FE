@@ -1,5 +1,6 @@
 import { colors } from "@/styles/colorPalette";
 import { LayoutMap } from "@/styles/layout";
+import { typographyMap } from "@/styles/typography";
 import styled from "@emotion/styled";
 
 export const Container = styled.div`
@@ -46,5 +47,11 @@ export const ContentBlock = styled.div`
         height: 15px;
         background-color: #ccc;
         margin: 0 10px;
+    }
+
+    @media (max-width: 500px) {
+        span {
+            ${typographyMap.t8};
+        }
     }
 `;

@@ -17,31 +17,43 @@ const GalleryRotate = ({ galleryData }: GalleryDataProps) => {
   const { open } = galleryDetailStore();
 
   useEffect(() => {
-    if (galleryData) {
-      const newDataDegree = 360 / galleryData.images.length;
-      let newSize = 250;
-      let newTransZ = 500;
+    const updateSizeAndTransZ = () => {
+      if (galleryData) {
+        const newDataDegree = 360 / galleryData.images.length;
+        let newSize = 300;
+        let newTransZ = 400;
 
-      if (galleryData.images.length >= 11 && galleryData.images.length < 15) {
-        newSize = 200;
-        newTransZ = 480;
-      } else if (galleryData.images.length >= 15) {
-        newSize = 150;
-        newTransZ = 550;
+        if (galleryData.images.length >= 11 && galleryData.images.length < 15) {
+          newSize = 200;
+          newTransZ = 480;
+        } else if (galleryData.images.length >= 15) {
+          newSize = 150;
+          newTransZ = 550;
+        }
+
+        const reductionFactor = (1920 - window.innerWidth) / 10;
+        newSize = Math.max(newSize - reductionFactor, 150); // 최소 사이즈 제한
+        newTransZ = Math.max(newTransZ - reductionFactor, 300); // 최소 트랜스Z 제한
+
+        setState((prevState) => ({
+          ...prevState,
+          dataDegree: newDataDegree,
+          size: newSize,
+          transZ: newTransZ,
+        }));
       }
+    };
 
-      setState((prevState) => ({
-        ...prevState,
-        dataDegree: newDataDegree,
-        size: newSize,
-        transZ: newTransZ,
-      }));
-    }
+    updateSizeAndTransZ();
+
+    window.addEventListener("resize", updateSizeAndTransZ);
+
+    return () => window.removeEventListener("resize", updateSizeAndTransZ);
   }, [galleryData]);
 
   const imageSources = galleryData ? galleryData.images.map(img => img.image) : [];
   const isLoaded = useImagesLoaded(imageSources);
- 
+
   useEffect(() => {
     const handleContextMenu = (e: MouseEvent) => {
       e.preventDefault();
@@ -98,16 +110,11 @@ const GalleryRotate = ({ galleryData }: GalleryDataProps) => {
             </S.ContentBox>
           </S.ImageBox>
         ))}
-        <Text typography="t1" bold="bold" color="white" className="galleryTitle">
-          {galleryData.title}
-        </Text>
       </S.MainBlock>
-      {galleryData.images.length > 1 && (
-        <S.BtnBlock>
-          <S.Btn className='previous' onClick={() => onHandleChange('previous')}><Icon value='leftArrow' size={50} color='white'/></S.Btn>
-          <S.Btn className='next' onClick={() => onHandleChange('next')}><Icon value='rightArrow' size={50} color='white'/></S.Btn>
-        </S.BtnBlock>
-      )}
+      <S.BtnBlock>
+        <S.Btn className='previous' onClick={() => onHandleChange('previous')}><Icon value='leftArrow' size={50} color='white'/></S.Btn>
+        <S.Btn className='next' onClick={() => onHandleChange('next')}><Icon value='rightArrow' size={50} color='white'/></S.Btn>
+      </S.BtnBlock>
       <GalleryDetailPortal />
     </S.Container>
   );

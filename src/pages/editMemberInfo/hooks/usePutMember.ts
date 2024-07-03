@@ -3,13 +3,11 @@ import { alertStore } from '@/stores/modal';
 import { EditFormData, LoginResponse } from '@/types/member';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { memberStore } from '@/stores/member';
-import useCustomNavigate from '@/hooks/useCustomNavigate';
 
 const usePutMember = () => {
   const queryClient = useQueryClient();
   const open = alertStore((state) => state.open);
   const setMember = memberStore((state) => state.setMember);
-  const navigate = useCustomNavigate();
 
   return useMutation({
     mutationKey: ['edit'],
@@ -21,7 +19,7 @@ const usePutMember = () => {
         description: '수정이 완료되었습니다.',
         buttonLabel: '확인',
         onClickButton: () => {
-          navigate('/')
+          window.location.reload();
         },
       });
       queryClient.invalidateQueries({

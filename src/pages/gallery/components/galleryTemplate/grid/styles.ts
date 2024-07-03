@@ -1,15 +1,41 @@
+import { keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
+
+const splash = keyframes`
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+`;
 
 export const Container = styled.div`
     width : 100vw;
     height : 100vh;
     overflow : auto;
-    margin: 80px 0 0 0;
+    margin: 50px 0 0 0;
+    padding : 0 30px;
+    display : flex;
+    justify-content : center;
+    flex-direction : column;
+    align-items : center;
 
     scrollbar-width: none;  // Firefox
     -ms-overflow-style: none;  // IE and Edge
     &::-webkit-scrollbar {  // WebKit
         display: none;
+    }
+
+    .Title {
+        position : absolute;
+        top : 15%;
+        animation : ${splash} 3s infinite;
     }
 `;
 
@@ -99,19 +125,4 @@ export const ContentBox = styled.div`
       word-break: break-word;
       text-align: center;
     }
-`;
-
-export const BtnBlock = styled.div`
-    position: fixed;
-    top: 50%;
-    right: 80px;
-    display: flex;
-    flex-direction: column;
-    gap: 50px;
-    transform: translateY(-50%);
-    z-index: 11;
-`;
-
-export const Btn = styled.button`
-    cursor: pointer;
 `;

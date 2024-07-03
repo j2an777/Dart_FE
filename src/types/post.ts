@@ -13,7 +13,7 @@ export interface Gallery {
   hashTags: string[];
   template: 'one' | 'two' | 'three' | 'four';
   informations: Info[];
-  address?: string;
+  address: string | null;
 }
 
 export interface PostGalleries {

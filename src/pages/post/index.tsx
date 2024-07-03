@@ -9,9 +9,10 @@ import { useEffect, useState } from 'react';
 import { memberStore } from '@/stores/member';
 import usePostGalleries, { PostGalleriesResponse } from './hooks/usePostGalleries';
 import ProgressPortal from '@/components/ProgressPortal';
-import { MyCustomEvent } from '@/types/gallery';
 import { useHandleErrors } from './hooks/useHandleErrors';
+
 import * as S from './styles';
+import { MyCustomEvent, SSEData } from '@/types/gallery';
 
 const PostPage = () => {
   const methods = useForm<PostGalleries>();
@@ -21,6 +22,7 @@ const PostPage = () => {
   const { accessToken } = memberStore.getState();
   const { open: openProgress, close: closeProgress } = progressStore();
   const [eventSource, setEventSource] = useState<EventSourcePolyfill | null>(null);
+
   const { handleErrors } = useHandleErrors();
 
   const onProgress = (progress: number) => {
@@ -62,11 +64,13 @@ const PostPage = () => {
       },
     );
 
-    newEventSource.addEventListener('SSE', (event) => {
+    newEventSource.addEventListener('notification', (event) => {
       const data = (event as MyCustomEvent).data;
-      const progressData = parseInt(data, 10);
+      const parsedData: SSEData = JSON.parse(data);
+      const progressData = parsedData.message;
+    
       openProgress(50 + progressData / 2);
-
+    
       // 100이 되면 종료
       if (progressData === 100) {
         newEventSource.close();
@@ -90,14 +94,6 @@ const PostPage = () => {
     mutate(data, {
       onSuccess: (idData: PostGalleriesResponse) => {
         const { galleryId } = idData;
-
-        if (data.images == undefined || data.images.length < 3) {
-          open({
-            title: '작품 등록 오류',
-            description: '최소 3개의 작품을 등록해주세요.',
-            buttonLabel: '확인',
-          });
-        }
 
         if (galleryId) {
           // galleryId가 있으면 해당 조건에 맞게 navigate
