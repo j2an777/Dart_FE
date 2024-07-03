@@ -1,4 +1,4 @@
-import { Icon, Text } from '@/components';
+import { Icon } from '@/components';
 import useCustomNavigate from '@/hooks/useCustomNavigate';
 
 import * as S from './styles';
@@ -15,9 +15,9 @@ const EditMemberHeader = () => {
       <S.BackBox onClick={onHandleBack}>
         <Icon value="back" size={20} />
       </S.BackBox>
-      <Text typography="t2" bold="bold">
+      <S.HeaderTitle>
         회원정보 수정
-      </Text>
+      </S.HeaderTitle>
     </S.Container>
   );
 };

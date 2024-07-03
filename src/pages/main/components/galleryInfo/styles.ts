@@ -12,6 +12,10 @@ export const Container = styled.div`
   width: 800px;
   z-index: var(--modal-zindex);
   animation: ${fadeUp} 0.3s ease-in-out;
+
+  @media (max-width: 1024px) {
+    width : 90vw;
+  }
 `;
 
 export const CancelIcon = styled(Icon)`
@@ -31,7 +35,7 @@ export const InfoBox = styled.div<{ thumbnail: string }>`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 25px;
+  gap: 20px;
   padding: 100px;
   box-sizing: border-box;
   background-image: url(${(props) => props.thumbnail});
@@ -39,6 +43,10 @@ export const InfoBox = styled.div<{ thumbnail: string }>`
   background-size: cover;
   background-repeat: no-repeat;
   z-index: 12;
+
+  @media (max-width: 1024px) {
+    padding : 100px 20px;
+  }
 `;
 
 export const Overlay = styled.div`

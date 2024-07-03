@@ -1,4 +1,4 @@
-import { GalleryInfoPortal, PageButtons } from '@/components';
+import { PageButtons } from '@/components';
 import { Filter, GalleryList } from './components';
 
 import * as S from './styles';
@@ -14,7 +14,6 @@ const MainPage = () => {
       <Filter />
       <GalleryList />
       <PageButtons orientation="vertical" numberSize="t3" />
-      <GalleryInfoPortal />
     </S.Container>
   );
 };

@@ -57,7 +57,9 @@ export const galleryInfoStore = create<GalleryInfoState>((set) => ({
   galleryInfoValue: galleryInfoDefaultValue,
   open: (galleryId: number, hasEnded: boolean) =>
     set((state) => ({ ...state, galleryInfoValue: { open: true, galleryId, hasEnded } })),
-  close: () => set((state) => ({ ...state, galleryInfoValue: galleryInfoDefaultValue })),
+  close: () => {
+    set((state) => ({ ...state, galleryInfoValue: galleryInfoDefaultValue }));
+  },
 }));
 
 // 채팅 모달

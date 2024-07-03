@@ -9,6 +9,7 @@ export const Container = styled.div`
     height : 300px;
     ${LayoutMap.displayFlex};
     justify-content : space-between;
+    border-top : 2px solid black;
 `;
 
 export const Left = styled.div`
@@ -31,6 +32,7 @@ export const Right = styled.div`
     flex-direction : column;
     gap : 10px;
     justify-content : center;
+    padding-right : 100px;
 `;
 
 export const AddressBox = styled.div`
@@ -72,7 +74,7 @@ export const SearchBtn = styled.div`
 `;
 
 export const AddressArea = styled.input`
-    width : 75%;
+    width : 100%;
     height : 40px;
     outline : none;
     border : none;
@@ -83,7 +85,7 @@ export const AddressArea = styled.input`
 `;
 
 export const AddressTown = styled.input`
-    width : 75%;
+    width : 100%;
     height : 40px;
     outline : none;
     border : 1px solid ${colors.gray300};
