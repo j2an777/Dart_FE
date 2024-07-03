@@ -1,5 +1,5 @@
 import { Icon, Text } from '@/components';
-import { containerQuery, mediaQueries } from '@/styles/breakpoints';
+import { containerQuery } from '@/styles/breakpoints';
 import { colors } from '@/styles/colorPalette';
 import { LayoutMap } from '@/styles/layout';
 import styled from '@emotion/styled';
