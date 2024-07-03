@@ -10,12 +10,12 @@ import * as S from './styles';
 const OrderBox = () => {
   const { order } = useParams<{ order: 'ticket' | 'paidGallery' }>();
   const orderType = order === 'ticket' ? '전시 입장 티켓 구매' : '전시 생성 이용료 결제';
-  const { data } = useGetPaymentOrder();
+  const { data, error } = useGetPaymentOrder();
   const open = alertStore((state) => state.open);
   const navigate = useCustomNavigate();
 
   useEffect(() => {
-    if (!data) {
+    if (error) {
       open({
         title: '결제 시간 초과',
         description: '결제 유효 시간을 초과했습니다. 다시 시도해주세요.',
@@ -23,7 +23,7 @@ const OrderBox = () => {
         onClickButton: () => navigate('/post'),
       });
     }
-  }, [data, open, navigate]);
+  }, [data]);
 
   return (
     <S.Container>

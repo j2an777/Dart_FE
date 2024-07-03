@@ -2,9 +2,7 @@ import instance from './instance';
 import { OrderInfo, PaymentRequest } from '@/types/payment';
 
 export const postPayment = async (formData: PaymentRequest) => {
-  const response = await instance.post(`/payment`, {
-    formData,
-  });
+  const response = await instance.post(`/payment`, formData);
   return response?.data;
 };
 
