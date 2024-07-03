@@ -8,7 +8,6 @@ export const Container = styled.div`
   position: relative;
   ${LayoutMap.displayFlex}
   flex-direction: column;
-  width: 600px;
 `;
 
 export const Header = styled.div`
