@@ -2,7 +2,7 @@ import { Text } from '@/components';
 import { containerQuery } from '@/styles/breakpoints';
 import { LayoutMap } from '@/styles/layout';
 import styled from '@emotion/styled';
-import { ReivewPageQuerySize } from '../../styles';
+import { reivewPageQuerySize } from '../../styles';
 
 export const Container = styled.div`
   ${LayoutMap.displayFlex}
@@ -22,7 +22,7 @@ export const ContentText = styled(Text)`
 
   ${containerQuery({
     containerName: 'reivew-item',
-    breakpoints: ReivewPageQuerySize.reivewItemTablet,
+    breakpoints: reivewPageQuerySize.reivewItemTablet,
     styles: `
     padding: 0;
   `,
@@ -32,7 +32,7 @@ export const ContentText = styled(Text)`
 export const StarRateBox = styled.div`
   ${containerQuery({
     containerName: 'reivew-item',
-    breakpoints: ReivewPageQuerySize.reivewItem,
+    breakpoints: reivewPageQuerySize.reivewItem,
     styles: `
     display: none;
     `,
@@ -42,7 +42,7 @@ export const StarRateBox = styled.div`
 export const DateText = styled(Text)`
   ${containerQuery({
     containerName: 'reivew-item',
-    breakpoints: ReivewPageQuerySize.reivewItemTablet,
+    breakpoints: reivewPageQuerySize.reivewItemTablet,
     styles: `
   display: none;
   `,

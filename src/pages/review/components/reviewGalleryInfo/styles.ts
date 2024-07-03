@@ -2,7 +2,7 @@ import { containerQuery } from '@/styles/breakpoints';
 import { colors } from '@/styles/colorPalette';
 import { LayoutMap } from '@/styles/layout';
 import styled from '@emotion/styled';
-import { ReivewPageQuerySize } from '../../styles';
+import { reivewPageQuerySize } from '../../styles';
 
 export const Container = styled.div`
   ${LayoutMap.displayFlex}
@@ -14,14 +14,14 @@ export const Container = styled.div`
   justify-content: space-around;
 
   ${containerQuery({
-    breakpoints: ReivewPageQuerySize.galleryInfo,
+    breakpoints: reivewPageQuerySize.galleryInfo,
     containerName: 'gallery-info',
     styles: `
       border-right: none;
     `,
   })}
   ${containerQuery({
-    breakpoints: ReivewPageQuerySize.galleryInfoTablet,
+    breakpoints: reivewPageQuerySize.galleryInfoTablet,
     containerName: 'gallery-info',
     styles: `
       border-left: none;
@@ -47,7 +47,7 @@ export const Thumbnail = styled.img`
   height: 250px;
 
   ${containerQuery({
-    breakpoints: ReivewPageQuerySize.galleryInfoMobile,
+    breakpoints: reivewPageQuerySize.galleryInfoMobile,
     containerName: 'gallery-info',
     styles: `
     width: 150px;
