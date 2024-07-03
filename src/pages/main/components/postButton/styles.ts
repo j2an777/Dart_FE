@@ -1,15 +1,17 @@
 import { Icon } from '@/components';
 import styled from '@emotion/styled';
+import { motion } from 'framer-motion';
 
-export const Container = styled.div`
+export const Container = styled(motion.div)`
   position: relative;
   width: fit-content;
   height: fit-content;
   transition: all 0.3s ease;
   cursor: pointer;
-
+  :hover {
+  }
   :active {
-    transform: scale(0.9);
+    transform: scale(1.1);
   }
 `;
 
@@ -23,21 +25,8 @@ export const PostArrow = styled(Icon)`
 `;
 
 export const BackgroundImage = styled.img`
-  z-index: var(--lower-zindex);
-  width: fit-content;
-  height: fit-content;
+  z-index: var(--middle-zindex);
+  width: 120px;
+  height: 120px;
   pointer-events: none;
-  @keyframes rotateInfinite {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
-  animation: rotateInfinite 3s linear infinite paused;
-
-  &:hover {
-    animation-play-state: running;
-  }
 `;

@@ -53,7 +53,8 @@ export type IconValues =
   | 'kakaoShare'
   | 'naver'
   | 'couponBackground'
-  | 'hamburger';
+  | 'hamburger'
+  | 'showFilter';
 
 interface IconProps extends HTMLAttributes<HTMLDivElement> {
   value: IconValues;
@@ -941,6 +942,47 @@ const renderIcon = (
           <rect width="24" height="3" rx="1.5" fill="black" />
           <rect y="8" width="24" height="3" rx="1.5" fill="black" />
           <rect y="16" width="24" height="3" rx="1.5" fill="black" />
+        </svg>
+      );
+    case 'showFilter':
+      return (
+        <svg width="30" height="30" viewBox="0 0 30 30" fill="none">
+          <rect
+            x="2.75"
+            y="3.75"
+            width="10.5"
+            height="6.5"
+            rx="1.25"
+            stroke="#900202"
+            strokeWidth="1.5"
+          />
+          <rect
+            x="16.75"
+            y="19.75"
+            width="10.5"
+            height="6.5"
+            rx="1.25"
+            stroke="#900202"
+            strokeWidth="1.5"
+          />
+          <rect
+            x="2.75"
+            y="12.75"
+            width="10.5"
+            height="13.5"
+            rx="1.25"
+            stroke="black"
+            strokeWidth="1.5"
+          />
+          <rect
+            x="16.75"
+            y="3.75"
+            width="10.5"
+            height="13.5"
+            rx="1.25"
+            stroke="black"
+            strokeWidth="1.5"
+          />
         </svg>
       );
   }
