@@ -3,14 +3,16 @@ import saleImage from '@/assets/images/for sale.png';
 import styled from '@emotion/styled';
 import { Button } from '@/components';
 import { LayoutMap } from '@/styles/layout';
+import { containerQuery } from '@/styles/breakpoints';
+import { eventPageQuerySize } from '../../styles';
 
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   gap: 20px;
-  width: 500px;
-  height: 250px;
+  width: 100%;
+  height: 100%;
   border-radius: 10px;
   border: 1px solid ${colors.gray300};
   padding: 40px 30px;
@@ -18,6 +20,14 @@ export const Container = styled.div`
   background-size: 80% auto;
   background-position: center;
   background-repeat: no-repeat;
+
+  ${containerQuery({
+    breakpoints: eventPageQuerySize.priorityBoxMobile,
+    containerName: 'priority-box',
+    styles: `
+    gap: 0;
+    `,
+  })}
 `;
 
 export const IssueButton = styled(Button)`
