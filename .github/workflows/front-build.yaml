@@ -23,6 +23,11 @@ jobs:
       - name: Build
         env:
           VITE_BASE_URL: ${{ secrets.VITE_BASE_URL }}
+          VITE_SOCKET_URL: ${{ secrets.VITE_SOCKET_URL }}
+          VITE_KAKAO_JS_KEY: ${{ secrets.VITE_KAKAO_JS_KEY }}
+          VITE_INTEGRITY_VALUE: ${{ secrets.VITE_INTEGRITY_VALUE }}
+          VITE_KAKAO_SDK_URL: ${{ secrets.VITE_KAKAO_SDK_URL }}
+          VITE_KAKAO_MAP_JS_KEY: ${{ secrets.VITE_KAKAO_MAP_JS_KEY }}
         run: pnpm run build
 
       - name: Configure AWS credentials
