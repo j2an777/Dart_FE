@@ -1,6 +1,6 @@
 import { putMemberEditInfo } from '@/apis/member';
 import { alertStore } from '@/stores/modal';
-import { EditFormData, LoginResponse } from '@/types/member';
+import { EditFormData, Member } from '@/types/member';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { memberStore } from '@/stores/member';
 
@@ -12,8 +12,7 @@ const usePutMember = () => {
   return useMutation({
     mutationKey: ['edit'],
     mutationFn: async (formData: EditFormData) => putMemberEditInfo(formData),
-    onSuccess: (data: LoginResponse) => {
-      setMember(data);
+    onSuccess: (data: Pick<Member, 'email' | 'nickname' | 'profileImage'>) => {
       open({
         title: '수정 완료',
         description: '수정이 완료되었습니다.',
@@ -25,6 +24,7 @@ const usePutMember = () => {
       queryClient.invalidateQueries({
         queryKey: ['edit'],
       });
+      setMember(data);
     },
   });
 };

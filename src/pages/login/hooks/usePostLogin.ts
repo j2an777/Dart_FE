@@ -5,12 +5,14 @@ import { LoginFormData } from '@/types/member';
 import { useMutation } from '@tanstack/react-query';
 
 const usePostLogin = () => {
-  const setMember = memberStore((state) => state.setMember);
+  const {setMember, setToken} = memberStore();
   const navigate = useCustomNavigate();
   return useMutation({
     mutationFn: (formData: LoginFormData) => postLogin(formData),
     onSuccess: (data) => {
-      setMember(data);
+      const { accessToken, ...auth} = data;
+      setMember(auth);
+      setToken(accessToken)
       navigate(-1);
     },
   });

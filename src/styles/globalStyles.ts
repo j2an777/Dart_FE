@@ -6,6 +6,7 @@ export default css`
   ${fontStyles}
   ${colorPalette}
   :root {
+    --background-zindex: -1;
     --lower-zindex: 1;
     --middle-zindex: 2;
     --high-zindex: 3;
@@ -124,8 +125,10 @@ export default css`
   }
   body {
     overflow-x: hidden;
+    width: 100vw;
+    height: 100vh;
   }
-  ol,
+  k ol,
   ul {
     list-style: none;
   }

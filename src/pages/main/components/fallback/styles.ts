@@ -1,13 +1,23 @@
+import { mediaQueries } from '@/styles/breakpoints';
 import { LayoutMap } from '@/styles/layout';
 import styled from '@emotion/styled';
 
 export const GalleryListContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  min-width: 820px;
-  grid-column-gap: 20px;
+  width: 100%;
   grid-row-gap: 30px;
-  place-items: flex-end;
+  place-items: center;
+
+  container: grid-list / inline-size;
+
+  ${mediaQueries.mobile(`
+  grid-template-columns: repeat(2, 1fr);
+`)}
+
+  @container (max-width: 500px) {
+    grid-template-columns: repeat(2, 1fr); /* 컨테이너 너비가 500px 이상일 때 */
+  }
 `;
 
 export const SkeletonItemContainer = styled.div`

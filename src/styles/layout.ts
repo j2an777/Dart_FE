@@ -1,6 +1,7 @@
 import { css } from '@emotion/react';
 
 export const LayoutMap = {
+  // padding-top이나 다른 속성을 적용하기 위해 분리함 합치지 마셈
   pageLayout: css`
     padding-left: 80px;
     padding-right: 80px;

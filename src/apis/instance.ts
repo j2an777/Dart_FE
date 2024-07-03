@@ -27,12 +27,10 @@ instance.interceptors.response.use(
     if (error.response.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
       try {
-        console.log('hi');
         const response = await getNewToken();
-        const { accessToken } = response.data;
-        console.log(accessToken);
-        const { setMember } = memberStore.getState();
-        setMember(accessToken);
+        const { accessToken } = response;
+        const { setToken } = memberStore.getState();
+        setToken(accessToken);
         originalRequest.headers['Authorization'] = `Bearer ${accessToken}`;
         return instance(originalRequest);
       } catch (refreshError) {

@@ -68,9 +68,9 @@ const PostPage = () => {
       const data = (event as MyCustomEvent).data;
       const parsedData: SSEData = JSON.parse(data);
       const progressData = parsedData.message;
-    
+
       openProgress(50 + progressData / 2);
-    
+
       // 100이 되면 종료
       if (progressData === 100) {
         newEventSource.close();
@@ -94,6 +94,14 @@ const PostPage = () => {
     mutate(data, {
       onSuccess: (idData: PostGalleriesResponse) => {
         const { galleryId } = idData;
+
+        if (data.images == undefined || data.images.length < 3) {
+          open({
+            title: '작품 등록 오류',
+            description: '최소 3개의 작품을 등록해주세요.',
+            buttonLabel: '확인',
+          });
+        }
 
         if (galleryId) {
           // galleryId가 있으면 해당 조건에 맞게 navigate
