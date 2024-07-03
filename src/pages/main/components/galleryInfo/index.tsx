@@ -144,25 +144,39 @@ const GalleryInfo = ({ galleryId, open: isOpen, hasEnded, close }: GalleryInfoPr
           )}
         </S.InfoBox>
         <S.ReviewBox>
-          <Text typography="t7" color="white" bold="thin">
+          <Text typography="t7" color="white" bold="thin" className='reviewText'>
             관람객 평점
           </Text>
           <S.ScoreBlock>
             <S.ScoreWrap>
               <S.Score>
-                <Text color="white" bold="bold">
+                <Text color="white" bold="bold" typography='t3'>
                   {data.reviewAverage}&nbsp;
                 </Text>
-                <Text color="white" bold="bold">
+                <Text color="white" bold="bold" typography='t3'>
                   / 5
                 </Text>
               </S.Score>
-              {starRate(data.reviewAverage)}
+              <S.StarBox>
+                {starRate(data.reviewAverage)}
+              </S.StarBox>
+              <Text
+                typography="t7"
+                color="gray300"
+                bold="thin"
+                className='reactText'
+                onClick={() => {
+                  customNavigate(`/review/${galleryId}`);
+                }}
+              >
+              상세 리뷰 보기 &gt;
+              </Text>
             </S.ScoreWrap>
             <Text
               typography="t7"
               color="gray300"
               bold="thin"
+              className='originalText'
               onClick={() => {
                 customNavigate(`/review/${galleryId}`);
               }}
