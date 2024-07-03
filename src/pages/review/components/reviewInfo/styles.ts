@@ -1,7 +1,9 @@
 import { Icon, Text } from '@/components';
+import { containerQuery, mediaQueries } from '@/styles/breakpoints';
 import { colors } from '@/styles/colorPalette';
 import { LayoutMap } from '@/styles/layout';
 import styled from '@emotion/styled';
+import { ReivewPageQuerySize } from '../../styles';
 
 export const Container = styled.div`
   position: relative;
@@ -10,6 +12,8 @@ export const Container = styled.div`
   width: 100%;
   border-left: 2px solid ${colors.black};
   border-right: 2px solid ${colors.black};
+
+  container: gallery-info / inline-size;
 `;
 
 export const CancelIcon = styled(Icon)`
@@ -21,6 +25,14 @@ export const InfoBox = styled.div`
   ${LayoutMap.displayFlex}
   height: 350px;
   width: 100%;
+
+  ${containerQuery({
+    breakpoints: ReivewPageQuerySize.galleryInfoTablet,
+    containerName: 'gallery-info',
+    styles: `
+      flex-direction: column;
+    `,
+  })}
 `;
 
 export const Line = styled.div`
@@ -36,4 +48,14 @@ export const Title = styled(Text)`
   align-self: flex-start;
   padding: 10px 0;
   border-bottom: 2px solid ${colors.black};
+
+  ${containerQuery({
+    breakpoints: ReivewPageQuerySize.galleryInfoTablet,
+    containerName: 'gallery-info',
+    styles: `
+      flex-direction: column;
+      align-self: center;
+      width: 100%;
+    `,
+  })}
 `;
