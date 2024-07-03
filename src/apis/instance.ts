@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { memberStore } from '@/stores/member';
-import { getNewToken } from './member';
+// import { getNewToken } from './member';
 
 const instance = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
