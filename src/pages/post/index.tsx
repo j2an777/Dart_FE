@@ -1,5 +1,5 @@
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-import { StepZero, StepOne, StepTwo, StepThree, Address } from './components';
+import { StepZero, StepOne, StepTwo, StepThree, StepAlpha } from './components';
 import { Icon } from '@/components';
 import { PostGalleries } from '@/types/post';
 import { alertStore, progressStore } from '@/stores/modal';
@@ -123,26 +123,28 @@ const PostPage = () => {
   }, [eventSource]);
 
   return (
-    <S.Container>
-      <S.Box>
-        <S.Quit onClick={() => navigate('/')}>
-          <Icon value="cancel" />
-        </S.Quit>
-        <FormProvider {...methods}>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <StepZero />
-            <StepOne />
-            <StepTwo />
-            <StepThree />
-            <Address />
-            <S.Block>
-              <S.Submit type="submit">등록</S.Submit>
-            </S.Block>
-          </form>
-        </FormProvider>
-      </S.Box>
-      <ProgressPortal />
-    </S.Container>
+    <S.Layout>
+      <S.Container>
+        <S.Box>
+          <S.Quit onClick={() => navigate('/')}>
+            <Icon value="cancel" />
+          </S.Quit>
+          <FormProvider {...methods}>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <StepZero />
+              <StepOne />
+              <StepTwo />
+              <StepThree />
+              <StepAlpha />
+              <S.Block>
+                <S.Submit type="submit">등록</S.Submit>
+              </S.Block>
+            </form>
+          </FormProvider>
+        </S.Box>
+        <ProgressPortal />
+      </S.Container>
+    </S.Layout>
   );
 };
 

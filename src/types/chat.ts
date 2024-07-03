@@ -4,15 +4,11 @@ export interface Page {
 }
 
 export interface ChatMessage {
-  pages: ChatMessageResponse[];
+  pages: ChatMessageProps[];
   pageInfo: Page;
 }
 
-export interface ChatMessageRequest {
-  content: string;
-}
-
-export interface ChatMessageResponse {
+export interface ChatMessageProps {
   sender: string;
   content: string;
   createdAt: Date;

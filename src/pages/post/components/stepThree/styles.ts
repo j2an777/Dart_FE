@@ -1,11 +1,14 @@
 import { colors } from '@/styles/colorPalette';
 import styled from '@emotion/styled';
-import { Icon } from '@/components';
+
 import { Text } from '@/components';
+import { containerQuery } from '@/styles/breakpoints';
+import { Breakpoints } from '../../styles';
+import { LayoutMap } from '@/styles/layout';
 
 export const Container = styled.div`
   position: relative;
-  padding: 650px 84px 80px;
+  padding: 60px 80px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -13,6 +16,7 @@ export const Container = styled.div`
   align-items: center;
   gap: 40px;
   border-top: 2px solid ${colors.black};
+  ${LayoutMap.pageLayout}
 
   article {
     width: 100%;
@@ -22,39 +26,67 @@ export const Container = styled.div`
   }
 `;
 
-export const Step = styled(Icon)`
+export const Step = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 100px;
+
   position: absolute;
   top: 60px;
   right: 2px;
+
+  ${containerQuery({
+    containerName: 'post',
+    styles: `
+      display: none;
+    `,
+    breakpoints: Breakpoints.tablet,
+  })}
 `;
 
 export const StepContent = styled(Text)`
-  position : absolute;
-  top : 450px;
-  right : 65px;
-`;
-
-export const Content = styled(Text)`
-  // position: absolute;
-  // top: 400px;
-  // right: 50px;
-`;
-
-export const TemplatePreview = styled.div`
   position: absolute;
-  top: 60px;
-  left: 80px;
+  top: 450px;
+  right: 65px;
+`;
+
+export const Content = styled(Text)``;
+
+export const TemplateBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 10px;
+
+  width: 100%;
+  z-index: var(--lower-zindex);
+`;
+
+export const TemplateBlock = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 10px;
+  max-width: 850px;
+  width: 100%;
+`;
 
-  //width: 800px;
-  z-index: var(--lower-zindex);
+export const Title = styled(Text)`
+  display: none;
+
+  ${containerQuery({
+    containerName: 'post',
+    styles: `
+      display: flex;
+      margin-bottom: 40px;
+    `,
+    breakpoints: Breakpoints.tablet,
+  })}
 `;
 
 export const Image = styled.img`
-  width: 750px;
+  width: 100%;
 `;
 
 export const Box = styled.div`

@@ -14,10 +14,12 @@ export const MenuBox = styled.div`
   justify-content: space-around;
   margin-bottom: 20px;
   border-bottom: 2px solid ${colors.black};
+  width: 100%;
 `;
 
 export const MenuBlock = styled.button<{ isActive?: boolean }>`
   flex: 1;
+
   padding: 15px;
   cursor: pointer;
   background: ${({ isActive = colors.white }) => isActive && colors.black};

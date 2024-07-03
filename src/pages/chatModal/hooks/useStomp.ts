@@ -1,21 +1,17 @@
 import { useState } from 'react';
 import SockJS from 'sockjs-client';
 import { Client, Message } from '@stomp/stompjs';
-import { ChatMessageRequest, ChatMessageResponse } from '@/types/chat';
-import { memberStore } from '@/stores/member';
+import { ChatMessageProps } from '@/types/chat';
 
 export const useStomp = (
   chatRoomId: number,
-  galleryNick: string,
   accessToken: string,
-  callback: (message: ChatMessageResponse) => void = () => {},
+  callback: (message: ChatMessageProps) => void = () => {},
 ) => {
   const [client, setClient] = useState<Client | null>(null);
   const stompHeaders = {
     Authorization: `Bearer ${accessToken}`,
   };
-  const nickname = memberStore((state) => state.auth.nickname);
-  const profileImage = memberStore((state) => state.auth.profileImage);
 
   const connect = () => {
     const socket = new SockJS(import.meta.env.VITE_SOCKET_URL);
@@ -56,7 +52,7 @@ export const useStomp = (
     console.log('WebSocket 연결 종료');
   };
 
-  const sendMessage = (destination: string, content: ChatMessageRequest) => {
+  const sendMessage = (destination: string, content: ChatMessageProps) => {
     if (client && client.connected) {
       try {
         client.publish({
@@ -71,16 +67,16 @@ export const useStomp = (
       console.error('WebSocket 연결 에러');
     }
   };
-  const isAuthor = galleryNick == nickname ? true : false;
 
   const onMessageReceived = (message: Message) => {
-    console.log(message);
+    const parsedBody = JSON.parse(message.body);
+
     const newChat = {
-      content: message.body,
-      isAuthor: isAuthor,
-      createdAt: new Date(),
-      sender: nickname,
-      profileImageUrl: profileImage,
+      content: parsedBody.content,
+      isAuthor: parsedBody.isAuthor,
+      createdAt: parsedBody.createdAt,
+      sender: parsedBody.sender,
+      profileImageUrl: parsedBody.profileImageUrl,
     };
 
     callback(newChat);
