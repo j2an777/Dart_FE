@@ -12,17 +12,18 @@ export const Container = styled.div`
 
 export const Header = styled.div`
   ${LayoutMap.displayFlex}
-
-  justify-content: center;
+  justify-content: space-between;
   width: 100%;
   margin-bottom: 10px;
+
+  div:last-child {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 `;
 
-export const BackIcon = styled(Icon)`
-  position: absolute;
-  left: 0;
-  top: 0;
-`;
+export const BackIcon = styled(Icon)``;
 
 export const WhyNotImg = styled.div`
   position: absolute;
