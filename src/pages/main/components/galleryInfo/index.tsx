@@ -93,7 +93,6 @@ const GalleryInfo = ({ galleryId, open: isOpen, hasEnded, close }: GalleryInfoPr
               </Text>
               <S.User
                 onClick={() => {
-                  close();
                   customNavigate(`/member/${data.nickname}`);
                 }}
               >

@@ -4,7 +4,7 @@ import { KakaoAddressSearchResult, KakaoAddressSearchStatus } from '@/types/addr
 
 declare global {
     interface Window {
-      Kakao: any;
+      kakao: any;
     }
 }
 
@@ -24,27 +24,27 @@ const KakaoMap = ({ galleryAddress }: KakaoMapProps) => {
         document.head.appendChild(mapScript);
     
         const onLoadKakaoMap = () => {
-          window.Kakao.maps.load(() => {
+          window.kakao.maps.load(() => {
             const mapContainer = document.getElementById('map');
             const mapOption = {
-              center: new window.Kakao.maps.LatLng(0, 0), // 지도의 중심좌표 (경도 & 위도)
+              center: new window.kakao.maps.LatLng(0, 0), // 지도의 중심좌표 (경도 & 위도)
               level: 3, // 지도의 확대 레벨
             };
-            const map = new window.Kakao.maps.Map(mapContainer, mapOption);
+            const map = new window.kakao.maps.Map(mapContainer, mapOption);
     
             // 주소로 좌표 검색
-            const geocoder = new window.Kakao.maps.services.Geocoder();
+            const geocoder = new window.kakao.maps.services.Geocoder();
     
             geocoder.addressSearch(address, function (result: KakaoAddressSearchResult[], status: KakaoAddressSearchStatus) {
-              if (status === window.Kakao.maps.services.Status.OK) {
-                const coords = new window.Kakao.maps.LatLng(
+              if (status === window.kakao.maps.services.Status.OK) {
+                const coords = new window.kakao.maps.LatLng(
                   result[0].y,
                   result[0].x
                 );
                 map.setCenter(coords);
                 
                 // 마커 표시
-                const marker = new window.Kakao.maps.Marker({
+                const marker = new window.kakao.maps.Marker({
                   map: map,
                   position: coords,
                 });
@@ -54,15 +54,15 @@ const KakaoMap = ({ galleryAddress }: KakaoMapProps) => {
             
             // 추가적인 옵션 기능 (줌 & 지도타입)
             // 지도 & 스카이뷰 옵션
-            const mapTypeControl = new window.Kakao.maps.MapTypeControl();
+            const mapTypeControl = new window.kakao.maps.MapTypeControl();
             map.addControl(
               mapTypeControl,
-              window.Kakao.maps.ControlPosition.TOPRIGHT
+              window.kakao.maps.ControlPosition.TOPRIGHT
             );
 
             // 줌 옵션
-            const zoomControl = new window.Kakao.maps.ZoomControl();
-            map.addControl(zoomControl, window.Kakao.maps.ControlPosition.RIGHT);
+            const zoomControl = new window.kakao.maps.ZoomControl();
+            map.addControl(zoomControl, window.kakao.maps.ControlPosition.RIGHT);
           });
         };
     
