@@ -14,7 +14,7 @@ export const useStomp = (
   };
 
   const connect = () => {
-    const socket = new SockJS('https://dartgallery.site/ws');
+    const socket = new SockJS(import.meta.env.VITE_SOCKET_URL);
 
     const client = new Client({
       webSocketFactory: () => socket,
