@@ -157,7 +157,7 @@ const InfoPage = () => {
                     typography="t7"
                     color="gray300"
                     bold="thin"
-                    className="originalText"
+                    className="reactText"
                     onClick={() => {
                       customNavigate(`/review/${galleryId}`);
                     }}
@@ -169,7 +169,7 @@ const InfoPage = () => {
                   typography="t7"
                   color="gray300"
                   bold="thin"
-                  className="reactText"
+                  className="originalText"
                   onClick={() => {
                     customNavigate(`/review/${galleryId}`);
                   }}
