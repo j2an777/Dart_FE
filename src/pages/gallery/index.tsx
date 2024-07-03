@@ -8,6 +8,8 @@ import SelectTemplate from './hooks/selectTemplate';
 import useCustomNavigate from '@/hooks/useCustomNavigate';
 import { useEffect } from 'react';
 import { ChatPortal } from '@/components';
+import { memberStore } from '@/stores/member';
+import useStomp from '../chatModal/hooks/useStomp';
 
 const GalleryPage = () => {
   const { galleryId: galleryIdStr } = useParams<{ galleryId?: string }>();
@@ -29,6 +31,19 @@ const GalleryPage = () => {
     }
   }, [galleryData, navigate]);
 
+  // 웹소켓 연결
+  const { accessToken } = memberStore.getState();
+  const { connect, disconnect } = useStomp(
+    galleryData?.chatRoomId as number,
+    accessToken as string,
+  );
+  useEffect(() => {
+    if (accessToken) {
+      connect();
+    }
+    return () => disconnect();
+  }, []);
+
   if (error || !galleryData) {
     return <div>Error loading gallery data</div>;
   }
@@ -37,8 +52,7 @@ const GalleryPage = () => {
     return <LogoLoader />;
   }
 
-  const expand =
-    galleryData && galleryData.template === 'four' ? galleryData.images.length : 0;
+  const expand = galleryData && galleryData.template === 'four' ? galleryData.images.length : 0;
 
   return (
     <S.Container expand={expand}>

@@ -3,6 +3,7 @@ import CouponPortal from '@/components/CouponPortal';
 import * as S from './styles';
 import { couponStore } from '@/stores/modal';
 import { useFormContext, useWatch } from 'react-hook-form';
+import { useEffect } from 'react';
 
 const DiscountBox = () => {
   const open = couponStore((state) => state.open);
@@ -10,9 +11,16 @@ const DiscountBox = () => {
   const title = useWatch({ control, name: 'title' });
   const hasTitle = useWatch({ control, name: 'title' }) ?? false;
 
+  useEffect(() => {
+    setValue('couponId', 0);
+    setValue('isPriority', false);
+  }, []);
+
   const couponCancel = () => {
     setValue('couponType', '');
     setValue('title', '');
+    setValue('couponId', 0);
+    setValue('isPriority', false);
   };
 
   return (
