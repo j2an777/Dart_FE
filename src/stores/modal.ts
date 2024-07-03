@@ -57,20 +57,23 @@ export const galleryInfoStore = create<GalleryInfoState>((set) => ({
   galleryInfoValue: galleryInfoDefaultValue,
   open: (galleryId: number, hasEnded: boolean) =>
     set((state) => ({ ...state, galleryInfoValue: { open: true, galleryId, hasEnded } })),
-  close: () => set((state) => ({ ...state, galleryInfoValue: galleryInfoDefaultValue })),
+  close: () => {
+    set((state) => ({ ...state, galleryInfoValue: galleryInfoDefaultValue }));
+  },
 }));
 
 // 채팅 모달
 interface ChatState {
-  chatValue: { open: boolean; galleryId: number };
-  open: (galleryId: number) => void;
+  chatValue: { open: boolean; chatRoomId: number; galleryNick: string };
+  open: (chatRoomId: number, galleryNick: string) => void;
   close: () => void;
 }
 
 export const chatStore = create<ChatState>((set) => ({
-  chatValue: { open: false, galleryId: 0 },
-  open: (galleryId: number) => set({ chatValue: { open: true, galleryId } }),
-  close: () => set({ chatValue: { open: false, galleryId: 0 } }),
+  chatValue: { open: false, chatRoomId: 0, galleryNick: '' },
+  open: (chatRoomId: number, galleryNick: string) =>
+    set({ chatValue: { open: true, chatRoomId, galleryNick } }),
+  close: () => set({ chatValue: { open: false, chatRoomId: 0, galleryNick: '' } }),
 }));
 
 type CheckModalProps = ComponentProps<typeof CheckModal>;

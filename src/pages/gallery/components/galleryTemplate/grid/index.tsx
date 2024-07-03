@@ -1,29 +1,39 @@
 import { GalleryDataProps, GalleryImages } from "@/types/gallery"
 import * as S from './styles';
-import { CircleLoader, GalleryDetailPortal, Icon, Text } from "@/components";
-import { useRef } from "react";
+import { CircleLoader, GalleryDetailPortal, Text } from "@/components";
+import { useEffect, useRef, useState } from "react";
 import { galleryDetailStore } from "@/stores/modal";
 import useImagesLoaded from "@/pages/gallery/hooks/useImagesLoaded";
 
 const GalleryGrid = ({ galleryData }: GalleryDataProps) => {
+  console.log(galleryData);
 
   const galleryRef = useRef<HTMLDivElement>(null);
   const { open } = galleryDetailStore();
+  const [isAtTop, setIsAtTop] = useState(true);
 
   const imageSources = galleryData ? galleryData.images.map(img => img.image) : [];
   const isLoaded = useImagesLoaded(imageSources);
 
-  const onHandleScroll = (direction: string) => {
-    const scrollAmount = 250;
-
-    if (galleryRef.current) {
-      if (direction === 'up') {
-        galleryRef.current.scrollBy({ top: -scrollAmount, behavior: 'smooth' });
-      } else if (direction === 'down') {
-        galleryRef.current.scrollBy({ top: scrollAmount, behavior: 'smooth' });
+  useEffect(() => {
+    const handleScroll = () => {
+      if (galleryRef.current) {
+        setIsAtTop(galleryRef.current.scrollTop === 0);
       }
+    };
+
+    const galleryElement = galleryRef.current;
+    if (galleryElement) {
+      galleryElement.addEventListener('scroll', handleScroll);
     }
-  };
+
+    // Cleanup event listener
+    return () => {
+      if (galleryElement) {
+        galleryElement.removeEventListener('scroll', handleScroll);
+      }
+    };
+  }, []);
 
   if (!isLoaded) {
     return <CircleLoader />;
@@ -31,6 +41,7 @@ const GalleryGrid = ({ galleryData }: GalleryDataProps) => {
 
   return (
     <S.Container ref={galleryRef}>
+      {isAtTop && <Text typography="t6" bold="thin" color="white" className="Title">스크롤을 통해 관람 가능합니다.</Text>}
       <S.GridGallery>
         {galleryData?.images.map((gallery: GalleryImages, index: number) => (
           <S.ImageBox key={index} onClick={() => open(gallery)}>
@@ -42,13 +53,6 @@ const GalleryGrid = ({ galleryData }: GalleryDataProps) => {
           </S.ImageBox>
         ))}
       </S.GridGallery>
-    
-      {galleryData.images.length > 1 && (
-        <S.BtnBlock>
-          <S.Btn className='previous' onClick={() => onHandleScroll('up')}><Icon value='upArrow' size={50} color="white" /></S.Btn>
-          <S.Btn className='next' onClick={() => onHandleScroll('down')}><Icon value='downArrow' size={50} color="white" /></S.Btn>
-        </S.BtnBlock>
-      )}
       <GalleryDetailPortal />
     </S.Container>
   )

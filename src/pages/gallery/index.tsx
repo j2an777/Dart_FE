@@ -49,6 +49,7 @@ const GalleryPage = () => {
         title={galleryData.title}
         thumbnail={galleryData.thumbnail}
         content={galleryData.content}
+        nickName={galleryData.nickname}
       />
       <SelectTemplate template={galleryData.template} galleryData={galleryData} />
       <ChatPortal />

@@ -13,7 +13,7 @@ import useImagesLoaded from '@/pages/gallery/hooks/useImagesLoaded';
 
 const GallerySlide = ({ galleryData }: GalleryDataProps) => {
     const [state, setState] = useState({
-        frontIndex: 0
+        frontIndex: 0,
     });
 
     const swiperRef = useRef<SwiperClass | null>(null);
@@ -52,7 +52,7 @@ const GallerySlide = ({ galleryData }: GalleryDataProps) => {
                 slidesPerView={"auto"}
                 spaceBetween={30}
                 coverflowEffect={{
-                    rotate: 20,
+                    rotate: 30,
                     stretch: 0,
                     depth: 200,
                     modifier: 1,

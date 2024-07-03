@@ -83,12 +83,18 @@ export const BtnBlock = styled.div`
     width : 100%;
     position: absolute;
     bottom: 30px;
-    left : 0;
+    left : 50%;
     display: flex;
     justify-content : space-between;
     gap: 20px;
     padding : 0 300px;
     z-index : 9;
+    transform: translateX(-50%);
+
+    @media (max-width : 1024px) {
+        width : 90vw;
+        padding : 0 50px;
+    }
 `;
 
 export const Btn = styled.button`

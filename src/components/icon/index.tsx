@@ -52,6 +52,9 @@ export type IconValues =
   | 'share'
   | 'kakaoShare'
   | 'naver'
+  | 'alpha'
+  | 'mapMarker'
+  | 'info'
   | 'couponBackground'
   | 'hamburger'
   | 'showFilter';
@@ -274,7 +277,28 @@ const renderIcon = (
           />
         </svg>
       );
-
+    case 'mapMarker':
+      return (
+        <svg
+          width="24"
+          height="36"
+          viewBox="0 0 24 36"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g clipPath="url(#clip0_915_12)">
+            <path
+              d="M18 12C18 10.3438 17.4141 8.92969 16.2422 7.75781C15.0703 6.58594 13.6562 6 12 6C10.3438 6 8.92969 6.58594 7.75781 7.75781C6.58594 8.92969 6 10.3438 6 12C6 13.6562 6.58594 15.0703 7.75781 16.2422C8.92969 17.4141 10.3438 18 12 18C13.6562 18 15.0703 17.4141 16.2422 16.2422C17.4141 15.0703 18 13.6562 18 12ZM24 12C24 13.7031 23.7422 15.1016 23.2266 16.1953L14.6953 34.3359C14.4453 34.8516 14.0742 35.2578 13.582 35.5547C13.0898 35.8516 12.5625 36 12 36C11.4375 36 10.9102 35.8516 10.418 35.5547C9.92578 35.2578 9.5625 34.8516 9.32812 34.3359L0.773438 16.1953C0.257812 15.1016 0 13.7031 0 12C0 8.6875 1.17188 5.85938 3.51562 3.51562C5.85938 1.17188 8.6875 0 12 0C15.3125 0 18.1406 1.17188 20.4844 3.51562C22.8281 5.85938 24 8.6875 24 12Z"
+              fill="white"
+            />
+          </g>
+          <defs>
+            <clipPath id="clip0_915_12">
+              <rect width="24.0012" height="36" fill="white" />
+            </clipPath>
+          </defs>
+        </svg>
+      );
     case 'back':
       return (
         <svg
@@ -864,6 +888,25 @@ const renderIcon = (
           />
         </svg>
       );
+    case 'alpha':
+      return (
+        <svg
+          width="395"
+          height="192"
+          viewBox="0 0 395 192"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M285.795 191.76C238.969 191.418 207.523 151.77 207.523 95.0312C207.523 38.9766 241.361 0.0117188 287.162 0.0117188C319.633 0.0117188 339.799 19.4941 351.078 48.2051H351.762L361.332 2.4043H392.436L371.586 95.0312L394.828 188H363.725L353.129 142.883H352.445C340.824 171.252 319.633 192.102 285.795 191.76ZM243.754 95.373C243.754 132.629 261.527 160.656 288.188 160.656C320.658 160.656 336.039 119.641 341.508 95.7148L341.85 95.0312L341.508 94.6895C336.723 70.7637 323.734 31.1152 289.896 31.1152C262.211 31.1152 243.754 57.4336 243.754 95.373Z"
+            fill="black"
+          />
+          <path
+            d="M65.6777 172.277V106.994H0.394531V74.1816H65.6777V8.89844H98.4902V74.1816H164.115V106.994H98.4902V172.277H65.6777Z"
+            fill="black"
+          />
+        </svg>
+      );
     case 'naver':
       return (
         <svg width="300" height="300" viewBox="0 0 300 300" fill="none">
@@ -934,55 +977,6 @@ const renderIcon = (
               />
             </filter>
           </defs>
-        </svg>
-      );
-    case 'hamburger':
-      return (
-        <svg width="24" height="19" viewBox="0 0 24 19" fill="none">
-          <rect width="24" height="3" rx="1.5" fill="black" />
-          <rect y="8" width="24" height="3" rx="1.5" fill="black" />
-          <rect y="16" width="24" height="3" rx="1.5" fill="black" />
-        </svg>
-      );
-    case 'showFilter':
-      return (
-        <svg width="30" height="30" viewBox="0 0 30 30" fill="none">
-          <rect
-            x="2.75"
-            y="3.75"
-            width="10.5"
-            height="6.5"
-            rx="1.25"
-            stroke="#900202"
-            strokeWidth="1.5"
-          />
-          <rect
-            x="16.75"
-            y="19.75"
-            width="10.5"
-            height="6.5"
-            rx="1.25"
-            stroke="#900202"
-            strokeWidth="1.5"
-          />
-          <rect
-            x="2.75"
-            y="12.75"
-            width="10.5"
-            height="13.5"
-            rx="1.25"
-            stroke="black"
-            strokeWidth="1.5"
-          />
-          <rect
-            x="16.75"
-            y="3.75"
-            width="10.5"
-            height="13.5"
-            rx="1.25"
-            stroke="black"
-            strokeWidth="1.5"
-          />
         </svg>
       );
   }

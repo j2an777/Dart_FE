@@ -1,19 +1,17 @@
 import { useState } from 'react';
 import SockJS from 'sockjs-client';
-import { Client, IMessage } from '@stomp/stompjs';
-import { ChatMessageRequest, ChatMessageResponse } from '@/types/chat';
-import useGetMessages from './useGetMessages';
+import { Client, Message } from '@stomp/stompjs';
+import { ChatMessageProps } from '@/types/chat';
 
 export const useStomp = (
   chatRoomId: number,
   accessToken: string,
-  callback: (msg: ChatMessageResponse) => void = () => {},
+  callback: (message: ChatMessageProps) => void = () => {},
 ) => {
   const [client, setClient] = useState<Client | null>(null);
   const stompHeaders = {
     Authorization: `Bearer ${accessToken}`,
   };
-  const { refetch } = useGetMessages(chatRoomId);
 
   const connect = () => {
     const socket = new SockJS(import.meta.env.VITE_SOCKET_URL);
@@ -25,9 +23,9 @@ export const useStomp = (
       heartbeatIncoming: 4000,
       heartbeatOutgoing: 4000,
       onConnect: () => {
-        console.log('Websocket 연결');
-        subscribe();
         setClient(client);
+        client?.subscribe(`/sub/ws/${chatRoomId}`, onMessageReceived, stompHeaders);
+        console.log('websocket 연결 및 구독');
       },
     });
 
@@ -48,33 +46,13 @@ export const useStomp = (
     client.activate();
   };
 
-  // 구독
-  const subscribe = () => {
-    client?.subscribe(
-      `/sub/ws/${chatRoomId}`,
-      (message: IMessage) => {
-        if (message.body) {
-          try {
-            const messageData: ChatMessageResponse = JSON.parse(message.body);
-            callback(messageData);
-          } catch (error) {
-            console.error('Error parsing message body:', error);
-            console.error('Received message:', message.body);
-          }
-        }
-      },
-      stompHeaders,
-    );
-    console.log('socket 구독');
-  };
-
   const disconnect = () => {
     client?.deactivate();
     setClient(null);
     console.log('WebSocket 연결 종료');
   };
 
-  const sendMessage = (destination: string, content: ChatMessageRequest) => {
+  const sendMessage = (destination: string, content: ChatMessageProps) => {
     if (client && client.connected) {
       try {
         client.publish({
@@ -82,14 +60,26 @@ export const useStomp = (
           headers: stompHeaders,
           body: JSON.stringify(content),
         });
-        console.log('메세지 전송');
-        refetch();
       } catch (error) {
         console.error('메세지 전송 오류:', error);
       }
     } else {
       console.error('WebSocket 연결 에러');
     }
+  };
+
+  const onMessageReceived = (message: Message) => {
+    const parsedBody = JSON.parse(message.body);
+
+    const newChat = {
+      content: parsedBody.content,
+      isAuthor: parsedBody.isAuthor,
+      createdAt: parsedBody.createdAt,
+      sender: parsedBody.sender,
+      profileImageUrl: parsedBody.profileImageUrl,
+    };
+
+    callback(newChat);
   };
 
   return { connect, disconnect, sendMessage };

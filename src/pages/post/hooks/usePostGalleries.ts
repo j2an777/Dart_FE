@@ -6,10 +6,10 @@ export interface PostGalleriesResponse {
   galleryId: number;
 }
 
-const usePostGalleries = () => {
+const usePostGalleries = (onProgress: (progress: number) => void) => {
   return useMutation({
     mutationKey: ['post'],
-    mutationFn: async (data: PostGalleries) => postGalleries(data),
+    mutationFn: async (data: PostGalleries) => postGalleries(data, onProgress),
   });
 };
 

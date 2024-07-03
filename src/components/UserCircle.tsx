@@ -21,6 +21,11 @@ const Circle = styled.div<CircleProps>(
     display: block;
     width: ${size}px;
     height: ${size}px;
+
+    @media (max-width: 1024px) {
+      width: ${size * 0.75}px;
+      height: ${size * 0.75}px;
+    }
   `,
   ({ profileImage }) => css`
     background-image: url(${profileImage ? profileImage : defaultImage});

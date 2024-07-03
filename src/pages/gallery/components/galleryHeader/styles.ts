@@ -5,7 +5,7 @@ import styled from "@emotion/styled";
 
 export const HeaderContainer = styled.div`
     position : fixed;
-    top : 50px;
+    top : 30px;
     width : 100%;
     height : 100px;
     display : flex;
@@ -14,6 +14,10 @@ export const HeaderContainer = styled.div`
     gap : 10px;
     padding : 0 50px;
     z-index: 11;
+
+    @media (max-width: 500px) {
+        padding : 0 20px;
+    }
 `;
 
 export const MenuBlock = styled.div`
@@ -42,4 +46,8 @@ export const CopyRight = styled.p`
     ${typographyMap.t7};
     ${bolderMap.thin};
     color : white;
+
+    @media (max-width : 500px) {
+        display : none;
+    }
 `;

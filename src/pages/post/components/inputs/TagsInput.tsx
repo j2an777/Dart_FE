@@ -71,7 +71,9 @@ const TagsInput = ({ name }: TagsProps) => {
               type="text"
               onKeyDown={addTags}
               onInput={handleInput}
-              placeholder="태그입력"
+              placeholder={
+                tags.length === 0 ? '태그입력 (최대 5개, Enter로 입력)' : '태그입력'
+              }
             />
           </li>
         )}

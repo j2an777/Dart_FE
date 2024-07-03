@@ -10,13 +10,17 @@ const ViewerMenu = ({ chatRoomId }: { chatRoomId: number }) => {
   // 웹소켓 연결
   const { accessToken } = memberStore.getState();
   const { connect, disconnect } = useStomp(chatRoomId, accessToken as string);
-  const { data, refetch } = useGetMembers(chatRoomId);
+  const { data, refetch, isError } = useGetMembers(chatRoomId);
 
   useEffect(() => {
     connect();
 
     return () => disconnect();
   }, []);
+
+  if (isError || !data) {
+    return;
+  }
 
   refetch();
   return (

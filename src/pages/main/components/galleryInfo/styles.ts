@@ -12,6 +12,10 @@ export const Container = styled.div`
   width: 800px;
   z-index: var(--modal-zindex);
   animation: ${fadeUp} 0.3s ease-in-out;
+
+  @media (max-width: 1024px) {
+    width : 90vw;
+  }
 `;
 
 export const CancelIcon = styled(Icon)`
@@ -20,8 +24,8 @@ export const CancelIcon = styled(Icon)`
   top: 20px;
 `;
 export const MainLogo = styled.img`
-  width: fit-content;
-  height: fit-content;
+  width: 70px;
+  height: 30px;
 `;
 
 export const InfoBox = styled.div<{ thumbnail: string }>`
@@ -30,7 +34,8 @@ export const InfoBox = styled.div<{ thumbnail: string }>`
   height: 80vh;
   display: flex;
   flex-direction: column;
-  gap: 50px;
+  justify-content: space-between;
+  gap: 20px;
   padding: 100px;
   box-sizing: border-box;
   background-image: url(${(props) => props.thumbnail});
@@ -38,6 +43,10 @@ export const InfoBox = styled.div<{ thumbnail: string }>`
   background-size: cover;
   background-repeat: no-repeat;
   z-index: 12;
+
+  @media (max-width: 1024px) {
+    padding : 100px 20px;
+  }
 `;
 
 export const Overlay = styled.div`
@@ -76,6 +85,20 @@ export const User = styled.div`
   justify-content: flex-start;
   gap: 5px;
   cursor: pointer;
+
+  p {
+    position: relative;
+
+    &:hover::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -3px;
+      width: 100%;
+      height: 1px;
+      background-color: currentColor;
+    }
+  }
 `;
 
 export const Circle = styled.div`
@@ -86,6 +109,7 @@ export const Circle = styled.div`
 `;
 
 export const ButtonBlock = styled.div`
+  width : 100%;
   ${LayoutMap.displayFlex};
   justify-content: flex-start;
   gap: 10px;
@@ -122,6 +146,17 @@ export const HashTags = styled.div`
   ${LayoutMap.displayFlex};
   justify-content: flex-start;
   gap: 10px;
+`;
+
+export const MapBlock = styled.div`
+  ${LayoutMap.displayFlex};
+  gap : 10px;
+  justify-content: flex-start;
+
+  &:hover p {
+    text-decoration: underline;
+    cursor: pointer;
+  }
 `;
 
 export const ReviewBox = styled.div`

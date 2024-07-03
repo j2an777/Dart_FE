@@ -8,6 +8,11 @@ export const Container = styled.div`
   justify-content : center;
   position : sticky;
   top : 0px;
+
+  @media (max-width : 500px) {
+    width : 100vw;
+    height : 100vh;
+  }
 `;
 
 export const CardItem = styled(motion.div)`
@@ -24,6 +29,16 @@ export const CardItem = styled(motion.div)`
       text-align: center;
       margin: 0px;
       font-size: 28px;
+    }
+
+    @media (max-width : 1024px) {
+      height: 400px;
+      width: 600px;
+    }
+
+    @media (max-width: 500px) {
+      height: 300px;
+      width: 300px;
     }
 `;
 
@@ -75,7 +90,7 @@ export const ContentBox = styled.div`
 
     &:hover {
         opacity: 1;
-        transform: scale(1.1);
+        transform: scale(1.05);
 
         * {
           transform: translateY(0px);
@@ -87,5 +102,10 @@ export const ContentBox = styled.div`
       white-space: normal;
       word-break: break-word;
       text-align: center;
+    }
+
+    @media (max-width: 1024px) {
+      width : 400px;
+      height : 400px;
     }
 `;

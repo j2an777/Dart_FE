@@ -5,8 +5,9 @@ import Text from '@/components/Text';
 import DropZone from '@/components/dropZone';
 import { alertStore } from '@/stores/modal';
 import { InputBox, TextBox } from '../inputs/styles';
+import { Icon, TextCounter } from '@/components';
+import { Guide } from '..';
 import * as S from './styles';
-import { TextCounter } from '@/components';
 
 interface Item {
   image: File;
@@ -90,11 +91,25 @@ const StepTwo = () => {
 
   return (
     <S.Container>
+      <Text>작품을 등록해주세요.</Text>
       <S.Step value="step_two" $active={false} />
       <S.Box>
-        <Text typography="t5" bold="regular">
-          작품 리스트 (작품은 3개 이상 20개 이하로 등록해 주세요)
-        </Text>
+        <S.InfoBlock>
+          <Text typography="t5" bold="regular">
+            작품 리스트
+          </Text>
+          <Icon
+            value="info"
+            onClick={() => {
+              open({
+                title: '작품 등록 가이드',
+                description: <Guide />,
+                buttonLabel: '확인',
+                onClickButton: () => close(),
+              });
+            }}
+          />
+        </S.InfoBlock>
         <S.BorderLine />
         <S.Block>
           <section>

@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import template1 from '@/assets/images/template1.png';
 import template2 from '@/assets/images/template2.png';
 import template3 from '@/assets/images/template3.png';
 import template4 from '@/assets/images/template4.png';
-import { Icon } from '@/components';
+import { Icon, Text } from '@/components';
 import { IconValues } from '@/components/icon';
 import * as S from './styles';
 
@@ -26,16 +26,10 @@ const StepTree = () => {
   const [selectedTemplate, setSelectedTemplate] = useState<TemplateType>(template1);
   setValue('gallery.template', 'one');
 
-  const onTemplateClick = (
-    template: TemplateType,
-    event: React.MouseEvent<HTMLButtonElement>,
-  ) => {
-    event.preventDefault();
-    setSelectedTemplate(template);
-
+  useEffect(() => {
     let templateType: 'one' | 'two' | 'three' | 'four';
 
-    switch (template) {
+    switch (selectedTemplate) {
       case template1:
         templateType = 'one';
         break;
@@ -54,34 +48,49 @@ const StepTree = () => {
     }
 
     setValue('gallery.template', templateType);
+  }, [selectedTemplate, setValue]);
+
+  const onTemplateClick = (
+    template: TemplateType,
+    event: React.MouseEvent<HTMLButtonElement>,
+  ) => {
+    event.preventDefault();
+    setSelectedTemplate(template);
   };
 
   return (
     <S.Container>
-      <S.Step value="step_three" $active={false} />
-      <S.TemplatePreview>
-        <S.Image src={selectedTemplate} />
-        <S.Content typography="t6" bold="regular" color="gray600">
-          전시관 미리보기
-        </S.Content>
-      </S.TemplatePreview>
-      <article>
-        {templates.map((template, index) => (
-          <S.Box key={index}>
-            <S.Block>
-              <Icon value={template.iconValue} $active={false} />
-            </S.Block>
-            <S.CheckBtn
-              onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
-                onTemplateClick(template.value, e)
-              }
-              className={selectedTemplate === template.value ? 'selected' : ''}
-            >
-              {selectedTemplate === template.value && <S.Checked />}
-            </S.CheckBtn>
-          </S.Box>
-        ))}
-      </article>
+      <S.Step>
+        <Icon value="step_three" $active={false} />
+        <Text>템플릿을 선택하세요.</Text>
+      </S.Step>
+      <S.TemplateBox>
+        <S.TemplateBlock>
+          <S.Title>템플릿을 선택하세요.</S.Title>
+          <S.Image src={selectedTemplate} />
+          <S.Content typography="t6" bold="regular" color="gray600">
+            전시관 미리보기
+          </S.Content>
+        </S.TemplateBlock>
+
+        <article>
+          {templates.map((template, index) => (
+            <S.Box key={index}>
+              <S.Block>
+                <Icon value={template.iconValue} $active={false} />
+              </S.Block>
+              <S.CheckBtn
+                onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
+                  onTemplateClick(template.value, e)
+                }
+                className={selectedTemplate === template.value ? 'selected' : ''}
+              >
+                {selectedTemplate === template.value && <S.Checked />}
+              </S.CheckBtn>
+            </S.Box>
+          ))}
+        </article>
+      </S.TemplateBox>
     </S.Container>
   );
 };
