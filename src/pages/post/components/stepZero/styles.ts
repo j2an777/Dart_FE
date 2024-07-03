@@ -1,4 +1,5 @@
 import { Text } from '@/components';
+import { containerQuery } from '@/styles/breakpoints';
 import { buttonActiveMap } from '@/styles/button';
 import { colors } from '@/styles/colorPalette';
 import { LayoutMap } from '@/styles/layout';
@@ -7,22 +8,64 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
+import { Breakpoints } from '../../styles';
 
 export const Container = styled.div`
+  position: relative;
   display: flex;
   width: 100%;
-  height: 700px;
+
   border-bottom: 2px solid ${colors.black};
+  height: 700px;
+
+  ${containerQuery({
+    containerName: 'post',
+    styles: `
+      height: 600px;
+    
+    `,
+    breakpoints: Breakpoints.tablet,
+  })}
+
+  ${containerQuery({
+    containerName: 'post',
+    styles: `
+      flex-direction: column;
+      height: 100%;
+    `,
+    breakpoints: Breakpoints.column,
+  })}
 `;
 
 export const Box = styled.div`
+  position: relative;
   flex: 1;
-  width: 640px;
-  height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+
+  ${containerQuery({
+    containerName: 'post',
+    styles: `
+        min-height: 80vw;
+      `,
+    breakpoints: Breakpoints.column,
+  })}
+
+  // dropZone
   &:nth-of-type(1) {
     border-right: 2px solid ${colors.black};
+
+    ${containerQuery({
+      containerName: 'post',
+      styles: `
+        border-right: none;
+        border-bottom: 2px solid ${colors.black};
+        min-height: 80vw;
+      `,
+      breakpoints: Breakpoints.column,
+    })}
   }
 `;
 
@@ -33,19 +76,23 @@ export const Block = styled.div`
   width: 100%;
   height: 50px;
   border-bottom: 2px solid ${colors.black};
+
+  // 총 이용료
   &:last-child {
     border-bottom: none;
   }
 
   a {
     ${LayoutMap.displayFlex}
-    height: 100%;
+    justify-content: center;
     padding: 0 20px;
+    min-width: 116px;
+    height: 100%;
     border-right: 2px solid ${colors.black};
   }
-  div,
+
   p {
-    margin-left: 240px;
+    margin-left: 35%;
   }
 `;
 
@@ -75,10 +122,12 @@ export const Button = styled.button<{ isActive?: boolean }>`
 `;
 
 export const PayButtons = styled.section`
-  position: absolute;
-  right: 100px;
   display: flex;
-  gap: 25px;
+  align-items: center;
+  width: 50%;
+  min-width: 235px;
+  gap: 20%;
+  margin-left: 20%;
 `;
 
 export const Date = styled.div`
@@ -93,12 +142,10 @@ export const Total = styled(Text)`
 `;
 
 export const StyledCalendar = styled(Calendar)`
-  position: absolute;
-  top: 285px;
-  left: 50%;
-  transform: translateX(15%);
-  width: 500px;
   border: none;
+  padding: 10%;
+  width: 100%;
+
   ${typographyMap.t5}
 
   .react-calendar__navigation__label {

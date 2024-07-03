@@ -79,5 +79,5 @@ export const getMypage = async (nickname: string, page: number, size: number) =>
 
 export const getNewToken = async () => {
   const response = await instance.get('/reissue');
-  return response?.data;
+  return response?.data as {accessToken: string};
 };

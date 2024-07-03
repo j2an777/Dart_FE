@@ -7,6 +7,8 @@ import TanstackProvider from './routes/TanstackProvider';
 declare global {
   interface Window {
     Kakao: any;
+  }
+  interface Window {
     Daum: any;
   }
 }

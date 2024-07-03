@@ -1,6 +1,6 @@
 import { UserCircle } from '@/components';
 import Text from '@/components/Text';
-import { ChatMessageResponse } from '@/types/chat';
+import { ChatMessageProps } from '@/types/chat';
 // import useCustomNavigate from '@/hooks/useCustomNavigate';
 // import { chatStore } from '@/stores/modal';
 import * as S from './styles';
@@ -10,7 +10,7 @@ const Message = ({
   profileImageUrl,
   content,
   isAuthor,
-}: Omit<ChatMessageResponse, 'createdAt'>) => {
+}: Omit<ChatMessageProps, 'createdAt'>) => {
   // const navigate = useCustomNavigate();
   // const close = chatStore((state) => state.close);
 

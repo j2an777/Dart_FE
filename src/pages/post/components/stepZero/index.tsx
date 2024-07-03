@@ -107,7 +107,7 @@ const StepZero = () => {
     <S.Container>
       <S.Box>
         <DropZone
-          info="권장 이미지 크기: 700X700 / 10MB 이하"
+          info="권장 썸네일 크기: 700X700 / 10MB 이하"
           onFileUpload={onFileDrop}
         />
       </S.Box>
@@ -125,13 +125,15 @@ const StepZero = () => {
         </S.Block>
         <S.Block>
           <a>전시 입장료</a>
-          {activeBtn === 'pay' && (
+          {activeBtn === 'pay' ? (
             <S.PayButtons>
               <Icon value="down" onClick={decreaseFee} />
+              <>₩ {feeDetails.fee}</>
               <Icon value="up" onClick={increaseFee} />
             </S.PayButtons>
+          ) : (
+            <p>₩ {feeDetails.fee}</p>
           )}
-          <div>₩ {feeDetails.fee}</div>
         </S.Block>
         <S.Date>
           <S.StyledCalendar
@@ -171,7 +173,7 @@ const StepZero = () => {
               </S.Button>
             </>
           )}
-          {activeBtn === 'free' && <div>무기한</div>}
+          {activeBtn === 'free' && <p>무기한</p>}
         </S.Block>
         <S.Block>
           <a>총 이용료</a>

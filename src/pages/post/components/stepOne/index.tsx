@@ -1,8 +1,8 @@
 import { useFormContext, Controller } from 'react-hook-form';
-import * as S from './styles';
-import { InputBox, TextBox } from '../inputs/styles';
+import { TextBox } from '../inputs/styles';
 import TagsInput from '../inputs/TagsInput';
-import { TextCounter } from '@/components';
+import { Text, TextCounter } from '@/components';
+import * as S from './styles';
 
 const StepOne = () => {
   const { control } = useFormContext();
@@ -10,18 +10,18 @@ const StepOne = () => {
   return (
     <S.Container>
       <S.Step value="step_one" $active={false} />
+      <Text>전시 정보를 작성해주세요.</Text>
       <S.Block>
         <Controller
           name="gallery.title"
           control={control}
           rules={{
             required: '전시 제목을 입력해 주세요.',
-            maxLength: { value: 12, message: '20자 이내로 입력해 주세요.' },
+            maxLength: { value: 30, message: '30자 이내로 입력해 주세요.' },
           }}
           render={({ field }) => (
-            <InputBox
+            <S.StyledInputBox
               placeholder="전시 제목을 입력해 주세요."
-              width={750}
               maxLength={12}
               {...field}
             />

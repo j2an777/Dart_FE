@@ -8,12 +8,12 @@ export const breakpoints = {
 
 export const mediaQueries = {
   desktop: (styles: string) => css`
-    @media (min-width: ${breakpoints.tablet}) {
+    @media (max-width: ${breakpoints.tablet}) {
       ${styles}
     }
   `,
   tablet: (styles: string) => css`
-    @media (min-width: ${breakpoints.mobile}) and (max-width: ${breakpoints.tablet}) {
+    @media (max-width: ${breakpoints.tablet}) {
       ${styles}
     }
   `,
@@ -24,14 +24,27 @@ export const mediaQueries = {
   `,
 };
 
-export const containerQueries = {
-  desktop: (containerName: string, styles: string) => css`
-    @container ${containerName} (min-width: ${breakpoints.tablet}) {
+// 달력있는부분 거기만 설정해도 된다는 느낌 함수로 나와야될 것 같아요
+
+export const containerQuery = ({
+  containerName,
+  styles,
+  breakpoints,
+}: {
+  containerName: string;
+  styles: string;
+  breakpoints: number;
+}) => {
+  return css`
+    @container ${containerName} (max-width: ${breakpoints}px) {
       ${styles}
     }
-  `,
+  `;
+};
+
+export const containerQueries = {
   tablet: (containerName: string, styles: string) => css`
-    @container ${containerName} (min-width: ${breakpoints.mobile}) and (max-width: ${breakpoints.tablet}) {
+    @container ${containerName} (max-width: ${breakpoints.tablet}) {
       ${styles}
     }
   `,

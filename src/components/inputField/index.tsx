@@ -29,7 +29,6 @@ const InputField = ({
       setIsFocused(true);
     }
   }, [value]);
-
   return (
     <S.Container>
       <S.Label htmlFor={value} children={label} isFocused={isFocused} />
@@ -37,6 +36,7 @@ const InputField = ({
         id={value}
         {...register}
         {...inputOptions}
+        autoFocus={value === 'email' || value === 'nickname' ? true : false}
         onFocus={() => setIsFocused(true)}
         onBlur={(e) => {
           if (e.target.value === '') {

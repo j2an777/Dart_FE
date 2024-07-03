@@ -6,6 +6,7 @@ interface FilterState {
   costArray: string[];
   onChange: (newValue: Partial<FilterType>) => void;
   onNestingChange: (newValue: Partial<FilterType>) => void;
+  onReset: () => void;
 }
 
 const defaultVale: FilterType = {
@@ -47,4 +48,11 @@ export const filterStore = create<FilterState>((set) => ({
         };
       }
     }),
+  onReset: () => {
+    set((prev) => ({
+      ...prev,
+      filterValue: defaultVale,
+      costArray: ['free', 'pay'],
+    }));
+  },
 }));

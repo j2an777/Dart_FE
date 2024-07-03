@@ -1,5 +1,5 @@
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-import { StepZero, StepOne, StepTwo, StepThree, Address } from './components';
+import { StepZero, StepOne, StepTwo, StepThree, StepAlpha } from './components';
 import { Icon } from '@/components';
 import { PostGalleries } from '@/types/post';
 import { alertStore, progressStore } from '@/stores/modal';
@@ -68,9 +68,9 @@ const PostPage = () => {
       const data = (event as MyCustomEvent).data;
       const parsedData: SSEData = JSON.parse(data);
       const progressData = parsedData.message;
-    
+
       openProgress(50 + progressData / 2);
-    
+
       // 100이 되면 종료
       if (progressData === 100) {
         newEventSource.close();
@@ -94,6 +94,14 @@ const PostPage = () => {
     mutate(data, {
       onSuccess: (idData: PostGalleriesResponse) => {
         const { galleryId } = idData;
+
+        if (data.images == undefined || data.images.length < 3) {
+          open({
+            title: '작품 등록 오류',
+            description: '최소 3개의 작품을 등록해주세요.',
+            buttonLabel: '확인',
+          });
+        }
 
         if (galleryId) {
           // galleryId가 있으면 해당 조건에 맞게 navigate
@@ -123,26 +131,28 @@ const PostPage = () => {
   }, [eventSource]);
 
   return (
-    <S.Container>
-      <S.Box>
-        <S.Quit onClick={() => navigate('/')}>
-          <Icon value="cancel" />
-        </S.Quit>
-        <FormProvider {...methods}>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <StepZero />
-            <StepOne />
-            <StepTwo />
-            <StepThree />
-            <Address />
-            <S.Block>
-              <S.Submit type="submit">등록</S.Submit>
-            </S.Block>
-          </form>
-        </FormProvider>
-      </S.Box>
-      <ProgressPortal />
-    </S.Container>
+    <S.Layout>
+      <S.Container>
+        <S.Box>
+          <S.Quit onClick={() => navigate('/')}>
+            <Icon value="cancel" />
+          </S.Quit>
+          <FormProvider {...methods}>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <StepZero />
+              <StepOne />
+              <StepTwo />
+              <StepThree />
+              <StepAlpha />
+              <S.Block>
+                <S.Submit type="submit">등록</S.Submit>
+              </S.Block>
+            </form>
+          </FormProvider>
+        </S.Box>
+        <ProgressPortal />
+      </S.Container>
+    </S.Layout>
   );
 };
 
