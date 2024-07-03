@@ -29,7 +29,7 @@ export const Container = styled.div`
 export const Box = styled.div`
   border: 2px solid black;
   max-width: 1440px;
-  min-width: 450px;
+  min-width: 370px;
   width: 100%;
 `;
 

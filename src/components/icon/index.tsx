@@ -979,6 +979,69 @@ const renderIcon = (
           </defs>
         </svg>
       );
+    case 'showFilter':
+      return (
+        <svg width="30" height="30" viewBox="0 0 30 30" fill="none">
+          <rect
+            x="2.75"
+            y="3.75"
+            width="10.5"
+            height="6.5"
+            rx="1.25"
+            stroke="#900202"
+            strokeWidth="1.5"
+          />
+          <rect
+            x="16.75"
+            y="19.75"
+            width="10.5"
+            height="6.5"
+            rx="1.25"
+            stroke="#900202"
+            strokeWidth="1.5"
+          />
+          <rect
+            x="2.75"
+            y="12.75"
+            width="10.5"
+            height="13.5"
+            rx="1.25"
+            stroke="black"
+            strokeWidth="1.5"
+          />
+          <rect
+            x="16.75"
+            y="3.75"
+            width="10.5"
+            height="13.5"
+            rx="1.25"
+            stroke="black"
+            strokeWidth="1.5"
+          />
+        </svg>
+      );
+    case 'hamburger':
+      return (
+        <svg width="24" height="19" viewBox="0 0 24 19" fill="none">
+          <rect width="24" height="3" rx="1.5" fill="black" />
+          <rect y="8" width="24" height="3" rx="1.5" fill="black" />
+          <rect y="16" width="24" height="3" rx="1.5" fill="black" />
+        </svg>
+      );
+    case 'info':
+      return (
+        <svg width="17" height="16" viewBox="0 0 17 16" fill="none">
+          <path
+            d="M16 8.03125C16 11.8202 12.7039 15 8.5 15C4.29609 15 1 11.8202 1 8.03125C1 4.24233 4.29609 1.0625 8.5 1.0625C12.7039 1.0625 16 4.24233 16 8.03125Z"
+            stroke="#900202"
+            stroke-width="2"
+          />
+          <path
+            d="M7.07955 4.468C7.07955 3.698 7.69555 3.264 8.46555 3.264C9.23555 3.264 9.86555 3.698 9.86555 4.468C9.86555 5.238 9.23555 5.658 8.46555 5.658C7.69555 5.658 7.07955 5.238 7.07955 4.468ZM7.31755 12.084V7.184C7.31755 6.47 7.89155 6.148 8.49355 6.148C9.09555 6.148 9.68355 6.47 9.68355 7.184V12.084C9.68355 12.826 9.09555 13.148 8.49355 13.148C7.89155 13.148 7.31755 12.826 7.31755 12.084Z"
+            fill="#900202"
+          />
+        </svg>
+      );
   }
 };
 
