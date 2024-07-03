@@ -2,7 +2,16 @@ import { css } from '@emotion/react';
 
 export const LayoutMap = {
   pageLayout: css`
-    padding: 0 80px;
+    padding-left: 80px;
+    padding-right: 80px;
+    @media (max-width: 1024px) {
+      padding-left: 40px;
+      padding-right: 40px;
+    }
+    @media (max-width: 500px) {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
   `,
   displayFlex: css`
     display: flex;
