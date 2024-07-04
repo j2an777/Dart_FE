@@ -35,7 +35,7 @@ export const Container = styled.div`
     }
 
     .swiper-pagination {
-        bottom: 0px;
+        bottom: 50px;
     }
 `;
 
@@ -65,7 +65,7 @@ export const BtnBlock = styled.div`
     display: flex;
     justify-content : space-between;
     gap: 20px;
-    padding : 0 20px;
+    padding : 0 50px;
     z-index : 9;
 `;
 

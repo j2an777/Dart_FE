@@ -4,9 +4,9 @@ import { galleryDetailStore } from '@/stores/modal';
 import useImagesLoaded from '@/pages/gallery/hooks/useImagesLoaded';
 import { CircleLoader, GalleryDetailPortal, Icon, Text } from '@/components';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination, Navigation } from 'swiper/modules';
+import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import { Swiper as SwiperClass } from 'swiper/types';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 
 const Mobile = ({ galleryData }: GalleryDataProps) => {
   const { open } = galleryDetailStore();
@@ -14,6 +14,7 @@ const Mobile = ({ galleryData }: GalleryDataProps) => {
   const imageSources = galleryData ? galleryData.images.map(img => img.image) : [];
   const isLoaded = useImagesLoaded(imageSources);
   const swiperRef = useRef<SwiperClass | null>(null);
+  const [play, setPlay] = useState(true);
 
   if (!isLoaded) {
     return <CircleLoader />;
@@ -25,6 +26,14 @@ const Mobile = ({ galleryData }: GalleryDataProps) => {
             swiperRef.current.slidePrev();
         } else if (direction === 'right') {
             swiperRef.current.slideNext();
+        } else if (direction === 'play') {
+          setPlay(!play);
+          
+          if (play) {
+            swiperRef.current.autoplay.stop();
+          } else {
+            swiperRef.current.autoplay.start();
+          }
         }
     }
   };
@@ -36,11 +45,15 @@ const Mobile = ({ galleryData }: GalleryDataProps) => {
         slidesPerView={1}
         spaceBetween={30}
         loop={true}
+        autoplay={{
+          delay: 3000,
+          disableOnInteraction: false,
+        }}
         pagination={{
           clickable: true,
         }}
         navigation={true}
-        modules={[Pagination, Navigation]}
+        modules={[Autoplay, Pagination, Navigation]}
         className="mySwiper"
       >
         {galleryData?.images.map((gallery: GalleryImages, index: number) => (
@@ -54,6 +67,7 @@ const Mobile = ({ galleryData }: GalleryDataProps) => {
       </Swiper>
       <S.BtnBlock>
         <S.Btn onClick={() => onHandleDirection('left')}><Icon value='leftArrow' size={50} color="white" /></S.Btn>
+        <S.Btn onClick={() => onHandleDirection('play')}>{play ? <Icon value='triangle' size={48} color="white" /> : <Icon value='stop' size={50} color="white" />}</S.Btn>
         <S.Btn onClick={() => onHandleDirection('right')}><Icon value='rightArrow' size={50} color="white" /></S.Btn>
       </S.BtnBlock>
       <GalleryDetailPortal />
