@@ -4,7 +4,6 @@ import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom"
 import * as S from './styles';
 import useCustomNavigate from "@/hooks/useCustomNavigate";
-import Logo from '@/assets/images/mainLogo.png';
 import parseDate from "@/utils/parseDate";
 import { alertStore } from "@/stores/modal";
 import { useState } from "react";
@@ -87,7 +86,7 @@ const InfoPage = () => {
             <S.InfoBox thumbnail={data.thumbnail}>
               <S.Overlay />
               <S.CancelIcon value="cancel" size={20} onClick={() => customNavigate('/')} color="white" />
-              <S.MainLogo alt="main-logo" src={Logo} />
+              <S.MainLogo value="mainLogo" color="white" />
               <S.DescriptionBlock>
                 <S.Top>
                   <Text typography="t5" color="white" bold="medium">

@@ -4,7 +4,6 @@ import Text from '@/components/Text';
 import { alertStore } from '@/stores/modal';
 import { useQuery } from '@tanstack/react-query';
 import { getGalleryInfo } from '@/apis/gallery';
-import Logo from '@/assets/images/mainLogo.png';
 import useCustomNavigate from '@/hooks/useCustomNavigate';
 import parseDate from '@/utils/parseDate';
 import { useState } from 'react';
@@ -91,7 +90,7 @@ const GalleryInfo = ({ galleryId, open: isOpen, hasEnded, close }: GalleryInfoPr
         <S.InfoBox thumbnail={data.thumbnail}>
           <S.Overlay />
           <S.CancelIcon value="cancel" size={20} onClick={() => close()} color="white" />
-          <S.MainLogo alt="main-logo" src={Logo} />
+          <S.MainLogo value='mainLogo' color='white' />
           <S.DescriptionBlock>
             <S.Top>
               <Text typography="t5" color="white" bold="medium">

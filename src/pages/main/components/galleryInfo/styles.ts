@@ -23,7 +23,7 @@ export const CancelIcon = styled(Icon)`
   right: 20px;
   top: 20px;
 `;
-export const MainLogo = styled.img`
+export const MainLogo = styled(Icon)`
   width: 70px;
   height: 30px;
 `;
@@ -34,9 +34,9 @@ export const InfoBox = styled.div<{ thumbnail: string }>`
   height: 80vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   gap: 20px;
-  padding: 100px;
+  padding: 20px 100px;
   box-sizing: border-box;
   background-image: url(${(props) => props.thumbnail});
   background-position: center;
@@ -195,17 +195,14 @@ export const ScoreBlock = styled.div`
   ${LayoutMap.displayFlex};
   justify-content: space-between;
 
-  a {
-    &:hover {
-      p {
-        text-decoration: underline;
-      }
-    }
-  }
-
   .originalText {
     @media (max-width: 1024px) {
       display : none;
+    }
+      
+    &:hover {
+      cursor: pointer;
+      text-decoration: underline;
     }
   }
 
