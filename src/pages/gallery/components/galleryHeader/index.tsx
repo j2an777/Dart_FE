@@ -68,6 +68,7 @@ const GalleryHeader = ({ galleryId, galleryNick, chatRoomId, title, thumbnail, c
             close={close}
           />
         ),
+        buttonCancelLabel:'취소',
         buttonLabel: '등록',
         onClickButton: () => {
           const form = document.querySelector('form');
@@ -75,19 +76,12 @@ const GalleryHeader = ({ galleryId, galleryNick, chatRoomId, title, thumbnail, c
             form.requestSubmit();
           }
         },
+        onClickCancelButton: () => {
+          close();
+        },
       });
     } else if (name === 'chat') {
       openChat(chatRoomId, galleryNick);
-    } else if (name === 'out') {
-      open({
-        title: '전시관 나가기',
-        description: '전시관에서 나가시겠습니까?',
-        buttonLabel: '확인',
-        onClickButton: () => {
-          queryClient.removeQueries({ queryKey: ['galleryData'] });
-          navigate('/');
-        },
-      });
     } else if (name === 'share') {
       open({
         title: '전시 공유하기',
@@ -103,10 +97,14 @@ const GalleryHeader = ({ galleryId, galleryNick, chatRoomId, title, thumbnail, c
       open({
         title: '전시관 나가기',
         description: '전시관에서 나가시겠습니까?',
+        buttonCancelLabel: '취소',
         buttonLabel: '확인',
         onClickButton: () => {
           queryClient.removeQueries({ queryKey: ['galleryData'] });
-          navigate('/intro');
+          navigate('/');
+        },
+        onClickCancelButton: () => {
+          close();
         },
       });
     }
@@ -117,8 +115,7 @@ const GalleryHeader = ({ galleryId, galleryNick, chatRoomId, title, thumbnail, c
       <S.MenuBlock>
         <S.Logo
           src={GalleryLogo}
-          onClick={() => onHandleToggle('toMain')}
-          alt="인트로 가는 로고"
+          alt="로고"
         />
         <S.MenuBox>
           {accessToken || nickname === galleryNick ? (

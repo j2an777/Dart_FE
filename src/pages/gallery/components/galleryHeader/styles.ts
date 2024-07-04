@@ -31,7 +31,6 @@ export const Logo = styled.img`
     width : 80px;
     height : 30px;
     object-fit : contain;
-    cursor : pointer;
 `;
 
 export const MenuBox = styled.div`
