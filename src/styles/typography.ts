@@ -5,7 +5,7 @@ export const typographyMap = {
     font-size: 56px;
   `,
   t1: css`
-    font-size: 36px;
+    font-size: 2.25rem;
   `,
   t2: css`
     font-size: 32px;
@@ -14,7 +14,7 @@ export const typographyMap = {
     font-size: 28px;
   `,
   t4: css`
-    font-size: 24px;
+    font-size: 1.5rem;
   `,
   t5: css`
     font-size: 20px;

@@ -1,10 +1,12 @@
 import { css } from '@emotion/react';
-import { colorPalette } from './colorPalette';
 import { fontStyles } from './fonts';
+import { colorPalette } from './colorPalette';
+import { globalFontSize } from './globalFontSize';
 
 export default css`
   ${fontStyles}
   ${colorPalette}
+
   :root {
     --background-zindex: -1;
     --lower-zindex: 1;
@@ -24,7 +26,9 @@ export default css`
     pointer-events: none;
   }
 
-  html,
+  html {
+    ${globalFontSize}
+  }
   body,
   span,
   applet,
@@ -148,6 +152,7 @@ export default css`
     border-spacing: 0;
   }
   button {
+    box-sizing: border-box;
     border: none;
     margin: 0;
     padding: 0;
@@ -168,6 +173,9 @@ export default css`
     border: none;
     :focus {
       outline: none;
+    }
+    ::-ms-reveal {
+      display: none;
     }
   }
   textarea {

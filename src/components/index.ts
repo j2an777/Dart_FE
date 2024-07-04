@@ -1,7 +1,7 @@
 export { default as Icon } from './icon';
 export { default as Alert } from './alert';
 export { default as Navbar } from './navbar';
-export { default as Button } from './button';
+export { default as Button } from './Button';
 export { default as NoneData } from './noneData';
 export { default as StarRate } from './starRate';
 export { default as InputField } from './inputField';
