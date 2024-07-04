@@ -65,6 +65,7 @@ export const buttonTypeMap = {
     color: ${colors.white};
   `,
   rectangleGray: css`
+    border: 1px solid ${colors.gray200};
     background-color: ${colors.gray200};
     color: ${colors.gray500};
   `,
