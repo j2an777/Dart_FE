@@ -1,16 +1,18 @@
-import { Text } from '@/components';
 import { colors } from '@/styles/colorPalette';
 import styled from '@emotion/styled';
 
 export const Container = styled.div`
-  width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 `;
 
-export const Title = styled(Text)`
-  width: 100%;
-  padding-bottom: 20px;
-  border-bottom: 1px solid ${colors.white};
-`;
 export const AgreeBox = styled.div`
-  padding: 30px 15px;
+  padding: 30px 15px 10px 15px;
+`;
+
+export const Line = styled.div`
+  width: 100%;
+  border-bottom: 1px solid ${colors.white};
+  height: 1px;
 `;

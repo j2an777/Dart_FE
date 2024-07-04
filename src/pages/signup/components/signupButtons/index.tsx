@@ -1,8 +1,7 @@
-import { Button } from '@/components';
 import { agreeStore } from '@/stores/agree';
+import useCustomNavigate from '@/hooks/useCustomNavigate';
 
 import * as S from './styles';
-import useCustomNavigate from '@/hooks/useCustomNavigate';
 
 interface SignupButtonsProps {
   page: string | null;
@@ -13,7 +12,7 @@ const SignupButtons = ({ page }: SignupButtonsProps) => {
   const allChecked = agreeStore((state) => state.allChecked);
   return (
     <S.Container>
-      <Button
+      <S.StyledButton
         size="lg"
         buttonType="rectangleGray"
         bold="regular"
@@ -21,9 +20,9 @@ const SignupButtons = ({ page }: SignupButtonsProps) => {
         onClick={() => navigate(-1)}
       >
         {page === '1' ? '취소' : '이전'}
-      </Button>
+      </S.StyledButton>
       {page === '1' ? (
-        <Button
+        <S.StyledButton
           size="lg"
           buttonType="rectangleWhite"
           bold="regular"
@@ -35,11 +34,16 @@ const SignupButtons = ({ page }: SignupButtonsProps) => {
           disabled={!allChecked}
         >
           다음
-        </Button>
+        </S.StyledButton>
       ) : (
-        <Button size="lg" buttonType="rectangleWhite" bold="regular" type="submit">
+        <S.StyledButton
+          size="lg"
+          buttonType="rectangleWhite"
+          bold="regular"
+          type="submit"
+        >
           완료
-        </Button>
+        </S.StyledButton>
       )}
     </S.Container>
   );

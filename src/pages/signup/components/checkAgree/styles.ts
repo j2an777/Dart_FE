@@ -9,10 +9,11 @@ interface ContainerProps {
 export const Container = styled.div<ContainerProps>`
   ${LayoutMap.displayFlex}
   position: relative;
-  gap: 20px;
-  > button {
-    position: absolute;
-    right: 0;
+  justify-content: space-between;
+
+  > :nth-child(2) {
+    flex: 1;
+    padding-left: 10px;
   }
   padding-bottom: ${({ isLast, isTotal }) => (isLast ? 0 : isTotal ? '50px' : '20px')};
 `;

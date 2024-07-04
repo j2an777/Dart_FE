@@ -19,12 +19,10 @@ const LoginLinkButton = ({ title, buttonLabel, path }: LoginLinkButtonProps) => 
       <S.Description typography="t6" color="white" bold="thin">
         {title}
       </S.Description>
-      <Button
-        leftContent={<Icon value="halfArrow" $rotate $active={false} />}
-        children={buttonLabel}
-        buttonType="onlyText"
-        size="fit"
-        type="button"
+      <Icon
+        value="halfArrow"
+        $rotate
+        $active={false}
         onClick={
           path
             ? () => navigate(path)

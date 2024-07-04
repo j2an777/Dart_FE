@@ -28,12 +28,6 @@ export const Container = styled.div`
     }
     `,
   })}
-
-  ${mediaQueries.mobile(`
-    position: absolute;
-    bottom: 120px;
-    right: 20px;
-  `)}
 `;
 
 export const Line = styled.div`
