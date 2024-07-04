@@ -6,7 +6,7 @@ import { fadeUp } from '@/pages/gallery/components/galleryDetail/styles';
 import { Icon } from '@/components';
 
 export const Container = styled.div`
-  ${LayoutMap.absoluteCenter}
+  ${LayoutMap.absoluteCenter};
   display: flex;
   flex-direction: column;
   width: 800px;
@@ -47,6 +47,10 @@ export const InfoBox = styled.div<{ thumbnail: string }>`
   @media (max-width: 1024px) {
     padding : 100px 20px;
   }
+
+  @media (max-width: 500px) {
+    padding : 50px 10px;
+  }
 `;
 
 export const Overlay = styled.div`
@@ -66,11 +70,17 @@ export const DescriptionBlock = styled.div`
   justify-content: center;
   gap: 30px;
 
-  #descript {
+  .descript {
     color: white;
     ${typographyMap.t6};
     ${bolderMap.thin};
     word-break: break-word;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+  }
+
+  @media (max-width: 500px) {
+    width : 100%;
   }
 `;
 
