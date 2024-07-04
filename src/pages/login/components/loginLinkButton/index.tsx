@@ -1,4 +1,4 @@
-import { Button, Icon } from '@/components';
+import { Button, Icon, Text } from '@/components';
 import { alertStore } from '@/stores/modal';
 import useCustomNavigate from '@/hooks/useCustomNavigate';
 
@@ -19,10 +19,7 @@ const LoginLinkButton = ({ title, buttonLabel, path }: LoginLinkButtonProps) => 
       <S.Description typography="t6" color="white" bold="thin">
         {title}
       </S.Description>
-      <Icon
-        value="halfArrow"
-        $rotate
-        $active={false}
+      <S.LinkButton
         onClick={
           path
             ? () => navigate(path)
@@ -33,7 +30,12 @@ const LoginLinkButton = ({ title, buttonLabel, path }: LoginLinkButtonProps) => 
                   description: '구현 예정입니다',
                 })
         }
-      />
+      >
+        <Icon value="halfArrow" $rotate $active={false} />
+        <Text typography="t6" color="white" bold="thin">
+          {buttonLabel}
+        </Text>
+      </S.LinkButton>
     </S.Container>
   );
 };

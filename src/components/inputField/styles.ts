@@ -19,6 +19,13 @@ export const StyledButton = styled(Button)`
   right: 0;
   bottom: 0;
   transform: translateX(120%);
+  &:hover {
+    transform: translateX(120%) scale(1.05);
+  }
+
+  &:active {
+    transform: translateX(120%) scale(0.95);
+  }
 `;
 
 export const Label = styled.label<{ isFocused: boolean }>`
@@ -67,5 +74,14 @@ export const ErrorMessage = styled(Text)`
 
 export const BlindIcon = styled(Icon)`
   margin-left: auto;
+  cursor: pointer;
   transform: translateY(-100%);
+
+  &:hover {
+    transform: translateY(-100%) scale(1.05);
+  }
+
+  &:active {
+    transform: translateY(-100%) scale(0.95);
+  }
 `;

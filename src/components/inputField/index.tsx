@@ -66,6 +66,7 @@ const InputField = ({
           value="blind"
           onClick={() => setIsBlind((prev) => !prev)}
           color={isBlind ? 'white' : 'green'}
+          $active={false}
         />
       )}
       {error && (

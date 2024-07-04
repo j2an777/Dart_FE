@@ -11,7 +11,7 @@ export const Container = styled.div<ContainerProps>`
   position: relative;
   justify-content: space-between;
 
-  > :nth-child(2) {
+  > p:nth-of-type(1) {
     flex: 1;
     padding-left: 10px;
   }
