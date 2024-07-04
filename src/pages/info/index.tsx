@@ -19,7 +19,7 @@ const InfoPage = () => {
     const [openMap, setOpenMap] = useState(false);
     const hasEnded = false;
 
-    const { data, isLoading } = useQuery({
+    const { data, isLoading, error } = useQuery({
         queryKey: ['detail'],
         queryFn: () => {
             if (galleryId) {
@@ -71,6 +71,15 @@ const InfoPage = () => {
     };
 
     if (isLoading) return <CircleLoader />;
+
+    if (error) {
+      openModal({
+        title: '오류',
+        description: '데이터 로드 중 오류가 발생했습니다. 새로고침 하시거나 재로그인 해주세요.',
+        buttonLabel: '확인',
+        onClickButton: () => close(),
+      })
+    }
 
     return (
         <S.Wrapper infoBg={Bg}>

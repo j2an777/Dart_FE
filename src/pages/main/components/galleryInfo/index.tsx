@@ -11,6 +11,7 @@ import { useState } from 'react';
 import * as S from './styles';
 import KakaoMap from '../kakaoMap';
 import { starRate } from '../../hooks/starRate';
+import { CircleLoader } from '@/components';
 
 interface GalleryInfoProps {
   galleryId: number | null;
@@ -56,11 +57,16 @@ const GalleryInfo = ({ galleryId, open: isOpen, hasEnded, close }: GalleryInfoPr
   };
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <CircleLoader />;
   }
 
   if (error) {
-    return <div>Error loading gallery data</div>;
+    openModal({
+      title: '오류',
+      description: '데이터 로드 중 오류가 발생했습니다. 새로고침 하시거나 재로그인 해주세요.',
+      buttonLabel: '확인',
+      onClickButton: () => close(),
+    });
   }
 
   const onHandleRequest = () => {
