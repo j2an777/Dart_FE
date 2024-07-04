@@ -20,7 +20,7 @@ const GalleryRotate = ({ galleryData }: GalleryDataProps) => {
     const updateSizeAndTransZ = () => {
       if (galleryData) {
         const newDataDegree = 360 / galleryData.images.length;
-        let newSize = 300;
+        let newSize = 250;
         let newTransZ = 400;
 
         if (galleryData.images.length >= 11 && galleryData.images.length < 15) {
@@ -53,18 +53,6 @@ const GalleryRotate = ({ galleryData }: GalleryDataProps) => {
 
   const imageSources = galleryData ? galleryData.images.map(img => img.image) : [];
   const isLoaded = useImagesLoaded(imageSources);
-
-  useEffect(() => {
-    const handleContextMenu = (e: MouseEvent) => {
-      e.preventDefault();
-    };
-    // document 또는 특정 요소에 이벤트 리스너 추가
-    document.addEventListener('contextmenu', handleContextMenu);
-    return () => {
-      // 컴포넌트 언마운트 시 이벤트 리스너 제거
-      document.removeEventListener('contextmenu', handleContextMenu);
-    };
-  }, []);
 
   const onHandleChange = (translate: string) => {
     if (!galleryData) return;
