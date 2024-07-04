@@ -35,3 +35,9 @@ export const HeaderBox = styled.div`
   width: 100%;
   border-bottom: 2px solid ${colors.gray100};
 `;
+
+export const ButtonBox = styled.div`
+  ${LayoutMap.displayFlex};
+  justify-content: center;
+  gap : 20px;
+`;

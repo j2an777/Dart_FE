@@ -9,7 +9,9 @@ interface AlertProps {
   title: React.ReactNode;
   description?: React.ReactNode;
   buttonLabel?: string;
+  buttonCancelLabel?: string;
   onClickButton?: () => void;
+  onClickCancelButton?: () => void;
   close: () => void;
 }
 
@@ -18,7 +20,9 @@ const Alert = ({
   title,
   description,
   buttonLabel = '확인',
+  buttonCancelLabel,
   onClickButton,
+  onClickCancelButton,
   close,
 }: AlertProps) => {
   const { lockScroll, openScroll } = useDisabledScroll();
@@ -28,7 +32,7 @@ const Alert = ({
     return () => openScroll();
   }, []);
 
-  if (!open) return;
+  if (!open) return null;
 
   return (
     <Dimmed style={{ zIndex: 12 }}>
@@ -45,9 +49,17 @@ const Alert = ({
           <>{description}</>
         )}
 
-        <Button bold="bold" size="smMd" onClick={onClickButton}>
-          {buttonLabel}
-        </Button>
+        <S.ButtonBox>
+          {buttonLabel && onClickCancelButton && (
+            <Button bold="regular" size="smMd" onClick={onClickCancelButton} buttonType='reverseCancelRadius'>
+              {buttonCancelLabel}
+            </Button> 
+          )}  
+          <Button bold="bold" size="smMd" onClick={onClickButton}>
+            {buttonLabel}
+          </Button>
+        </S.ButtonBox>
+        
       </S.Container>
     </Dimmed>
   );
