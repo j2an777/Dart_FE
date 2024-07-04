@@ -95,7 +95,7 @@ const InfoPage = () => {
                     </Text>
                   </S.User>
                 </S.Top>
-                <p id="descript">{data.content}</p>
+                <p className="descript">{data.content}</p>
                 <Icon value="galaxy" size={20} />
                 <Text typography="t7" bold="regular" color="white">
                   {parseDate(data.startDate)} <span>~</span>{' '}
