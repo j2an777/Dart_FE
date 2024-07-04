@@ -19,6 +19,7 @@ const ChatModal = ({ open, chatRoomId, galleryNick }: ChatProps) => {
   const isLogin = !!memberStore((state) => state.accessToken);
   const [menuDown, setMenuDown] = useState(false);
   const [menuOption, setMenuOption] = useState('실시간 채팅');
+
   const dropDownMenu = () => {
     setMenuDown(!menuDown);
   };
@@ -51,9 +52,7 @@ const ChatModal = ({ open, chatRoomId, galleryNick }: ChatProps) => {
       <S.Outline>
         <S.HeaderBox>
           <div>
-            <Text typography="t5" bold="regular">
-              {menuOption}
-            </Text>
+            <Text typography="t5">{menuOption}</Text>
             <S.Select value="select" isActive={menuDown} onClick={dropDownMenu} />
           </div>
           <S.Close value="cancel" size={15} onClick={close} />
@@ -62,11 +61,13 @@ const ChatModal = ({ open, chatRoomId, galleryNick }: ChatProps) => {
           <>
             {menuDown &&
               (menuOption === '실시간 채팅' ? (
-                <S.Menu onClick={() => handleSelect('실시간 접속자')}>
+                <S.Menu typography="t5" onClick={() => handleSelect('실시간 접속자')}>
                   실시간 접속자
                 </S.Menu>
               ) : (
-                <S.Menu onClick={() => handleSelect('실시간 채팅')}>실시간 채팅</S.Menu>
+                <S.Menu typography="t5" onClick={() => handleSelect('실시간 채팅')}>
+                  실시간 채팅
+                </S.Menu>
               ))}
             <S.Content>{renderContent()}</S.Content>
           </>
