@@ -15,7 +15,7 @@ export const Container = styled.div`
   }
 
   ${containerQuery({
-    breakpoints: MainPageQuerySize.mainPage,
+    breakpoints: MainPageQuerySize.disableFilter,
     containerName: 'main-page',
     styles: `
     div:first-of-type {

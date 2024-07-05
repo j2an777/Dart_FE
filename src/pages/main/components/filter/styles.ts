@@ -4,10 +4,10 @@ import { colors } from '@/styles/colorPalette';
 import { LayoutMap } from '@/styles/layout';
 import styled from '@emotion/styled';
 import { MainPageQuerySize } from '../../styles';
+import { motion } from 'framer-motion';
 
 export const Container = styled.div`
   width: fit-content;
-  transition: all 1s ease;
   border-top: 1px solid ${colors.gray600};
 `;
 
@@ -35,17 +35,17 @@ export const filterIcon = styled(Icon)`
   visibility: hidden;
 
   ${containerQuery({
-    breakpoints: MainPageQuerySize.mainPage,
-    containerName: 'main-page',
+    breakpoints: MainPageQuerySize.disableFilter,
+    containerName: 'main-list',
     styles: `
-      visibility: visible;
-      position: absolute;
-      top: -40px;
-    `,
+    visibility: visible;
+    position: absolute;
+    top: -40px;
+  `,
   })}
 `;
 
-export const FilterBox = styled.div<{ isExpand: boolean }>`
+export const FilterBox = styled.div`
   ${LayoutMap.displayFlex}
   gap: 30px;
   flex-direction: column;
@@ -55,18 +55,19 @@ export const FilterBox = styled.div<{ isExpand: boolean }>`
   position: relative;
   transition: all 0.25s ease;
 
-  ${({ isExpand }) =>
-    containerQuery({
-      breakpoints: MainPageQuerySize.mainPage,
-      containerName: 'main-page',
-      styles: `      
-    position: fixed;
-    visibility: ${isExpand ? 'visible' : 'hidden'};
-    transform: ${isExpand ? 'translateX(0)' : 'translateX(-120%)'};
-    background-color: ${colors.white};
-    z-index: var(--high-zindex);
-    height: 100%;
-    top: 0;
+  ${containerQuery({
+    breakpoints: MainPageQuerySize.disableFilter,
+    containerName: 'main-list',
+    styles: `
+    display: none;
   `,
-    })}
+  })}
+`;
+
+export const ModalContainer = styled(motion.div)`
+  display: flex;
+
+  width: fit-content;
+  height: 100%;
+  background-color: ${colors.white};
 `;

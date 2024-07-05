@@ -12,7 +12,7 @@ import * as S from './styles';
 
 const GalleryList = () => {
   const { setPageInfo } = useStore(pageStore);
-  const size = useGetMediaQuerySize();
+  const size = useGetMediaQuerySize(556);
   const {
     data: { pageParams, pages },
   } = useGetGalleries();
@@ -30,7 +30,7 @@ const GalleryList = () => {
         ))}
       </S.GridBox>
       <PageButtons
-        orientation={size === 'mobile' ? 'horizontal' : 'vertical'}
+        orientation={size === 'select' ? 'horizontal' : 'vertical'}
         numberSize="t3"
       />
     </S.Container>

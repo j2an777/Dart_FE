@@ -16,10 +16,10 @@ interface KeywordFilterProps {
 }
 
 const KeywordFilter = ({ buttons }: KeywordFilterProps) => {
-  const { isExpand, ref, setIsExpand } = useOutsideClick();
-  const [inputFocus, setInputFocus] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const [form, onChange, setForm] = useInput({ keyword: '', category: 'title' });
+  const { isExpand, ref, setIsExpand } = useOutsideClick();
+  const [inputFocus, setInputFocus] = useState<boolean>(false);
   const {
     filterValue: { category },
     onChange: setFilterValue,

@@ -8,14 +8,14 @@ import {
 } from '@/consts/filter';
 import { filterStore } from '@/stores/filter';
 import { pageStore } from '@/stores/page';
-import useOutsideClick from '@/hooks/useOutsideClick';
 import { useEffect } from 'react';
+import { categoryModalStore } from '@/stores/modal';
 
 import * as S from './styles';
 
 const Filter = () => {
   const { filterValue, costArray, onChange, onNestingChange, onReset } = filterStore();
-  const { ref, isExpand, onToggle, excludeRef } = useOutsideClick();
+  const open = categoryModalStore((state) => state.open);
   const resetPageInfo = pageStore((state) => state.resetPageInfo);
   useEffect(() => {
     resetPageInfo();
@@ -25,16 +25,12 @@ const Filter = () => {
   }, []);
   return (
     <S.Container className="filter-container">
-      <S.FilterBox isExpand={isExpand} ref={ref as React.RefObject<HTMLDivElement>}>
+      <S.FilterBox>
         <S.TitleBox>
           <Text typography="t6" bold="bold">
             FILTER
           </Text>
-          <Icon
-            value={isExpand ? 'cancel' : 'filter'}
-            $active={isExpand}
-            onClick={onToggle}
-          />
+          <Icon value="filter" $active={false} />
         </S.TitleBox>
         <KeywordFilter buttons={searchButtonInfo} />
         <CostFilter
@@ -58,12 +54,7 @@ const Filter = () => {
           onChange={onChange}
         />
       </S.FilterBox>
-      <S.filterIcon
-        value="showFilter"
-        size={25}
-        ref={excludeRef as React.RefObject<HTMLDivElement>}
-        onClick={onToggle}
-      />
+      <S.filterIcon value="showFilter" size={25} onClick={open} />
     </S.Container>
   );
 };
