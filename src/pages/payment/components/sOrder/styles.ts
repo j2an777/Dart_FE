@@ -1,4 +1,4 @@
-import { Icon, Text } from '@/components';
+import { Text } from '@/components';
 import { colors } from '@/styles/colorPalette';
 import styled from '@emotion/styled';
 
@@ -27,32 +27,58 @@ export const Ticket = styled.div`
 
 export const TicketContainer = styled.div`
   position: relative;
+  max-width: 700px;
+`;
+
+export const TicketBox = styled.div`
+  position: absolute;
+  width: 100%;
+  aspect-ratio: 900 / 290;
+
+  top: 0;
+  display: flex;
+  align-items: start;
+  justify-content: start;
+`;
+export const LeftBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 39%;
+  height: 100%;
+  position: relative;
+  padding: 20px 10px 20px 30px;
+  gap: 50%;
+
   section {
-    position: absolute;
     display: flex;
     align-items: center;
     gap: 10px;
-    top: 150px;
-    left: 35px;
+    width: 100%;
   }
 `;
 
-export const GalleryName = styled(Text)`
-  position: absolute;
-  top: 40px;
-  left: 35px;
+export const RightBox = styled.div`
+  display: flex;
+  width: 46%;
+  height: 100%;
+  padding: 15px;
 `;
 
-export const TicketIcon = styled(Icon)`
-  width: 700px;
+export const GalleryName = styled(Text)`
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+`;
+
+export const Nickname = styled(Text)`
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
 `;
 
 export const Thumbnail = styled.div<{ profileImage: string }>`
-  position: absolute;
-  top: 15px;
-  left: 290px;
-  width: 290px;
-  height: 200px;
+  width: 100%;
+  height: 100%;
   border: 1px solid ${colors.black};
   background-image: url(${(props) => props.profileImage});
   background-size: contain;

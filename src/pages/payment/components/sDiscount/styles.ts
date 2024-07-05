@@ -25,7 +25,7 @@ export const CouponBlock = styled.div<{ hasTitle: string }>`
   display: flex;
   align-items: center;
   padding: 20px;
-  width: 500px;
+  width: 80%;
   color: ${(props) => (props.hasTitle ? colors.black : colors.gray500)};
   background-color: ${(props) => (props.hasTitle ? colors.white : colors.gray100)};
   border: ${(props) => (props.hasTitle ? '2px solid black' : 'none')};
@@ -34,4 +34,5 @@ export const CouponBlock = styled.div<{ hasTitle: string }>`
 export const Button = styled.button`
   ${buttonTypeMap.rectangleBlack}
   padding: 20px 30px;
+  white-space: nowrap;
 `;

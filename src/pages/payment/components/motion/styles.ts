@@ -3,10 +3,15 @@ import { colors } from '@/styles/colorPalette';
 import { bolderMap } from '@/styles/typography';
 import styled from '@emotion/styled';
 import { motion } from 'framer-motion';
+import { containerQuery } from '@/styles/breakpoints';
+import { Breakpoints } from '../../fail/styles';
 
 export const Container = styled.div`
+  position: relative;
   margin: 20px auto;
   max-width: 560px;
+  width: 100%;
+  height: 100vw;
 `;
 
 export const Card = styled(motion.div)`
@@ -14,7 +19,15 @@ export const Card = styled(motion.div)`
   display: flex;
   justify-content: center;
   width: 100%;
-  height: auto;
+
+  ${containerQuery({
+    containerName: 'payment-done',
+    styles: `
+      position: none;
+      width: 80%;
+    `,
+    breakpoints: Breakpoints.mobile,
+  })}
 `;
 
 export const CardContainer = styled(motion.div)`
@@ -54,4 +67,14 @@ export const Button = styled.button`
   &:hover {
     ${buttonActiveMap.rectangleBlack}
   }
+
+  ${containerQuery({
+    containerName: 'payment-done',
+    styles: `
+      top: auto;
+      bottom: 25%;  
+      width: 80%;
+    `,
+    breakpoints: Breakpoints.mobile,
+  })}
 `;
