@@ -6,6 +6,7 @@ import styled from '@emotion/styled';
 export const Breakpoints = {
   column: 870,
   mobile: 500,
+  coupon: 623,
 };
 
 export const Layout = styled.div`
