@@ -24,7 +24,7 @@ export const mediaQueries = {
   `,
 };
 
-// 달력있는부분 거기만 설정해도 된다는 느낌 함수로 나와야될 것 같아요
+// 컨테이너 쿼리 함수
 
 export const containerQuery = ({
   containerName,
