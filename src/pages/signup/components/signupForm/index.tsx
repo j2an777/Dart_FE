@@ -1,8 +1,8 @@
-import { SignupFormLayout, SignupTextarea } from '..';
-import { Button, InputField } from '@/components';
-import { ExtendedSignupForm } from '@/types/member';
-import { RegisterOptions, useFormContext } from 'react-hook-form';
 import { essentiolFormData, optionalFormData } from '@/consts/signup';
+import { RegisterOptions, useFormContext } from 'react-hook-form';
+import { SignupFormLayout, SignupTextarea } from '..';
+import { ExtendedSignupForm } from '@/types/member';
+import { InputField } from '@/components';
 import { checkModalStore } from '@/stores/modal';
 import { Navigate } from 'react-router-dom';
 import SignupCheck from '../signupCheck';
@@ -12,14 +12,16 @@ import * as S from './styles';
 
 const SignupForm = () => {
   const open = checkModalStore((state) => state.open);
-  useEffect(() => {
-    return () => sessionStorage.removeItem('isAgree');
-  }, []);
   const {
     watch,
     register,
     formState: { errors },
   } = useFormContext<ExtendedSignupForm>();
+
+  useEffect(() => {
+    return () => sessionStorage.removeItem('isAgree');
+  }, []);
+
   if (!sessionStorage.getItem('isAgree')) return <Navigate to={'/'} />;
   return (
     <S.Container>
@@ -34,35 +36,28 @@ const SignupForm = () => {
           }) => {
             if (value === 'email' || value === 'nickname') {
               return (
-                <S.CheckBox key={value}>
-                  <InputField
-                    register={register(value, registerOptions)}
-                    error={errors[value]}
-                    label={label}
-                    value={value}
-                    disabled
-                  />
-                  <Button
-                    size="smMd"
-                    buttonType="reverseRectangleWhite"
-                    type="button"
-                    onClick={() =>
-                      open({
-                        title: props.title,
-                        content: (
-                          <SignupCheck
-                            label={label}
-                            value={value}
-                            registerOptions={registerOptions as RegisterOptions}
-                            {...checkOption}
-                          />
-                        ),
-                      })
-                    }
-                  >
-                    {value === 'email' ? '인증번호 발송' : '중복 확인'}
-                  </Button>
-                </S.CheckBox>
+                <InputField
+                  key={value}
+                  register={register(value, registerOptions)}
+                  error={errors[value]}
+                  label={label}
+                  value={value}
+                  disabled
+                  buttonLabel={value === 'email' ? '인증번호 발송' : '중복 확인'}
+                  onClickButton={() =>
+                    open({
+                      title: props.title,
+                      content: (
+                        <SignupCheck
+                          label={label}
+                          value={value}
+                          registerOptions={registerOptions as RegisterOptions}
+                          {...checkOption}
+                        />
+                      ),
+                    })
+                  }
+                />
               );
             }
             if (value === 'passwordConfirm') {

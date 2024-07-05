@@ -1,30 +1,30 @@
-import { mediaQueries } from '@/styles/breakpoints';
+import { colors } from '@/styles/colorPalette';
 import { LayoutMap } from '@/styles/layout';
 import styled from '@emotion/styled';
 
-export const GalleryListContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  width: 100%;
-  grid-row-gap: 30px;
-  place-items: center;
-
-  container: grid-list / inline-size;
-
-  ${mediaQueries.mobile(`
-  grid-template-columns: repeat(2, 1fr);
-`)}
-
-  @container (max-width: 500px) {
-    grid-template-columns: repeat(2, 1fr); /* 컨테이너 너비가 500px 이상일 때 */
-  }
-`;
-
-export const SkeletonItemContainer = styled.div`
+export const Container = styled.div`
+  position: relative;
   ${LayoutMap.displayFlex}
   flex-direction: column;
   align-items: flex-start;
   gap: 5px;
   width: fit-content;
   height: fit-content;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  &:hover {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  }
+`;
+
+export const Thumbnail = styled.div`
+  box-sizing: border-box;
+  border: 5px solid ${colors.black};
+  transition: filter 0.5s ease;
+  width: 100%;
+  max-width: 240px;
+  height: auto;
+  aspect-ratio: 1 / 1;
 `;

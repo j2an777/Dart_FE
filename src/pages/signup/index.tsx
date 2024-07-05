@@ -16,23 +16,25 @@ const SignupPage = () => {
   });
   const { mutate: signup, isPending } = usePostSingup({ reset: () => methods.reset() });
   const onSubmit = async (data: ExtendedSignupForm) => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { passwordConfirm, ...formData } = data;
     signup(formData);
   };
+
   return (
     <FormProvider {...methods}>
       <S.Container onSubmit={methods.handleSubmit(onSubmit)}>
-        <S.TitleBox>
-          <TitleNumber page={page ?? '1'} />
-          <S.Title color="white" typography="t0" bold="regular">
-            회원가입
-          </S.Title>
-        </S.TitleBox>
-        {page === '2' ? <SignupForm /> : <SignupAgree />}
-        <SignupButtons page={page ?? '1'} />
-        {isPending && <CircleLoader />}
+        <S.SignupBox>
+          <S.TitleBlock>
+            <TitleNumber page={page ?? '1'} />
+            <S.Title color="white" typography="t0" bold="regular">
+              회원가입
+            </S.Title>
+          </S.TitleBlock>
+          {page === '2' ? <SignupForm /> : <SignupAgree />}
+          <SignupButtons page={page ?? '1'} />
+        </S.SignupBox>
       </S.Container>
+      {isPending && <CircleLoader />}
       <SignupCheckPortal />
     </FormProvider>
   );

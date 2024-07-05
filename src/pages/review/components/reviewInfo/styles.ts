@@ -3,7 +3,7 @@ import { containerQuery } from '@/styles/breakpoints';
 import { colors } from '@/styles/colorPalette';
 import { LayoutMap } from '@/styles/layout';
 import styled from '@emotion/styled';
-import { ReivewPageQuerySize } from '../../styles';
+import { reivewPageQuerySize } from '../../styles';
 
 export const Container = styled.div`
   position: relative;
@@ -27,7 +27,7 @@ export const InfoBox = styled.div`
   width: 100%;
 
   ${containerQuery({
-    breakpoints: ReivewPageQuerySize.galleryInfoTablet,
+    breakpoints: reivewPageQuerySize.galleryInfoTablet,
     containerName: 'gallery-info',
     styles: `
       flex-direction: column;
@@ -50,7 +50,7 @@ export const Title = styled(Text)`
   border-bottom: 2px solid ${colors.black};
 
   ${containerQuery({
-    breakpoints: ReivewPageQuerySize.galleryInfoTablet,
+    breakpoints: reivewPageQuerySize.galleryInfoTablet,
     containerName: 'gallery-info',
     styles: `
       flex-direction: column;

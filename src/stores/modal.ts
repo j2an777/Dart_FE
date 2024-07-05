@@ -181,3 +181,13 @@ export const LoginModalStore = create<BaseState>((set) => ({
   open: () => set({ value: { open: true } }),
   close: () => set({ value: { open: false } }),
 }));
+
+const categoryModalDefalutValue = {
+  open: false,
+};
+
+export const categoryModalStore = create<BaseState>((set) => ({
+  value: categoryModalDefalutValue,
+  open: () => set({ value: { open: true } }),
+  close: () => set({ value: { open: false } }),
+}));

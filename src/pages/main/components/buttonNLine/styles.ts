@@ -15,7 +15,7 @@ export const Container = styled.div`
   }
 
   ${containerQuery({
-    breakpoints: MainPageQuerySize.mainPage,
+    breakpoints: MainPageQuerySize.disableFilter,
     containerName: 'main-page',
     styles: `
     div:first-of-type {
@@ -28,12 +28,6 @@ export const Container = styled.div`
     }
     `,
   })}
-
-  ${mediaQueries.mobile(`
-    position: absolute;
-    bottom: 120px;
-    right: 20px;
-  `)}
 `;
 
 export const Line = styled.div`

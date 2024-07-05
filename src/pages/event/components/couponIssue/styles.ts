@@ -1,3 +1,4 @@
+import { mediaQueries } from '@/styles/breakpoints';
 import { colors } from '@/styles/colorPalette';
 import styled from '@emotion/styled';
 
@@ -19,6 +20,8 @@ export const PriorityBox = styled.div`
   width: 100%;
   align-items: center;
   gap: 30px;
+
+  container: priority-box / inline-size;
 `;
 
 export const CouponBox = styled.div`
@@ -28,4 +31,6 @@ export const CouponBox = styled.div`
   align-items: center;
   gap: 30px;
   padding: 0px 40px;
+
+  ${mediaQueries.mobile('padding: 0;')}
 `;

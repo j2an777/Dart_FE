@@ -10,7 +10,7 @@ export const Container = styled.div`
   ${LayoutMap.absoluteCenter}
   padding: 35px;
   max-width: 600px;
-  min-width: 500px;
+  width: 90vw;
   background-color: ${colors.white};
   border-radius: 10px;
   min-height: 300px;

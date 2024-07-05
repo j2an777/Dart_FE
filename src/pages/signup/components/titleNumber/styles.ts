@@ -3,14 +3,14 @@ import styled from '@emotion/styled';
 
 export const Container = styled.div`
   position: relative;
+  display: flex;
   height: 75px;
   width: 55px;
-  display: flex;
   align-items: end;
   justify-content: end;
+
   > p {
     z-index: var(--lower-zindex);
-    margin: 0;
   }
 `;
 

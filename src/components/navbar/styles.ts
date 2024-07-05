@@ -13,6 +13,7 @@ export const Container = styled.div<{ isExpand: boolean }>`
   margin: auto;
 
   @media (max-width: 500px) {
+    margin-bottom: 50px;
     .mainLogo {
       display: ${({ isExpand }) => (isExpand ? 'none' : 'block')};
     }
@@ -89,7 +90,7 @@ export const MoreItem = styled(Text)<{ isLast: boolean }>`
 
 export const NavItemBlock = styled.div`
   ${LayoutMap.displayFlex}
-  gap: 10px;
+  gap: 30px;
 `;
 
 export const NavItem = styled(Text)`

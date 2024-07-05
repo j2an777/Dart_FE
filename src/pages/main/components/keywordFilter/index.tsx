@@ -2,7 +2,7 @@ import { Button } from '@/components';
 import { SearchInfoType } from '@/consts/filter';
 import { CategoryValues } from '@/types/gallery';
 import useDebounce from '@/hooks/useDebounce';
-import useGetSearchDatas from '../../hooks/useGetSearchDatas';
+// import useGetSearchDatas from '../../hooks/useGetSearchDatas';
 import { filterStore } from '@/stores/filter';
 import useOutsideClick from '@/hooks/useOutsideClick';
 import { useStore } from 'zustand';
@@ -16,16 +16,16 @@ interface KeywordFilterProps {
 }
 
 const KeywordFilter = ({ buttons }: KeywordFilterProps) => {
-  const { isExpand, ref, setIsExpand } = useOutsideClick();
-  const [inputFocus, setInputFocus] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const [form, onChange, setForm] = useInput({ keyword: '', category: 'title' });
+  const { isExpand, ref, setIsExpand } = useOutsideClick();
+  const [inputFocus, setInputFocus] = useState<boolean>(false);
   const {
-    filterValue: { category },
+    // filterValue: { category },
     onChange: setFilterValue,
   } = useStore(filterStore);
   const debouncedKeyword = useDebounce({ value: form.keyword });
-  const { data } = useGetSearchDatas({ keyword: debouncedKeyword, category });
+  // const { data } = useGetSearchDatas({ keyword: debouncedKeyword, category });
   useEffect(() => {
     if (debouncedKeyword && inputFocus) {
       setIsExpand(true);
@@ -79,9 +79,13 @@ const KeywordFilter = ({ buttons }: KeywordFilterProps) => {
           );
         })}
       </S.SeacchButtons>
+
       {isExpand && (
         <S.SearchContent ref={ref as React.RefObject<HTMLUListElement>}>
-          {data?.results.length === 0 ? (
+          <S.NoneSearchData typography="t6" color="gray400">
+            구현 예정 서비스입니다.
+          </S.NoneSearchData>
+          {/* {data?.results.length === 0 ? (
             <S.NoneSearchData typography="t6" color="gray400">
               결과 없음
             </S.NoneSearchData>
@@ -100,7 +104,7 @@ const KeywordFilter = ({ buttons }: KeywordFilterProps) => {
                 </S.SearchItem>
               );
             })
-          )}
+          )} */}
         </S.SearchContent>
       )}
     </S.Container>

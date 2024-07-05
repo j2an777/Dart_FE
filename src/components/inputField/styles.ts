@@ -2,15 +2,31 @@ import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 import { colors } from '@/styles/colorPalette';
 import Text from '../Text';
-import { Icon } from '..';
+import { Button, Icon } from '..';
 
-export const Container = styled.div`
+export const Container = styled.div<{ withButton: boolean }>`
   display: flex;
   flex-direction: column;
   position: relative;
   margin-top: 40px;
+  width: ${({ withButton }) => (withButton ? 'calc(100% - 90px)' : '100%')};
   flex: 1;
   color: ${colors.white};
+`;
+
+export const StyledButton = styled(Button)`
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  height: 40px;
+  transform: translateX(120%);
+  &:hover {
+    transform: translateX(120%) scale(1.05);
+  }
+
+  &:active {
+    transform: translateX(120%) scale(0.95);
+  }
 `;
 
 export const Label = styled.label<{ isFocused: boolean }>`
@@ -58,6 +74,15 @@ export const ErrorMessage = styled(Text)`
 `;
 
 export const BlindIcon = styled(Icon)`
-  position: absolute;
-  right: 0;
+  margin-left: auto;
+  cursor: pointer;
+  transform: translateY(-100%);
+
+  &:hover {
+    transform: translateY(-100%) scale(1.05);
+  }
+
+  &:active {
+    transform: translateY(-100%) scale(0.95);
+  }
 `;

@@ -5,9 +5,10 @@ import styled from '@emotion/styled';
 export const Container = styled.div`
   ${LayoutMap.displayFlex}
   position: relative;
-  gap: 70px;
   width: 100%;
   margin-top: 50px;
+  justify-content: space-between;
+  gap: 20px;
 `;
 
 export const Line = styled.div`

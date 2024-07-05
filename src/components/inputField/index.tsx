@@ -10,6 +10,8 @@ interface InputFieldProps {
   register: UseFormRegisterReturn<string>;
   error?: FieldError | undefined;
   disabled?: boolean;
+  buttonLabel?: string;
+  onClickButton?: () => void;
 }
 
 const InputField = ({
@@ -18,6 +20,8 @@ const InputField = ({
   register,
   error,
   disabled = false,
+  buttonLabel = '',
+  onClickButton,
 }: InputFieldProps) => {
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const [isBlind, setIsBlind] = useState<boolean>(true);
@@ -30,7 +34,7 @@ const InputField = ({
     }
   }, [value]);
   return (
-    <S.Container>
+    <S.Container withButton={!!buttonLabel}>
       <S.Label htmlFor={value} children={label} isFocused={isFocused} />
       <S.Input
         id={value}
@@ -44,12 +48,24 @@ const InputField = ({
           }
         }}
         disabled={disabled}
+        maxLength={40}
       />
+      {buttonLabel && (
+        <S.StyledButton
+          size="sm"
+          buttonType="reverseRectangleWhite"
+          type="button"
+          onClick={onClickButton}
+        >
+          {buttonLabel}
+        </S.StyledButton>
+      )}
       {value.includes('password') && (
         <S.BlindIcon
           value="blind"
           onClick={() => setIsBlind((prev) => !prev)}
           color={isBlind ? 'white' : 'green'}
+          $active={false}
         />
       )}
       {error && (
