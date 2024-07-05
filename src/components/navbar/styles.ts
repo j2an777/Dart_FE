@@ -12,6 +12,12 @@ export const Container = styled.div<{ isExpand: boolean }>`
   justify-content: space-between;
   margin: auto;
 
+  @media (max-width: 570px) {
+    .mainLogo {
+      display: none;
+    }
+  }
+
   @media (max-width: 500px) {
     margin-bottom: 50px;
     .mainLogo {

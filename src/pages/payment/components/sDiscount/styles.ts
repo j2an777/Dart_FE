@@ -1,7 +1,9 @@
 import { Text } from '@/components';
+import { containerQuery } from '@/styles/breakpoints';
 import { buttonTypeMap } from '@/styles/button';
 import { colors } from '@/styles/colorPalette';
 import styled from '@emotion/styled';
+import { Breakpoints } from '../../styles';
 
 export const Container = styled.div`
   display: flex;
@@ -14,6 +16,20 @@ export const Box = styled.div`
   display: flex;
   padding: 20px 40px;
   gap: 20px;
+
+  ${containerQuery({
+    containerName: 'payment',
+    styles: `
+      flex-direction: column;
+      align-items: center;
+    `,
+    breakpoints: Breakpoints.mobile,
+  })}
+  section {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+  }
 `;
 
 export const Title = styled(Text)`
@@ -25,7 +41,7 @@ export const CouponBlock = styled.div<{ hasTitle: string }>`
   display: flex;
   align-items: center;
   padding: 20px;
-  width: 80%;
+  width: 100%;
   color: ${(props) => (props.hasTitle ? colors.black : colors.gray500)};
   background-color: ${(props) => (props.hasTitle ? colors.white : colors.gray100)};
   border: ${(props) => (props.hasTitle ? '2px solid black' : 'none')};

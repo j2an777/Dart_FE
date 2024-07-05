@@ -23,7 +23,7 @@ export const CancelIcon = styled(Icon)`
 
 export const InfoBox = styled.div`
   ${LayoutMap.displayFlex}
-  height: 350px;
+  height: 100%;
   width: 100%;
 
   ${containerQuery({
@@ -37,7 +37,6 @@ export const InfoBox = styled.div`
 
 export const Line = styled.div`
   width: 100vw;
-  min-width: 1440px;
   border-top: 2px solid ${colors.black};
 `;
 

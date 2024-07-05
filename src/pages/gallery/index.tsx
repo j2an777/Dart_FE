@@ -8,11 +8,9 @@ import SelectTemplate from './hooks/selectTemplate';
 import useCustomNavigate from '@/hooks/useCustomNavigate';
 import { useEffect } from 'react';
 import { ChatPortal } from '@/components';
-import { memberStore } from '@/stores/member';
-import useStomp from '../chatModal/hooks/useStomp';
-import disableDevtool from 'disable-devtool';
 import { alertStore } from '@/stores/modal';
 import ErrorData from '../editMemberInfo/components/errorData';
+import disableDevtool from 'disable-devtool';
 
 const GalleryPage = () => {
   const { galleryId: galleryIdStr } = useParams<{ galleryId?: string }>();
@@ -36,20 +34,6 @@ const GalleryPage = () => {
     }
   }, [galleryData, navigate]);
 
-  // 웹소켓 연결
-  const { accessToken } = memberStore.getState();
-  const { connect, disconnect } = useStomp(
-    galleryData?.chatRoomId as number,
-    accessToken as string,
-  );
-
-  useEffect(() => {
-    if (accessToken) {
-      connect();
-    }
-    return () => disconnect();
-  }, [accessToken, connect, disconnect]);
-
   // 개발자 도구 방지 및 스크린샷 방지
   useEffect(() => {
     const currentURL = window.location.pathname;
@@ -63,11 +47,11 @@ const GalleryPage = () => {
           console.log('개발자 도구가 닫혔습니다.');
         },
       });
-  
+
       const handleContextMenu = (e: MouseEvent) => {
         e.preventDefault();
       };
-  
+
       const handlePrintScreen = (e: KeyboardEvent) => {
         if (e.key === 'PrintScreen') {
           navigator.clipboard.writeText('');
@@ -81,11 +65,11 @@ const GalleryPage = () => {
           });
         }
       };
-  
+
       document.addEventListener('contextmenu', handleContextMenu);
       document.addEventListener('keydown', handlePrintScreen);
       document.addEventListener('keyup', handlePrintScreen);
-  
+
       return () => {
         // 컴포넌트 언마운트 시 이벤트 리스너 제거
         document.removeEventListener('contextmenu', handleContextMenu);
@@ -103,7 +87,8 @@ const GalleryPage = () => {
     return <LogoLoader />;
   }
 
-  const expand = galleryData && galleryData.template === 'four' ? galleryData.images.length : 0;
+  const expand =
+    galleryData && galleryData.template === 'four' ? galleryData.images.length : 0;
 
   return (
     <S.Container expand={expand}>

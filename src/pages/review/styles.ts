@@ -11,9 +11,11 @@ export const Container = styled.div`
 `;
 
 export const reivewPageQuerySize = {
-  galleryInfo: 960,
+  galleryInfo: 905,
   galleryInfoTablet: 770,
   galleryInfoMobile: 550,
   reivewItem: 865,
   reivewItemTablet: 410,
+  gridCange: 450,
+  hideRate: 370,
 };
