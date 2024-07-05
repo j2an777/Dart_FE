@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
-import { NoneData, UserCircle } from '@/components';
+import { NoneData } from '@/components';
 import { Text } from '@/components';
 import { getMemberInfo } from '@/apis/member';
 import { memberStore } from '@/stores/member';
 import { useParams } from 'react-router-dom';
-import * as S from './style';
+import * as S from './styles';
 
 const Info = () => {
   // 타인 정보 조회
@@ -24,17 +24,19 @@ const Info = () => {
     <S.Container>
       {isLoading && <NoneData content="loading..." />}
       {error && <NoneData content="정보를 불러오는데 실패했습니다." />}
-      {data && (
+      {!error && data && (
         <>
           <S.Box>
             <S.Block>
-              <UserCircle size={150} profileImage={data.profileImage} />
-              <Text typography="t5" bold="bold">
-                {data.nickname}
-              </Text>
-              <Text typography="t6" bold="regular">
-                {data.email}
-              </Text>
+              <S.StyledUserCircle size={150} profileImage={data.profileImage} />
+              <section>
+                <Text typography="t5" bold="bold">
+                  {data.nickname}
+                </Text>
+                <Text typography="t6" bold="regular">
+                  {data.email}
+                </Text>
+              </section>
             </S.Block>
           </S.Box>
           <S.TextIntro typography="t6" bold="regular">

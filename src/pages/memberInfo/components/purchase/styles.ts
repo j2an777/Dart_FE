@@ -1,6 +1,8 @@
 import { colors } from '@/styles/colorPalette';
 import { Text } from '@/components';
 import styled from '@emotion/styled';
+import { containerQuery } from '@/styles/breakpoints';
+import { Breakpoints } from '../../styles';
 
 export const Container = styled.div`
   position: relative;
@@ -14,6 +16,17 @@ export const Container = styled.div`
     left: 50%;
     transform: translateX(-50%);
   }
+
+  ${containerQuery({
+    containerName: 'member-info',
+    styles: `
+      height: 850px;
+      footer {
+        bottom: 50px;
+      }
+    `,
+    breakpoints: Breakpoints.column,
+  })}
 `;
 
 export const ListContainer = styled.div`
@@ -42,6 +55,14 @@ export const ListBlock = styled.div`
   p {
     color: ${colors.gray500};
   }
+
+  ${containerQuery({
+    containerName: 'member-info',
+    styles: `
+      padding: 0;
+    `,
+    breakpoints: Breakpoints.purchase,
+  })}
 `;
 
 export const Loading = styled(Text)`
@@ -49,4 +70,13 @@ export const Loading = styled(Text)`
   top: 50%;
   left: 60%;
   transform: translate(-50%, -50%);
+
+  ${containerQuery({
+    containerName: 'member-info',
+    styles: `
+      top: 70%;
+      left: 50%;
+    `,
+    breakpoints: Breakpoints.column,
+  })}
 `;

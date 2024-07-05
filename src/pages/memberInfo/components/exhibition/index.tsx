@@ -66,12 +66,6 @@ const Exhibition = () => {
       {data && data.pages.length > 0 ? (
         data.pages.map((data: Gallery) => (
           <S.Box key={data.galleryId}>
-            {authNickname === nickname && (
-              <S.Block>
-                <S.Button onClick={() => onGallery(data.galleryId)}>입장</S.Button>
-                <S.Button onClick={() => onDelete(data.galleryId)}>삭제</S.Button>
-              </S.Block>
-            )}
             <Ticket
               key={data.galleryId}
               thumbnail={data.thumbnail}
@@ -80,6 +74,10 @@ const Exhibition = () => {
               endDate={data.endDate}
               fee={data.fee}
               hashtags={data.hashtags}
+              galleryId={data.galleryId}
+              onGallery={onGallery}
+              onDelete={onDelete}
+              isOwner={authNickname === nickname}
             />
           </S.Box>
         ))
