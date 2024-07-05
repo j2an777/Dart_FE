@@ -12,6 +12,7 @@ import { memberStore } from '@/stores/member';
 import useStomp from '../chatModal/hooks/useStomp';
 import disableDevtool from 'disable-devtool';
 import { alertStore } from '@/stores/modal';
+import ErrorData from '../editMemberInfo/components/errorData';
 
 const GalleryPage = () => {
   const { galleryId: galleryIdStr } = useParams<{ galleryId?: string }>();
@@ -23,6 +24,7 @@ const GalleryPage = () => {
     data: galleryData,
     error,
     isLoading,
+    refetch
   } = useQuery({
     queryKey: ['galleryData'],
     queryFn: () => getGallery(galleryId),
@@ -94,7 +96,7 @@ const GalleryPage = () => {
   }, [galleryId, open]);
 
   if (error || !galleryData) {
-    return <div>Error loading gallery data</div>;
+    return <ErrorData retry={refetch}/>;
   }
 
   if (isLoading) {
