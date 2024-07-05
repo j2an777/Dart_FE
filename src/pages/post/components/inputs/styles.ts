@@ -33,16 +33,20 @@ export const StyledTagsInput = styled.div`
         color: ${colors.gray400};
       }
 
-      input {
-        width: 300px;
-        padding: 5px;
-        margin-right: 5px;
-        ${typographyMap.t6}
-      }
-
       span {
         cursor: pointer;
       }
+    }
+    .input-li {
+      display: flex;
+      align-items: center;
+      flex: 1;
+
+    input {
+      flex: 1;
+      padding: 5px;
+      margin-left: 5px;
+      ${typographyMap.t6}
     }
   }
 
