@@ -17,7 +17,7 @@ interface CategoryModalProps {
 }
 
 const CategoryModal = ({ close }: CategoryModalProps) => {
-  const { filterValue, costArray, onChange, onNestingChange, onReset } = filterStore();
+  const { filterValue, costArray, onChange, onNestingChange } = filterStore();
   const resetPageInfo = pageStore((state) => state.resetPageInfo);
 
   useEffect(() => {

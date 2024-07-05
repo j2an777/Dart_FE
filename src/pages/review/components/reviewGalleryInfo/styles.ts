@@ -3,7 +3,6 @@ import { colors } from '@/styles/colorPalette';
 import { LayoutMap } from '@/styles/layout';
 import styled from '@emotion/styled';
 import { reivewPageQuerySize } from '../../styles';
-import { ReviewRate } from '..';
 
 export const Container = styled.div`
   ${LayoutMap.displayFlex}
