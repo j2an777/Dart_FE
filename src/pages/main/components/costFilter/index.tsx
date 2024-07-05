@@ -28,6 +28,7 @@ const CostFilter = ({ buttons, onChange, selected, title }: CostFilterProps) => 
               key={value}
               buttonType={buttonType}
               size="circle"
+              bold="regular"
               children={label}
               onClick={() => onChange({ cost: value })}
             />

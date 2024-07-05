@@ -7,7 +7,8 @@ export const Container = styled.div<{ size?: SizeValues }>`
   position: relative;
   display: flex;
   ${({ size = 'desktop' }) => (size === 'mobile' ? 'flex-direction: column;' : null)}
-  flex:1;
+  min-height: 642px;
+  flex: 1;
   justify-content: center;
   gap: 20px;
 

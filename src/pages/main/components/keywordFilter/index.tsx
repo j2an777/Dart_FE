@@ -73,6 +73,7 @@ const KeywordFilter = ({ buttons }: KeywordFilterProps) => {
               value={value}
               buttonType={buttonType}
               size="sm"
+              bold="regular"
               children={label}
               onClick={() => setForm((prev) => ({ ...prev, category: value }))}
             />
@@ -80,12 +81,12 @@ const KeywordFilter = ({ buttons }: KeywordFilterProps) => {
         })}
       </S.SeacchButtons>
 
-      {isExpand && (
+      {/* {isExpand && (
         <S.SearchContent ref={ref as React.RefObject<HTMLUListElement>}>
           <S.NoneSearchData typography="t6" color="gray400">
             구현 예정 서비스입니다.
           </S.NoneSearchData>
-          {/* {data?.results.length === 0 ? (
+          {data?.results.length === 0 ? (
             <S.NoneSearchData typography="t6" color="gray400">
               결과 없음
             </S.NoneSearchData>
@@ -104,9 +105,9 @@ const KeywordFilter = ({ buttons }: KeywordFilterProps) => {
                 </S.SearchItem>
               );
             })
-          )} */}
+          )}
         </S.SearchContent>
-      )}
+      )} */}
     </S.Container>
   );
 };

@@ -23,9 +23,6 @@ const CategoryModal = ({ close }: CategoryModalProps) => {
   useEffect(() => {
     resetPageInfo();
   }, [filterValue, costArray]);
-  useEffect(() => {
-    return () => onReset();
-  }, []);
 
   return (
     <Dimmed>

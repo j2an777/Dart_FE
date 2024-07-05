@@ -39,7 +39,7 @@ export const ContentBox = styled.div`
   container: main-list / inline-size;
 
   ${containerQuery({
-    breakpoints: MainPageQuerySize.twoRow,
+    breakpoints: MainPageQuerySize.disableFilter,
     containerName: 'main-page',
     styles: `
     gap: 0;
