@@ -26,7 +26,13 @@ const DropZone = ({ info, onFileUpload, clearFiles }: DropZoneProps) => {
         description:
           '파일 크기가 10MB를 초과했습니다. 10MB 이하의 파일만 등록 가능합니다.',
         buttonLabel: '확인',
-        onClickButton: () => {},
+        buttonCancelLabel: '취소',
+        onClickButton: () => {
+          close();
+        },
+        onClickCancelButton: () => {
+          close();
+        },
       });
       return false;
     }
