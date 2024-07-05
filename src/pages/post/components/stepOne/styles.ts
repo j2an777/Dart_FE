@@ -40,6 +40,14 @@ export const Box = styled.div`
   top: 90%;
   right: 40px;
 `;
+
 export const StyledInputBox = styled(InputBox)`
+  position: relative;
   max-width: 739px;
+`;
+
+export const TitleBox = styled.div`
+  position: absolute;
+  top: 7%;
+  left: 650px;
 `;
