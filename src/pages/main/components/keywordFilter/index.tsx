@@ -21,7 +21,7 @@ const KeywordFilter = ({ buttons }: KeywordFilterProps) => {
   const { setIsExpand } = useOutsideClick();
   const [inputFocus, setInputFocus] = useState<boolean>(false);
   const {
-    filterValue: { category },
+    // filterValue: { category },
     onChange: setFilterValue,
   } = useStore(filterStore);
   const debouncedKeyword = useDebounce({ value: form.keyword });
