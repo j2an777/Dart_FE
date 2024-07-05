@@ -24,7 +24,7 @@ export const Container = styled.div<{ isExpand: boolean }>`
       display: ${({ isExpand }) => (isExpand ? 'none' : 'block')};
     }
     .buttonBox {
-      visibility: ${({ isExpand }) => (isExpand ? 'visible' : 'hidden')};
+      display: ${({ isExpand }) => (isExpand ? 'flex' : 'none')};
       transform: ${({ isExpand }) => (isExpand ? 'translateX(0)' : 'translateX(120%)')};
       z-index: var(--high-zindex);
       position: absolute;
