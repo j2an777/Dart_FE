@@ -13,6 +13,7 @@ export const Container = styled.div<{ isExpand: boolean }>`
   margin: auto;
 
   @media (max-width: 500px) {
+    margin-bottom: 50px;
     .mainLogo {
       display: ${({ isExpand }) => (isExpand ? 'none' : 'block')};
     }

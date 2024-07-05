@@ -1,7 +1,6 @@
-import { containerQuery, mediaQueries } from '@/styles/breakpoints';
+import { mediaQueries } from '@/styles/breakpoints';
 import { colors } from '@/styles/colorPalette';
 import styled from '@emotion/styled';
-import { eventPageQuerySize } from '../../styles';
 
 export const Container = styled.div`
   display: flex;

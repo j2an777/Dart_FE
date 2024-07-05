@@ -2,7 +2,7 @@ import { essentiolFormData, optionalFormData } from '@/consts/signup';
 import { RegisterOptions, useFormContext } from 'react-hook-form';
 import { SignupFormLayout, SignupTextarea } from '..';
 import { ExtendedSignupForm } from '@/types/member';
-import { Button, InputField, Text } from '@/components';
+import { InputField } from '@/components';
 import { checkModalStore } from '@/stores/modal';
 import { Navigate } from 'react-router-dom';
 import SignupCheck from '../signupCheck';
@@ -22,7 +22,7 @@ const SignupForm = () => {
     return () => sessionStorage.removeItem('isAgree');
   }, []);
 
-  // if (!sessionStorage.getItem('isAgree')) return <Navigate to={'/'} />;
+  if (!sessionStorage.getItem('isAgree')) return <Navigate to={'/'} />;
   return (
     <S.Container>
       <SignupFormLayout title="필수">

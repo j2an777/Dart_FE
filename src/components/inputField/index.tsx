@@ -3,7 +3,6 @@ import getInputFieldOptions from '@/utils/getInputFieldOptions';
 import { FieldError, UseFormRegisterReturn } from 'react-hook-form';
 
 import * as S from './styles';
-import { Button } from '..';
 
 interface InputFieldProps {
   label: string;

@@ -3,10 +3,10 @@ import styled from '@emotion/styled';
 import { SizeValues } from '@/hooks/useGetMediaQuerySize';
 import { MainPageQuerySize } from '../../styles';
 
-export const Container = styled.div<{ size: SizeValues }>`
+export const Container = styled.div<{ size?: SizeValues }>`
   position: relative;
   display: flex;
-  ${({ size }) => (size === 'mobile' ? 'flex-direction: column;' : null)}
+  ${({ size = 'desktop' }) => (size === 'mobile' ? 'flex-direction: column;' : null)}
   flex:1;
   justify-content: center;
   gap: 20px;

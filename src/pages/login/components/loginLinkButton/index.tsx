@@ -1,4 +1,4 @@
-import { Button, Icon, Text } from '@/components';
+import { Icon, Text } from '@/components';
 import { alertStore } from '@/stores/modal';
 import useCustomNavigate from '@/hooks/useCustomNavigate';
 
@@ -25,9 +25,9 @@ const LoginLinkButton = ({ title, buttonLabel, path }: LoginLinkButtonProps) => 
             ? () => navigate(path)
             : () =>
                 open({
-                  title: '에러',
+                  title: '미구현 서비스',
                   buttonLabel: '확인',
-                  description: '구현 예정입니다',
+                  description: '구현 예정 서비스입니다',
                 })
         }
       >

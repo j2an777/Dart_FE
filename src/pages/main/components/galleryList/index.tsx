@@ -1,10 +1,10 @@
 import { GalleryItem } from '..';
 import { useStore } from 'zustand';
-import { NoneData, PageButtons } from '@/components';
+import { CircleLoader, NoneData, PageButtons } from '@/components';
 import { useEffect } from 'react';
 import { pageStore } from '@/stores/page';
 import { useGetGalleries } from '../../hooks';
-import GalleryListFallback from '../fallback/GalleryListFallback';
+// import GalleryListFallback from '../fallback/GalleryListFallback';
 import withSuspenseNErrorBoundary from '@/hooks/withSuspenseNErrorBoundary';
 import useGetMediaQuerySize from '@/hooks/useGetMediaQuerySize';
 
@@ -38,7 +38,11 @@ const GalleryList = () => {
 };
 
 const withGalleryList = withSuspenseNErrorBoundary(GalleryList, {
-  suspenseFallback: <GalleryListFallback />,
+  suspenseFallback: (
+    <S.Container>
+      <CircleLoader />
+    </S.Container>
+  ),
 });
 
 export default withGalleryList;

@@ -1,7 +1,7 @@
 import { Review } from '@/types/review';
 import parseDate from '@/utils/parseDate';
 import { TruncateSentece } from '@/utils/truncateSentence';
-import { NicknameNProfile, StarRate, Text } from '@/components';
+import { NicknameNProfile, StarRate } from '@/components';
 
 import * as S from './styles';
 
