@@ -1,7 +1,7 @@
 import { OrderInfo } from '@/types/payment';
 import * as S from './styles';
 import { UserCircle } from '@/components';
-import { Text } from '@/components';
+import { Icon } from '@/components';
 
 const Ticket = ({
   title,
@@ -11,18 +11,24 @@ const Ticket = ({
 }: Omit<OrderInfo, 'cost'>) => {
   return (
     <S.TicketContainer>
-      <S.TicketIcon value="ticket" $active={false} />
-      <S.GalleryName typography="t5" bold="regular" ellipsis={200}>
-        {title}
-      </S.GalleryName>
-      <section>
-        <UserCircle size={30} profileImage={profileImage} />
-        <Text typography="t5" bold="regular" ellipsis={200}>
-          {nickname}
-        </Text>
-      </section>
+      <Icon value="ticket" $active={false} />
+      <S.TicketBox>
+        <S.LeftBox>
+          <S.GalleryName typography="t5" bold="regular" ellipsis={200}>
+            {title}
+          </S.GalleryName>
+          <section>
+            <UserCircle size={30} profileImage={profileImage} />
+            <S.Nickname typography="t5" bold="regular" ellipsis={200}>
+              {nickname}
+            </S.Nickname>
+          </section>
+        </S.LeftBox>
 
-      <S.Thumbnail profileImage={thumbnail} />
+        <S.RightBox>
+          <S.Thumbnail profileImage={thumbnail} />
+        </S.RightBox>
+      </S.TicketBox>
     </S.TicketContainer>
   );
 };

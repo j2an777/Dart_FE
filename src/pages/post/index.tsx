@@ -10,9 +10,8 @@ import { memberStore } from '@/stores/member';
 import usePostGalleries, { PostGalleriesResponse } from './hooks/usePostGalleries';
 import ProgressPortal from '@/components/ProgressPortal';
 import { useHandleErrors } from './hooks/useHandleErrors';
-
-import * as S from './styles';
 import { MyCustomEvent, SSEData } from '@/types/gallery';
+import * as S from './styles';
 
 const PostPage = () => {
   const methods = useForm<PostGalleries>();
@@ -45,7 +44,11 @@ const PostPage = () => {
         </div>
       ),
       buttonLabel: '확인',
+      buttonCancelLabel:'취소',
       onClickButton: () => modalConfirm(data),
+      onClickCancelButton: () => {
+        close();
+      },
     });
   };
 

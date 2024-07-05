@@ -1,41 +1,41 @@
 import { Text } from '@/components';
+import { mediaQueries } from '@/styles/breakpoints';
 import { colors } from '@/styles/colorPalette';
+import { LayoutMap } from '@/styles/layout';
 import styled from '@emotion/styled';
 
 export const Container = styled.form`
   background-color: ${colors.black100};
-  width: 100vw;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+`;
+
+export const SignupBox = styled.div`
+  ${LayoutMap.pageLayout}
   color: ${colors.white};
-  gap: 50px;
-`;
-export const SignupFormBox = styled.div`
-  width: 600px;
   display: flex;
   flex-direction: column;
-  position: relative;
-  gap: 50px;
+  gap: 20px;
+  width: 100vw;
+  max-width: 660px;
 `;
-export const TitleBox = styled.div`
-  width: 600px;
-  display: flex;
-  flex-direction: column;
+
+export const TitleBlock = styled.div`
   position: relative;
-  gap: 50px;
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 60px;
 `;
 
 export const Title = styled(Text)`
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-`;
+  transform: translateX(-65%);
 
-export const ButtonBox = styled.div`
-  bottom: 0;
-  display: flex;
-  gap: 40px;
+  ${mediaQueries.mobile(`
+  transform: translateX(0);    
+  `)}
 `;

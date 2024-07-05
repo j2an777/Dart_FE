@@ -14,9 +14,10 @@ const SignupAgree = () => {
   }, [resetAgreements]);
   return (
     <S.Container>
-      <S.Title typography="t1" color="white" bold="regular">
+      <Text typography="t1" color="white" bold="regular">
         약관동의
-      </S.Title>
+      </Text>
+      <S.Line />
       <S.AgreeBox>
         {agreeInfo.map(({ value, description, ...props }) => {
           if (value === 'total')

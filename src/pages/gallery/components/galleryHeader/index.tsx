@@ -1,4 +1,5 @@
 import * as S from './styles';
+import { useEffect } from 'react';
 import GalleryLogo from '@/assets/images/galleryLogo.png';
 import { Icon } from '@/components';
 import { alertStore, chatStore } from '@/stores/modal';
@@ -10,6 +11,7 @@ import useCustomNavigate from '@/hooks/useCustomNavigate';
 import { useStore } from 'zustand';
 import { memberStore } from '@/stores/member';
 import ShareModal from '../shareModal';
+import useStomp from '@/pages/chatModal/hooks/useStomp';
 
 interface GalleryHeaderProps {
   galleryId: number;
@@ -21,7 +23,15 @@ interface GalleryHeaderProps {
   nickName: string;
 }
 
-const GalleryHeader = ({ galleryId, galleryNick, chatRoomId, title, thumbnail, content, nickName }: GalleryHeaderProps) => {
+const GalleryHeader = ({
+  galleryId,
+  galleryNick,
+  chatRoomId,
+  title,
+  thumbnail,
+  content,
+  nickName,
+}: GalleryHeaderProps) => {
   const { open, close } = useStore(alertStore);
   const openChat = chatStore((state) => state.open);
   const navigate = useCustomNavigate();
@@ -68,6 +78,7 @@ const GalleryHeader = ({ galleryId, galleryNick, chatRoomId, title, thumbnail, c
             close={close}
           />
         ),
+        buttonCancelLabel: '취소',
         buttonLabel: '등록',
         onClickButton: () => {
           const form = document.querySelector('form');
@@ -75,24 +86,23 @@ const GalleryHeader = ({ galleryId, galleryNick, chatRoomId, title, thumbnail, c
             form.requestSubmit();
           }
         },
+        onClickCancelButton: () => {
+          close();
+        },
       });
     } else if (name === 'chat') {
       openChat(chatRoomId, galleryNick);
-    } else if (name === 'out') {
-      open({
-        title: '전시관 나가기',
-        description: '전시관에서 나가시겠습니까?',
-        buttonLabel: '확인',
-        onClickButton: () => {
-          queryClient.removeQueries({ queryKey: ['galleryData'] });
-          navigate('/');
-        },
-      });
     } else if (name === 'share') {
       open({
         title: '전시 공유하기',
         description: (
-          <ShareModal location={location} title={title} thumbnail={thumbnail} content={content} nickname={nickName}/>
+          <ShareModal
+            location={location}
+            title={title}
+            thumbnail={thumbnail}
+            content={content}
+            nickname={nickName}
+          />
         ),
         buttonLabel: '닫기',
         onClickButton: () => {
@@ -103,23 +113,33 @@ const GalleryHeader = ({ galleryId, galleryNick, chatRoomId, title, thumbnail, c
       open({
         title: '전시관 나가기',
         description: '전시관에서 나가시겠습니까?',
+        buttonCancelLabel: '취소',
         buttonLabel: '확인',
         onClickButton: () => {
           queryClient.removeQueries({ queryKey: ['galleryData'] });
-          navigate('/intro');
+          navigate('/');
+        },
+        onClickCancelButton: () => {
+          close();
         },
       });
     }
   };
 
+  // 웹소켓 연결
+  const { connect, disconnect } = useStomp(chatRoomId as number, accessToken as string);
+
+  useEffect(() => {
+    if (accessToken) {
+      connect();
+    }
+    return () => disconnect();
+  }, [accessToken]);
+
   return (
     <S.HeaderContainer>
       <S.MenuBlock>
-        <S.Logo
-          src={GalleryLogo}
-          onClick={() => onHandleToggle('toMain')}
-          alt="인트로 가는 로고"
-        />
+        <S.Logo src={GalleryLogo} alt="로고" />
         <S.MenuBox>
           {accessToken || nickname === galleryNick ? (
             <Icon

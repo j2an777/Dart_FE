@@ -24,7 +24,7 @@ instance.interceptors.response.use(
   },
   async (error) => {
     const originalRequest = error.config;
-    if (error.response.status === 401 && !originalRequest._retry) {
+    if (error.response.status === 401 && !originalRequest._retry && error.response.data) {
       originalRequest._retry = true;
       try {
         // const response = await getNewToken();
@@ -32,7 +32,7 @@ instance.interceptors.response.use(
         // const { setToken } = memberStore.getState();
         // setToken(accessToken);
         // originalRequest.headers['Authorization'] = `Bearer ${accessToken}`;
-        // return instance(originalRequest);
+        return instance(originalRequest);
       } catch (refreshError) {
         return Promise.reject(refreshError);
       }

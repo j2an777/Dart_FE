@@ -13,7 +13,7 @@ export const HeaderContainer = styled.div`
     justify-content : center;
     gap : 10px;
     padding : 0 50px;
-    z-index: 11;
+    z-index: 9;
 
     @media (max-width: 500px) {
         padding : 0 20px;
@@ -31,7 +31,6 @@ export const Logo = styled.img`
     width : 80px;
     height : 30px;
     object-fit : contain;
-    cursor : pointer;
 `;
 
 export const MenuBox = styled.div`

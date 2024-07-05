@@ -59,7 +59,7 @@ const StepZero = () => {
 
   const onBtnClick = (
     buttonType: 'free' | 'pay',
-    event: React.MouseEvent<HTMLButtonElement>,
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>,
   ) => {
     event.preventDefault();
     setActiveBtn(buttonType);
@@ -73,7 +73,10 @@ const StepZero = () => {
     }
   };
 
-  const onPeriodClick = (period: string, event: React.MouseEvent<HTMLButtonElement>) => {
+  const onPeriodClick = (
+    period: string,
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>,
+  ) => {
     event.preventDefault();
     setFeeDetails({ ...feeDetails, period });
   };

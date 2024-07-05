@@ -36,7 +36,7 @@ export const CancelIcon = styled(Icon)`
   right: 20px;
   top: 20px;
 `;
-export const MainLogo = styled.img`
+export const MainLogo = styled(Icon)`
   width: 70px;
   height: 30px;
 `;
@@ -49,7 +49,7 @@ export const InfoBox = styled.div<{ thumbnail: string }>`
   flex-direction: column;
   justify-content: space-between;
   gap: 20px;
-  padding: 100px;
+  padding: 20px 100px;
   box-sizing: border-box;
   background-image: url(${(props) => props.thumbnail});
   background-position: center;
@@ -59,6 +59,10 @@ export const InfoBox = styled.div<{ thumbnail: string }>`
 
   @media (max-width: 1024px) {
     padding : 100px 20px;
+  }
+
+  @media (max-width: 500px) {
+    padding : 50px 10px;
   }
 `;
 
@@ -79,11 +83,17 @@ export const DescriptionBlock = styled.div`
   justify-content: center;
   gap: 30px;
 
-  #descript {
+  .descript {
     color: white;
     ${typographyMap.t6};
     ${bolderMap.thin};
     word-break: break-word;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+  }
+
+  @media (max-width: 500px) {
+    width : 100%;
   }
 `;
 
@@ -101,10 +111,6 @@ export const User = styled.div`
 
   p {
     position: relative;
-
-    &:hover {
-      text-decoration: underline;
-    }
   }
 `;
 
@@ -198,17 +204,13 @@ export const ScoreBlock = styled.div`
   ${LayoutMap.displayFlex};
   justify-content: space-between;
 
-  a {
-    &:hover {
-      p {
-        text-decoration: underline;
-      }
-    }
-  }
-
   .originalText {
     @media (max-width: 1024px) {
       display : none;
+    }
+    &:hover {
+      cursor: pointer;
+      text-decoration: underline;
     }
   }
 

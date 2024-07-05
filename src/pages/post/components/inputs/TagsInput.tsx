@@ -65,7 +65,7 @@ const TagsInput = ({ name }: TagsProps) => {
           </li>
         ))}
         {tags.length < 5 && (
-          <li>
+          <li className="input-li">
             <span>#</span>
             <input
               type="text"

@@ -28,6 +28,10 @@ export const alertStore = create<AlertModalState>((set, get) => ({
           form.onClickButton?.();
           get().close();
         },
+        onClickCancelButton: form.onClickCancelButton ? () => {
+          form.onClickCancelButton?.();
+          get().close();
+        } : undefined,
         open: true,
       },
     })),
@@ -174,6 +178,16 @@ const loginModalDefalutValue = {
 
 export const LoginModalStore = create<BaseState>((set) => ({
   value: loginModalDefalutValue,
+  open: () => set({ value: { open: true } }),
+  close: () => set({ value: { open: false } }),
+}));
+
+const categoryModalDefalutValue = {
+  open: false,
+};
+
+export const categoryModalStore = create<BaseState>((set) => ({
+  value: categoryModalDefalutValue,
   open: () => set({ value: { open: true } }),
   close: () => set({ value: { open: false } }),
 }));

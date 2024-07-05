@@ -1,6 +1,19 @@
+import { containerQuery } from '@/styles/breakpoints';
 import { LayoutMap } from '@/styles/layout';
 import { typographyMap } from '@/styles/typography';
 import styled from '@emotion/styled';
+
+export const Breakpoints = {
+  column: 870,
+  mobile: 500,
+  coupon: 623,
+};
+
+export const Layout = styled.div`
+  container: payment / inline-size;
+  display: flex;
+  justify-content: center;
+`;
 
 export const Container = styled.form`
   display: flex;
@@ -12,18 +25,40 @@ export const Container = styled.form`
   gap: 50px;
   ${LayoutMap.pageLayout}
   ${typographyMap.t5}
+
+  ${containerQuery({
+    containerName: 'payment',
+    styles: `
+      flex-direction: column;
+
+    `,
+    breakpoints: Breakpoints.column,
+  })}
 `;
 
 export const LeftBox = styled.div`
-  flex: 2;
+  width: 60%;
   display: flex;
   flex-direction: column;
-  gap: 60px;
+  gap: 70px;
+  ${containerQuery({
+    containerName: 'payment',
+    styles: `
+      width: 100%;
+    `,
+    breakpoints: Breakpoints.column,
+  })}
 `;
 
 export const RightBox = styled.div`
-  flex: 1;
   display: flex;
   flex-direction: column;
-  min-width: 410px;
+  width: 34%;
+  ${containerQuery({
+    containerName: 'payment',
+    styles: `
+      width: 100%;
+    `,
+    breakpoints: Breakpoints.column,
+  })}
 `;

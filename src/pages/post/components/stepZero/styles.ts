@@ -96,12 +96,13 @@ export const Block = styled.div`
   }
 `;
 
-export const Button = styled.button<{ isActive?: boolean }>`
+export const Button = styled.div<{ isActive?: boolean }>`
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100%;
+  cursor: pointer;
 
   &:hover {
     ${buttonActiveMap.rectangleBlack}

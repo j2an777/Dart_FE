@@ -27,12 +27,14 @@ const SuccessPage = () => {
   }
 
   return (
-    <S.Container>
-      <S.PayText typography="t2" bold="bold">
-        {title}
-      </S.PayText>
-      <Card content={content} path={path} key={'ticket'} />
-    </S.Container>
+    <S.Layout>
+      <S.Container>
+        <S.PayText typography="t2" bold="bold">
+          {title}
+        </S.PayText>
+        <Card content={content} path={path} key={'ticket'} />
+      </S.Container>
+    </S.Layout>
   );
 };
 

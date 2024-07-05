@@ -4,10 +4,10 @@ import { pageStore } from '@/stores/page';
 import { useLayoutEffect } from 'react';
 import useGetReviews from '../../hooks/useGetReviews';
 import { useParams } from 'react-router-dom';
-import { NoneData, withSuspenseNErrorBoundary } from '@/components';
+import { NoneData, PageButtons, withSuspenseNErrorBoundary } from '@/components';
+import ReviewListFallback from '../fallback/ReviewListFallback';
 
 import * as S from './styles';
-import ReviewListFallback from '../fallback/ReviewListFallback';
 
 const ReviewList = () => {
   const { galleryId } = useParams();
@@ -27,11 +27,16 @@ const ReviewList = () => {
 
   return (
     <S.Container>
-      {pages.length === 0 ? (
-        <NoneData content="작성된 후기가 없습니다" />
-      ) : (
-        pages.map(({ reviewId, ...review }) => <ReviewItem key={reviewId} {...review} />)
-      )}
+      <S.ListBox>
+        {pages.length === 0 ? (
+          <NoneData content="작성된 후기가 없습니다" />
+        ) : (
+          pages.map(({ reviewId, ...review }) => (
+            <ReviewItem key={reviewId} {...review} />
+          ))
+        )}
+      </S.ListBox>
+      <PageButtons />
     </S.Container>
   );
 };

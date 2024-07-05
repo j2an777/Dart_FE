@@ -1,10 +1,14 @@
 import { Icon } from '@/components';
+import { containerQuery } from '@/styles/breakpoints';
 import { LayoutMap } from '@/styles/layout';
 import styled from '@emotion/styled';
 
 export const Breakpoints = {
-  mobile: 500,
-  tablet: 1024,
+  info_1: 1200,
+  info_2: 1100,
+  column: 950,
+  mobile: 700,
+  purchase: 570,
 };
 
 export const Layout = styled.div`
@@ -20,6 +24,7 @@ export const Container = styled.div`
   width: 100%;
   height: 100%;
   max-width: 1440px;
+  margin-bottom: 50px;
   ${LayoutMap.pageLayout}
 `;
 
@@ -46,8 +51,16 @@ export const Back = styled(Icon)`
 
 export const Block = styled.div`
   display: flex;
-  flex: 1;
-  min-height: 800px;
   width: 100%;
   height: 100%;
+  align-items: flex-start;
+  justify-content: center;
+  ${containerQuery({
+    containerName: 'member-info',
+    styles: `
+      flex-direction: column;
+    `,
+    breakpoints: Breakpoints.column,
+  })}
+  min-height: 800px;
 `;

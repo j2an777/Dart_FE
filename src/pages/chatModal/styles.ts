@@ -3,7 +3,7 @@ import { keyframes } from '@emotion/react';
 import { colors } from '@/styles/colorPalette';
 import { LayoutMap } from '@/styles/layout';
 import { typographyMap } from '@/styles/typography';
-import { Icon } from '../../components';
+import { Icon, Text } from '../../components';
 import { buttonSizeMap, buttonTypeMap } from '@/styles/button';
 
 export const Container = styled.div`
@@ -55,7 +55,7 @@ export const Select = styled(Icon)<{ isActive: boolean }>`
   animation: ${(props) => props.isActive && rotateIcon} 0.5s forwards;
 `;
 
-export const Menu = styled.div`
+export const Menu = styled(Text)`
   position: absolute;
   ${typographyMap.t5}
   width: 100%;

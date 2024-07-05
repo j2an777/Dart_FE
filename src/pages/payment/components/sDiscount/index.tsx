@@ -32,12 +32,14 @@ const DiscountBox = () => {
         <S.CouponBlock hasTitle={hasTitle}>
           {title ? title : '현재 적용한 쿠폰이 없습니다.'}
         </S.CouponBlock>
-        <S.Button onClick={open} type="button">
-          사용
-        </S.Button>
-        <S.Button onClick={couponCancel} type="button">
-          취소
-        </S.Button>
+        <section>
+          <S.Button onClick={open} type="button">
+            사용
+          </S.Button>
+          <S.Button onClick={couponCancel} type="button">
+            취소
+          </S.Button>
+        </section>
       </S.Box>
       <CouponPortal />
     </S.Container>

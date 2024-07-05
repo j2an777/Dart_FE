@@ -10,8 +10,12 @@ export const Container = styled.div`
   margin: auto;
 `;
 
-export const ReivewPageQuerySize = {
-  galleryInfo: 960,
+export const reivewPageQuerySize = {
+  galleryInfo: 905,
   galleryInfoTablet: 770,
   galleryInfoMobile: 550,
+  reivewItem: 865,
+  reivewItemTablet: 410,
+  gridCange: 450,
+  hideRate: 370,
 };

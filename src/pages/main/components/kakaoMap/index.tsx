@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import * as S from './styles';
 import { KakaoAddressSearchResult, KakaoAddressSearchStatus } from '@/types/address';
 
@@ -14,6 +14,7 @@ interface KakaoMapProps {
 
 const KakaoMap = ({ galleryAddress }: KakaoMapProps) => {
     const address = galleryAddress;
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const mapScript = document.createElement('script');
@@ -65,12 +66,27 @@ const KakaoMap = ({ galleryAddress }: KakaoMapProps) => {
             map.addControl(zoomControl, window.kakao.maps.ControlPosition.RIGHT);
           });
         };
-    
         mapScript.addEventListener('load', onLoadKakaoMap);
+        setLoading(false);
       }, [address]);
 
     return (
-        <S.Container id='map'></S.Container>
+      <S.Container>
+        {loading && (
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '100%' }}>
+                <S.CircleLoader
+                  animate={{ rotate: 360 }}
+                  transition={{
+                    repeat: Infinity,
+                    ease: 'linear',
+                    duration: 1,
+                    Infinity: true,
+                  }}
+                />
+            </div>
+        )}
+        <div id='map' style={{ display: loading ? 'none' : 'block', width: '100%', height: '100%' }}></div>
+      </S.Container>
     )
 }
 

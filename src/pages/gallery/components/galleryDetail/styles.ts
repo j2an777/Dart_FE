@@ -67,10 +67,8 @@ export const Frame = styled(motion.div)`
 
   img {
     width: 100%;
-    height: auto;
+    height: 100%;
     object-fit: contain;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-    border-radius: 20px;
   }
 
   @media (max-width : 1024px) {

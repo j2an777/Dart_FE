@@ -22,6 +22,8 @@ const useCustomNavigate = () => {
         title: '로그인 권장 서비스',
         description: '로그인 페이지로 이동하시겠습니까?',
         onClickButton: () => baseNavigate('/login'),
+        buttonCancelLabel: '취소',
+        onClickCancelButton: () => close(),
       });
     } else {
       baseNavigate(to, option);

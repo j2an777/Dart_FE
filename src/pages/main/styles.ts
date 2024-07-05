@@ -1,5 +1,13 @@
+import { containerQuery } from '@/styles/breakpoints';
 import { LayoutMap } from '@/styles/layout';
 import styled from '@emotion/styled';
+
+export const MainPageQuerySize = {
+  disableFilter: 1140,
+  smallThumbnail: 795,
+  twoRow: 475,
+  thumbnail: 239,
+};
 
 export const Container = styled.div`
   ${LayoutMap.pageLayout}
@@ -10,26 +18,31 @@ export const Container = styled.div`
   max-width: 1440px;
   height: fit-content;
   margin: auto;
+
   container: main-page / inline-size;
 `;
 
 export const ContentBox = styled.div`
   position: relative;
-  height: 660px;
+  gap: 30px;
   width: 100%;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  align-items: flex-start;
+  justify-content: center;
 
   > div:first-of-type {
-    display: flex; // 이 div를 Flex 컨테이너로 만듭니다.
-    align-items: flex-start; // 이제 이 속성이 div의 자식들에게 적용됩니다.
-    height: 100%; // 필요한 경우 너비를 조정할 수 있습니다.
+    display: flex;
+    align-items: flex-start;
+    height: 100%;
   }
-`;
 
-export const MainPageQuerySize = {
-  mainPage: 1180,
-  itemList: 860,
-  gridList: 450,
-};
+  container: main-list / inline-size;
+
+  ${containerQuery({
+    breakpoints: MainPageQuerySize.disableFilter,
+    containerName: 'main-page',
+    styles: `
+    gap: 0;
+    `,
+  })}
+`;

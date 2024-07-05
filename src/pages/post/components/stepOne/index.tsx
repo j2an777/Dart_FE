@@ -22,11 +22,12 @@ const StepOne = () => {
           render={({ field }) => (
             <S.StyledInputBox
               placeholder="전시 제목을 입력해 주세요."
-              maxLength={12}
+              maxLength={30}
               {...field}
             />
           )}
         />
+
         <TagsInput name="gallery.hashtags" />
         <Controller
           name="gallery.content"

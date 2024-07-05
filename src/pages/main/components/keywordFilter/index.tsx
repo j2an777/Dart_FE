@@ -2,7 +2,7 @@ import { Button } from '@/components';
 import { SearchInfoType } from '@/consts/filter';
 import { CategoryValues } from '@/types/gallery';
 import useDebounce from '@/hooks/useDebounce';
-import useGetSearchDatas from '../../hooks/useGetSearchDatas';
+// import useGetSearchDatas from '../../hooks/useGetSearchDatas';
 import { filterStore } from '@/stores/filter';
 import useOutsideClick from '@/hooks/useOutsideClick';
 import { useStore } from 'zustand';
@@ -16,16 +16,16 @@ interface KeywordFilterProps {
 }
 
 const KeywordFilter = ({ buttons }: KeywordFilterProps) => {
-  const { isExpand, ref, setIsExpand } = useOutsideClick();
-  const [inputFocus, setInputFocus] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const [form, onChange, setForm] = useInput({ keyword: '', category: 'title' });
+  const { setIsExpand } = useOutsideClick();
+  const [inputFocus, setInputFocus] = useState<boolean>(false);
   const {
-    filterValue: { category },
+    // filterValue: { category },
     onChange: setFilterValue,
   } = useStore(filterStore);
   const debouncedKeyword = useDebounce({ value: form.keyword });
-  const { data } = useGetSearchDatas({ keyword: debouncedKeyword, category });
+  // const { data } = useGetSearchDatas({ keyword: debouncedKeyword, category });
   useEffect(() => {
     if (debouncedKeyword && inputFocus) {
       setIsExpand(true);
@@ -73,15 +73,16 @@ const KeywordFilter = ({ buttons }: KeywordFilterProps) => {
               value={value}
               buttonType={buttonType}
               size="sm"
+              bold="regular"
               children={label}
               onClick={() => setForm((prev) => ({ ...prev, category: value }))}
             />
           );
         })}
       </S.SeacchButtons>
-      {isExpand && (
+      {/* {isExpand && (
         <S.SearchContent ref={ref as React.RefObject<HTMLUListElement>}>
-          {data?.results.length === 0 ? (
+          {data?.results && data?.results.length === 0 ? (
             <S.NoneSearchData typography="t6" color="gray400">
               결과 없음
             </S.NoneSearchData>
@@ -102,7 +103,7 @@ const KeywordFilter = ({ buttons }: KeywordFilterProps) => {
             })
           )}
         </S.SearchContent>
-      )}
+      )} */}
     </S.Container>
   );
 };

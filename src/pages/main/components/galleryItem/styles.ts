@@ -1,8 +1,6 @@
-import { containerQuery } from '@/styles/breakpoints';
 import { colors } from '@/styles/colorPalette';
 import { LayoutMap } from '@/styles/layout';
 import styled from '@emotion/styled';
-import { MainPageQuerySize } from '../../styles';
 
 export const Container = styled.div`
   position: relative;
@@ -24,21 +22,11 @@ export const Container = styled.div`
 export const Thumbnail = styled.img`
   box-sizing: border-box;
   border: 5px solid ${colors.black};
-  width: 240px;
-  height: 240px;
-  object-fit : cover;
   transition: filter 0.5s ease;
-  :hover {
-    filter: grayscale(100%);
-  }
-  ${containerQuery({
-    breakpoints: MainPageQuerySize.itemList,
-    containerName: 'item-list',
-    styles: `
-    width: 120px;
-    height: 120px;
-    `,
-  })}
+  width: 100%;
+  max-width: 240px;
+  height: auto;
+  aspect-ratio: 1 / 1;
 `;
 
 export const Overlay = styled.div`

@@ -32,18 +32,20 @@ const PaymentPage = () => {
   };
 
   return (
-    <FormProvider {...methods}>
-      <S.Container onSubmit={handleSubmit(onSubmit)}>
-        <S.LeftBox>
-          <OrderBox />
-          <DiscountBox />
-          <PaymentTypeBox />
-        </S.LeftBox>
-        <S.RightBox>
-          <TotalCostBox />
-        </S.RightBox>
-      </S.Container>
-    </FormProvider>
+    <S.Layout>
+      <FormProvider {...methods}>
+        <S.Container onSubmit={handleSubmit(onSubmit)}>
+          <S.LeftBox>
+            <OrderBox />
+            <DiscountBox />
+            <PaymentTypeBox />
+          </S.LeftBox>
+          <S.RightBox>
+            <TotalCostBox />
+          </S.RightBox>
+        </S.Container>
+      </FormProvider>
+    </S.Layout>
   );
 };
 

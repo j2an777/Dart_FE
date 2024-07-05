@@ -74,6 +74,7 @@ export const optionalFormData: FormField[] = [
     value: 'birthday',
     type: 'input',
     registerOptions: {
+      required: '비밀번호 혹인을 입력해주세요',
       pattern: {
         value: /^(19|20)\d\d-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/,
         message: 'YYYY-MM-DD 형식으로 작성해주세요',

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import Icon from '@/components/icon';
+import { Icon, Text } from '@/components';
 import Message from './Message';
 import { ChatMessageProps } from '@/types/chat';
 import useGetMessages from '../../hooks/useGetMessages';
@@ -8,6 +8,7 @@ import useStomp from '../../hooks/useStomp';
 import { useChatScroll } from '../../hooks/useChatScroll';
 import { ChatProps } from '../..';
 import * as S from './styles';
+import parseDate from '@/utils/parseDate';
 
 const ChatMenu = ({ chatRoomId, galleryNick }: Omit<ChatProps, 'open'>) => {
   const [messages, setMessages] = useState<ChatMessageProps[]>([]);
@@ -15,7 +16,7 @@ const ChatMenu = ({ chatRoomId, galleryNick }: Omit<ChatProps, 'open'>) => {
   const { accessToken } = memberStore.getState();
 
   // 웹소켓 연결
-  const { connect, disconnect, sendMessage } = useStomp(
+  const { connect, disconnect, sendMessage, error } = useStomp(
     chatRoomId,
     accessToken as string,
     (message: ChatMessageProps) => {
@@ -49,6 +50,7 @@ const ChatMenu = ({ chatRoomId, galleryNick }: Omit<ChatProps, 'open'>) => {
     fetchNextPage,
     hasNextPage,
   );
+
   const nickname = memberStore((state) => state.auth.nickname);
   const profileImage = memberStore((state) => state.auth.profileImage);
   const isAuthor = galleryNick == nickname ? true : false;
@@ -87,24 +89,40 @@ const ChatMenu = ({ chatRoomId, galleryNick }: Omit<ChatProps, 'open'>) => {
       <S.ScrollableContainer ref={scrollRef}>
         <S.ContentBox>
           <div ref={observerRef} />
-          {messages.map((msg, index) => (
-            <Message
-              key={index}
-              sender={msg.sender}
-              profileImageUrl={msg.profileImageUrl}
-              content={msg.content}
-              isAuthor={msg.isAuthor}
-            />
-          ))}
+          {messages.map((msg, index) => {
+            const showDate =
+              index === 0 ||
+              parseDate(msg.createdAt) !== parseDate(messages[index - 1].createdAt);
+            return (
+              <div key={index}>
+                {showDate && (
+                  <S.Date>
+                    <Text typography="t6" bold="regular" color="white">
+                      {parseDate(msg.createdAt)}
+                    </Text>
+                    <S.Line />
+                  </S.Date>
+                )}
+                <Message
+                  sender={msg.sender}
+                  profileImageUrl={msg.profileImageUrl}
+                  content={msg.content}
+                  isAuthor={msg.isAuthor}
+                />
+              </div>
+            );
+          })}
         </S.ContentBox>
       </S.ScrollableContainer>
 
       <S.InputBox>
         <S.Input
-          placeholder="채팅 입력"
+          placeholder={error ? '[연결 오류] 채팅을 닫고 다시 시도해 주세요' : '채팅 입력'}
           value={newMessage}
           onChange={onInputChange}
           onKeyDown={onEnter}
+          maxLength={50}
+          disabled={!!error}
         />
         <Icon value="send" onClick={postMessage} />
       </S.InputBox>

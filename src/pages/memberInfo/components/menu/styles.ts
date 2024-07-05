@@ -1,5 +1,7 @@
+import { containerQuery } from '@/styles/breakpoints';
 import { colors } from '@/styles/colorPalette';
 import styled from '@emotion/styled';
+import { Breakpoints } from '../../styles';
 
 export const Container = styled.div`
   flex: 1;
@@ -7,6 +9,15 @@ export const Container = styled.div`
   height: 850px;
   padding: 40px 0 0 0;
   border-left: 2px solid ${colors.black};
+  ${containerQuery({
+    containerName: 'member-info',
+    styles: `
+      border-left: none;
+      border-top: 2px solid ${colors.black};
+      padding-top: 0;
+    `,
+    breakpoints: Breakpoints.column,
+  })}
 `;
 
 export const MenuBox = styled.div`

@@ -65,6 +65,7 @@ export const buttonTypeMap = {
     color: ${colors.white};
   `,
   rectangleGray: css`
+    border: 1px solid ${colors.gray200};
     background-color: ${colors.gray200};
     color: ${colors.gray500};
   `,
@@ -105,6 +106,12 @@ export const buttonTypeMap = {
     background-color: ${colors.white};
     border: 2px solid ${colors.gray500};
     color: ${colors.gray500};
+    border-radius: 10px;
+  `,
+  reverseCancelRadius: css`
+    background-color: ${colors.white};
+    border: 2px solid ${colors.gray300};
+    color: ${colors.gray300};
     border-radius: 10px;
   `,
   onlyText: css`
@@ -153,6 +160,17 @@ export const buttonActiveMap = {
     :active {
       background-color: ${colors.gray200};
       color: ${colors.gray500};
+      transform: scale(0.9);
+    }
+  `,
+  reverseCancelRadius: css`
+    :hover {
+      background-color: ${colors.gray100};
+      color: ${colors.gray300};
+    }
+    :active {
+      background-color: ${colors.gray100};
+      color: ${colors.gray300};
       transform: scale(0.9);
     }
   `,

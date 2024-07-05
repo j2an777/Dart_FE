@@ -4,7 +4,6 @@ import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom"
 import * as S from './styles';
 import useCustomNavigate from "@/hooks/useCustomNavigate";
-import Logo from '@/assets/images/mainLogo.png';
 import parseDate from "@/utils/parseDate";
 import { alertStore } from "@/stores/modal";
 import { useState } from "react";
@@ -19,7 +18,7 @@ const InfoPage = () => {
     const [openMap, setOpenMap] = useState(false);
     const hasEnded = false;
 
-    const { data, isLoading } = useQuery({
+    const { data, isLoading, error } = useQuery({
         queryKey: ['detail'],
         queryFn: () => {
             if (galleryId) {
@@ -72,13 +71,22 @@ const InfoPage = () => {
 
     if (isLoading) return <CircleLoader />;
 
+    if (error) {
+      openModal({
+        title: '오류',
+        description: '데이터 로드 중 오류가 발생했습니다. 새로고침 하시거나 재로그인 해주세요.',
+        buttonLabel: '확인',
+        onClickButton: () => close(),
+      })
+    }
+
     return (
         <S.Wrapper infoBg={Bg}>
             <S.Container>
             <S.InfoBox thumbnail={data.thumbnail}>
               <S.Overlay />
               <S.CancelIcon value="cancel" size={20} onClick={() => customNavigate('/')} color="white" />
-              <S.MainLogo alt="main-logo" src={Logo} />
+              <S.MainLogo value="mainLogo" color="white" />
               <S.DescriptionBlock>
                 <S.Top>
                   <Text typography="t5" color="white" bold="medium">
@@ -95,7 +103,7 @@ const InfoPage = () => {
                     </Text>
                   </S.User>
                 </S.Top>
-                <p id="descript">{data.content}</p>
+                <p className="descript">{data.content}</p>
                 <Icon value="galaxy" size={20} />
                 <Text typography="t7" bold="regular" color="white">
                   {parseDate(data.startDate)} <span>~</span>{' '}

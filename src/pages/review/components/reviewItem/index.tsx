@@ -1,6 +1,7 @@
-import { NicknameNProfile, StarRate, Text } from '@/components';
-import parseDate from '@/utils/parseDate';
 import { Review } from '@/types/review';
+import parseDate from '@/utils/parseDate';
+import { TruncateSentece } from '@/utils/truncateSentence';
+import { NicknameNProfile, StarRate } from '@/components';
 
 import * as S from './styles';
 
@@ -21,13 +22,15 @@ const ReviewItem = ({
         bold="regular"
         ellipsis={80}
       />
-      <StarRate rate={score} />
+      <S.StarRateBox>
+        <StarRate rate={score} />
+      </S.StarRateBox>
       <S.ContentText typography="t6" bold="regular">
-        {content}
+        {TruncateSentece(content, 60)}
       </S.ContentText>
-      <Text color="gray400" typography="t6" bold="regular">
+      <S.DateText color="gray400" typography="t6" bold="regular">
         {parseDate(new Date(createAt))}
-      </Text>
+      </S.DateText>
     </S.Container>
   );
 };
