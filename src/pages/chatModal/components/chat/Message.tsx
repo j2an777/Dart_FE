@@ -1,9 +1,8 @@
 import { UserCircle } from '@/components';
 import Text from '@/components/Text';
 import { ChatMessageProps } from '@/types/chat';
-// import useCustomNavigate from '@/hooks/useCustomNavigate';
-// import { chatStore } from '@/stores/modal';
 import * as S from './styles';
+import { memberStore } from '@/stores/member';
 
 const Message = ({
   sender,
@@ -11,23 +10,15 @@ const Message = ({
   content,
   isAuthor,
 }: Omit<ChatMessageProps, 'createdAt'>) => {
-  // const navigate = useCustomNavigate();
-  // const close = chatStore((state) => state.close);
-
+  const nickname = memberStore((state) => state.auth.nickname);
+  const isMine = sender == nickname ? true : false;
   return (
-    <S.ChatBox isAuthor={isAuthor}>
-      <S.SenderBlock
-        isAuthor={isAuthor}
-        onClick={() => {
-          // close();
-          // navigate(`/member/${sender}`);
-        }}
-      >
-        {!isAuthor && <UserCircle size={30} profileImage={profileImageUrl} />}
-        <Text typography="t6" bold="regular" color="gray500">
+    <S.ChatBox isMine={isMine} isAuthor={isAuthor}>
+      <S.SenderBlock isMine={isMine} isAuthor={isAuthor}>
+        <Text typography="t6" bold="regular" color="gray600">
           {sender}
         </Text>
-        {isAuthor && <UserCircle size={30} profileImage={profileImageUrl} />}
+        <UserCircle size={30} profileImage={profileImageUrl} />
       </S.SenderBlock>
       <Text typography="t6" bold="regular" color="gray600">
         {content}

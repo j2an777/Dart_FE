@@ -34,7 +34,7 @@ const OrderBox = () => {
         <Text typography="t5" bold="regular">
           {orderType}
         </Text>
-        {data && (
+        {!error && data && (
           <Ticket
             title={data.title}
             thumbnail={data.thumbnail}
@@ -42,6 +42,7 @@ const OrderBox = () => {
             profileImage={data.profileImage}
           />
         )}
+        {error && <Ticket title={''} thumbnail={''} nickname={''} profileImage={'no'} />}
       </S.Box>
     </S.Container>
   );

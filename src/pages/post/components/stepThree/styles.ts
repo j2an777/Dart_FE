@@ -68,7 +68,7 @@ export const TemplateBlock = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  max-width: 850px;
+  max-width: 750px;
   width: 100%;
 `;
 
