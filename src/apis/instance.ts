@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { memberStore } from '@/stores/member';
-// import { getNewToken } from './member';
+import { getNewToken } from './member';
 
 const instance = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
@@ -27,12 +27,13 @@ instance.interceptors.response.use(
     if (error.response.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
       try {
-        // const response = await getNewToken();
-        // const { accessToken } = response;
-        // const { setToken } = memberStore.getState();
-        // setToken(accessToken);
-        // originalRequest.headers['Authorization'] = `Bearer ${accessToken}`;
-        // return instance(originalRequest);
+        const response = await getNewToken();
+        const { accessToken } = response;
+        const { setToken } = memberStore.getState();
+        setToken(accessToken);
+        console.log('refresh token');
+        originalRequest.headers['Authorization'] = `Bearer ${accessToken}`;
+        return instance(originalRequest);
       } catch (refreshError) {
         return Promise.reject(refreshError);
       }

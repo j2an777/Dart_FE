@@ -18,6 +18,7 @@ export const StyledButton = styled(Button)`
   position: absolute;
   right: 0;
   bottom: 0;
+  height: 40px;
   transform: translateX(120%);
   &:hover {
     transform: translateX(120%) scale(1.05);

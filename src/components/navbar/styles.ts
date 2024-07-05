@@ -89,7 +89,7 @@ export const MoreItem = styled(Text)<{ isLast: boolean }>`
 
 export const NavItemBlock = styled.div`
   ${LayoutMap.displayFlex}
-  gap: 10px;
+  gap: 30px;
 `;
 
 export const NavItem = styled(Text)`
