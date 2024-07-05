@@ -34,6 +34,11 @@ export const postLogin = async (formData: LoginFormData) => {
   return response?.data as LoginResponse;
 };
 
+export const postLogout = async () => {
+  const response = await instance.post(`/logout`);
+  return response?.data;
+};
+
 export const getMemberInfo = async (nickname?: string) => {
   const response = await instance.get(`/members`, {
     params: {
@@ -79,5 +84,5 @@ export const getMypage = async (nickname: string, page: number, size: number) =>
 
 export const getNewToken = async () => {
   const response = await instance.get('/reissue');
-  return response?.data as {accessToken: string};
+  return response?.data as { accessToken: string };
 };

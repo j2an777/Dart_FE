@@ -21,7 +21,7 @@ const KeywordFilter = ({ buttons }: KeywordFilterProps) => {
   const { setIsExpand } = useOutsideClick();
   const [inputFocus, setInputFocus] = useState<boolean>(false);
   const {
-    // filterValue: { category },
+    filterValue: { category },
     onChange: setFilterValue,
   } = useStore(filterStore);
   const debouncedKeyword = useDebounce({ value: form.keyword });
@@ -80,13 +80,9 @@ const KeywordFilter = ({ buttons }: KeywordFilterProps) => {
           );
         })}
       </S.SeacchButtons>
-
       {/* {isExpand && (
         <S.SearchContent ref={ref as React.RefObject<HTMLUListElement>}>
-          <S.NoneSearchData typography="t6" color="gray400">
-            구현 예정 서비스입니다.
-          </S.NoneSearchData>
-          {data?.results.length === 0 ? (
+          {data?.results && data?.results.length === 0 ? (
             <S.NoneSearchData typography="t6" color="gray400">
               결과 없음
             </S.NoneSearchData>
