@@ -23,6 +23,7 @@
     "@types/sockjs-client": "^1.5.4",
     "axios": "^1.7.2",
     "browser-image-compression": "^2.0.2",
+    "disable-devtool": "^0.3.7",
     "event-source-polyfill": "^1.0.31",
     "framer-motion": "^11.2.10",
     "lenis": "^1.1.5",

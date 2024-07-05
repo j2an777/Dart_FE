@@ -45,7 +45,11 @@ const PostPage = () => {
         </div>
       ),
       buttonLabel: '확인',
+      buttonCancelLabel:'취소',
       onClickButton: () => modalConfirm(data),
+      onClickCancelButton: () => {
+        close();
+      },
     });
   };
 

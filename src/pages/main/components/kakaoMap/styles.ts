@@ -1,8 +1,9 @@
 import styled from '@emotion/styled';
+import { motion } from 'framer-motion';
 
 export const Container = styled.div`
     position : absolute;
-    bottom : 13%;
+    bottom : 5%;
     right : 20px;
     width : 300px;
     height : 300px;
@@ -17,4 +18,12 @@ export const Container = styled.div`
     @media (max-width: 660px) {
         display : none;
     }
+`;
+
+export const CircleLoader = styled(motion.span)`
+    width: 5rem;
+    height: 5rem;
+    border: 0.5rem solid #e9e9e9;
+    border-top: 0.5rem solid #3498db;
+    border-radius: 50%;
 `;

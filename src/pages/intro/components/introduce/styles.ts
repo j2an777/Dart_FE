@@ -177,7 +177,6 @@ export const AddBlock = styled.div`
 
     .rightText {
         text-align : right;
-        margin-left : 50px;
 
         @media (max-width : 1024px) {
             text-align : center;
@@ -186,7 +185,7 @@ export const AddBlock = styled.div`
     }
 
     p {
-        width : 350px;
+        width : 400px;
     }
 
     span {

@@ -28,6 +28,10 @@ export const alertStore = create<AlertModalState>((set, get) => ({
           form.onClickButton?.();
           get().close();
         },
+        onClickCancelButton: form.onClickCancelButton ? () => {
+          form.onClickCancelButton?.();
+          get().close();
+        } : undefined,
         open: true,
       },
     })),
