@@ -67,7 +67,7 @@ const Mobile = ({ galleryData }: GalleryDataProps) => {
       </Swiper>
       <S.BtnBlock>
         <S.Btn onClick={() => onHandleDirection('left')}><Icon value='leftArrow' size={50} color="white" /></S.Btn>
-        <S.Btn onClick={() => onHandleDirection('play')}>{play ? <Icon value='triangle' size={48} color="white" /> : <Icon value='stop' size={50} color="white" />}</S.Btn>
+        <S.Btn onClick={() => onHandleDirection('play')}>{play ? <Icon value='stop' size={50} color="white" /> : <Icon value='triangle' size={48} color="white" />}</S.Btn>
         <S.Btn onClick={() => onHandleDirection('right')}><Icon value='rightArrow' size={50} color="white" /></S.Btn>
       </S.BtnBlock>
       <GalleryDetailPortal />

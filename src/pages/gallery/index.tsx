@@ -9,6 +9,7 @@ import useCustomNavigate from '@/hooks/useCustomNavigate';
 import { useEffect } from 'react';
 import { ChatPortal } from '@/components';
 import { alertStore } from '@/stores/modal';
+import ErrorData from '../editMemberInfo/components/errorData';
 import disableDevtool from 'disable-devtool';
 
 const GalleryPage = () => {
@@ -21,6 +22,7 @@ const GalleryPage = () => {
     data: galleryData,
     error,
     isLoading,
+    refetch
   } = useQuery({
     queryKey: ['galleryData'],
     queryFn: () => getGallery(galleryId),
@@ -78,7 +80,7 @@ const GalleryPage = () => {
   }, [galleryId, open]);
 
   if (error || !galleryData) {
-    return <div>Error loading gallery data</div>;
+    return <ErrorData retry={refetch}/>;
   }
 
   if (isLoading) {
