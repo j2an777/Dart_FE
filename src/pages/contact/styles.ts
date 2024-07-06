@@ -2,6 +2,7 @@ import { Text } from '@/components';
 import { LayoutMap } from '@/styles/layout';
 import { typographyMap } from '@/styles/typography';
 import styled from '@emotion/styled';
+import Logo from '@/assets/images/luckySeven.png';
 
 export const Container = styled.div`
     width: 100vw;
@@ -23,10 +24,10 @@ export const TopBox = styled.div`
     gap : 40px;
 
     .mainText {
-        background-image: url('https://avatars.githubusercontent.com/u/167430772?s=200&v=4');
+        background-image: url(${Logo});
         background-repeat: no-repeat;
         background-position: left;
-        background-size: auto;
+        background-size: contain;
         justify-content: center;
     }
 

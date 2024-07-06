@@ -34,11 +34,11 @@ const ContactPage = () => {
                       </Link>
                       <S.MemberDescription typography='t4' bold='semibold'>{user.description}</S.MemberDescription>
                       <S.MemberInfo>
-                          <S.MemberTeam typography='t6' bold='medium'>{user.team}</S.MemberTeam>
+                          <S.MemberTeam typography='t6' bold='medium' color='gray500'>{user.team}</S.MemberTeam>
                           <div className='wall1'></div>
-                          <S.MemberRole typography="t6" bold="medium">{user.role}</S.MemberRole>
+                          <S.MemberRole typography="t6" bold="medium" color='gray500'>{user.role}</S.MemberRole>
                           <div className='wall2'></div>
-                          <S.MemberName typography="t6" bold="regular">{user.name}</S.MemberName>
+                          <S.MemberName typography="t6" bold="regular" color='gray500'>{user.name}</S.MemberName>
                       </S.MemberInfo>
                   </S.Member>
               ))}
