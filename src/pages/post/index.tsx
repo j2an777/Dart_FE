@@ -12,6 +12,7 @@ import ProgressPortal from '@/components/ProgressPortal';
 import { useHandleErrors } from './hooks/useHandleErrors';
 import { MyCustomEvent, SSEData } from '@/types/gallery';
 import * as S from './styles';
+import { getNewToken } from '@/apis/member';
 
 const PostPage = () => {
   const methods = useForm<PostGalleries>();
@@ -52,12 +53,12 @@ const PostPage = () => {
     });
   };
 
-  const startSSE = () => {
+  const startSSE = async (token: string) => {
     const newEventSource = new EventSourcePolyfill(
       'https://dartgallery.site/api/galleries/progress',
       {
         headers: {
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `Bearer ${token}`,
           'Content-Type': 'text/event-stream',
           Connection: 'Keep-Alive',
           Accept: 'text/event-stream',
@@ -99,7 +100,26 @@ const PostPage = () => {
     }
 
     openProgress(0);
-    startSSE(); // SSE 연결을 먼저 시작
+
+    let token = accessToken;
+
+    // 토큰 만료 여부 확인 및 재발급
+    try {
+      const newTokenData = await getNewToken();
+      token = newTokenData.accessToken;
+      memberStore.setState({ accessToken: token });
+    } catch (error) {
+      console.error('토큰 재발급 실패:', error);
+      closeProgress();
+      open({
+        title: '토큰 오류',
+        description: '토큰을 재발급받는 도중 오류가 발생했습니다.',
+        buttonLabel: '확인',
+      });
+      return;
+    }
+
+    await startSSE(token);
 
     // POST 요청 보내기
     mutate(data, {
