@@ -21,7 +21,7 @@ const Exhibition = () => {
   const { pageInfo, setPageInfo } = useStore(pageStore);
   const { data, refetch } = useGetMypage(nickname, pageInfo.pageIndex, 2);
   const navigate = useCustomNavigate();
-  const open = alertStore((state) => state.open);
+  const { open, close } = alertStore();
 
   useEffect(() => {
     if (data) {
@@ -34,8 +34,12 @@ const Exhibition = () => {
       title: '전시 입장',
       description: '전시관에 입장하시겠습니까?',
       buttonLabel: '확인',
+      buttonCancelLabel: '취소',
       onClickButton: () => {
         navigate(`/gallery/${galleryId}`);
+      },
+      onClickCancelButton: () => {
+        close();
       },
     });
   };

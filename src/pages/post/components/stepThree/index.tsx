@@ -4,6 +4,7 @@ import template1 from '@/assets/images/template1.png';
 import template2 from '@/assets/images/template2.png';
 import template3 from '@/assets/images/template3.png';
 import template4 from '@/assets/images/template4.png';
+import template5 from '@/assets/images/template5.png';
 import { Icon, Text } from '@/components';
 import { IconValues } from '@/components/icon';
 import * as S from './styles';
@@ -12,13 +13,15 @@ type TemplateType =
   | typeof template1
   | typeof template2
   | typeof template3
-  | typeof template4;
+  | typeof template4
+  | typeof template5;
 
 const templates = [
   { value: template1, iconValue: 'template1' as IconValues },
   { value: template2, iconValue: 'template2' as IconValues },
   { value: template3, iconValue: 'template3' as IconValues },
   { value: template4, iconValue: 'template4' as IconValues },
+  { value: template5, iconValue: 'template5' as IconValues },
 ];
 
 const StepTree = () => {
@@ -27,7 +30,7 @@ const StepTree = () => {
   setValue('gallery.template', 'one');
 
   useEffect(() => {
-    let templateType: 'one' | 'two' | 'three' | 'four';
+    let templateType: 'one' | 'two' | 'three' | 'four' | 'five';
 
     switch (selectedTemplate) {
       case template1:
@@ -41,6 +44,9 @@ const StepTree = () => {
         break;
       case template4:
         templateType = 'four';
+        break;
+      case template5:
+        templateType = 'five';
         break;
       default:
         templateType = 'one';

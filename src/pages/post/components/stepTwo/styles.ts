@@ -138,6 +138,17 @@ export const ListBox = styled.div`
     color: ${colors.gray400};
     line-height: 32px;
   }
+
+  .imgTitle,
+  .imgDescription {
+    ${containerQuery({
+      containerName: 'post',
+      styles: `
+        display: none;
+      `,
+      breakpoints: Breakpoints.column,
+    })}
+  }
 `;
 
 export const ListBlock = styled.div`

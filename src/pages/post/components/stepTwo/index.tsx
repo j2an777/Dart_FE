@@ -179,8 +179,8 @@ const StepTwo = () => {
                               <p>{item.image.name}</p>
                             </S.Block>
                           )}
-                          <div>{item.imageTitle}</div>
-                          <p>{item.description}</p>
+                          <div className="imgTitle">{item.imageTitle}</div>
+                          <p className="imgDescription">{item.description}</p>
                           <button
                             onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                               e.preventDefault();
