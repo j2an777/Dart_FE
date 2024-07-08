@@ -16,6 +16,7 @@ const GalleryList = () => {
   const {
     data: { pageParams, pages },
   } = useGetGalleries();
+
   useEffect(() => {
     setPageInfo(pageParams);
   }, [pageParams, setPageInfo]);
