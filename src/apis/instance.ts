@@ -1,6 +1,6 @@
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 import { memberStore } from '@/stores/member';
-// import { getNewToken } from './member';
+import { getNewToken } from './member';
 
 const instance = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
@@ -18,28 +18,86 @@ instance.interceptors.request.use(async (config) => {
   return config;
 });
 
+let isRefreshing = false;
+let failedQueue: {
+  resolve: (value?: unknown) => void;
+  reject: (reason?: unknown) => void;
+  config: AxiosRequestConfig;
+}[] = [];
+
+const processQueue = (error: unknown, token: string | null = null) => {
+  failedQueue.forEach((promise) => {
+    if (error) {
+      promise.reject(error);
+    } else {
+      if (promise.config.headers) {
+        promise.config.headers['Authorization'] = `Bearer ${token}`;
+      } else {
+        promise.config.headers = { Authorization: `Bearer ${token}` };
+      }
+      promise.resolve(instance(promise.config));
+    }
+  });
+
+  failedQueue = [];
+};
+
 instance.interceptors.response.use(
   (response) => {
     return response;
   },
   async (error) => {
-    const originalRequest = error.config;
-    if (error.response.status === 401 && !originalRequest._retry && error.response.data) {
-      originalRequest._retry = true;
-      try {
-        // const response = await getNewToken();
-        // const { accessToken } = response;
-        // const { setToken } = memberStore.getState();
-        // setToken(accessToken);
-        // originalRequest.headers['Authorization'] = `Bearer ${accessToken}`;
-        return instance(originalRequest);
-      } catch (refreshError) {
-        return Promise.reject(refreshError);
+    const {
+      config: originalRequest,
+      response: { status },
+    } = error;
+    if (status === 401 && !originalRequest._retry) {
+      if (isRefreshing) {
+        return new Promise((resolve, reject) => {
+          failedQueue.push({ resolve, reject, config: originalRequest });
+        });
       }
-    }
+      originalRequest._retry = true;
+      isRefreshing = true;
 
+      return new Promise((resolve, reject) => {
+        getNewToken()
+          .then(({ accessToken }) => {
+            memberStore.getState().setToken(accessToken);
+            instance.defaults.headers['Authorization'] = `Bearer ${accessToken}`;
+            originalRequest.headers['Authorization'] = `Bearer ${accessToken}`;
+            processQueue(null, accessToken);
+            resolve(instance(originalRequest));
+          })
+          .catch((err) => {
+            processQueue(err, null);
+            reject(err);
+          })
+          .finally(() => {
+            isRefreshing = false;
+          });
+      });
+    }
     return Promise.reject(error);
   },
 );
 
 export default instance;
+
+/** 
+ * try {
+        if (!isTokenRefreshing) {
+          isTokenRefreshing = true;
+          const { setToken } = memberStore.getState();
+          const response = await getNewToken().then(({ accessToken }) => {
+            setToken(accessToken);
+            return { accessToken };
+          });
+          axios.defaults.headers.common.Authorization = `Bearer ${response.accessToken}`;
+          originalRequest.headers['Authorization'] = `Bearer ${response.accessToken}`;
+        }
+        return instance(originalRequest);
+      } catch (refreshError) {
+        return Promise.reject(refreshError);
+      }
+*/

@@ -5,5 +5,5 @@ export const getSearchData = async (params: Pick<FilterType, 'category' | 'keywo
   const response = await instance.get(`/autocomplete`, {
     params,
   });
-  return response?.data as { results: string[] };
+  return response?.data as { result: string[] };
 };
