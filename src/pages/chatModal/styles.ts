@@ -5,8 +5,10 @@ import { LayoutMap } from '@/styles/layout';
 import { typographyMap } from '@/styles/typography';
 import { Icon, Text } from '../../components';
 import { buttonSizeMap, buttonTypeMap } from '@/styles/button';
+import { mediaQueries } from '@/styles/breakpoints';
 
 export const Container = styled.div`
+  container: chat / inline-size;
   position: fixed;
   right: 20px;
   top: 50%;
@@ -18,6 +20,9 @@ export const Container = styled.div`
   padding: 10px;
   background: rgba(255, 255, 255, 0.95);
   border-radius: 10px;
+  ${mediaQueries.mobile(`
+    width: 300px;  
+  `)}
 `;
 
 export const Outline = styled.div`

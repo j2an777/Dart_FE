@@ -11,7 +11,7 @@ export interface Gallery {
   fee: number;
   generatedCost: number;
   hashTags: string[];
-  template: 'one' | 'two' | 'three' | 'four';
+  template: 'one' | 'two' | 'three' | 'four' | 'five';
   informations: Info[];
   address: string | null;
 }

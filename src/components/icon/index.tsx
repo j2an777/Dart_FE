@@ -48,6 +48,7 @@ export type IconValues =
   | 'template2'
   | 'template3'
   | 'template4'
+  | 'template5'
   | 'watch'
   | 'share'
   | 'kakaoShare'
@@ -58,8 +59,8 @@ export type IconValues =
   | 'couponBackground'
   | 'hamburger'
   | 'showFilter'
-  | 'triangle' 
-  | 'stop' ;
+  | 'triangle'
+  | 'stop';
 
 interface IconProps extends HTMLAttributes<HTMLDivElement> {
   value: IconValues;
@@ -110,15 +111,30 @@ const renderIcon = (
       );
     case 'triangle':
       return (
-        <svg width="76" height="87" viewBox="0 0 76 87" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M0.301269 0L75.3013 43.3013L0.301271 86.6025L0.301269 0Z" fill="white"/>
+        <svg
+          width="76"
+          height="87"
+          viewBox="0 0 76 87"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M0.301269 0L75.3013 43.3013L0.301271 86.6025L0.301269 0Z"
+            fill="white"
+          />
         </svg>
       );
     case 'stop':
       return (
-        <svg width="60" height="100" viewBox="0 0 60 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="40" width="20" height="100" fill="white"/>
-          <rect width="20" height="100" fill="white"/>
+        <svg
+          width="60"
+          height="100"
+          viewBox="0 0 60 100"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect x="40" width="20" height="100" fill="white" />
+          <rect width="20" height="100" fill="white" />
         </svg>
       );
     case 'review':
@@ -722,6 +738,19 @@ const renderIcon = (
           <rect x="13.5" y="0.5" width="39" height="27" stroke="black" />
           <rect x="7.5" y="8.5" width="52" height="37" fill="white" stroke="black" />
           <rect x="0.5" y="18.5" width="64" height="45" fill="white" stroke="black" />
+        </svg>
+      );
+    case 'template5':
+      return (
+        <svg width="100" height="100" viewBox="0 0 100 100" fill="none">
+          <rect x="30.5" y="33.5" width="14" height="24" stroke="black" />
+          <rect x="59.5" y="33.5" width="14" height="24" stroke="black" />
+          <rect x="42.5" y="43.5" width="19" height="29" fill="white" stroke="black" />
+          <path d="M25 58.2624L12.5 68.4476V27.7957L25 33.8142V58.2624Z" stroke="black" />
+          <path
+            d="M78.5 57.6348L91 67.9398V26.7997L78.5 32.8891V57.6348Z"
+            stroke="black"
+          />
         </svg>
       );
     case 'ticket':

@@ -83,21 +83,3 @@ instance.interceptors.response.use(
 );
 
 export default instance;
-
-/** 
- * try {
-        if (!isTokenRefreshing) {
-          isTokenRefreshing = true;
-          const { setToken } = memberStore.getState();
-          const response = await getNewToken().then(({ accessToken }) => {
-            setToken(accessToken);
-            return { accessToken };
-          });
-          axios.defaults.headers.common.Authorization = `Bearer ${response.accessToken}`;
-          originalRequest.headers['Authorization'] = `Bearer ${response.accessToken}`;
-        }
-        return instance(originalRequest);
-      } catch (refreshError) {
-        return Promise.reject(refreshError);
-      }
-*/

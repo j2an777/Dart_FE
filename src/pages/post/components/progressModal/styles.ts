@@ -22,13 +22,16 @@ interface ProgressProps {
 
 export const CircularProgress = styled.div<ProgressProps>`
     position: relative;
-    height: 400px;
-    width: 400px;
+    height: 350px;
+    width: 350px;
     border-radius: 50%;
     background: ${props => `conic-gradient(from 0deg, rgba(139,0,139, 0.65) ${props.$progress * 3.6}deg, rgba(255,165,0, 0.65) ${props.$progress * 3.6}deg)`};
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap : 30px;
+    transition: background 0.3s ease-in-out;
 
     &::before {
         content: "";
@@ -38,6 +41,16 @@ export const CircularProgress = styled.div<ProgressProps>`
         border-radius: 50%;
         background-color: #fff;
     }
+
+    @media (max-width : 500px) {
+        width : 300px;
+        height : 300px;
+
+        &::before {
+            width : 260px;
+            height : 260px;
+        }
+    }
 `;
 
 export const ProgressValue = styled.span`
@@ -45,6 +58,10 @@ export const ProgressValue = styled.span`
     ${typographyMap.t0};
     ${bolderMap.bold};
     ${colors.black};
+
+    @media (max-width : 500px) {
+        ${typographyMap.t2};
+    }
 `;
 
 export const ProgressText = styled(Text)`

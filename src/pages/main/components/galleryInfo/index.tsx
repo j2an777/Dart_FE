@@ -49,8 +49,10 @@ const GalleryInfo = ({ galleryId, open: isOpen, hasEnded, close }: GalleryInfoPr
     }
 
     if (ticket || fee === 0) {
+      close();
       customNavigate(`/gallery/${galleryId}`);
     } else {
+      close();
       customNavigate(`/payment/${galleryId}/ticket`, { hasAuth: true });
     }
   };
@@ -82,6 +84,11 @@ const GalleryInfo = ({ galleryId, open: isOpen, hasEnded, close }: GalleryInfoPr
     setOpenMap(!openMap);
   };
 
+  const onHandleClose = () => {
+    close();
+    customNavigate(`/`);
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -89,7 +96,7 @@ const GalleryInfo = ({ galleryId, open: isOpen, hasEnded, close }: GalleryInfoPr
       <S.Container>
         <S.InfoBox thumbnail={data.thumbnail}>
           <S.Overlay />
-          <S.CancelIcon value="cancel" size={20} onClick={() => close()} color="white" />
+          <S.CancelIcon value="cancel" size={20} onClick={() => onHandleClose()} color="white" />
           <S.MainLogo value='mainLogo' color='white' />
           <S.DescriptionBlock>
             <S.Top>
