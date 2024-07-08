@@ -9,6 +9,7 @@ import { GalleryData, GalleryDataProps, GalleryImages } from '@/types/gallery';
 import { createThreeImages } from '@/consts/threed';
 import { CircleLoader, GalleryDetailPortal, Icon } from '@/components';
 import { galleryDetailStore } from '@/stores/modal';
+import defaultItem from '@/assets/images/galleryDefault.png';
 
 const GOLDENRATIO = 1.61803398875;
 
@@ -20,7 +21,6 @@ const GalleryThreed = ({ galleryData }: GalleryDataProps) => {
 
   const threeImagesData = createThreeImages(galleryData.images);
   const pageCount = Math.ceil(threeImagesData.length / itemsPerPage);
-
   const currentImages = threeImagesData.slice(page * itemsPerPage, (page + 1) * itemsPerPage);
 
   const onHandleChange = (name: string) => {
@@ -132,7 +132,7 @@ function Frames({ images, galleryData, openDetail, q = new THREE.Quaternion(), p
         e.stopPropagation();
         const clickedObjectName = e.object.name;
         const clickedImage = galleryData.images.find(img => getUuid(img.image) === clickedObjectName);
-        if (clickedImage) {
+        if (clickedImage && clickedImage.image !== defaultItem) {
           openDetail(clickedImage);
         }
       }}
