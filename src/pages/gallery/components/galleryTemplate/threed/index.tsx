@@ -9,16 +9,14 @@ import { GalleryData, GalleryDataProps, GalleryImages } from '@/types/gallery';
 import { createThreeImages } from '@/consts/threed';
 import { CircleLoader, GalleryDetailPortal, Icon } from '@/components';
 import { galleryDetailStore } from '@/stores/modal';
-import useImagesLoaded from '@/pages/gallery/hooks/useImagesLoaded';
 
 const GOLDENRATIO = 1.61803398875;
 
 const GalleryThreed = ({ galleryData }: GalleryDataProps) => {
   const [page, setPage] = useState(0);
+  const [isLoaded, setIsLoaded] = useState(false);
   const { open } = galleryDetailStore();
   const itemsPerPage = 9;
-  const imageSources = galleryData ? galleryData.images.map(img => img.image) : [];
-  const isLoaded = useImagesLoaded(imageSources);
 
   const threeImagesData = createThreeImages(galleryData.images);
   const pageCount = Math.ceil(threeImagesData.length / itemsPerPage);
@@ -32,6 +30,18 @@ const GalleryThreed = ({ galleryData }: GalleryDataProps) => {
       setPage((prevPage) => (prevPage - 1 + pageCount) % pageCount);
     }
   }
+
+  useEffect(() => {
+    const loadingManager = new THREE.LoadingManager();
+    loadingManager.onLoad = () => {
+      setIsLoaded(true);
+    };
+
+    const loader = new THREE.TextureLoader(loadingManager);
+    currentImages.forEach((img) => {
+      loader.load(img.url);
+    });
+  }, [currentImages]);
 
   if (!isLoaded) return <CircleLoader />;
 
