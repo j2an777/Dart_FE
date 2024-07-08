@@ -9,7 +9,6 @@ import { useEffect, useState } from 'react';
 import { memberStore } from '@/stores/member';
 import usePostGalleries, { PostGalleriesResponse } from './hooks/usePostGalleries';
 import ProgressPortal from '@/components/ProgressPortal';
-import { useHandleErrors } from './hooks/useHandleErrors';
 import { MyCustomEvent, SSEData } from '@/types/gallery';
 import * as S from './styles';
 
@@ -21,8 +20,6 @@ const PostPage = () => {
   const { accessToken } = memberStore.getState();
   const { open: openProgress, close: closeProgress } = progressStore();
   const [eventSource, setEventSource] = useState<EventSourcePolyfill | null>(null);
-
-  const { handleErrors } = useHandleErrors();
 
   const onProgress = (progress: number) => {
     openProgress(progress);
@@ -118,8 +115,7 @@ const PostPage = () => {
           closeProgress();
         }
       },
-      onError: (error) => {
-        handleErrors(error, data);
+      onError: () => {
         closeProgress();
       },
     });

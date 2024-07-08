@@ -1,4 +1,4 @@
-import {  Member } from '@/types/member';
+import { Member } from '@/types/member';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
@@ -8,7 +8,7 @@ interface memberState {
   accessToken?: string | null;
   setMember: (data: AuthData) => void;
   setToken: (accessToken: string) => void;
-  logout: () => void;
+  deleteMember: () => void;
 }
 
 const initalState: AuthData = {
@@ -25,17 +25,17 @@ export const memberStore = create<memberState>()(
       setToken: (accessToken: string) => {
         set((prev) => ({
           ...prev,
-          accessToken
-        }))
+          accessToken,
+        }));
       },
-      
+
       setMember: (auth) => {
         set((prev) => ({
           ...prev,
-          auth
+          auth,
         }));
       },
-      logout: () =>
+      deleteMember: () =>
         set((prev) => ({
           ...prev,
           auth: initalState,
