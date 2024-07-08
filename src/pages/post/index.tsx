@@ -116,11 +116,9 @@ const PostPage = () => {
           }
         } else {
           console.error('Gallery ID could not be retrieved.');
-          closeProgress();
         }
       },
       onError: () => {
-        closeProgress();
       },
     });
   };
