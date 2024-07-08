@@ -17,7 +17,7 @@ const PostPage = () => {
   const methods = useForm<PostGalleries>();
   const { handleSubmit } = methods;
   const navigate = useCustomNavigate();
-  const { open, close } = alertStore();
+  const open = alertStore((state) => state.open);
   const { accessToken } = memberStore.getState();
   const { open: openProgress, close: closeProgress } = progressStore();
   const [eventSource, setEventSource] = useState<EventSourcePolyfill | null>(null);
@@ -44,7 +44,7 @@ const PostPage = () => {
         </div>
       ),
       buttonLabel: '확인',
-      buttonCancelLabel: '취소',
+      buttonCancelLabel:'취소',
       onClickButton: () => modalConfirm(data),
       onClickCancelButton: () => {
         close();
