@@ -27,7 +27,6 @@ const templates = [
 const StepTree = () => {
   const { setValue } = useFormContext();
   const [selectedTemplate, setSelectedTemplate] = useState<TemplateType>(template1);
-  setValue('gallery.template', 'one');
 
   useEffect(() => {
     let templateType: 'one' | 'two' | 'three' | 'four' | 'five';
