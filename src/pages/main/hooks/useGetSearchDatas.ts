@@ -10,6 +10,7 @@ const useGetSearchDatas = ({
     queryKey: ['search', [keyword, category]],
     queryFn: async () => await getSearchData({ keyword, category }),
     enabled: !!keyword,
+    placeholderData: { result: [] },
   });
 };
 
