@@ -14,14 +14,12 @@ export const Container = styled.div`
   padding: 10px;
   border-radius: 8px;
   transition: all 0.3s ease;
-  &:hover {
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-  }
+  
 `;
 
 export const Thumbnail = styled.img`
   box-sizing: border-box;
-  border: 5px solid ${colors.black};
+  border: 0px solid ${colors.black};
   transition: filter 0.5s ease;
   width: 100%;
   max-width: 240px;
