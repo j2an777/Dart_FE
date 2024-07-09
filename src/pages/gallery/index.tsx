@@ -70,11 +70,11 @@ const GalleryPage = () => {
     }
   }, [galleryId, open]);
 
-  if (error || !galleryData) {
+  if (error) {
     return <ErrorData retry={refetch} />;
   }
 
-  if (isLoading) {
+  if (isLoading || !galleryData) {
     return <LogoLoader />;
   }
 
