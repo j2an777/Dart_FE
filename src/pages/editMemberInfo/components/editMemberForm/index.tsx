@@ -127,7 +127,7 @@ const EditMemberForm = () => {
             나이
           </S.ProfileCategory>
           <S.ProfileCategory type='result'>
-            (만) {age}세
+            {age === '정보 없음' ? age : `만 ${age}세`}
           </S.ProfileCategory>
         </S.ProfileRight>
       </S.ProfileBlock>
