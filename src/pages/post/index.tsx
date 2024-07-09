@@ -32,7 +32,7 @@ const PostPage = () => {
     open({
       title: '전시 등록',
       description: (
-        <div>
+        <div> 
           <S.ModalText typography="t5" bold="regular">
             전시를 생성한 이후에는 수정이 불가능합니다.
           </S.ModalText>
