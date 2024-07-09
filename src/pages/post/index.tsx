@@ -9,7 +9,6 @@ import { useEffect, useState } from 'react';
 import { memberStore } from '@/stores/member';
 import usePostGalleries, { PostGalleriesResponse } from './hooks/usePostGalleries';
 import ProgressPortal from '@/components/ProgressPortal';
-import { useHandleErrors } from './hooks/useHandleErrors';
 import { MyCustomEvent, SSEData } from '@/types/gallery';
 import * as S from './styles';
 
@@ -17,12 +16,10 @@ const PostPage = () => {
   const methods = useForm<PostGalleries>();
   const { handleSubmit } = methods;
   const navigate = useCustomNavigate();
-  const open = alertStore((state) => state.open);
+  const { open, close } = alertStore();
   const { accessToken } = memberStore.getState();
   const { open: openProgress, close: closeProgress } = progressStore();
   const [eventSource, setEventSource] = useState<EventSourcePolyfill | null>(null);
-
-  const { handleErrors } = useHandleErrors();
 
   const onProgress = (progress: number) => {
     openProgress(progress);
@@ -44,7 +41,7 @@ const PostPage = () => {
         </div>
       ),
       buttonLabel: '확인',
-      buttonCancelLabel:'취소',
+      buttonCancelLabel: '취소',
       onClickButton: () => modalConfirm(data),
       onClickCancelButton: () => {
         close();
@@ -118,8 +115,7 @@ const PostPage = () => {
           closeProgress();
         }
       },
-      onError: (error) => {
-        handleErrors(error, data);
+      onError: () => {
         closeProgress();
       },
     });

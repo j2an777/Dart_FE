@@ -2,14 +2,14 @@ import { Button } from '@/components';
 import { SearchInfoType } from '@/consts/filter';
 import { CategoryValues } from '@/types/gallery';
 import useDebounce from '@/hooks/useDebounce';
-// import useGetSearchDatas from '../../hooks/useGetSearchDatas';
+import useGetSearchDatas from '../../hooks/useGetSearchDatas';
 import { filterStore } from '@/stores/filter';
 import useOutsideClick from '@/hooks/useOutsideClick';
 import { useStore } from 'zustand';
-
-import * as S from './styles';
 import { useInput } from '@/hooks/useInput';
 import { useEffect, useRef, useState } from 'react';
+
+import * as S from './styles';
 
 interface KeywordFilterProps {
   buttons: SearchInfoType[];
@@ -18,20 +18,21 @@ interface KeywordFilterProps {
 const KeywordFilter = ({ buttons }: KeywordFilterProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [form, onChange, setForm] = useInput({ keyword: '', category: 'title' });
-  const { setIsExpand } = useOutsideClick();
+  const { setIsExpand, isExpand, ref } = useOutsideClick();
   const [inputFocus, setInputFocus] = useState<boolean>(false);
   const {
-    // filterValue: { category },
+    filterValue: { category },
     onChange: setFilterValue,
   } = useStore(filterStore);
   const debouncedKeyword = useDebounce({ value: form.keyword });
-  // const { data } = useGetSearchDatas({ keyword: debouncedKeyword, category });
+  const { data } = useGetSearchDatas({ keyword: debouncedKeyword, category });
   useEffect(() => {
     if (debouncedKeyword && inputFocus) {
       setIsExpand(true);
     }
     return () => setIsExpand(false);
   }, [debouncedKeyword, inputFocus, setFilterValue, setIsExpand]);
+
   return (
     <S.Container>
       <S.SeacchInputBox>
@@ -80,14 +81,14 @@ const KeywordFilter = ({ buttons }: KeywordFilterProps) => {
           );
         })}
       </S.SeacchButtons>
-      {/* {isExpand && (
+      {isExpand && (
         <S.SearchContent ref={ref as React.RefObject<HTMLUListElement>}>
-          {data?.results && data?.results.length === 0 ? (
+          {data?.result.length === 0 ? (
             <S.NoneSearchData typography="t6" color="gray400">
               결과 없음
             </S.NoneSearchData>
           ) : (
-            data?.results.map((keyword, index) => {
+            data?.result.map((keyword, index) => {
               return (
                 <S.SearchItem
                   key={index}
@@ -103,7 +104,7 @@ const KeywordFilter = ({ buttons }: KeywordFilterProps) => {
             })
           )}
         </S.SearchContent>
-      )} */}
+      )}
     </S.Container>
   );
 };

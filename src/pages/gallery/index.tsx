@@ -10,7 +10,6 @@ import { useEffect } from 'react';
 import { ChatPortal } from '@/components';
 import { alertStore } from '@/stores/modal';
 import ErrorData from '../editMemberInfo/components/errorData';
-import disableDevtool from 'disable-devtool';
 
 const GalleryPage = () => {
   const { galleryId: galleryIdStr } = useParams<{ galleryId?: string }>();
@@ -22,7 +21,7 @@ const GalleryPage = () => {
     data: galleryData,
     error,
     isLoading,
-    refetch
+    refetch,
   } = useQuery({
     queryKey: ['galleryData'],
     queryFn: () => getGallery(galleryId),
@@ -34,19 +33,11 @@ const GalleryPage = () => {
     }
   }, [galleryData, navigate]);
 
-  // 개발자 도구 방지 및 스크린샷 방지
+  // 우클릭, printScreen키 방지
   useEffect(() => {
     const currentURL = window.location.pathname;
 
     if (currentURL.includes(`/gallery/${galleryId}`)) {
-      disableDevtool({
-        ondevtoolopen: () => {
-          window.close(); // 페이지를 닫습니다.
-        },
-        ondevtoolclose: () => {
-          console.log('개발자 도구가 닫혔습니다.');
-        },
-      });
 
       const handleContextMenu = (e: MouseEvent) => {
         e.preventDefault();
@@ -80,7 +71,7 @@ const GalleryPage = () => {
   }, [galleryId, open]);
 
   if (error || !galleryData) {
-    return <ErrorData retry={refetch}/>;
+    return <ErrorData retry={refetch} />;
   }
 
   if (isLoading) {

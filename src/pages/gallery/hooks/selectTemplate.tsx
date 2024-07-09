@@ -1,6 +1,6 @@
 import { GalleryData } from "@/types/gallery";
 import { GalleryRotate } from "../components";
-import { GalleryGrid, GalleryScroll, GallerySlide } from "../components/galleryTemplate";
+import { GalleryGrid, GalleryScroll, GallerySlide, GalleryThreed } from "../components/galleryTemplate";
 import Mobile from "../components/galleryTemplate/mobile";
 import { useEffect, useState } from "react";
 
@@ -37,6 +37,8 @@ const SelectTemplate = ({ template, galleryData }: SelectTemplateProps) => {
       return <GalleryGrid galleryData={galleryData} />;
     case "four":
       return <GalleryScroll galleryData={galleryData} />;
+    case 'five':
+      return <GalleryThreed galleryData={galleryData} />;
     default:
       return <div>Invalid template</div>;
   }
