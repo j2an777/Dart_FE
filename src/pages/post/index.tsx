@@ -2,31 +2,20 @@ import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { StepZero, StepOne, StepTwo, StepThree, StepAlpha } from './components';
 import { Icon } from '@/components';
 import { PostGalleries } from '@/types/post';
-import { alertStore, progressStore } from '@/stores/modal';
+import { alertStore } from '@/stores/modal';
 import useCustomNavigate from '@/hooks/useCustomNavigate';
-import { EventSourcePolyfill } from 'event-source-polyfill';
-import { useEffect, useState } from 'react';
-import { memberStore } from '@/stores/member';
-import usePostGalleries, { PostGalleriesResponse } from './hooks/usePostGalleries';
+import usePostGalleries from './hooks/usePostGalleries';
 import ProgressPortal from '@/components/ProgressPortal';
-import { MyCustomEvent, SSEData } from '@/types/gallery';
+
 import * as S from './styles';
 
 const PostPage = () => {
   const methods = useForm<PostGalleries>();
   const { handleSubmit } = methods;
   const navigate = useCustomNavigate();
-  const { open, close } = alertStore();
-  const { open: openProgress, close: closeProgress } = progressStore();
-  const [eventSource, setEventSource] = useState<EventSourcePolyfill | null>(null);
+  const { open } = alertStore();
 
-  const [accessToken, setAccessToken] = useState(memberStore.getState().accessToken);
-
-  const onProgress = (progress: number) => {
-    openProgress(progress);
-  };
-
-  const { mutate } = usePostGalleries(onProgress);
+  const { mutate } = usePostGalleries();
 
   const onSubmit: SubmitHandler<PostGalleries> = async (data) => {
     open({
@@ -44,47 +33,8 @@ const PostPage = () => {
       buttonLabel: '확인',
       buttonCancelLabel: '취소',
       onClickButton: () => modalConfirm(data),
-      onClickCancelButton: () => {
-        close();
-      },
+      onClickCancelButton: () => {},
     });
-  };
-
-  const startSSE = (token: string) => {
-    const newEventSource = new EventSourcePolyfill(
-      'https://dartgallery.site/api/galleries/progress',
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'text/event-stream',
-          Connection: 'Keep-Alive',
-          Accept: 'text/event-stream',
-        },
-        withCredentials: true,
-        heartbeatTimeout: 86400000,
-      },
-    );
-
-    newEventSource.addEventListener('notification', (event) => {
-      const data = (event as MyCustomEvent).data;
-      const parsedData: SSEData = JSON.parse(data);
-      const progressData = parsedData.message;
-
-      openProgress(50 + progressData / 2);
-
-      // 100이 되면 종료
-      if (progressData === 100) {
-        newEventSource.close();
-        closeProgress();
-      }
-    });
-
-    newEventSource.onerror = () => {
-      closeProgress();
-      newEventSource.close();
-    };
-
-    setEventSource(newEventSource);
   };
 
   const modalConfirm = async (data: PostGalleries) => {
@@ -96,54 +46,8 @@ const PostPage = () => {
       });
       return;
     }
-
-    openProgress(0);
-
-    // POST 요청 보내기
-    mutate(data, {
-      onSuccess: (idData: PostGalleriesResponse) => {
-        const { galleryId } = idData;
-        if (accessToken) {
-          startSSE(accessToken); // SSE 연결을 최신 토큰으로 시작
-        }
-
-        if (galleryId) {
-          // galleryId가 있으면 해당 조건에 맞게 navigate
-          if (data.gallery.generatedCost !== 0) {
-            navigate(`/payment/${galleryId}/paidGallery`);
-          } else {
-            navigate(`/payment/success/${galleryId}/create`);
-          }
-        } else {
-          console.error('Gallery ID could not be retrieved.');
-        }
-      },
-      onError: () => {
-      },
-    });
+    mutate(data);
   };
-
-  useEffect(() => {
-    const unsubscribe = memberStore.subscribe((state) => {
-      setAccessToken(state.accessToken);
-    });
-
-    return () => {
-      if (eventSource) {
-        eventSource.close(); // 컴포넌트 언마운트 시 이벤트 소스 닫기
-      }
-      unsubscribe();
-    };
-  }, [eventSource]);
-
-  useEffect(() => {
-    if (accessToken) {
-      if (eventSource) {
-        eventSource.close(); // 기존 이벤트 소스 닫기
-      }
-      startSSE(accessToken); // 새로운 토큰으로 SSE 연결 시작
-    }
-  }, [accessToken]);
 
   return (
     <S.Layout>

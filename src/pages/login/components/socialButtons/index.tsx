@@ -1,10 +1,11 @@
 import { Icon, Text } from '@/components';
+import { useLocation } from 'react-router-dom';
 
 import * as S from './styles';
-import { alertStore } from '@/stores/modal';
 
 const SocialButtons = () => {
-  const open = alertStore((state) => state.open);
+  const location = useLocation();
+
   return (
     <S.Container>
       <Text typography="t4" color="white" bold="thin">
@@ -12,26 +13,18 @@ const SocialButtons = () => {
       </Text>
       <S.Line />
       <S.sosialIconBox>
-        <Icon
-          value="kakao"
-          onClick={() =>
-            open({
-              title: '미구현 서비스',
-              buttonLabel: '확인',
-              description: '구현 예정 서비스입니다',
-            })
-          }
-        />
-        <Icon
-          value="google"
-          onClick={() =>
-            open({
-              title: '미구현 서비스',
-              buttonLabel: '확인',
-              description: '구현 예정 서비스입니다',
-            })
-          }
-        />
+        <a href={`${import.meta.env.VITE_BASE_URL}/oauth2/authorization/kakao`}>
+          <Icon
+            value="kakao"
+            onClick={() => sessionStorage.setItem('prev-path', location.pathname)}
+          />
+        </a>
+        <a href={`${import.meta.env.VITE_BASE_URL}/oauth2/authorization/kakao`}>
+          <Icon
+            value="google"
+            onClick={() => sessionStorage.setItem('prev-path', location.pathname)}
+          />
+        </a>
       </S.sosialIconBox>
     </S.Container>
   );
