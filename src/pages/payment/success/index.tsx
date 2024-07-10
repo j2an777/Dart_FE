@@ -10,7 +10,7 @@ const SuccessPage = () => {
 
   switch (order) {
     case 'ticket':
-      title = '결재가 완료되었습니다.';
+      title = '결제가 완료되었습니다.';
       content = '전시관 입장하기';
       path = `/gallery/${galleryId}`;
       break;

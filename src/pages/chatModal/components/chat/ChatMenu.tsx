@@ -9,6 +9,7 @@ import { useChatScroll } from '../../hooks/useChatScroll';
 import { ChatProps } from '../..';
 import * as S from './styles';
 import parseDate from '@/utils/parseDate';
+import { formatDate } from '@/utils/formatDateforChat';
 
 const ChatMenu = ({ chatRoomId, galleryNick }: Omit<ChatProps, 'open'>) => {
   const [messages, setMessages] = useState<ChatMessageProps[]>([]);
@@ -60,7 +61,7 @@ const ChatMenu = ({ chatRoomId, galleryNick }: Omit<ChatProps, 'open'>) => {
     const message: ChatMessageProps = {
       content: newMessage,
       sender: nickname,
-      createdAt: new Date(),
+      createdAt: formatDate(new Date()),
       isAuthor: isAuthor,
       profileImageUrl: profileImage,
     };
