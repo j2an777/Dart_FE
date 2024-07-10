@@ -35,7 +35,9 @@ const useNotification = () => {
 
         return setData(response);
       });
-
+      eventSource.onerror = async () => {
+        eventSource.close();
+      };
       return () => {
         eventSource.close();
       };
