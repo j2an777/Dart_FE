@@ -3,7 +3,7 @@ import instance from './instance';
 import { FilterType, GalleriesData, GalleryData } from '@/types/gallery';
 import { PostGalleries } from '@/types/post';
 
-export const postGalleries = async (formData: PostGalleries, onProgress: (progress: number) => void) => {
+export const postGalleries = async (formData: PostGalleries) => {
   const { thumbnail, images, gallery } = formData;
   const data = new FormData();
 
@@ -35,12 +35,6 @@ export const postGalleries = async (formData: PostGalleries, onProgress: (progre
     headers: {
       'Content-Type': 'multipart/form-data',
     },
-    onUploadProgress: (event) => {
-      if (event.total) {
-        const progress = Math.round((event.loaded / event.total) * 50); // 0~50%까지 진행
-        onProgress(progress);
-      }
-    }
   });
 
   return response?.data;

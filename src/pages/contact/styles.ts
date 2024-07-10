@@ -13,6 +13,10 @@ export const Container = styled.div`
     flex-direction: column;
     overflow: hidden;
 
+    @media (max-width: 1024px) {
+        padding : 20px 80px 0px 80px;
+    }
+
     @media (max-width: 500px) {
         padding: 0 20px;
     }
