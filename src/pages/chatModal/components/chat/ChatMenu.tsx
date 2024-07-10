@@ -66,7 +66,6 @@ const ChatMenu = ({ chatRoomId, galleryNick }: Omit<ChatProps, 'open'>) => {
       profileImageUrl: profileImage,
     };
 
-    console.log(message);
     sendMessage(`/pub/ws/${chatRoomId}/chat-messages`, message);
     setNewMessage('');
     scrollToBottom();
