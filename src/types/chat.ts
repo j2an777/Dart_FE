@@ -11,7 +11,7 @@ export interface ChatMessage {
 export interface ChatMessageProps {
   sender: string;
   content: string;
-  createdAt: Date;
+  createdAt: Date | string;
   isAuthor: boolean;
   profileImageUrl: string;
 }
