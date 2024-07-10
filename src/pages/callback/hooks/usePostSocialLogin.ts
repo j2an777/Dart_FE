@@ -5,14 +5,16 @@ import { LoginResponse } from '@/types/member';
 import { useMutation } from '@tanstack/react-query';
 
 const usePostSocialLogin = (sessionId: string | null) => {
-  const setMember = memberStore((state) => state.setMember);
+  const { setMember, setToken } = memberStore();
   const navigate = useCustomNavigate();
   const prevPath = sessionStorage.getItem('prev-path');
   return useMutation({
     mutationKey: ['socialLogin', sessionId],
     mutationFn: () => postSocialLogin({ sessionId: sessionId as string }),
     onSuccess: (data: LoginResponse) => {
-      setMember(data);
+      const { accessToken, ...member } = data;
+      setMember(member);
+      setToken(accessToken);
       navigate(prevPath as string);
     },
   });
