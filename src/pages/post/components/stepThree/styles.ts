@@ -5,6 +5,7 @@ import { Text } from '@/components';
 import { containerQuery } from '@/styles/breakpoints';
 import { Breakpoints } from '../../styles';
 import { LayoutMap } from '@/styles/layout';
+import { typographyMap } from '@/styles/typography';
 
 export const Container = styled.div`
   position: relative;
@@ -35,6 +36,14 @@ export const Step = styled.div`
   position: absolute;
   top: 60px;
   right: 2px;
+
+  .explain {
+    text-align: center;
+    span {
+      ${typographyMap.t6};
+      color: ${colors.gray400};
+    }
+  }
 
   ${containerQuery({
     containerName: 'post',

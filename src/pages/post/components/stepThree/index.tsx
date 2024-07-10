@@ -67,7 +67,7 @@ const StepTree = () => {
     <S.Container>
       <S.Step>
         <Icon value="step_three" $active={false} />
-        <Text>템플릿을 선택하세요.</Text>
+        <Text className='explain'>템플릿을 선택하세요.<br/><span>모바일 환경에서는 공통으로 모바일 템플릿이 적용됩니다.</span></Text>
       </S.Step>
       <S.TemplateBox>
         <S.TemplateBlock>

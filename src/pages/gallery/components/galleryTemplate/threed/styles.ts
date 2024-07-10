@@ -1,3 +1,4 @@
+import { colors } from "@/styles/colorPalette";
 import styled from "@emotion/styled";
 
 export const Container = styled.div`
@@ -18,6 +19,11 @@ export const BtnBlock = styled.div`
     gap: 20px;
     padding : 0 300px;
     transform: translateX(-50%);
+
+    p {
+        text-align: center;
+        color: ${colors.gray100};
+    }
 
     @media (max-width : 1024px) {
         width : 90vw;
