@@ -17,8 +17,7 @@ const useNotification = () => {
   const [count, setCount] = useState<number>(0);
   useEffect(() => {
     const connect = () => {
-      const EventSource = EventSourcePolyfill;
-      const eventSource = new EventSource(
+      const eventSource = new EventSourcePolyfill(
         `${import.meta.env.VITE_BASE_URL}/notifications/subscribe`,
         {
           withCredentials: true,
@@ -36,7 +35,9 @@ const useNotification = () => {
 
         return setData(response);
       });
-
+      eventSource.onerror = async () => {
+        eventSource.close();
+      };
       return () => {
         eventSource.close();
       };

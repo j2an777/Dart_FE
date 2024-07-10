@@ -28,10 +28,10 @@ export const alertStore = create<AlertModalState>((set, get) => ({
           form.onClickButton?.();
           get().close();
         },
-        onClickCancelButton: form.onClickCancelButton ? () => {
+        onClickCancelButton: () => {
           form.onClickCancelButton?.();
           get().close();
-        } : undefined,
+        },
         open: true,
       },
     })),
@@ -147,29 +147,13 @@ export const galleryDetailStore = create<GalleryDetailState>((set) => ({
 }));
 
 interface ProgressState {
-  progressValue: {
-    open: boolean;
-    progress: number;
-  };
-  open: (progress: number) => void;
-  close: () => void;
+  progressValue: number;
+  setProgress: (progress: number) => void;
 }
 
-const defaultProgressValue = {
-  open: false,
-  progress: 0,
-};
-
 export const progressStore = create<ProgressState>((set) => ({
-  progressValue: defaultProgressValue,
-  open: (progress: number) =>
-    set(() => ({
-      progressValue: { open: true, progress },
-    })),
-  close: () =>
-    set(() => ({
-      progressValue: defaultProgressValue,
-    })),
+  progressValue: 0,
+  setProgress: (progress: number) => set({ progressValue: progress }),
 }));
 
 const loginModalDefalutValue = {

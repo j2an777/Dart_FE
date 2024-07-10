@@ -18,7 +18,7 @@ const usePutMember = () => {
         description: '수정이 완료되었습니다.',
         buttonLabel: '확인',
         onClickButton: () => {
-          window.location.reload();
+          // window.location.reload();
         },
       });
       queryClient.invalidateQueries({
