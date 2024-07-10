@@ -2,7 +2,7 @@ import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { StepZero, StepOne, StepTwo, StepThree, StepAlpha } from './components';
 import { Icon } from '@/components';
 import { PostGalleries } from '@/types/post';
-import { alertStore } from '@/stores/modal';
+import { alertStore, progressStore } from '@/stores/modal';
 import useCustomNavigate from '@/hooks/useCustomNavigate';
 import usePostGalleries from './hooks/usePostGalleries';
 import ProgressPortal from '@/components/ProgressPortal';
@@ -14,6 +14,7 @@ const PostPage = () => {
   const { handleSubmit } = methods;
   const navigate = useCustomNavigate();
   const { open } = alertStore();
+  const setProgress = progressStore((state) => state.setProgress);
 
   const { mutate } = usePostGalleries();
 
@@ -46,6 +47,7 @@ const PostPage = () => {
       });
       return;
     }
+    setProgress(1);
     mutate(data);
   };
 
