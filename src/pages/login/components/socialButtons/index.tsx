@@ -19,7 +19,7 @@ const SocialButtons = () => {
             onClick={() => sessionStorage.setItem('prev-path', location.pathname)}
           />
         </a>
-        <a href={`${import.meta.env.VITE_BASE_URL}/oauth2/authorization/kakao`}>
+        <a href={`${import.meta.env.VITE_BASE_URL}/oauth2/authorization/google`}>
           <Icon
             value="google"
             onClick={() => sessionStorage.setItem('prev-path', location.pathname)}
