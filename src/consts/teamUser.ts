@@ -2,6 +2,8 @@ import changmin from '@/assets/images/changmin.png';
 import seungjin from '@/assets/images/seungjin.png';
 import sinbeom from '@/assets/images/sinbeom.png';
 import solmoon from '@/assets/images/solmoon.png';
+import soohyun from '@/assets/images/soohyun.png';
+import jisu from '@/assets/images/jisu.png';
 
 export const TeamUserData = [
     {
@@ -40,7 +42,7 @@ export const TeamUserData = [
         team: 'LuckySeven',
         role: 'BE',
         description: '새로운 것에 망설임 없이 배우고, 즐기는 개발자입니다.',
-        image: 'https://github.com/leedidoo.png',
+        image: jisu,
         github: 'https://github.com/leedidoo',
         mail: 'dlwltn6604@skuniv.ac.kr',
     },
@@ -50,7 +52,7 @@ export const TeamUserData = [
         team: 'LuckySeven',
         role: 'FE',
         description: '체계적인 설계를 둔 목표에 전진하는 사람입니다.',
-        image: 'https://github.com/gamjatan9.png',
+        image: soohyun,
         github: 'https://github.com/gamjatan9',
         mail: 'soo000307@gmail.com',
     },
