@@ -5,8 +5,6 @@ import { Button, Icon, Text, UserCircle } from '..';
 import useOutsideClick from '@/hooks/useOutsideClick';
 import { navbarInfo, userBoxInfo } from '@/consts/navbar';
 import useCustomNavigate from '@/hooks/useCustomNavigate';
-import { useMutation } from '@tanstack/react-query';
-import { postLogout } from '@/apis/member';
 
 import * as S from './styles';
 
@@ -71,14 +69,7 @@ const UserBox = () => {
     auth: { nickname, profileImage },
   } = memberStore();
   const { isExpand, onToggle, ref } = useOutsideClick();
-  const { mutate: logout } = useMutation({
-    mutationKey: ['loguot'],
-    mutationFn: () => postLogout(),
-    onSettled: () => {
-      deleteMember();
-      location.reload();
-    },
-  });
+
   return (
     <S.UserBoxContainer ref={ref as React.RefObject<HTMLDivElement>} onClick={onToggle}>
       <UserCircle size={15} profileImage={profileImage} />
@@ -90,7 +81,7 @@ const UserBox = () => {
           {userBoxInfo.map(({ path, value }, index) => {
             const onClickItem = () => {
               if (value === '로그아웃') {
-                logout();
+                deleteMember();
               } else {
                 navigate(path);
               }

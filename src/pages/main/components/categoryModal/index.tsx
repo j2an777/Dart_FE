@@ -6,9 +6,7 @@ import {
   searchButtonInfo,
   sortButtonInfo,
 } from '@/consts/filter';
-import { pageStore } from '@/stores/page';
 import { filterStore } from '@/stores/filter';
-import { useEffect } from 'react';
 
 import * as S from '../filter/styles';
 
@@ -17,12 +15,7 @@ interface CategoryModalProps {
 }
 
 const CategoryModal = ({ close }: CategoryModalProps) => {
-  const { filterValue, costArray, onChange, onNestingChange } = filterStore();
-  const resetPageInfo = pageStore((state) => state.resetPageInfo);
-
-  useEffect(() => {
-    resetPageInfo();
-  }, [filterValue, costArray]);
+  const { filterValue, onChange, onNestingChange } = filterStore();
 
   return (
     <Dimmed>

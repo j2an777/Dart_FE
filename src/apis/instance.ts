@@ -59,11 +59,9 @@ instance.interceptors.response.use(
       }
       originalRequest._retry = true;
       isRefreshing = true;
-
       return new Promise((resolve, reject) => {
         getNewToken()
           .then(({ accessToken }) => {
-            memberStore.getState().setToken(accessToken);
             instance.defaults.headers['Authorization'] = `Bearer ${accessToken}`;
             originalRequest.headers['Authorization'] = `Bearer ${accessToken}`;
             processQueue(null, accessToken);
@@ -78,6 +76,7 @@ instance.interceptors.response.use(
           });
       });
     }
+
     return Promise.reject(error);
   },
 );
