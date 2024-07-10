@@ -6,6 +6,8 @@ import { alertStore, progressStore } from '@/stores/modal';
 import useCustomNavigate from '@/hooks/useCustomNavigate';
 import usePostGalleries from './hooks/usePostGalleries';
 import ProgressPortal from '@/components/ProgressPortal';
+import { postValidation } from '@/consts/postValidation';
+import { useHandleErrors } from './hooks/useHandleErrors';
 
 import * as S from './styles';
 
@@ -15,8 +17,8 @@ const PostPage = () => {
   const navigate = useCustomNavigate();
   const { open } = alertStore();
   const setProgress = progressStore((state) => state.setProgress);
-
   const { mutate } = usePostGalleries();
+  const { handleErrors } = useHandleErrors();
 
   const onSubmit: SubmitHandler<PostGalleries> = async (data) => {
     open({
@@ -33,22 +35,23 @@ const PostPage = () => {
       ),
       buttonLabel: '확인',
       buttonCancelLabel: '취소',
-      onClickButton: () => modalConfirm(data),
+      onClickButton: () => setTimeout(() => modalConfirm(data), 100),
       onClickCancelButton: () => {},
     });
   };
 
   const modalConfirm = async (data: PostGalleries) => {
-    if (data.images == undefined || data.images.length < 3) {
-      open({
-        title: '작품 등록 오류',
-        description: '최소 3개의 작품을 등록해주세요.',
-        buttonLabel: '확인',
+    try {
+      postValidation(data);
+      setProgress(1);
+      mutate(data, {
+        onError: (error) => {
+          handleErrors(error);
+        },
       });
-      return;
+    } catch (error) {
+      handleErrors(error);
     }
-    setProgress(1);
-    mutate(data);
   };
 
   return (

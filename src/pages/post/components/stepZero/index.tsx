@@ -1,13 +1,13 @@
 import { useEffect } from 'react';
-import { useFormContext } from 'react-hook-form';
+import { Controller, useFormContext } from 'react-hook-form';
 import DropZone from '@/components/dropZone';
-import { formatDateInKST } from '@/utils/formatDateInKST';
+import { formatDate } from '@/utils/formatDateforPost';
 import * as S from './styles';
 import { dateNfeeStore } from '@/stores/post';
 import { Icon } from '@/components';
 
 const StepZero = () => {
-  const { setValue } = useFormContext();
+  const { setValue, control } = useFormContext();
   const { activeBtn, dateRange, feeDetails, setActiveBtn, setDateRange, setFeeDetails } =
     dateNfeeStore();
 
@@ -41,21 +41,17 @@ const StepZero = () => {
       setFeeDetails({ ...feeDetails, totalPay: pay });
       setDateRange({ ...dateRange, endDate });
       // 이용료와 기간 formData 업데이트
-      setValue('gallery.startDate', formatDateInKST(dateRange.startDate, true));
-      setValue('gallery.endDate', formatDateInKST(endDate));
+      setValue('gallery.startDate', formatDate(dateRange.startDate, true));
+      setValue('gallery.endDate', formatDate(endDate));
       setValue('gallery.generatedCost', pay);
     } else {
       // 무료 전시
       setValue('gallery.generatedCost', 0);
-      setValue('gallery.startDate', formatDateInKST(dateRange.startDate, true));
+      setValue('gallery.startDate', formatDate(dateRange.startDate, true));
       setFeeDetails({ ...feeDetails, totalPay: 0 });
       setDateRange({ ...dateRange, endDate: null });
     }
   }, [activeBtn, feeDetails.period, feeDetails.fee, dateRange.startDate]);
-
-  const onFileDrop = (file: File) => {
-    setValue('thumbnail', file);
-  };
 
   const onBtnClick = (
     buttonType: 'free' | 'pay',
@@ -109,9 +105,15 @@ const StepZero = () => {
   return (
     <S.Container>
       <S.Box>
-        <DropZone
-          info="권장 썸네일 크기: 700X700 / 10MB 이하"
-          onFileUpload={onFileDrop}
+        <Controller
+          name="thumbnail"
+          control={control}
+          render={({ field }) => (
+            <DropZone
+              info="권장 썸네일 크기: 700X700 / 10MB 이하"
+              onFileUpload={(file) => field.onChange(file)}
+            />
+          )}
         />
       </S.Box>
       <S.Box>

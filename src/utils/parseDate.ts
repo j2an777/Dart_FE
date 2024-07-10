@@ -1,4 +1,4 @@
-const parseDate = (value: Date) => {
+const parseDate = (value: Date | string) => {
   const date = new Date(value);
   const year = date.getFullYear();
   const month = date.getMonth() + 1;

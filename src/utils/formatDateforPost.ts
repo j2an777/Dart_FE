@@ -1,4 +1,4 @@
-export const formatDateInKST = (date: Date | null, startDate: boolean = false) => {
+export const formatDate = (date: Date | null, startDate: boolean = false) => {
   if (!date) return null;
 
   const year = date.getFullYear();
