@@ -63,12 +63,7 @@ export const putMemberEditInfo = async (formData: EditFormData) => {
     nickname,
     introduce,
   };
-
-  data.append(
-    'profileImage',
-    profileImage ? profileImage : new Blob([JSON.stringify(null)]),
-  );
-
+  if (profileImage) data.append('profileImage', profileImage);
   data.append(
     'memberUpdateDto',
     new Blob([JSON.stringify(member)], { type: 'application/json' }),
