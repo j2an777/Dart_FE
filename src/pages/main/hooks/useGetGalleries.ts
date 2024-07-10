@@ -20,6 +20,10 @@ const useGetGalleries = () => {
         pageParams: data.pageInfo,
       };
     },
+    refetchOnWindowFocus: false,
+    refetchInterval: 10000 * 60,
+    staleTime: 10000 * 60,
+    retry: 1,
   });
 };
 

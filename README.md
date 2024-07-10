@@ -1,6 +1,6 @@
 # 💛 FINAL 프로젝트 feat.D'art
 
-<a href="https://d26i62iijbw0u2.cloudfront.net/">![testset](https://github.com/Goorm-Lucky7/Dart_FE/assets/83047601/63fb8b40-9de7-4c01-87b2-8b9b61c74be7)
+<a href="https://www.dartgallery.site/">![testset](https://github.com/Goorm-Lucky7/Dart_FE/assets/83047601/63fb8b40-9de7-4c01-87b2-8b9b61c74be7)
 </a>
 <br/>
 
@@ -44,26 +44,66 @@
 
 ## ⭐️ 주요 기능
 
-### 📌 문제 조회
+### 📌 인트로
 
-- 유저들이 포스팅한 문제들을 소셜 구조로 확인 가능합니다.
-  ![image](https://github.com/j2an777/ThinkTank_FE/assets/110087099/be64cb59-40d8-4710-a421-fb1f4617529d)
+- 전체적으로 어떤 서비스인지를 간략한 소개와 함께 나타내었습니다.
+  <img width="1645" alt="스크린샷 2024-07-10 오후 4 19 17" src="https://github.com/Goorm-Lucky7/Dart_FE/assets/83047601/d86801a0-ff42-4c8b-8f3c-5421424e10af">
 
-### 📌 문제 생성
+### 📌 메인
 
-- 문제 내용과 정답 코드, 테스크 케이스로 구성하여 문제를 생성합니다.
-  ![image](https://github.com/j2an777/ThinkTank_FE/assets/110087099/4810588e-7d1e-4abe-9cef-298727a2b4fc)
+- 검색 기능과 페이징처리된 전시장을 제공하여 사용자가 원하는 전시를 빠르게 찾을 수 있도록 도와줍니다.
+  <img width="1660" alt="스크린샷 2024-07-10 오후 4 19 42" src="https://github.com/Goorm-Lucky7/Dart_FE/assets/83047601/81bf2aa7-7551-4e10-86bc-026e8118a59d">
 
-### 📌 문제 풀이
+### 📌 로그인 / 회원가입
 
-- 유저들이 올린 문제를 풀어보아 정답을 확인할 수 있습니다.
-  ![image](https://github.com/j2an777/ThinkTank_FE/assets/110087099/e05ed10c-1c4f-4b10-8f93-61e7fe5df0e4)
+- 소셜로그인을 비롯한 이메일 인증을 통한 회원가입 및 로그인을 이용할 수 있으며, 저작권과 관련된 약관 동의 내용을 받습니다.
+  <img width="1663" alt="스크린샷 2024-07-10 오후 4 20 03" src="https://github.com/Goorm-Lucky7/Dart_FE/assets/83047601/733e0733-30dc-4f20-91d2-3034c5d553d5">
 
-### 📌 정보 조회
+### 📌 온라인 전시장
 
-- 자신의 활동(만든 문제, 맞은 문제, 즐겨 찾기)을 조회 가능합니다.
-- 메인 페이지에서 타 유저의 닉네임 클릭으로 정보 조회 가능합니다.
-  ![image](https://github.com/j2an777/ThinkTank_FE/assets/110087099/74ae4f3e-3d98-48fc-aad6-f60fb6b5ba33)
+- 5개의 다양한 템플릿을 통해 유저에게 재미를 선사하며, 나만의 전시장을 통해 직접 예술가가 될 수 있는 공간입니다.
+  <img width="1681" alt="스크린샷 2024-07-10 오후 4 21 07" src="https://github.com/Goorm-Lucky7/Dart_FE/assets/83047601/0cfc9ead-c19a-4e0d-83b7-d1b47991f4b8">
+
+### 📌 전시 생성
+
+- 나만의 전시장을 직접적으로 만들 수 있습니다.
+  <img width="1659" alt="스크린샷 2024-07-10 오후 4 21 24" src="https://github.com/Goorm-Lucky7/Dart_FE/assets/83047601/1375a10b-6a61-4cba-a3ba-51a6ce45d6fb">
+
+### 📌 결제 시스템
+
+- 카카오 결제를 이용해서 유료 전시 생성 및 전시 입장료를 지불하여 좀 더 많은 프리미엄 혜택을 누릴 수 있습니다.
+- 실제 결제되는 내용이 아닌 데모 결제로 이루어져 있습니다.
+  <img width="1666" alt="스크린샷 2024-07-10 오후 4 21 39" src="https://github.com/Goorm-Lucky7/Dart_FE/assets/83047601/a3ad9c83-90be-49cf-8a9a-0ba8bb78a246">
+
+### 📌 실시간 채팅 서비스
+
+- 전시를 감상하며 나와 같이 보고 있는 사람들과 얘기를 나눌 수도, 큐레이터의 안내를 받을 수도 있습니다.
+  <img width="1691" alt="스크린샷 2024-07-10 오후 4 21 58" src="https://github.com/Goorm-Lucky7/Dart_FE/assets/83047601/7c70d8f5-6c6f-4fba-8f54-8f3795b14c79">
+
+### 📌 리뷰 및 공유하기
+
+- 즐겁게 본 전시가 있다면 전시에 대한 후기를 작성할 수 있으며, 이를 다른 사람들과 공유하여 즐거운 시간을 보낼 수 있습니다.
+  <img width="1673" alt="스크린샷 2024-07-10 오후 4 22 13" src="https://github.com/Goorm-Lucky7/Dart_FE/assets/83047601/59a5117b-e01c-415d-a637-a39b7a373aeb">
+
+### 📌 마이페이지 / 유저 정보 변경
+
+- 내 정보를 변경하여 다른 사람들에게 좀 더 나를 어필할 수 있으며, 내가 개최한 전시와 결제한 정보를 조회할 수 있습니다.
+  <img width="1661" alt="스크린샷 2024-07-10 오후 4 22 57" src="https://github.com/Goorm-Lucky7/Dart_FE/assets/83047601/c0154dd9-4684-4ecb-8826-848f6762d0e3">
+
+### 📌 쿠폰 발급 및 적용
+
+- 이벤트를 통해 발급 받은 쿠폰을 통해서 좀 더 쉽게 서비스에 접근해 볼 수 있습니다.
+  <img width="1668" alt="스크린샷 2024-07-10 오후 4 23 10" src="https://github.com/Goorm-Lucky7/Dart_FE/assets/83047601/9b672585-30fa-49cc-92c7-fad05ab820ba">
+
+  ### 📌 반응형 웹 디자인
+
+- 반응형 웹 디자인을 통해 모바일, 태블릿, 데스트톱 어디서든 서비스를 즐길 수 있습니다.
+  <img width="1659" alt="스크린샷 2024-07-10 오후 4 23 32" src="https://github.com/Goorm-Lucky7/Dart_FE/assets/83047601/fbc41e94-46ac-43c8-ba31-9528c0bbc6e2">
+
+  ### 📌 기타 주요 페이지
+
+- 개발자들의 정보 및 404 페이지 등등...
+  <img width="1654" alt="스크린샷 2024-07-10 오후 4 23 49" src="https://github.com/Goorm-Lucky7/Dart_FE/assets/83047601/3c34e128-2cde-4e46-9c82-73b0f28911fd">
 
 <br/>
 
@@ -76,14 +116,14 @@
 
 ## 📅 프로젝트 일정
 
-| Sprint | 기간                  | 내용                                 | 작업 현황                                                                                                                                                                                                                                              |
-| ------ | --------------------- | ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| 1      | 2024/5/27 - 2024/6/1  | 베포, 회원 인증 구현, MVP 기능 구현  | [▶️ Sprint1-1](https://www.notion.so/UI-9687407149da4f53a478c34ad8ff3fa8?pvs=4), [▶️ Sprint1-2](https://www.notion.so/UI-8b5fd15c1c4a4e76b5e4640340a37abe?pvs=4), [▶️ Sprint1-3](https://www.notion.so/Main-UI-ab27e98888f440daa2fdb52be2fa3fef?pvs=4) |
-| 2      | 2024/6/3 - 2024/6/8   | MVP 기능 구현                        | [▶️ Sprint2-1](https://www.notion.so/1998752a4e82455d8f828b9d5476fd18?pvs=4), [▶️ Sprint2-2](https://www.notion.so/jwt-394962c61c244eb1a5e31eb045219693?pvs=4), [▶️ Sprint2-3](https://www.notion.so/API-4b1b41992e1a4f48943f18e8c030ff3a?pvs=4)       |
-| 3      | 2024/6/10 - 2024/6/15 | API 연동 및 테스트                   | [▶️ Sprint3-1](https://www.notion.so/api-b3f407adf02c46f9bd234a2e14926a9e?pvs=4), [▶️ Sprint3-2](https://www.notion.so/api-1ffdf9c3920e4993be3232b912e2dd04?pvs=4), [▶️ Sprint3-3](https://www.notion.so/33c39851e97c4bb1ad7ccdacc05d5abe?pvs=4)       |
-| 4      | 2024/6/17 - 2024/6/22 | 1차 UI 테스트 및 추가 구현 사항 정리 | [▶️ Sprint4-1](https://www.notion.so/7afb34dc0abf43fa84210831649c294c?pvs=4), [▶️ Sprint4-2](https://www.notion.so/5c3a539358524daa88ed3a8c0ad83248?pvs=4), [▶️ Sprint4-3](https://www.notion.so/3d99e33d3c104b20a24a749ed1370a56?pvs=4)               |
-| 5      | 2024/6/24 - 2024/6/29 | 디벨롭 및 추가 구현 사항 구현        | [▶️ Sprint4-1](https://www.notion.so/7afb34dc0abf43fa84210831649c294c?pvs=4), [▶️ Sprint4-2](https://www.notion.so/5c3a539358524daa88ed3a8c0ad83248?pvs=4), [▶️ Sprint4-3](https://www.notion.so/3d99e33d3c104b20a24a749ed1370a56?pvs=4)               |
-| 6      | 2024/7/1 - 2024/7/6   | 최종 테스트 및 리팩토링              | [▶️ Sprint4-1](https://www.notion.so/7afb34dc0abf43fa84210831649c294c?pvs=4), [▶️ Sprint4-2](https://www.notion.so/5c3a539358524daa88ed3a8c0ad83248?pvs=4), [▶️ Sprint4-3](https://www.notion.so/3d99e33d3c104b20a24a749ed1370a56?pvs=4)               |
+| Sprint | 기간                  | 내용                                 |
+| ------ | --------------------- | ------------------------------------ |
+| 1      | 2024/5/27 - 2024/6/1  | 베포, 회원 인증 구현, MVP 기능 구현  |
+| 2      | 2024/6/3 - 2024/6/8   | MVP 기능 구현                        |
+| 3      | 2024/6/10 - 2024/6/15 | API 연동 및 테스트                   |
+| 4      | 2024/6/17 - 2024/6/22 | 1차 UI 테스트 및 추가 구현 사항 정리 |
+| 5      | 2024/6/24 - 2024/6/29 | 디벨롭 및 추가 구현 사항 구현        |
+| 6      | 2024/7/1 - 2024/7/6   | 최종 테스트 및 리팩토링              |
 
 <br/>
 
