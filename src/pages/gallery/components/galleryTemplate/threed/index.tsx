@@ -71,6 +71,11 @@ const GalleryThreed = ({ galleryData }: GalleryDataProps) => {
       </Canvas>
       <S.BtnBlock>
         <S.Btn className='previous' onClick={() => onHandleChange('previous')}><Icon value='leftArrow' size={50} color='white'/></S.Btn>
+        <p>
+          클릭 : 해당 작품으로 이동
+          <br/>
+          더블 클릭 : 해당 작품에 대한 설명창
+        </p>
         <S.Btn className='next' onClick={() => onHandleChange('next')}><Icon value='rightArrow' size={50} color='white'/></S.Btn>
       </S.BtnBlock>
       <GalleryDetailPortal />
