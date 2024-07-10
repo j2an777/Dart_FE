@@ -1,6 +1,6 @@
 # 💛 FINAL 프로젝트 feat.D'art
 
-<a href="https://www.dartgallery.site/">![testset](https://github.com/Goorm-Lucky7/Dart_FE/assets/83047601/63fb8b40-9de7-4c01-87b2-8b9b61c74be7)
+<a href="https://www.dartgallery.site/">![Mock Up](https://github.com/Goorm-Lucky7/Dart_FE/assets/110087099/22bbf4a6-da3f-4570-b29b-604a7d6ff1d8)
 </a>
 <br/>
 
