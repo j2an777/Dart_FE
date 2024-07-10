@@ -7,7 +7,9 @@ const CallbackPage = () => {
   const sessionId = searchParams.get('session-id');
   const { mutate: login } = usePostSocialLogin(sessionId);
   useEffect(() => {
-    login();
+    if (sessionId) {
+      login();
+    }
   }, []);
   return <div></div>;
 };
