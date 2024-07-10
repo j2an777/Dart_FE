@@ -36,9 +36,7 @@ export const postLogin = async (formData: LoginFormData) => {
 };
 
 export const postSocialLogin = async ({ sessionId }: { sessionId: string }) => {
-  const response = await instance.post(`/login/social`, {
-    params: { sessionId },
-  });
+  const response = await instance.post(`/login/social?session-id=${sessionId}`);
   return response?.data as LoginResponse;
 };
 
