@@ -50,16 +50,20 @@ const Alert = ({
         )}
 
         <S.ButtonBox>
-          {buttonLabel && onClickCancelButton && (
-            <Button bold="regular" size="smMd" onClick={onClickCancelButton} buttonType='reverseCancelRadius'>
+          {buttonCancelLabel && onClickCancelButton && (
+            <Button
+              bold="regular"
+              size="smMd"
+              onClick={onClickCancelButton}
+              buttonType="reverseCancelRadius"
+            >
               {buttonCancelLabel}
-            </Button> 
-          )}  
+            </Button>
+          )}
           <Button bold="bold" size="smMd" onClick={onClickButton}>
             {buttonLabel}
           </Button>
         </S.ButtonBox>
-        
       </S.Container>
     </Dimmed>
   );

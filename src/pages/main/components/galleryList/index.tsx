@@ -4,7 +4,6 @@ import { CircleLoader, NoneData, PageButtons } from '@/components';
 import { useEffect } from 'react';
 import { pageStore } from '@/stores/page';
 import { useGetGalleries } from '../../hooks';
-// import GalleryListFallback from '../fallback/GalleryListFallback';
 import withSuspenseNErrorBoundary from '@/hooks/withSuspenseNErrorBoundary';
 import useGetMediaQuerySize from '@/hooks/useGetMediaQuerySize';
 
@@ -12,10 +11,10 @@ import * as S from './styles';
 
 const GalleryList = () => {
   const { setPageInfo } = useStore(pageStore);
-  const size = useGetMediaQuerySize(556);
   const {
     data: { pageParams, pages },
   } = useGetGalleries();
+  const size = useGetMediaQuerySize(556);
 
   useEffect(() => {
     setPageInfo(pageParams);

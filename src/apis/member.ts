@@ -8,6 +8,7 @@ import {
 } from '@/types/member';
 import instance from './instance';
 import { GalleriesData } from '@/types/gallery';
+import { memberStore } from '@/stores/member';
 
 export const postSignup = async (formData: SignupFormData) => {
   const response = await instance.post('/signup', formData);
@@ -34,6 +35,13 @@ export const postLogin = async (formData: LoginFormData) => {
   return response?.data as LoginResponse;
 };
 
+export const postSocialLogin = async (sessionId: { sessionId: string }) => {
+  const response = await instance.post(`/login/social`, {
+    params: { sessionId },
+  });
+  return response?.data as LoginResponse;
+};
+
 export const postLogout = async () => {
   const response = await instance.post(`/logout`);
   return response?.data;
@@ -55,9 +63,7 @@ export const putMemberEditInfo = async (formData: EditFormData) => {
     nickname,
     introduce,
   };
-
-  data.append('profileImage', profileImage ? profileImage : new Blob([JSON.stringify(null)]));
-
+  if (profileImage) data.append('profileImage', profileImage);
   data.append(
     'memberUpdateDto',
     new Blob([JSON.stringify(member)], { type: 'application/json' }),
@@ -84,5 +90,7 @@ export const getMypage = async (nickname: string, page: number, size: number) =>
 
 export const getNewToken = async () => {
   const response = await instance.get('/reissue');
+  const { accessToken } = response.data as { accessToken: string };
+  memberStore.getState().setToken(accessToken);
   return response?.data as { accessToken: string };
 };
