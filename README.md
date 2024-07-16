@@ -2,7 +2,8 @@
 
 <a href="https://www.dartgallery.site/">![Mock Up](https://github.com/Goorm-Lucky7/Dart_FE/assets/110087099/22bbf4a6-da3f-4570-b29b-604a7d6ff1d8)
 </a>
-<br/>
+<br/><br/>
+<img src="https://github.com/user-attachments/assets/c8bbf3e9-678d-42a5-8802-f2fdfff997fd" />
 
 **프로젝트 기간** : 2024.05.22 ~ 2024.07.11
 
@@ -16,6 +17,7 @@
 
 ### 예술의 X. D'art
 
+- **"예술의 공유, 전시의 즐거움"**
 - D'art는 누구나 참여가능한 **작품 전시 플랫폼**입니다.
 - 디자이너가 아니더라도 누구나 자신이 평소에 공유하고 싶어하는 작업물, 취미 기록 등을 전시 형태로 남기실 수 있습니다.
 - 전시는 여러 사용자들이 관람 뿐 아니라 채팅을 통해 서로 의사소통 가능합니다.
@@ -116,9 +118,9 @@
 
 | ![강신범](https://github.com/kangsinbeom.png)                                     | ![김수현](https://github.com/gamjatan9.png)                       | ![하승진](https://github.com/j2an777.png)                        |
 | --------------------------------------------------------------------------------- | ----------------------------------------------------------------- | ---------------------------------------------------------------- |
-| [강신범](https://github.comzkangsinbeom)                                          | [김수현](https://github.com/gamjatan9)                            | [하승진](https://github.com/j2an777)                             |
+| [강신범](https://github.com/kangsinbeom)                                          | [김수현](https://github.com/gamjatan9)                            | [하승진](https://github.com/j2an777)                             |
 | **FrontEnd**                                                                      | **FrontEnd**                                                      | **FrontEnd**                                                     |
-| FE 팀장, 에러처리, 데이터와 토큰 관리, 배포, 메인 페이지, 공통 컴포넌트와 훅 생성 | 폼 관리, 실시간 채팅, 결제 시스템, 전시 생성 페이지, 회원정보조회 | 전시 페이지, 모달 기능, 저작권 침해 방지 마련, 전시 생성 ux 강화 |
+| FE 팀장, 에러처리, 데이터와 토큰 관리, 배포, 메인 페이지, 공통 컴포넌트와 훅 생성 | 폼 관리, 실시간 채팅, 결제 시스템, 전시 생성 페이지, 회원정보조회 | 전시 템플릿, 회원정보 수정, 모달 기능, 저작권 침해 방지 마련, 전시 생성 ux 강화 |
 
 <br/>
 
